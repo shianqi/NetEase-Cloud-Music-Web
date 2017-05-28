@@ -1,0 +1,10 @@
+.leftMenu{
+    width: 200px;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    bottom: 50px;
+    padding-bottom: 60px;
+    background: #ccc;
+    border-right: 1px solid #E6E7EA;
+}
