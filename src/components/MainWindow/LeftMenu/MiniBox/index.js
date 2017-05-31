@@ -4,7 +4,10 @@ import Style from './MiniBox'
 class MiniBox extends Component{
     render() {
         return (
-            <div className={Style.miniBox}>MiniBox</div>
+            <div className={Style.miniBox}>
+                <img src="" alt=""/>
+                <div className={Style.img_cover}/>
+            </div>
         )
     }
 }

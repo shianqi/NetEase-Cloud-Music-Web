@@ -11,7 +11,7 @@ class App extends Component {
         return (
             <div className={Style.app}>
                 <Footer/>
-                <MainWindow />
+                <MainWindow/>
                 <Banner/>
             </div>
         )

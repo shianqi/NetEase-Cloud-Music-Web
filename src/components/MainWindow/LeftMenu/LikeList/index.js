@@ -15,7 +15,7 @@ class LikeList extends Component{
                 <ListItem/>
                 <ListItem/>
                 <ListItem/>
-                <ListItem/>
+                <ListTitle/>
                 <ListItem/>
                 <ListItem/>
                 <ListItem/>

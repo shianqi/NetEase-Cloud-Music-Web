@@ -42,7 +42,18 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                loader: 'babel-loader',
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options:{
+                            presets: [
+                                ["es2015", {"modules": false}],
+                                "react",
+                                "stage-0"
+                            ]
+                        }
+                    }
+                ],
                 exclude: [
                     resolve(__dirname, '/node_modules/')
                 ]
