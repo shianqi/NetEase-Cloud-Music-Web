@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import Style from './Banner.css'
-import Font from '../../../style/iconfont.css'
-
+import {
+    iconfont,
+    icon_houtui,
+    icon_qianjin,
+    icon_sousuo_sousuo1,
+    icon_houdongfangiconfont10,
+    icon_zuidahua,
+    icon_zuixiaohua,
+    icon_suoxiao
+} from '../../../style/iconfont.css'
+import cs from 'classnames'
 import { connect } from 'react-redux'
 import { add } from '../../actions'
 
@@ -14,11 +23,11 @@ let Banner = ({ dispatch, value }) => {
         <div className={Style.title}>
             <div className={Style.logo}/>
             <div className={Style.historyButton}>
-                <div className={Style.historyButtonBack + ' ' + Font.iconfont + ' ' + Font['icon-houtui']}/>
-                <div className={Style.historyButtonForward + ' ' + Font.iconfont + ' ' + Font['icon-qianjin']}/>
-                <div className={Style.searchBox}>
+                <div className={ cs(Style.historyButtonBack, iconfont, icon_houtui)}/>
+                <div className={ cs(Style.historyButtonForward, iconfont, icon_qianjin) }/>
+                <div className={ Style.searchBox }>
                     <input type="text" className={Style.searchBoxInput} placeholder="搜索音乐，歌手，歌词，用户"/>
-                    <div type="text" className={Style.searchBoxButton + ' ' + Font.iconfont + ' ' + Font['icon-sousuo_sousuo1']}/>
+                    <div type="text" className={ cs(Style.searchBoxButton, iconfont, icon_sousuo_sousuo1)}/>
                 </div>
             </div>
             {/*<div>*/}
@@ -29,10 +38,10 @@ let Banner = ({ dispatch, value }) => {
             {/*</div>*/}
             <div className={Style.userInfo}>
                 <div className={Style.userInfoWin}>
-                    <div className={Style.userInfoWinItem + ' ' + Font.iconfont + ' ' + Font['icon-houdongfangiconfont10']}/>
-                    <div className={Style.userInfoWinItem + ' ' + Font.iconfont + ' ' + Font['icon-zuidahua']}/>
-                    <div className={Style.userInfoWinItem + ' ' + Font.iconfont + ' ' + Font['icon-zuixiaohua']}/>
-                    <div className={Style.userInfoWinItem + ' ' + Font.iconfont + ' ' + Font['icon-suoxiao']}/>
+                    <div className={ cs(Style.userInfoWinItem, iconfont, icon_houdongfangiconfont10)}/>
+                    <div className={ cs(Style.userInfoWinItem, iconfont, icon_zuidahua)}/>
+                    <div className={ cs(Style.userInfoWinItem, iconfont, icon_zuixiaohua)}/>
+                    <div className={ cs(Style.userInfoWinItem, iconfont, icon_suoxiao)}/>
                 </div>
                 <div className={Style.userInfoSetting}></div>
                 <div className={Style.userInfoUser}></div>
