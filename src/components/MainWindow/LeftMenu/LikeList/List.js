@@ -23,10 +23,24 @@ class List extends Component{
 
         return(
             <div>
-                <div className={Style.listTitle}>
+                <div
+                    className={
+                        cs(
+                            Style['listTitle'],
+                            {
+                                [Style['listTitle_shrinkable']]: data.shrinkable
+                            }
+                        )
+                    }
+                    onClick={ ()=>{
+                        this.setState({shrinkState: !this.state.shrinkState})
+                    } }
+                >
                     { data.title }
                     <span
-                        onClick={()=>{this.setState({shrinkState: !this.state.shrinkState})} }
+                        onClick={ ()=>{
+                            this.setState({ shrinkState: !this.state.shrinkState })
+                        } }
                         className={
                             cs(
                                 icon['iconfont'],

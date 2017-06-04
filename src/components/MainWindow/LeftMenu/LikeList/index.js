@@ -5,7 +5,6 @@ import List from './List'
 import { connect } from 'react-redux'
 
 const selector = (state) => {
-    console.log(state);
     return {
         list: state.list
     }

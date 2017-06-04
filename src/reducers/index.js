@@ -40,8 +40,17 @@ function list( state=_list, action){
     switch (action.type) {
     case SELECT_ITEM:
         const { listIndex, itemIndex} = action
-        console.log(listIndex, itemIndex);
-        return state
+        return state.map((list, _listIndex)=>{
+            return {
+                ...list,
+                items: list.items.map((item, _itemIndex)=>{
+                    if(listIndex===_listIndex && itemIndex===_itemIndex){
+                        return {...item, active: true}
+                    }
+                    return {...item, active: false}
+                })
+            }
+        })
     default:
         return state
     }
