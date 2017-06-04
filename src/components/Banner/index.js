@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Style from './Banner.css'
 import {
     iconfont,
@@ -49,6 +49,6 @@ let Banner = ({ dispatch, value }) => {
         </div>
     )
 }
-Banner = connect(getState)(Banner);
+Banner = connect(getState)(Banner)
 
 export default Banner

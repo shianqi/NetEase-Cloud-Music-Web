@@ -37,6 +37,7 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
         'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
         "react/display-name": 1,
+        "no-case-declarations": 1,
         "react/jsx-boolean-value": 1,
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
