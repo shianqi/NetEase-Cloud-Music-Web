@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import { SELECT_ITEM } from '../actions'
 
 const _list = [
@@ -6,9 +5,9 @@ const _list = [
         title: "推荐",
         shrinkable: false,
         items: [
-            {icon: "icon_yinle", title: "发现音乐", router: "", active: true},
-            {icon: "icon_yingyongtubiaoxinhao", title: "私人FM", router: ""},
-            {icon: "icon_shipin", title: "MV", router: ""},
+            {icon: "icon_yinle", title: "发现音乐", router: "/", active: true},
+            {icon: "icon_yingyongtubiaoxinhao", title: "私人FM", router: "/PersonalFM"},
+            {icon: "icon_shipin", title: "MV", router: "/MV"},
             {icon: "icon_pengyou", title: "朋友", router: ""}
         ]
     },
@@ -56,6 +55,4 @@ function list( state=_list, action){
     }
 }
 
-export default combineReducers({
-    list
-})
+export default list

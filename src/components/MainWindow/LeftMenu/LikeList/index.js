@@ -1,5 +1,6 @@
 import { selectItem } from '../../../../actions'
 import React from 'react'
+import { push } from 'react-router-redux'
 import Style from './Style.css'
 import List from './List'
 import { connect } from 'react-redux'
@@ -12,8 +13,9 @@ const selector = (state) => {
 
 let LikeList = ({dispatch, list}) => {
     const onItemClick = function(listIndex){
-        return function(itemIndex){
+        return function(itemIndex, router){
             dispatch(selectItem(listIndex, itemIndex))
+            dispatch(push(router))
         }
     }
 

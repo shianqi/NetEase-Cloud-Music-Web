@@ -6,7 +6,7 @@ class MiniBox extends Component{
         return (
             <div className={Style.miniBox}>
                 <img src="" alt=""/>
-                <div className={Style.img_cover}/>
+                <div className={Style['img_cover']}/>
             </div>
         )
     }

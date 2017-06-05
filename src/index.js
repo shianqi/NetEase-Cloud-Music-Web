@@ -1,22 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { AppContainer } from 'react-hot-loader';
-// AppContainer is a necessary wrapper component for HMR
-import App from './components/App';
-import thunk from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { createLogger } from 'redux-logger'
-import reducer from './reducers'
-import { createStore, applyMiddleware } from 'redux'
 
-const middleware = [ thunk ]
+import createHistory from 'history/createBrowserHistory'
+import { Route } from 'react-router'
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
+import { AppContainer } from 'react-hot-loader';
+import App from './components/App';
+import list from './reducers'
+
+const history = createHistory()
+const middleware = [ thunk, routerMiddleware(history) ]
 if (process.env.NODE_ENV !== 'production') {
     middleware.push(createLogger())
 }
 
 const store = createStore(
-    reducer,
+    combineReducers({
+        list,
+        router: routerReducer
+    }),
     applyMiddleware(...middleware)
 )
 
@@ -24,7 +32,9 @@ const render = (Component) => {
     ReactDOM.render(
         <AppContainer>
             <Provider store={store}>
-                <Component/>
+                <ConnectedRouter history={history}>
+                    <Component/>
+                </ConnectedRouter>
             </Provider>
         </AppContainer>,
         document.getElementById('root')
@@ -33,7 +43,6 @@ const render = (Component) => {
 
 render(App);
 
-// Hot Module Replacement API
 if (module.hot) {
     module.hot.accept('./components/App', () => {
         render(App)

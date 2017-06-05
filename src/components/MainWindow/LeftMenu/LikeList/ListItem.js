@@ -19,7 +19,7 @@ class ListItem extends Component{
                 }
 
                 onClick={ ()=>{
-                    handleClick()
+                    handleClick(data.router)
                 }}
             >{ data.title }</div>
         )

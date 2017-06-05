@@ -1,0 +1,23 @@
+.navigation{
+    width: 100%;
+    height: 28px;
+    text-align: center;
+}
+
+.navigation-item{
+    display: inline-block;
+    width: 65px;
+    font-size: 15px;
+    margin: 0 10px;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.navigation-item:hover{
+    color: #c62f2f;
+}
+
+.navigation-item-active{
+    border-bottom: 1px solid #c62f2f;
+}
