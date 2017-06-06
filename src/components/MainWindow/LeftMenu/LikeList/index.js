@@ -4,6 +4,7 @@ import { push } from 'react-router-redux'
 import Style from './Style.css'
 import List from './List'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 const selector = (state) => {
     return {
@@ -12,16 +13,15 @@ const selector = (state) => {
 }
 
 let LikeList = ({dispatch, list}) => {
-    const onItemClick = function(listIndex){
-        return function(itemIndex, router){
-            dispatch(selectItem(listIndex, itemIndex))
+    const onItemClick = function(){
+        return function(router){
             dispatch(push(router))
         }
     }
 
     const listItems = list.map((item, index)=>{
         return (
-            <List data={item} key={index} onItemClick={onItemClick(index)}/>
+            <List data={item} key={index} onItemClick={onItemClick()}/>
         )
     })
 
@@ -32,6 +32,6 @@ let LikeList = ({dispatch, list}) => {
     )
 }
 
-LikeList = connect(selector)(LikeList)
+LikeList = withRouter(connect(selector)(LikeList))
 
 export default LikeList

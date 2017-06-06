@@ -17,7 +17,7 @@ class List extends Component{
         const { data, onItemClick } = this.props;
         const list = data.items.map((item, index)=>{
             return (
-                <ListItem data={item} key={index} handleClick={(router)=>{onItemClick(index, router)}}/>
+                <ListItem data={item} key={index} handleClick={(router)=>{onItemClick(router)}}/>
             )
         })
 

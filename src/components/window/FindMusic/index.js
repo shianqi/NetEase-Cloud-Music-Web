@@ -17,9 +17,9 @@ class FindMusic extends Component{
     }
 
     render(){
-        const navigation = this.state.routerList.map((item)=>{
+        const navigation = this.state.routerList.map((item, index)=>{
             return (
-                <div className={ Style['navigation-item'] }>{item.name}</div>
+                <div key={index} className={ Style['navigation-item'] }>{item.name}</div>
             )
         })
 

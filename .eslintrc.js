@@ -41,6 +41,7 @@ module.exports = {
         "react/jsx-boolean-value": 1,
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "css-modules/unresolved": 0
+        "css-modules/unresolved": 0,
+        "css-modules/no-unused-class": 1
     }
 }
