@@ -5,7 +5,20 @@ const _list = [
         title: "推荐",
         shrinkable: false,
         items: [
-            {icon: "icon_yinle", title: "发现音乐", router: "/", exact: true},
+            {
+                icon: "icon_yinle",
+                title: "发现音乐",
+                router: "/DiscoverMusic",
+                exact: true,
+                items: [
+                    { name: "个性推荐", router: "/GXTJ" },
+                    { name: "歌单", router: "/GD" },
+                    { name: "主播电台", router: "/ZBDT" },
+                    { name: "排行榜", router: "/PHB" },
+                    { name: "歌手", router: "/GS" },
+                    { name: "最新音乐", router: "/ZXYY" }
+                ]
+            },
             {icon: "icon_yingyongtubiaoxinhao", title: "私人FM", router: "/PersonalFM"},
             {icon: "icon_shipin", title: "MV", router: "/MV"},
             {icon: "icon_pengyou", title: "朋友", router: "/1"}

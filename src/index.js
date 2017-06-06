@@ -9,8 +9,8 @@ import { ConnectedRouter, routerReducer, routerMiddleware, } from 'react-router-
 
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import { AppContainer } from 'react-hot-loader';
-import App from './components/App';
+import { AppContainer } from 'react-hot-loader'
+import App from './components/App'
 import list from './reducers'
 
 const history = createHistory()

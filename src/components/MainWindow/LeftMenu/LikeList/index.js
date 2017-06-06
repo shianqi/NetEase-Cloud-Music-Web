@@ -32,6 +32,4 @@ let LikeList = ({dispatch, list}) => {
     )
 }
 
-LikeList = withRouter(connect(selector)(LikeList))
-
-export default LikeList
+export default withRouter(connect(selector)(LikeList))
