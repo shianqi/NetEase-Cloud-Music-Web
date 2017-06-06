@@ -9,14 +9,14 @@ class ListItem extends Component{
         const { data, handleClick } = this.props
 
         return(
-            <Route path={data.router} exact={data.exact} children={({ match }) => (
+            <Route path={`/:next`} exact={data.exact} children={({ match }) => (
                 <div
                     className={
                         cs(
                             iconfont.iconfont,
                             iconfont[data.icon],
                             Style.listItem,
-                            {[Style.active] : match}
+                            {[Style.active] : !match||match.url===data.router}
                         )
                     }
                     onClick={ ()=>{
