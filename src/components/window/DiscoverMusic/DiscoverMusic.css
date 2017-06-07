@@ -7,6 +7,10 @@
     height: 41px;
     text-align: center;
     border-bottom: 1px solid #dedede;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
 }
 
 .navigation-item{

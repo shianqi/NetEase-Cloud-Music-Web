@@ -5,6 +5,12 @@ import { Route } from 'react-router'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { push } from 'react-router-redux'
+import GXTJ from './GXTJ'
+import GD from './GD'
+import GS from './GS'
+import PHB from './PHB'
+import ZBDT from './ZBDT'
+import ZXYY from './ZXYY'
 
 const selector = (state) => {
     return {
@@ -37,6 +43,17 @@ let DiscoverMusic = ({dispatch, list, match})=>{
     })
 
     const Topic = ({match} ) => {
+        console.log(match.params.thisID);
+
+        switch (match.params.thisID){
+        case 'GXTJ': return ( <GXTJ/> );
+        case 'GD': return ( <GD/> );
+        case 'ZBDT': return ( <ZBDT/> );
+        case 'PHB': return ( <PHB/> );
+        case 'GS': return ( <GS/> );
+        case 'ZXYY': return ( <ZXYY/> );
+        }
+
         return (
             <div>
                 <h3>{match.url}</h3>

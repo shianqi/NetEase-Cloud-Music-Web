@@ -3,12 +3,22 @@
     top: 0;
     bottom: 60px;
     width: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
     z-index: 1;
     user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
+}
+
+.likeList::-webkit-scrollbar{
+    background: rgba(255,255,255,0);
+    width: 8px;
+}
+
+.likeList::-webkit-scrollbar-thumb{
+    background: #e1e1e2;
+    border-radius: 4px;
 }
 
 .listItem{
@@ -58,3 +68,4 @@
 .list_hide{
     display: none;
 }
+

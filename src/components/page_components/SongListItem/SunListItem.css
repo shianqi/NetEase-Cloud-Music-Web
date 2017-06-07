@@ -1,0 +1,27 @@
+.main{
+    display: inline-block;
+    width: 20%;
+    box-sizing: border-box;
+    padding: 6px;
+}
+
+.item-img{
+    display: block;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #efefef;
+}
+
+.item-img:before{
+    content: "";
+    display: inline-block;
+    padding-bottom: 100%;
+}
+
+.item-title{
+    width: 100%;
+    height: 80px;
+    font-size: 14px;
+    padding: 2px;
+}
+
