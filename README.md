@@ -4,3 +4,12 @@
 * React
 * Redux
 * Webpack
+
+## 预览
+```
+$ npm install
+```
+
+```
+$ npm run dev
+```
