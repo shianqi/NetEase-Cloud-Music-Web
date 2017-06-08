@@ -43,8 +43,6 @@ let DiscoverMusic = ({dispatch, list, match})=>{
     })
 
     const Topic = ({match} ) => {
-        console.log(match.params.thisID);
-
         switch (match.params.thisID){
         case 'GXTJ': return ( <GXTJ/> );
         case 'GD': return ( <GD/> );

@@ -8,29 +8,39 @@ import {
 
 class SunListItem extends Component{
     render() {
+        const {
+            title,
+            plays,
+            recommendReason,
+            playButton,
+            HandlerClick
+        } = this.props
+
         return (
             <div className={Style['main']}>
                 <div className={Style['item-img']}>
                     <div className={Style['item-hover']}>
-                        192W 哈瑟夫啊阿尔法阿瑟哦IF家阿瑟减肥怕ois耳机fpa
+                        { recommendReason }
                     </div>
                     <div
                         className={
                             cs(
                                 iconfont,
                                 icon_bofang,
-                                Style['item-play-button']
+                                Style['item-play-button'],
+                                {[Style['item-display-none']]: !playButton}
                             )
                         }
+                        onClick={HandlerClick}
                     >
 
                     </div>
                     <div className={Style['item-plays']}>
-                        193k
+                        { plays }
                     </div>
                 </div>
                 <div className={Style['item-title']}>
-                    this is a title
+                    { title }
                 </div>
             </div>
         )
