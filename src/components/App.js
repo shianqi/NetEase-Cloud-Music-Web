@@ -4,6 +4,7 @@ import 'normalize.css'
 import Footer from './Footer'
 import Banner from './Banner/index'
 import MainWindow from './MainWindow'
+import Login from './Login'
 import Style from './App.css'
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
                 <Footer/>
                 <MainWindow/>
                 <Banner/>
+                <Login/>
             </div>
         )
     }

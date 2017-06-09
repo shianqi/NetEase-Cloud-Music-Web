@@ -1,0 +1,47 @@
+.main{
+    width: 350px;
+    height: 500px;
+    background: #fafafa;
+    position: fixed;
+    z-index: 1;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close-button{
+    color: #929292;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.close-button:hover{
+    color: #7d7d7d;
+}
+
+.form-login{
+
+}
+
+.form-phone-number{
+
+}
+
+.form-password{
+
+}
+
+.form-automatic-logon-radio{
+
+}
+
+.form-automatic-logon-span{
+
+}
+
+.form-login-button{
+
+}

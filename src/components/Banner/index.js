@@ -15,19 +15,36 @@ import { connect } from 'react-redux'
 import { add } from '../../actions'
 
 const getState = (state) => ({
-    value: state
+    nickname: state.user.profile.nickname,
+    avatarUrl: state.user.profile.avatarUrl
 })
 
-let Banner = ({ dispatch, value }) => {
+let Banner = ({ dispatch, nickname, avatarUrl }) => {
     return (
-        <div className={Style.title}>
-            <div className={Style.logo}/>
-            <div className={Style.historyButton}>
-                <div className={ cs(Style.historyButtonBack, iconfont, icon_houtui)}/>
-                <div className={ cs(Style.historyButtonForward, iconfont, icon_qianjin) }/>
-                <div className={ Style.searchBox }>
-                    <input type="text" className={Style.searchBoxInput} placeholder="搜索音乐，歌手，歌词，用户"/>
-                    <div type="text" className={ cs(Style.searchBoxButton, iconfont, icon_sousuo_sousuo1)}/>
+        <div className={Style['title']}>
+            <div className={Style['logo']}/>
+            <div className={Style['historyButton']}>
+                <div
+                    className={cs(Style['historyButtonBack'], iconfont, icon_houtui)}
+                />
+                <div
+                    className={cs(Style['historyButtonForward'], iconfont, icon_qianjin)}
+                />
+                <div className={ Style['searchBox'] }>
+                    <input
+                        type="text"
+                        className={Style['searchBoxInput']}
+                        placeholder="搜索音乐，歌手，歌词，用户"/>
+                    <div
+                        type="text"
+                        className={
+                            cs(
+                                Style['searchBoxButton'],
+                                iconfont,
+                                icon_sousuo_sousuo1
+                            )
+                        }
+                    />
                 </div>
             </div>
             {/*<div>*/}
@@ -36,15 +53,51 @@ let Banner = ({ dispatch, value }) => {
                  {/*}}/>*/}
                  {/*{value}*/}
             {/*</div>*/}
-            <div className={Style.userInfo}>
-                <div className={Style.userInfoWin}>
-                    <div className={ cs(Style.userInfoWinItem, iconfont, icon_houdongfangiconfont10)}/>
-                    <div className={ cs(Style.userInfoWinItem, iconfont, icon_zuidahua)}/>
-                    <div className={ cs(Style.userInfoWinItem, iconfont, icon_zuixiaohua)}/>
-                    <div className={ cs(Style.userInfoWinItem, iconfont, icon_suoxiao)}/>
+            <div className={ Style['userInfo'] }>
+                <div className={Style['sys']}>
+                    <div
+                        className={
+                            cs(
+                                Style['sys-item'],
+                                iconfont,
+                                icon_houdongfangiconfont10
+                            )
+                        }
+                    />
+                    <div
+                        className={
+                            cs(
+                                Style['sys-item'],
+                                iconfont,
+                                icon_zuidahua
+                            )
+                        }
+                    />
+                    <div
+                        className={
+                            cs(
+                                Style['sys-item'],
+                                iconfont,
+                                icon_zuixiaohua
+                            )
+                        }
+                    />
+                    <div
+                        className={
+                            cs(
+                                Style['sys-item'],
+                                iconfont,
+                                icon_suoxiao
+                            )
+                        }
+                    />
                 </div>
-                <div className={Style.userInfoSetting}></div>
-                <div className={Style.userInfoUser}></div>
+                <div className={Style['user']}>
+                    <div className={Style['user-nickname']}>
+                        { nickname }
+                    </div>
+                    <div></div>
+                </div>
             </div>
         </div>
     )
