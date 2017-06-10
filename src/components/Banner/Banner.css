@@ -138,20 +138,38 @@
 }
 
 .user{
-    margin-top: 5px;
     margin-right: 10px;
     float: right;
-    height: 20px;
+    height: 30px;
 }
 
 .user-nickname{
+    margin-top: 8px;
+    margin-right: 10px;
     color: rgba(255,255,255, 0.7);
     font-size: 13px;
+    float: right;
+    cursor: pointer;
 }
 
+.user-nickname:after{
+    content: "";
+    border-top: 6px solid rgba(255,255,255,0.7);
+    border-right: 6px solid rgba(255,255,255,0);
+    border-left: 6px solid rgba(255,255,255,0);
+    position: relative;
+    top: 12px;
+    left: 5px;
+}
 
+.user-photo{
+    margin: 3px;
+    float: right;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
 
-
+}
 
 
 

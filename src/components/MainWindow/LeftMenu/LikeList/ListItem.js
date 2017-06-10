@@ -15,8 +15,8 @@ class ListItem extends Component{
                         cs(
                             iconfont.iconfont,
                             iconfont[data.icon],
-                            Style.listItem,
-                            {[Style.active] : match}
+                            Style['listItem'],
+                            {[Style['active']] : match}
                         )
                     }
                     onClick={ ()=>{

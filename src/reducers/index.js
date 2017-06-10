@@ -1,4 +1,8 @@
-import { SELECT_ITEM } from '../actions'
+import {
+    SELECT_ITEM,
+    LIST_REQUEST_POSTS,
+    LIST_RECEIVE_POSTS
+} from '../actions'
 
 const _list = [
     {
@@ -39,32 +43,82 @@ const _list = [
         title: "创建的歌单",
         shrinkable: true,
         items: [
-            {icon: "icon_hert", title: "我喜欢的音乐", router: "/7"},
-            {icon: "icon_liebiao", title: "下载管理", router: "/8"},
-            {icon: "icon_liebiao", title: "我的音乐云盘", router: "/9"},
-            {icon: "icon_liebiao", title: "我的歌手", router: "/10"},
-            {icon: "icon_liebiao", title: "我的电台", router: "11"}
+
+        ]
+    },
+    {
+        title: "收藏的歌单",
+        shrinkable: true,
+        items: [
+
         ]
     }
 ]
+// {icon: "icon_hert", title: "我喜欢的音乐", router: "/7"},
+// {icon: "icon_liebiao", title: "下载管理", router: "/8"},
+// {icon: "icon_liebiao", title: "我的音乐云盘", router: "/9"},
+// {icon: "icon_liebiao", title: "我的歌手", router: "/10"},
+// {icon: "icon_liebiao", title: "我的电台", router: "11"}
 
 function list( state=_list, action){
     switch (action.type) {
-    case SELECT_ITEM:
-        const { listIndex, itemIndex} = action
-        return state.map((list, _listIndex)=>{
-            return {
-                ...list,
-                items: list.items.map((item, _itemIndex)=>{
-                    if(listIndex===_listIndex && itemIndex===_itemIndex){
-                        return {...item, active: true}
+        case SELECT_ITEM:
+            const { listIndex, itemIndex} = action
+            return state.map((list, _listIndex)=>{
+                return {
+                    ...list,
+                    items: list.items.map((item, _itemIndex)=>{
+                        if(listIndex===_listIndex && itemIndex===_itemIndex){
+                            return {...item, active: true}
+                        }
+                        return {...item, active: false}
+                    })
+                }
+            })
+        case LIST_RECEIVE_POSTS:
+            console.log("zind", action.posts.playlist);
+            const foundList = Array.prototype.filter.call(action.posts['playlist'], (item)=>{
+                return !item['ordered']
+            })
+
+            const collectList = Array.prototype.filter.call(action.posts['playlist'], (item)=>{
+                return item['ordered']
+            })
+
+            return state.map((list, index)=>{
+                if(index===2){
+                    return {
+                        ...list,
+                        items: foundList.map((item)=>{
+                            return {
+                                ...item,
+                                icon: "icon_liebiao",
+                                router: "/7",
+                                title: item.name
+                            }
+                        })
                     }
-                    return {...item, active: false}
-                })
-            }
-        })
-    default:
-        return state
+                }else if(index===3){
+                    return {
+                        ...list,
+                        items: collectList.map((item)=>{
+                            return {
+                                ...item,
+                                icon: "icon_liebiao",
+                                router: "/7",
+                                title: item.name
+                            }
+                        })
+                    }
+                }
+                return {
+                    ...list
+                }
+            })
+        case LIST_REQUEST_POSTS:
+            return state
+        default:
+            return state
     }
 }
 

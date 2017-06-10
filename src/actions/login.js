@@ -1,3 +1,5 @@
+import { listFetchPosts } from './index'
+
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const PHONENUMBER_CHANGED = 'PHONENUMBER_CHANGED'
@@ -34,9 +36,10 @@ export const receivePosts = (json) => ({
 
 export const fetchPosts = (username, password) => dispatch => {
     dispatch(requestPosts())
-    return fetch(`http://localhost:3000/login/cellphone?phone=${username}&password=${password} `)
+    return fetch(`http://www.salibs.cn:3000/login/cellphone?phone=${username}&password=${password} `)
         .then(response => response.json())
         .then(json => {
+            dispatch(listFetchPosts('121461551'))
             dispatch(receivePosts(json))
         })
 }

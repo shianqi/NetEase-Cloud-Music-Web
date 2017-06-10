@@ -12,12 +12,11 @@ import {
 } from '../../../style/iconfont.css'
 import cs from 'classnames'
 import { connect } from 'react-redux'
-import { add } from '../../actions'
 import { openLogin } from '../../actions/login'
 
 const getState = (state) => ({
-    nickname: state.user.userInfo.profile.nickname,
-    avatarUrl: state.user.userInfo.profile.avatarUrl
+    nickname: state.user.userInfo.profile ? state.user.userInfo.profile.nickname: '未登录',
+    avatarUrl: state.user.userInfo.profile ? state.user.userInfo.profile.avatarUrl: ''
 })
 
 let Banner = ({ dispatch, nickname, avatarUrl }) => {
@@ -52,12 +51,6 @@ let Banner = ({ dispatch, nickname, avatarUrl }) => {
                     />
                 </div>
             </div>
-            {/*<div>*/}
-                 {/*<input type="button" onClick={()=>{*/}
-                     {/*dispatch(add())*/}
-                 {/*}}/>*/}
-                 {/*{value}*/}
-            {/*</div>*/}
             <div className={ Style['userInfo'] }>
                 <div className={Style['sys']}>
                     <div
@@ -104,7 +97,10 @@ let Banner = ({ dispatch, nickname, avatarUrl }) => {
                     >
                         { nickname }
                     </div>
-                    <div></div>
+                    <img
+                        src={avatarUrl}
+                        className={Style['user-photo']}
+                    />
                 </div>
             </div>
         </div>

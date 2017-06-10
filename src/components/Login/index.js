@@ -58,18 +58,20 @@ let Login = ({dispatch, phoneNumber, password, automaticLogin, login_window}) =>
                     type="text"
                     className={Style['form-phone-number']}
                     value={phoneNumber}
+                    placeholder="请输入手机号"
                     onChange={handlerUsernameChange}
                 />
                 <input
                     type="password"
                     className={Style['form-password']}
                     value={ password }
+                    placeholder="请输入密码"
                     onChange={handlerPasswordChange}
                 />
-                <br/>
-                <input type="radio"/>
-                <span>自动登陆</span>
-                <br/>
+                <div className={Style['form-automatic-logon']}>
+                    <input id="automatic-login" type="checkbox" className={Style['form-automatic-logon-radio']}/>
+                    <label htmlFor="automatic-login" className={Style['form-automatic-logon-span']}>自动登陆</label>
+                </div>
                 <input
                     value="登 陆"
                     className={Style['form-login-button']}
