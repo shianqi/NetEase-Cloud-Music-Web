@@ -13,13 +13,18 @@ import {
 import cs from 'classnames'
 import { connect } from 'react-redux'
 import { add } from '../../actions'
+import { openLogin } from '../../actions/login'
 
 const getState = (state) => ({
-    nickname: state.user.profile.nickname,
-    avatarUrl: state.user.profile.avatarUrl
+    nickname: state.user.userInfo.profile.nickname,
+    avatarUrl: state.user.userInfo.profile.avatarUrl
 })
 
 let Banner = ({ dispatch, nickname, avatarUrl }) => {
+    const openLoginWindow = function(){
+        dispatch(openLogin())
+    }
+
     return (
         <div className={Style['title']}>
             <div className={Style['logo']}/>
@@ -93,7 +98,10 @@ let Banner = ({ dispatch, nickname, avatarUrl }) => {
                     />
                 </div>
                 <div className={Style['user']}>
-                    <div className={Style['user-nickname']}>
+                    <div
+                        className={Style['user-nickname']}
+                        onClick={openLoginWindow}
+                    >
                         { nickname }
                     </div>
                     <div></div>

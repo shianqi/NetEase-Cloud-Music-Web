@@ -28,7 +28,7 @@ module.exports = {
     rules: {
         // allow paren-less arrow functions
         'arrow-parens': 0,
-        'indent': ["error", 4],//缩进风格
+        'indent': ["error", 4, {"SwitchCase": 1}],//缩进风格
         'no-unused-vars': 1,
 
         // allow async-await

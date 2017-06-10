@@ -6,38 +6,76 @@ import {
     iconfont,
     icon_houdongfangiconfont10
 } from '../../../style/iconfont.css'
-import { fetchPosts } from '../../actions/login'
+import { fetchPosts, phoneNumberChanged, passwordChanged, closeLogin } from '../../actions/login'
 
 
 const selector = (state) => {
     return {
-        selectedReddit: ''
+        phoneNumber: state.user.userInput.phoneNumber,
+        password: state.user.userInput.password,
+        automaticLogin: state.user.userInput.automaticLogin,
+        login_window: state.user.userInput.login_window
     }
 }
 
-let Login = ({dispatch, selectedReddit}) => {
+let Login = ({dispatch, phoneNumber, password, automaticLogin, login_window}) => {
+
+    const handlerUsernameChange = function(e){
+        dispatch(phoneNumberChanged(e.target.value))
+    }
+
+    const handlerPasswordChange = function(e){
+        dispatch(passwordChanged(e.target.value))
+    }
 
     const handlerLogin = function(){
-        console.log("handlerLogin");
-        dispatch(fetchPosts('', ''))
+        dispatch(fetchPosts(phoneNumber, password))
     }
+
     return(
-        <div className={ Style['main'] }>
-            <div className={
+        <div
+            className={
                 cs(
-                    iconfont,
-                    icon_houdongfangiconfont10,
-                    Style['close-button']
+                    Style['main'],
+                    {[Style['display']]: login_window}
                 )
-            } />
-            <div className="form-login">
-                <input type="text"/>
-                <input type="text"/>
+            }>
+            <div
+                className={
+                    cs(
+                        iconfont,
+                        icon_houdongfangiconfont10,
+                        Style['close-button']
+                    )
+                }
+                onClick={()=>{
+                    dispatch(closeLogin())
+                }}
+            />
+            <div className={Style['form-login']}>
+                <div className={Style['form-banner']} />
+                <input
+                    type="text"
+                    className={Style['form-phone-number']}
+                    value={phoneNumber}
+                    onChange={handlerUsernameChange}
+                />
+                <input
+                    type="password"
+                    className={Style['form-password']}
+                    value={ password }
+                    onChange={handlerPasswordChange}
+                />
                 <br/>
                 <input type="radio"/>
                 <span>自动登陆</span>
                 <br/>
-                <input value="登陆" type="button" onClick={handlerLogin}/>
+                <input
+                    value="登 陆"
+                    className={Style['form-login-button']}
+                    type="button"
+                    onClick={handlerLogin}
+                />
             </div>
         </div>
     )
