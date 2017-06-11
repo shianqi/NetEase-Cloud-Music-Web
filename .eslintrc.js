@@ -28,15 +28,20 @@ module.exports = {
     rules: {
         // allow paren-less arrow functions
         'arrow-parens': 0,
-        'indent': ["error", 4, {"SwitchCase": 1}],//缩进风格
+        "no-alert": 0,                              //禁止使用alert confirm prompt
+        'indent': ["error", 4, {"SwitchCase": 1}],  //缩进风格
         'no-unused-vars': 1,
-
-        // allow async-await
+        "no-multi-spaces": 1,                       //不允许多个空格
+        "no-extra-semi": 2,                         //多余的分号
+        "no-unexpected-multiline": 2,               //行尾缺少分号可能导致一些意外情况
+        "no-multiple-empty-lines": [1, {"max": 1}], //空行最多不能超过2行
+        "default-case": 2,                          //switch语句最后必须有default
+        "semi": [2, "never"],                      //语句强制分号结尾
         'generator-star-spacing': 0,
-        // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
         'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
         "react/display-name": 1,
+
         "no-case-declarations": 1,
         "react/jsx-boolean-value": 1,
         "react/jsx-uses-react": "error",

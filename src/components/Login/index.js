@@ -8,7 +8,6 @@ import {
 } from '../../../style/iconfont.css'
 import { fetchPosts, phoneNumberChanged, passwordChanged, closeLogin } from '../../actions/login'
 
-
 const selector = (state) => {
     return {
         phoneNumber: state.user.userInput.phoneNumber,

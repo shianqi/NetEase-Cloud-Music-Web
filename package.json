@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "build": "webpack --config webpack-production.config.js"
   },
   "author": "shianqi",
   "license": "ISC",
@@ -35,12 +36,16 @@
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.5.1",
+    "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dashboard": "^0.4.0",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.4.5",
+    "webpack-md5-hash": "0.0.5"
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "es6-promise": "^4.1.0",
     "history": "^4.6.1",
+    "isomorphic-fetch": "^2.2.1",
     "normalize.css": "^4.2.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",

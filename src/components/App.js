@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import 'normalize.css'
 
 import Footer from './Footer'
 import Banner from './Banner/index'
 import MainWindow from './MainWindow'
 import Login from './Login'
+
 import Style from './App.css'
+import 'normalize.css'
 
 class App extends Component {
     render () {
