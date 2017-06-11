@@ -6,7 +6,7 @@ import SunList from '../../../page_components/SongList'
 class GXTJ extends Component{
     render() {
         const getMore = function() {
-            console.log("getMore");
+            console.log("getMore")
         }
 
         return (

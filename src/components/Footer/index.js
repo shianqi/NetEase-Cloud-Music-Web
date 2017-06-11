@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Style from './Footer.css'
 import cs from 'classnames'
 import {

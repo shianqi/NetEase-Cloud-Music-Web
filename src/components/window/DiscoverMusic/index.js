@@ -44,19 +44,14 @@ let DiscoverMusic = ({dispatch, list, match})=>{
 
     const Topic = ({match} ) => {
         switch (match.params.thisID){
-        case 'GXTJ': return ( <GXTJ/> );
-        case 'GD': return ( <GD/> );
-        case 'ZBDT': return ( <ZBDT/> );
-        case 'PHB': return ( <PHB/> );
-        case 'GS': return ( <GS/> );
-        case 'ZXYY': return ( <ZXYY/> );
+            case 'GXTJ': return ( <GXTJ/> )
+            case 'GD': return ( <GD/> )
+            case 'ZBDT': return ( <ZBDT/> )
+            case 'PHB': return ( <PHB/> )
+            case 'GS': return ( <GS/> )
+            case 'ZXYY': return ( <ZXYY/> )
+            default: return ( <GXTJ/> )
         }
-
-        return (
-            <div>
-                <h3>{match.url}</h3>
-            </div>
-        )
     }
 
     return (

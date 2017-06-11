@@ -76,7 +76,7 @@ function list( state=_list, action){
                 }
             })
         case LIST_RECEIVE_POSTS:
-            console.log("zind", action.posts.playlist);
+            console.log("zind", action.posts.playlist)
             const foundList = Array.prototype.filter.call(action.posts['playlist'], (item)=>{
                 return !item['ordered']
             })

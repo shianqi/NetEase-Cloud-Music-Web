@@ -56,7 +56,7 @@ class SunList extends Component{
                 plays={item.plays}
                 recommendReason={item.recommendReason}
                 playButton={item.playButton}
-                HandlerClick={()=>{console.log('SunListItem Clicked!');}}
+                HandlerClick={()=>{console.log('SunListItem Clicked!')}}
             />
         ))
         return (

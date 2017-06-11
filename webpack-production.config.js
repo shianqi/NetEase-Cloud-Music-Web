@@ -1,6 +1,8 @@
 const { resolve } = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
+process.env.NODE_ENV = "production"
+
 module.exports = {
     context: resolve(__dirname, 'src'),
 

@@ -4,10 +4,17 @@
   "description": "",
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "webpack --config webpack-production.config.js"
+    "build": "webpack --config webpack-production.config.js",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js src",
+    "clean": "rimraf dist/bundle.js",
+    "gh-pages": "$(npm bin)/git-directory-deploy --directory dist --branch gh-pages"
   },
   "author": "shianqi",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shianqi/NetEase-Cloud-Music-Web.git"
+  },
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
@@ -28,11 +35,13 @@
     "eslint-plugin-react": "^7.0.1",
     "eslint-plugin-standard": "^3.0.1",
     "file-loader": "^0.11.1",
+    "git-directory-deploy": "^1.5.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
     "open-browser-webpack-plugin": "0.0.5",
     "react-scripts": "^1.0.7",
     "redux-logger": "^3.0.6",
+    "rimraf": "^2.6.1",
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.5.1",

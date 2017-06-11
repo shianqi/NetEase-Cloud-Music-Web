@@ -1,7 +1,9 @@
 const { resolve } = require('path')
 const webpack = require('webpack')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+process.env.NODE_ENV = "development"
 
 module.exports = {
     context: resolve(__dirname, 'src'),

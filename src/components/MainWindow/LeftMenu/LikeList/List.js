@@ -7,14 +7,14 @@ import icon from '../../../../../style/iconfont.css'
 
 class List extends Component{
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             shrinkState: true
-        };
+        }
     }
 
     render(){
-        const { data, onItemClick } = this.props;
+        const { data, onItemClick } = this.props
         const list = data.items.map((item, index)=>{
             return (
                 <ListItem data={item} key={index} handleClick={(router)=>{onItemClick(router)}}/>

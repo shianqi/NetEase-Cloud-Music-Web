@@ -39,13 +39,13 @@ const render = (Component) => {
             </Provider>
         </AppContainer>,
         document.getElementById('root')
-    );
-};
+    )
+}
 
-render(App);
+render(App)
 
 if (module.hot) {
     module.hot.accept('./components/App', () => {
         render(App)
-    });
+    })
 }
