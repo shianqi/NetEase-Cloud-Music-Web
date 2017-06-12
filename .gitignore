@@ -3,3 +3,4 @@
 node_modules/
 npm-debug.log
 /dist/bundle.js
+/dist/styles.css

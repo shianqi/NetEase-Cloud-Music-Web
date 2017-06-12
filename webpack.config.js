@@ -2,6 +2,7 @@ const { resolve } = require('path')
 const webpack = require('webpack')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 process.env.NODE_ENV = "development"
 
@@ -77,16 +78,20 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [
-                    { loader: 'style-loader' },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true
-                            // localIdentName: '[path][name]__[local]--[hash:base64:5]'
+                use: ExtractTextPlugin.extract({
+                    fallback: [
+                        { loader: 'style-loader' }
+                    ],
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true
+                                // localIdentName: '[path][name]__[local]--[hash:base64:5]'
+                            }
                         }
-                    }
-                ]
+                    ]
+                })
             },
             {
                 test: /\.(png|jpg)$/,
@@ -118,7 +123,9 @@ module.exports = {
             url: 'http://localhost:8080'
         }),
 
-        new BundleAnalyzerPlugin()
+        new BundleAnalyzerPlugin(),
+
+        new ExtractTextPlugin('styles.css')
     ],
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.css']
