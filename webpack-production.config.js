@@ -1,8 +1,7 @@
 const { resolve } = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
-
-process.env.NODE_ENV = "production"
+const webpack = require('webpack')
 
 module.exports = {
     context: resolve(__dirname, 'src'),
@@ -94,7 +93,12 @@ module.exports = {
 
     plugins: [
         new BundleAnalyzerPlugin(),
-        new ExtractTextPlugin('styles.css')
+        new ExtractTextPlugin('styles.css'),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production'),
+            },
+        }),
     ],
 
     resolve: {
