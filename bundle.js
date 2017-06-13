@@ -63,205 +63,15 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 316);
+/******/ 	return __webpack_require__(__webpack_require__.s = 303);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout() {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-})();
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch (e) {
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch (e) {
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e) {
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e) {
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while (len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) {
-    return [];
-};
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () {
-    return '/';
-};
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function () {
-    return 0;
-};
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright (c) 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -286,7 +96,7 @@ process.umask = function () {
 
 var validateFormat = function validateFormat(format) {};
 
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   validateFormat = function validateFormat(format) {
     if (format === undefined) {
       throw new Error('invariant requires an error message argument');
@@ -316,14 +126,44 @@ function invariant(condition, format, a, b, c, d, e, f) {
 }
 
 module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(validateFormat, 'validateFormat', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/invariant.js');
+
+  __REACT_HOT_LOADER__.register(invariant, 'invariant', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/invariant.js');
+}();
+
+;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(20);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
  *
@@ -335,7 +175,7 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(11);
+var emptyFunction = __webpack_require__(9);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -346,7 +186,7 @@ var emptyFunction = __webpack_require__(11);
 
 var warning = emptyFunction;
 
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   (function () {
     var printWarning = function printWarning(format) {
       for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -389,19 +229,20 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = warning;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(warning, 'warning', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/warning.js');
+}();
+
+;
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(24);
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -443,9 +284,20 @@ function reactProdInvariant(code) {
 }
 
 module.exports = reactProdInvariant;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(reactProdInvariant, 'reactProdInvariant', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/reactProdInvariant.js');
+}();
+
+;
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -539,13 +391,32 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 	return to;
 };
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(getOwnPropertySymbols, 'getOwnPropertySymbols', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/object-assign/index.js');
+
+	__REACT_HOT_LOADER__.register(hasOwnProperty, 'hasOwnProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/object-assign/index.js');
+
+	__REACT_HOT_LOADER__.register(propIsEnumerable, 'propIsEnumerable', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/object-assign/index.js');
+
+	__REACT_HOT_LOADER__.register(toObject, 'toObject', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/object-assign/index.js');
+
+	__REACT_HOT_LOADER__.register(shouldUseNative, 'shouldUseNative', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/object-assign/index.js');
+}();
+
+;
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -557,12 +428,12 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var DOMProperty = __webpack_require__(16);
-var ReactDOMComponentFlags = __webpack_require__(84);
+var DOMProperty = __webpack_require__(18);
+var ReactDOMComponentFlags = __webpack_require__(81);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 var ATTR_NAME = DOMProperty.ID_ATTRIBUTE_NAME;
 var Flags = ReactDOMComponentFlags;
@@ -647,7 +518,7 @@ function precacheChildNodes(inst, node) {
       }
     }
     // We reached the end of the DOM children without finding an ID match.
-     true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Unable to find element with ID %s.', childID) : _prodInvariant('32', childID) : void 0;
+     true ?  false ? invariant(false, 'Unable to find element with ID %s.', childID) : _prodInvariant('32', childID) : void 0;
   }
   inst._flags |= Flags.hasCachedChildNodes;
 }
@@ -706,7 +577,7 @@ function getInstanceFromNode(node) {
 function getNodeFromInstance(inst) {
   // Without this first invariant, passing a non-DOM-component triggers the next
   // invariant for a missing parent, which is super confusing.
-  !(inst._hostNode !== undefined) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'getNodeFromInstance: Invalid argument.') : _prodInvariant('33') : void 0;
+  !(inst._hostNode !== undefined) ?  false ? invariant(false, 'getNodeFromInstance: Invalid argument.') : _prodInvariant('33') : void 0;
 
   if (inst._hostNode) {
     return inst._hostNode;
@@ -716,7 +587,7 @@ function getNodeFromInstance(inst) {
   var parents = [];
   while (!inst._hostNode) {
     parents.push(inst);
-    !inst._hostParent ? process.env.NODE_ENV !== 'production' ? invariant(false, 'React DOM tree root should always have a node reference.') : _prodInvariant('34') : void 0;
+    !inst._hostParent ?  false ? invariant(false, 'React DOM tree root should always have a node reference.') : _prodInvariant('34') : void 0;
     inst = inst._hostParent;
   }
 
@@ -739,10 +610,140 @@ var ReactDOMComponentTree = {
 };
 
 module.exports = ReactDOMComponentTree;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ATTR_NAME, 'ATTR_NAME', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(Flags, 'Flags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(internalInstanceKey, 'internalInstanceKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(shouldPrecacheNode, 'shouldPrecacheNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(getRenderedHostOrTextFromComponent, 'getRenderedHostOrTextFromComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(precacheNode, 'precacheNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(uncacheNode, 'uncacheNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(precacheChildNodes, 'precacheChildNodes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(getClosestInstanceFromNode, 'getClosestInstanceFromNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(getInstanceFromNode, 'getInstanceFromNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(getNodeFromInstance, 'getNodeFromInstance', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+
+  __REACT_HOT_LOADER__.register(ReactDOMComponentTree, 'ReactDOMComponentTree', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentTree.js');
+}();
+
+;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MemoryRouter__ = __webpack_require__(234);
+/* unused harmony reexport MemoryRouter */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Prompt__ = __webpack_require__(235);
+/* unused harmony reexport Prompt */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Redirect__ = __webpack_require__(236);
+/* unused harmony reexport Redirect */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Route__ = __webpack_require__(105);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__Route__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(60);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__Router__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__StaticRouter__ = __webpack_require__(237);
+/* unused harmony reexport StaticRouter */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Switch__ = __webpack_require__(238);
+/* unused harmony reexport Switch */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__matchPath__ = __webpack_require__(61);
+/* unused harmony reexport matchPath */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__withRouter__ = __webpack_require__(239);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_8__withRouter__["a"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+if (false) {
+  var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.element') || 0xeac7;
+
+  var isValidElement = function isValidElement(object) {
+    return (typeof object === 'undefined' ? 'undefined' : _typeof(object)) === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+  };
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = require('./factoryWithTypeCheckers')(isValidElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(140)();
+}
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(REACT_ELEMENT_TYPE, 'REACT_ELEMENT_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/prop-types/index.js');
+
+  __REACT_HOT_LOADER__.register(isValidElement, 'isValidElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/prop-types/index.js');
+
+  __REACT_HOT_LOADER__.register(throwOnDirectAccess, 'throwOnDirectAccess', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/prop-types/index.js');
+}();
+
+;
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -781,425 +782,22 @@ var ExecutionEnvironment = {
 };
 
 module.exports = ExecutionEnvironment;
+;
 
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MemoryRouter__ = __webpack_require__(247);
-/* unused harmony reexport MemoryRouter */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Prompt__ = __webpack_require__(248);
-/* unused harmony reexport Prompt */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Redirect__ = __webpack_require__(249);
-/* unused harmony reexport Redirect */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Route__ = __webpack_require__(109);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__Route__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(64);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__Router__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__StaticRouter__ = __webpack_require__(250);
-/* unused harmony reexport StaticRouter */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Switch__ = __webpack_require__(251);
-/* unused harmony reexport Switch */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__matchPath__ = __webpack_require__(65);
-/* unused harmony reexport matchPath */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__withRouter__ = __webpack_require__(252);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_8__withRouter__["a"]; });
+  __REACT_HOT_LOADER__.register(canUseDOM, 'canUseDOM', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/ExecutionEnvironment.js');
 
+  __REACT_HOT_LOADER__.register(ExecutionEnvironment, 'ExecutionEnvironment', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/ExecutionEnvironment.js');
+}();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+;
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-if (process.env.NODE_ENV !== 'production') {
-  var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.element') || 0xeac7;
-
-  var isValidElement = function isValidElement(object) {
-    return (typeof object === 'undefined' ? 'undefined' : _typeof(object)) === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-  };
-
-  // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-  var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(80)(isValidElement, throwOnDirectAccess);
-} else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(147)();
-}
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _prodInvariant = __webpack_require__(20);
-
-var ReactCurrentOwner = __webpack_require__(14);
-
-var invariant = __webpack_require__(1);
-var warning = __webpack_require__(2);
-
-function isNative(fn) {
-  // Based on isNative() from Lodash
-  var funcToString = Function.prototype.toString;
-  var hasOwnProperty = Object.prototype.hasOwnProperty;
-  var reIsNative = RegExp('^' + funcToString
-  // Take an example native function source for comparison
-  .call(hasOwnProperty
-  // Strip regex characters so we can use it for regex
-  ).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&'
-  // Remove hasOwnProperty from the template to make it generic
-  ).replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
-  try {
-    var source = funcToString.call(fn);
-    return reIsNative.test(source);
-  } catch (err) {
-    return false;
-  }
-}
-
-var canUseCollections =
-// Array.from
-typeof Array.from === 'function' &&
-// Map
-typeof Map === 'function' && isNative(Map) &&
-// Map.prototype.keys
-Map.prototype != null && typeof Map.prototype.keys === 'function' && isNative(Map.prototype.keys) &&
-// Set
-typeof Set === 'function' && isNative(Set) &&
-// Set.prototype.keys
-Set.prototype != null && typeof Set.prototype.keys === 'function' && isNative(Set.prototype.keys);
-
-var setItem;
-var getItem;
-var removeItem;
-var getItemIDs;
-var addRoot;
-var removeRoot;
-var getRootIDs;
-
-if (canUseCollections) {
-  var itemMap = new Map();
-  var rootIDSet = new Set();
-
-  setItem = function setItem(id, item) {
-    itemMap.set(id, item);
-  };
-  getItem = function getItem(id) {
-    return itemMap.get(id);
-  };
-  removeItem = function removeItem(id) {
-    itemMap['delete'](id);
-  };
-  getItemIDs = function getItemIDs() {
-    return Array.from(itemMap.keys());
-  };
-
-  addRoot = function addRoot(id) {
-    rootIDSet.add(id);
-  };
-  removeRoot = function removeRoot(id) {
-    rootIDSet['delete'](id);
-  };
-  getRootIDs = function getRootIDs() {
-    return Array.from(rootIDSet.keys());
-  };
-} else {
-  var itemByKey = {};
-  var rootByKey = {};
-
-  // Use non-numeric keys to prevent V8 performance issues:
-  // https://github.com/facebook/react/pull/7232
-  var getKeyFromID = function getKeyFromID(id) {
-    return '.' + id;
-  };
-  var getIDFromKey = function getIDFromKey(key) {
-    return parseInt(key.substr(1), 10);
-  };
-
-  setItem = function setItem(id, item) {
-    var key = getKeyFromID(id);
-    itemByKey[key] = item;
-  };
-  getItem = function getItem(id) {
-    var key = getKeyFromID(id);
-    return itemByKey[key];
-  };
-  removeItem = function removeItem(id) {
-    var key = getKeyFromID(id);
-    delete itemByKey[key];
-  };
-  getItemIDs = function getItemIDs() {
-    return Object.keys(itemByKey).map(getIDFromKey);
-  };
-
-  addRoot = function addRoot(id) {
-    var key = getKeyFromID(id);
-    rootByKey[key] = true;
-  };
-  removeRoot = function removeRoot(id) {
-    var key = getKeyFromID(id);
-    delete rootByKey[key];
-  };
-  getRootIDs = function getRootIDs() {
-    return Object.keys(rootByKey).map(getIDFromKey);
-  };
-}
-
-var unmountedIDs = [];
-
-function purgeDeep(id) {
-  var item = getItem(id);
-  if (item) {
-    var childIDs = item.childIDs;
-
-    removeItem(id);
-    childIDs.forEach(purgeDeep);
-  }
-}
-
-function describeComponentFrame(name, source, ownerName) {
-  return '\n    in ' + (name || 'Unknown') + (source ? ' (at ' + source.fileName.replace(/^.*[\\\/]/, '') + ':' + source.lineNumber + ')' : ownerName ? ' (created by ' + ownerName + ')' : '');
-}
-
-function _getDisplayName(element) {
-  if (element == null) {
-    return '#empty';
-  } else if (typeof element === 'string' || typeof element === 'number') {
-    return '#text';
-  } else if (typeof element.type === 'string') {
-    return element.type;
-  } else {
-    return element.type.displayName || element.type.name || 'Unknown';
-  }
-}
-
-function describeID(id) {
-  var name = ReactComponentTreeHook.getDisplayName(id);
-  var element = ReactComponentTreeHook.getElement(id);
-  var ownerID = ReactComponentTreeHook.getOwnerID(id);
-  var ownerName;
-  if (ownerID) {
-    ownerName = ReactComponentTreeHook.getDisplayName(ownerID);
-  }
-  process.env.NODE_ENV !== 'production' ? warning(element, 'ReactComponentTreeHook: Missing React element for debugID %s when ' + 'building stack', id) : void 0;
-  return describeComponentFrame(name, element && element._source, ownerName);
-}
-
-var ReactComponentTreeHook = {
-  onSetChildren: function onSetChildren(id, nextChildIDs) {
-    var item = getItem(id);
-    !item ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Item must have been set') : _prodInvariant('144') : void 0;
-    item.childIDs = nextChildIDs;
-
-    for (var i = 0; i < nextChildIDs.length; i++) {
-      var nextChildID = nextChildIDs[i];
-      var nextChild = getItem(nextChildID);
-      !nextChild ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected hook events to fire for the child before its parent includes it in onSetChildren().') : _prodInvariant('140') : void 0;
-      !(nextChild.childIDs != null || _typeof(nextChild.element) !== 'object' || nextChild.element == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected onSetChildren() to fire for a container child before its parent includes it in onSetChildren().') : _prodInvariant('141') : void 0;
-      !nextChild.isMounted ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected onMountComponent() to fire for the child before its parent includes it in onSetChildren().') : _prodInvariant('71') : void 0;
-      if (nextChild.parentID == null) {
-        nextChild.parentID = id;
-        // TODO: This shouldn't be necessary but mounting a new root during in
-        // componentWillMount currently causes not-yet-mounted components to
-        // be purged from our tree data so their parent id is missing.
-      }
-      !(nextChild.parentID === id) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected onBeforeMountComponent() parent and onSetChildren() to be consistent (%s has parents %s and %s).', nextChildID, nextChild.parentID, id) : _prodInvariant('142', nextChildID, nextChild.parentID, id) : void 0;
-    }
-  },
-  onBeforeMountComponent: function onBeforeMountComponent(id, element, parentID) {
-    var item = {
-      element: element,
-      parentID: parentID,
-      text: null,
-      childIDs: [],
-      isMounted: false,
-      updateCount: 0
-    };
-    setItem(id, item);
-  },
-  onBeforeUpdateComponent: function onBeforeUpdateComponent(id, element) {
-    var item = getItem(id);
-    if (!item || !item.isMounted) {
-      // We may end up here as a result of setState() in componentWillUnmount().
-      // In this case, ignore the element.
-      return;
-    }
-    item.element = element;
-  },
-  onMountComponent: function onMountComponent(id) {
-    var item = getItem(id);
-    !item ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Item must have been set') : _prodInvariant('144') : void 0;
-    item.isMounted = true;
-    var isRoot = item.parentID === 0;
-    if (isRoot) {
-      addRoot(id);
-    }
-  },
-  onUpdateComponent: function onUpdateComponent(id) {
-    var item = getItem(id);
-    if (!item || !item.isMounted) {
-      // We may end up here as a result of setState() in componentWillUnmount().
-      // In this case, ignore the element.
-      return;
-    }
-    item.updateCount++;
-  },
-  onUnmountComponent: function onUnmountComponent(id) {
-    var item = getItem(id);
-    if (item) {
-      // We need to check if it exists.
-      // `item` might not exist if it is inside an error boundary, and a sibling
-      // error boundary child threw while mounting. Then this instance never
-      // got a chance to mount, but it still gets an unmounting event during
-      // the error boundary cleanup.
-      item.isMounted = false;
-      var isRoot = item.parentID === 0;
-      if (isRoot) {
-        removeRoot(id);
-      }
-    }
-    unmountedIDs.push(id);
-  },
-  purgeUnmountedComponents: function purgeUnmountedComponents() {
-    if (ReactComponentTreeHook._preventPurging) {
-      // Should only be used for testing.
-      return;
-    }
-
-    for (var i = 0; i < unmountedIDs.length; i++) {
-      var id = unmountedIDs[i];
-      purgeDeep(id);
-    }
-    unmountedIDs.length = 0;
-  },
-  isMounted: function isMounted(id) {
-    var item = getItem(id);
-    return item ? item.isMounted : false;
-  },
-  getCurrentStackAddendum: function getCurrentStackAddendum(topElement) {
-    var info = '';
-    if (topElement) {
-      var name = _getDisplayName(topElement);
-      var owner = topElement._owner;
-      info += describeComponentFrame(name, topElement._source, owner && owner.getName());
-    }
-
-    var currentOwner = ReactCurrentOwner.current;
-    var id = currentOwner && currentOwner._debugID;
-
-    info += ReactComponentTreeHook.getStackAddendumByID(id);
-    return info;
-  },
-  getStackAddendumByID: function getStackAddendumByID(id) {
-    var info = '';
-    while (id) {
-      info += describeID(id);
-      id = ReactComponentTreeHook.getParentID(id);
-    }
-    return info;
-  },
-  getChildIDs: function getChildIDs(id) {
-    var item = getItem(id);
-    return item ? item.childIDs : [];
-  },
-  getDisplayName: function getDisplayName(id) {
-    var element = ReactComponentTreeHook.getElement(id);
-    if (!element) {
-      return null;
-    }
-    return _getDisplayName(element);
-  },
-  getElement: function getElement(id) {
-    var item = getItem(id);
-    return item ? item.element : null;
-  },
-  getOwnerID: function getOwnerID(id) {
-    var element = ReactComponentTreeHook.getElement(id);
-    if (!element || !element._owner) {
-      return null;
-    }
-    return element._owner._debugID;
-  },
-  getParentID: function getParentID(id) {
-    var item = getItem(id);
-    return item ? item.parentID : null;
-  },
-  getSource: function getSource(id) {
-    var item = getItem(id);
-    var element = item ? item.element : null;
-    var source = element != null ? element._source : null;
-    return source;
-  },
-  getText: function getText(id) {
-    var element = ReactComponentTreeHook.getElement(id);
-    if (typeof element === 'string') {
-      return element;
-    } else if (typeof element === 'number') {
-      return '' + element;
-    } else {
-      return null;
-    }
-  },
-  getUpdateCount: function getUpdateCount(id) {
-    var item = getItem(id);
-    return item ? item.updateCount : 0;
-  },
-
-  getRootIDs: getRootIDs,
-  getRegisteredIDs: getItemIDs
-};
-
-module.exports = ReactComponentTreeHook;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1241,13 +839,26 @@ emptyFunction.thatReturnsArgument = function (arg) {
 };
 
 module.exports = emptyFunction;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(makeEmptyFunction, "makeEmptyFunction", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/emptyFunction.js");
+
+  __REACT_HOT_LOADER__.register(emptyFunction, "emptyFunction", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/emptyFunction.js");
+}();
+
+;
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2016-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -1264,20 +875,30 @@ module.exports = emptyFunction;
 
 var debugTool = null;
 
-if (process.env.NODE_ENV !== 'production') {
-  var ReactDebugTool = __webpack_require__(177);
+if (false) {
+  var ReactDebugTool = require('./ReactDebugTool');
   debugTool = ReactDebugTool;
 }
 
 module.exports = { debugTool: debugTool };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(debugTool, 'debugTool', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactInstrumentation.js');
+}();
+
+;
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -1289,16 +910,16 @@ module.exports = { debugTool: debugTool };
 
 
 
-var _prodInvariant = __webpack_require__(4),
-    _assign = __webpack_require__(5);
+var _prodInvariant = __webpack_require__(3),
+    _assign = __webpack_require__(4);
 
-var CallbackQueue = __webpack_require__(82);
-var PooledClass = __webpack_require__(18);
-var ReactFeatureFlags = __webpack_require__(87);
-var ReactReconciler = __webpack_require__(23);
-var Transaction = __webpack_require__(37);
+var CallbackQueue = __webpack_require__(79);
+var PooledClass = __webpack_require__(15);
+var ReactFeatureFlags = __webpack_require__(84);
+var ReactReconciler = __webpack_require__(19);
+var Transaction = __webpack_require__(34);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 var dirtyComponents = [];
 var updateBatchNumber = 0;
@@ -1308,7 +929,7 @@ var asapEnqueued = false;
 var batchingStrategy = null;
 
 function ensureInjected() {
-  !(ReactUpdates.ReactReconcileTransaction && batchingStrategy) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactUpdates: must inject a reconcile transaction class and batching strategy') : _prodInvariant('123') : void 0;
+  !(ReactUpdates.ReactReconcileTransaction && batchingStrategy) ?  false ? invariant(false, 'ReactUpdates: must inject a reconcile transaction class and batching strategy') : _prodInvariant('123') : void 0;
 }
 
 var NESTED_UPDATES = {
@@ -1389,7 +1010,7 @@ function mountOrderComparator(c1, c2) {
 
 function runBatchedUpdates(transaction) {
   var len = transaction.dirtyComponentsLength;
-  !(len === dirtyComponents.length) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected flush transaction\'s stored dirty-components length (%s) to match dirty-components array length (%s).', len, dirtyComponents.length) : _prodInvariant('124', len, dirtyComponents.length) : void 0;
+  !(len === dirtyComponents.length) ?  false ? invariant(false, 'Expected flush transaction\'s stored dirty-components length (%s) to match dirty-components array length (%s).', len, dirtyComponents.length) : _prodInvariant('124', len, dirtyComponents.length) : void 0;
 
   // Since reconciling a component higher in the owner hierarchy usually (not
   // always -- see shouldComponentUpdate()) will reconcile children, reconcile
@@ -1491,21 +1112,21 @@ function enqueueUpdate(component) {
  * if no updates are currently being performed.
  */
 function asap(callback, context) {
-  !batchingStrategy.isBatchingUpdates ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactUpdates.asap: Can\'t enqueue an asap callback in a context whereupdates are not being batched.') : _prodInvariant('125') : void 0;
+  !batchingStrategy.isBatchingUpdates ?  false ? invariant(false, 'ReactUpdates.asap: Can\'t enqueue an asap callback in a context whereupdates are not being batched.') : _prodInvariant('125') : void 0;
   asapCallbackQueue.enqueue(callback, context);
   asapEnqueued = true;
 }
 
 var ReactUpdatesInjection = {
   injectReconcileTransaction: function injectReconcileTransaction(ReconcileTransaction) {
-    !ReconcileTransaction ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactUpdates: must provide a reconcile transaction class') : _prodInvariant('126') : void 0;
+    !ReconcileTransaction ?  false ? invariant(false, 'ReactUpdates: must provide a reconcile transaction class') : _prodInvariant('126') : void 0;
     ReactUpdates.ReactReconcileTransaction = ReconcileTransaction;
   },
 
   injectBatchingStrategy: function injectBatchingStrategy(_batchingStrategy) {
-    !_batchingStrategy ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactUpdates: must provide a batching strategy') : _prodInvariant('127') : void 0;
-    !(typeof _batchingStrategy.batchedUpdates === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactUpdates: must provide a batchedUpdates() function') : _prodInvariant('128') : void 0;
-    !(typeof _batchingStrategy.isBatchingUpdates === 'boolean') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactUpdates: must provide an isBatchingUpdates boolean attribute') : _prodInvariant('129') : void 0;
+    !_batchingStrategy ?  false ? invariant(false, 'ReactUpdates: must provide a batching strategy') : _prodInvariant('127') : void 0;
+    !(typeof _batchingStrategy.batchedUpdates === 'function') ?  false ? invariant(false, 'ReactUpdates: must provide a batchedUpdates() function') : _prodInvariant('128') : void 0;
+    !(typeof _batchingStrategy.isBatchingUpdates === 'boolean') ?  false ? invariant(false, 'ReactUpdates: must provide an isBatchingUpdates boolean attribute') : _prodInvariant('129') : void 0;
     batchingStrategy = _batchingStrategy;
   }
 };
@@ -1527,10 +1148,54 @@ var ReactUpdates = {
 };
 
 module.exports = ReactUpdates;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(dirtyComponents, 'dirtyComponents', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(updateBatchNumber, 'updateBatchNumber', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(asapCallbackQueue, 'asapCallbackQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(asapEnqueued, 'asapEnqueued', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(batchingStrategy, 'batchingStrategy', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(ensureInjected, 'ensureInjected', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(NESTED_UPDATES, 'NESTED_UPDATES', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(UPDATE_QUEUEING, 'UPDATE_QUEUEING', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(TRANSACTION_WRAPPERS, 'TRANSACTION_WRAPPERS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(ReactUpdatesFlushTransaction, 'ReactUpdatesFlushTransaction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(batchedUpdates, 'batchedUpdates', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(mountOrderComparator, 'mountOrderComparator', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(runBatchedUpdates, 'runBatchedUpdates', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(flushBatchedUpdates, 'flushBatchedUpdates', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(enqueueUpdate, 'enqueueUpdate', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(asap, 'asap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(ReactUpdatesInjection, 'ReactUpdatesInjection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+
+  __REACT_HOT_LOADER__.register(ReactUpdates, 'ReactUpdates', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdates.js');
+}();
+
+;
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1542,52 +1207,15 @@ module.exports = ReactUpdates;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
  */
 
 
 
-/**
- * Keeps track of the current owner.
- *
- * The current owner is the component who should own any components that are
- * currently being constructed.
- */
+var _assign = __webpack_require__(4);
 
-var ReactCurrentOwner = {
+var PooledClass = __webpack_require__(15);
 
-  /**
-   * @internal
-   * @type {ReactComponent}
-   */
-  current: null
-
-};
-
-module.exports = ReactCurrentOwner;
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var _assign = __webpack_require__(5);
-
-var PooledClass = __webpack_require__(18);
-
-var emptyFunction = __webpack_require__(11);
+var emptyFunction = __webpack_require__(9);
 var warning = __webpack_require__(2);
 
 var didWarnForAddedNewProperty = false;
@@ -1633,7 +1261,7 @@ var EventInterface = {
  * @param {DOMEventTarget} nativeEventTarget Target node.
  */
 function SyntheticEvent(dispatchConfig, targetInst, nativeEvent, nativeEventTarget) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     // these have a getter/setter for warnings
     delete this.nativeEvent;
     delete this.preventDefault;
@@ -1649,7 +1277,7 @@ function SyntheticEvent(dispatchConfig, targetInst, nativeEvent, nativeEventTarg
     if (!Interface.hasOwnProperty(propName)) {
       continue;
     }
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       delete this[propName]; // this has a getter/setter for warnings
     }
     var normalize = Interface[propName];
@@ -1735,7 +1363,7 @@ _assign(SyntheticEvent.prototype, {
   destructor: function destructor() {
     var Interface = this.constructor.Interface;
     for (var propName in Interface) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         Object.defineProperty(this, propName, getPooledWarningPropertyDefinition(propName, Interface[propName]));
       } else {
         this[propName] = null;
@@ -1744,7 +1372,7 @@ _assign(SyntheticEvent.prototype, {
     for (var i = 0; i < shouldBeReleasedProperties.length; i++) {
       this[shouldBeReleasedProperties[i]] = null;
     }
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       Object.defineProperty(this, 'nativeEvent', getPooledWarningPropertyDefinition('nativeEvent', null));
       Object.defineProperty(this, 'preventDefault', getPooledWarningPropertyDefinition('preventDefault', emptyFunction));
       Object.defineProperty(this, 'stopPropagation', getPooledWarningPropertyDefinition('stopPropagation', emptyFunction));
@@ -1755,7 +1383,7 @@ _assign(SyntheticEvent.prototype, {
 
 SyntheticEvent.Interface = EventInterface;
 
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   if (isProxySupported) {
     /*eslint-disable no-func-assign */
     SyntheticEvent = new Proxy(SyntheticEvent, {
@@ -1835,17 +1463,518 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
 
   function warn(action, result) {
     var warningCondition = false;
-    process.env.NODE_ENV !== 'production' ? warning(warningCondition, 'This synthetic event is reused for performance reasons. If you\'re seeing this, ' + 'you\'re %s `%s` on a released/nullified synthetic event. %s. ' + 'If you must keep the original synthetic event around, use event.persist(). ' + 'See https://fb.me/react-event-pooling for more information.', action, propName, result) : void 0;
+     false ? warning(warningCondition, 'This synthetic event is reused for performance reasons. If you\'re seeing this, ' + 'you\'re %s `%s` on a released/nullified synthetic event. %s. ' + 'If you must keep the original synthetic event around, use event.persist(). ' + 'See https://fb.me/react-event-pooling for more information.', action, propName, result) : void 0;
   }
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(didWarnForAddedNewProperty, 'didWarnForAddedNewProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticEvent.js');
+
+  __REACT_HOT_LOADER__.register(isProxySupported, 'isProxySupported', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticEvent.js');
+
+  __REACT_HOT_LOADER__.register(shouldBeReleasedProperties, 'shouldBeReleasedProperties', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticEvent.js');
+
+  __REACT_HOT_LOADER__.register(EventInterface, 'EventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticEvent, 'SyntheticEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticEvent.js');
+
+  __REACT_HOT_LOADER__.register(getPooledWarningPropertyDefinition, 'getPooledWarningPropertyDefinition', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticEvent.js');
+}();
+
+;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+/**
+ * Keeps track of the current owner.
+ *
+ * The current owner is the component who should own any components that are
+ * currently being constructed.
+ */
+
+var ReactCurrentOwner = {
+
+  /**
+   * @internal
+   * @type {ReactComponent}
+   */
+  current: null
+
+};
+
+module.exports = ReactCurrentOwner;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactCurrentOwner, 'ReactCurrentOwner', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactCurrentOwner.js');
+}();
+
+;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/*!
+  Copyright (c) 2016 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames() {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg === 'undefined' ? 'undefined' : _typeof(arg);
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				classes.push(classNames.apply(null, arg));
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = classNames;
+	} else if ("function" === 'function' && _typeof(__webpack_require__(113)) === 'object' && __webpack_require__(113)) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+			return classNames;
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		window.classNames = classNames;
+	}
+})();
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var _prodInvariant = __webpack_require__(3);
+
+var invariant = __webpack_require__(0);
+
+/**
+ * Static poolers. Several custom versions for each potential number of
+ * arguments. A completely generic pooler is easy to implement, but would
+ * require accessing the `arguments` object. In each of these, `this` refers to
+ * the Class itself, not an instance. If any others are needed, simply add them
+ * here, or in their own files.
+ */
+var oneArgumentPooler = function oneArgumentPooler(copyFieldsFrom) {
+  var Klass = this;
+  if (Klass.instancePool.length) {
+    var instance = Klass.instancePool.pop();
+    Klass.call(instance, copyFieldsFrom);
+    return instance;
+  } else {
+    return new Klass(copyFieldsFrom);
+  }
+};
+
+var twoArgumentPooler = function twoArgumentPooler(a1, a2) {
+  var Klass = this;
+  if (Klass.instancePool.length) {
+    var instance = Klass.instancePool.pop();
+    Klass.call(instance, a1, a2);
+    return instance;
+  } else {
+    return new Klass(a1, a2);
+  }
+};
+
+var threeArgumentPooler = function threeArgumentPooler(a1, a2, a3) {
+  var Klass = this;
+  if (Klass.instancePool.length) {
+    var instance = Klass.instancePool.pop();
+    Klass.call(instance, a1, a2, a3);
+    return instance;
+  } else {
+    return new Klass(a1, a2, a3);
+  }
+};
+
+var fourArgumentPooler = function fourArgumentPooler(a1, a2, a3, a4) {
+  var Klass = this;
+  if (Klass.instancePool.length) {
+    var instance = Klass.instancePool.pop();
+    Klass.call(instance, a1, a2, a3, a4);
+    return instance;
+  } else {
+    return new Klass(a1, a2, a3, a4);
+  }
+};
+
+var standardReleaser = function standardReleaser(instance) {
+  var Klass = this;
+  !(instance instanceof Klass) ?  false ? invariant(false, 'Trying to release an instance into a pool of a different type.') : _prodInvariant('25') : void 0;
+  instance.destructor();
+  if (Klass.instancePool.length < Klass.poolSize) {
+    Klass.instancePool.push(instance);
+  }
+};
+
+var DEFAULT_POOL_SIZE = 10;
+var DEFAULT_POOLER = oneArgumentPooler;
+
+/**
+ * Augments `CopyConstructor` to be a poolable class, augmenting only the class
+ * itself (statically) not adding any prototypical fields. Any CopyConstructor
+ * you give this may have a `poolSize` property, and will look for a
+ * prototypical `destructor` on instances.
+ *
+ * @param {Function} CopyConstructor Constructor that can be used to reset.
+ * @param {Function} pooler Customizable pooler.
+ */
+var addPoolingTo = function addPoolingTo(CopyConstructor, pooler) {
+  // Casting as any so that flow ignores the actual implementation and trusts
+  // it to match the type we declared
+  var NewKlass = CopyConstructor;
+  NewKlass.instancePool = [];
+  NewKlass.getPooled = pooler || DEFAULT_POOLER;
+  if (!NewKlass.poolSize) {
+    NewKlass.poolSize = DEFAULT_POOL_SIZE;
+  }
+  NewKlass.release = standardReleaser;
+  return NewKlass;
+};
+
+var PooledClass = {
+  addPoolingTo: addPoolingTo,
+  oneArgumentPooler: oneArgumentPooler,
+  twoArgumentPooler: twoArgumentPooler,
+  threeArgumentPooler: threeArgumentPooler,
+  fourArgumentPooler: fourArgumentPooler
+};
+
+module.exports = PooledClass;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(oneArgumentPooler, 'oneArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(twoArgumentPooler, 'twoArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(threeArgumentPooler, 'threeArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(fourArgumentPooler, 'fourArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(standardReleaser, 'standardReleaser', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(DEFAULT_POOL_SIZE, 'DEFAULT_POOL_SIZE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(DEFAULT_POOLER, 'DEFAULT_POOLER', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(addPoolingTo, 'addPoolingTo', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(PooledClass, 'PooledClass', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/PooledClass.js');
+}();
+
+;
 
 /***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
+ * Copyright 2014-2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warning = function warning() {};
+
+if (false) {
+  warning = function warning(condition, format, args) {
+    var len = arguments.length;
+    args = new Array(len > 2 ? len - 2 : 0);
+    for (var key = 2; key < len; key++) {
+      args[key - 2] = arguments[key];
+    }
+    if (format === undefined) {
+      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+    }
+
+    if (format.length < 10 || /^[s\W]*$/.test(format)) {
+      throw new Error('The warning format should be able to uniquely identify this ' + 'warning. Please, use a more descriptive format than: ' + format);
+    }
+
+    if (!condition) {
+      var argIndex = 0;
+      var message = 'Warning: ' + format.replace(/%s/g, function () {
+        return args[argIndex++];
+      });
+      if (typeof console !== 'undefined') {
+        console.error(message);
+      }
+      try {
+        // This error was thrown as a convenience so that you can use this stack
+        // to find the callsite that caused this warning to fire.
+        throw new Error(message);
+      } catch (x) {}
+    }
+  };
+}
+
+module.exports = warning;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(warning, 'warning', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/warning/browser.js');
+}();
+
+;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2015-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var DOMNamespaces = __webpack_require__(42);
+var setInnerHTML = __webpack_require__(36);
+
+var createMicrosoftUnsafeLocalFunction = __webpack_require__(50);
+var setTextContent = __webpack_require__(96);
+
+var ELEMENT_NODE_TYPE = 1;
+var DOCUMENT_FRAGMENT_NODE_TYPE = 11;
+
+/**
+ * In IE (8-11) and Edge, appending nodes with no children is dramatically
+ * faster than appending a full subtree, so we essentially queue up the
+ * .appendChild calls here and apply them so each node is added to its parent
+ * before any children are added.
+ *
+ * In other browsers, doing so is slower or neutral compared to the other order
+ * (in Firefox, twice as slow) so we only do this inversion in IE.
+ *
+ * See https://github.com/spicyj/innerhtml-vs-createelement-vs-clonenode.
+ */
+var enableLazy = typeof document !== 'undefined' && typeof document.documentMode === 'number' || typeof navigator !== 'undefined' && typeof navigator.userAgent === 'string' && /\bEdge\/\d/.test(navigator.userAgent);
+
+function insertTreeChildren(tree) {
+  if (!enableLazy) {
+    return;
+  }
+  var node = tree.node;
+  var children = tree.children;
+  if (children.length) {
+    for (var i = 0; i < children.length; i++) {
+      insertTreeBefore(node, children[i], null);
+    }
+  } else if (tree.html != null) {
+    setInnerHTML(node, tree.html);
+  } else if (tree.text != null) {
+    setTextContent(node, tree.text);
+  }
+}
+
+var insertTreeBefore = createMicrosoftUnsafeLocalFunction(function (parentNode, tree, referenceNode) {
+  // DocumentFragments aren't actually part of the DOM after insertion so
+  // appending children won't update the DOM. We need to ensure the fragment
+  // is properly populated first, breaking out of our lazy approach for just
+  // this level. Also, some <object> plugins (like Flash Player) will read
+  // <param> nodes immediately upon insertion into the DOM, so <object>
+  // must also be populated prior to insertion into the DOM.
+  if (tree.node.nodeType === DOCUMENT_FRAGMENT_NODE_TYPE || tree.node.nodeType === ELEMENT_NODE_TYPE && tree.node.nodeName.toLowerCase() === 'object' && (tree.node.namespaceURI == null || tree.node.namespaceURI === DOMNamespaces.html)) {
+    insertTreeChildren(tree);
+    parentNode.insertBefore(tree.node, referenceNode);
+  } else {
+    parentNode.insertBefore(tree.node, referenceNode);
+    insertTreeChildren(tree);
+  }
+});
+
+function replaceChildWithTree(oldNode, newTree) {
+  oldNode.parentNode.replaceChild(newTree.node, oldNode);
+  insertTreeChildren(newTree);
+}
+
+function queueChild(parentTree, childTree) {
+  if (enableLazy) {
+    parentTree.children.push(childTree);
+  } else {
+    parentTree.node.appendChild(childTree.node);
+  }
+}
+
+function queueHTML(tree, html) {
+  if (enableLazy) {
+    tree.html = html;
+  } else {
+    setInnerHTML(tree.node, html);
+  }
+}
+
+function queueText(tree, text) {
+  if (enableLazy) {
+    tree.text = text;
+  } else {
+    setTextContent(tree.node, text);
+  }
+}
+
+function toString() {
+  return this.node.nodeName;
+}
+
+function DOMLazyTree(node) {
+  return {
+    node: node,
+    children: [],
+    html: null,
+    text: null,
+    toString: toString
+  };
+}
+
+DOMLazyTree.insertTreeBefore = insertTreeBefore;
+DOMLazyTree.replaceChildWithTree = replaceChildWithTree;
+DOMLazyTree.queueChild = queueChild;
+DOMLazyTree.queueHTML = queueHTML;
+DOMLazyTree.queueText = queueText;
+
+module.exports = DOMLazyTree;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ELEMENT_NODE_TYPE, 'ELEMENT_NODE_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(DOCUMENT_FRAGMENT_NODE_TYPE, 'DOCUMENT_FRAGMENT_NODE_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(enableLazy, 'enableLazy', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(insertTreeChildren, 'insertTreeChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(insertTreeBefore, 'insertTreeBefore', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(replaceChildWithTree, 'replaceChildWithTree', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(queueChild, 'queueChild', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(queueHTML, 'queueHTML', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(queueText, 'queueText', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(toString, 'toString', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+
+  __REACT_HOT_LOADER__.register(DOMLazyTree, 'DOMLazyTree', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMLazyTree.js');
+}();
+
+;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -1857,9 +1986,9 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 function checkMask(value, bitmask) {
   return (value & bitmask) === bitmask;
@@ -1917,7 +2046,7 @@ var DOMPropertyInjection = {
     }
 
     for (var propName in Properties) {
-      !!DOMProperty.properties.hasOwnProperty(propName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property config twice, or you may be injecting two configs that have conflicting property names.', propName) : _prodInvariant('48', propName) : void 0;
+      !!DOMProperty.properties.hasOwnProperty(propName) ?  false ? invariant(false, 'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property config twice, or you may be injecting two configs that have conflicting property names.', propName) : _prodInvariant('48', propName) : void 0;
 
       var lowerCased = propName.toLowerCase();
       var propConfig = Properties[propName];
@@ -1934,16 +2063,16 @@ var DOMPropertyInjection = {
         hasPositiveNumericValue: checkMask(propConfig, Injection.HAS_POSITIVE_NUMERIC_VALUE),
         hasOverloadedBooleanValue: checkMask(propConfig, Injection.HAS_OVERLOADED_BOOLEAN_VALUE)
       };
-      !(propertyInfo.hasBooleanValue + propertyInfo.hasNumericValue + propertyInfo.hasOverloadedBooleanValue <= 1) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'DOMProperty: Value can be one of boolean, overloaded boolean, or numeric value, but not a combination: %s', propName) : _prodInvariant('50', propName) : void 0;
+      !(propertyInfo.hasBooleanValue + propertyInfo.hasNumericValue + propertyInfo.hasOverloadedBooleanValue <= 1) ?  false ? invariant(false, 'DOMProperty: Value can be one of boolean, overloaded boolean, or numeric value, but not a combination: %s', propName) : _prodInvariant('50', propName) : void 0;
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         DOMProperty.getPossibleStandardName[lowerCased] = propName;
       }
 
       if (DOMAttributeNames.hasOwnProperty(propName)) {
         var attributeName = DOMAttributeNames[propName];
         propertyInfo.attributeName = attributeName;
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           DOMProperty.getPossibleStandardName[attributeName] = propName;
         }
       }
@@ -2029,7 +2158,7 @@ var DOMProperty = {
    *
    * @type {Object}
    */
-  getPossibleStandardName: process.env.NODE_ENV !== 'production' ? { autofocus: 'autoFocus' } : null,
+  getPossibleStandardName:  false ? { autofocus: 'autoFocus' } : null,
 
   /**
    * All of the isCustomAttribute() functions that have been injected.
@@ -2054,70 +2183,30 @@ var DOMProperty = {
 };
 
 module.exports = DOMProperty;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(checkMask, 'checkMask', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMProperty.js');
+
+  __REACT_HOT_LOADER__.register(DOMPropertyInjection, 'DOMPropertyInjection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMProperty.js');
+
+  __REACT_HOT_LOADER__.register(ATTRIBUTE_NAME_START_CHAR, 'ATTRIBUTE_NAME_START_CHAR', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMProperty.js');
+
+  __REACT_HOT_LOADER__.register(DOMProperty, 'DOMProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMProperty.js');
+}();
+
+;
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-/*!
-  Copyright (c) 2016 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames() {
-		var classes = [];
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg === 'undefined' ? 'undefined' : _typeof(arg);
-
-			if (argType === 'string' || argType === 'number') {
-				classes.push(arg);
-			} else if (Array.isArray(arg)) {
-				classes.push(classNames.apply(null, arg));
-			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
-
-		return classes.join(' ');
-	}
-
-	if (typeof module !== 'undefined' && module.exports) {
-		module.exports = classNames;
-	} else if ("function" === 'function' && _typeof(__webpack_require__(118)) === 'object' && __webpack_require__(118)) {
-		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-			return classNames;
-		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {
-		window.classNames = classNames;
-	}
-})();
-
-/***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -2125,117 +2214,317 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = ty
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
  */
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var ReactRef = __webpack_require__(179);
+var ReactInstrumentation = __webpack_require__(10);
 
-var invariant = __webpack_require__(1);
+var warning = __webpack_require__(2);
 
 /**
- * Static poolers. Several custom versions for each potential number of
- * arguments. A completely generic pooler is easy to implement, but would
- * require accessing the `arguments` object. In each of these, `this` refers to
- * the Class itself, not an instance. If any others are needed, simply add them
- * here, or in their own files.
+ * Helper to call ReactRef.attachRefs with this composite component, split out
+ * to avoid allocations in the transaction mount-ready queue.
  */
-var oneArgumentPooler = function oneArgumentPooler(copyFieldsFrom) {
-  var Klass = this;
-  if (Klass.instancePool.length) {
-    var instance = Klass.instancePool.pop();
-    Klass.call(instance, copyFieldsFrom);
-    return instance;
-  } else {
-    return new Klass(copyFieldsFrom);
+function attachRefs() {
+  ReactRef.attachRefs(this, this._currentElement);
+}
+
+var ReactReconciler = {
+
+  /**
+   * Initializes the component, renders markup, and registers event listeners.
+   *
+   * @param {ReactComponent} internalInstance
+   * @param {ReactReconcileTransaction|ReactServerRenderingTransaction} transaction
+   * @param {?object} the containing host component instance
+   * @param {?object} info about the host container
+   * @return {?string} Rendered markup to be inserted into the DOM.
+   * @final
+   * @internal
+   */
+  mountComponent: function mountComponent(internalInstance, transaction, hostParent, hostContainerInfo, context, parentDebugID // 0 in production and for roots
+  ) {
+    if (false) {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onBeforeMountComponent(internalInstance._debugID, internalInstance._currentElement, parentDebugID);
+      }
+    }
+    var markup = internalInstance.mountComponent(transaction, hostParent, hostContainerInfo, context, parentDebugID);
+    if (internalInstance._currentElement && internalInstance._currentElement.ref != null) {
+      transaction.getReactMountReady().enqueue(attachRefs, internalInstance);
+    }
+    if (false) {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onMountComponent(internalInstance._debugID);
+      }
+    }
+    return markup;
+  },
+
+  /**
+   * Returns a value that can be passed to
+   * ReactComponentEnvironment.replaceNodeWithMarkup.
+   */
+  getHostNode: function getHostNode(internalInstance) {
+    return internalInstance.getHostNode();
+  },
+
+  /**
+   * Releases any resources allocated by `mountComponent`.
+   *
+   * @final
+   * @internal
+   */
+  unmountComponent: function unmountComponent(internalInstance, safely) {
+    if (false) {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onBeforeUnmountComponent(internalInstance._debugID);
+      }
+    }
+    ReactRef.detachRefs(internalInstance, internalInstance._currentElement);
+    internalInstance.unmountComponent(safely);
+    if (false) {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onUnmountComponent(internalInstance._debugID);
+      }
+    }
+  },
+
+  /**
+   * Update a component using a new element.
+   *
+   * @param {ReactComponent} internalInstance
+   * @param {ReactElement} nextElement
+   * @param {ReactReconcileTransaction} transaction
+   * @param {object} context
+   * @internal
+   */
+  receiveComponent: function receiveComponent(internalInstance, nextElement, transaction, context) {
+    var prevElement = internalInstance._currentElement;
+
+    if (nextElement === prevElement && context === internalInstance._context) {
+      // Since elements are immutable after the owner is rendered,
+      // we can do a cheap identity compare here to determine if this is a
+      // superfluous reconcile. It's possible for state to be mutable but such
+      // change should trigger an update of the owner which would recreate
+      // the element. We explicitly check for the existence of an owner since
+      // it's possible for an element created outside a composite to be
+      // deeply mutated and reused.
+
+      // TODO: Bailing out early is just a perf optimization right?
+      // TODO: Removing the return statement should affect correctness?
+      return;
+    }
+
+    if (false) {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onBeforeUpdateComponent(internalInstance._debugID, nextElement);
+      }
+    }
+
+    var refsChanged = ReactRef.shouldUpdateRefs(prevElement, nextElement);
+
+    if (refsChanged) {
+      ReactRef.detachRefs(internalInstance, prevElement);
+    }
+
+    internalInstance.receiveComponent(nextElement, transaction, context);
+
+    if (refsChanged && internalInstance._currentElement && internalInstance._currentElement.ref != null) {
+      transaction.getReactMountReady().enqueue(attachRefs, internalInstance);
+    }
+
+    if (false) {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onUpdateComponent(internalInstance._debugID);
+      }
+    }
+  },
+
+  /**
+   * Flush any dirty changes in a component.
+   *
+   * @param {ReactComponent} internalInstance
+   * @param {ReactReconcileTransaction} transaction
+   * @internal
+   */
+  performUpdateIfNecessary: function performUpdateIfNecessary(internalInstance, transaction, updateBatchNumber) {
+    if (internalInstance._updateBatchNumber !== updateBatchNumber) {
+      // The component's enqueued batch number should always be the current
+      // batch or the following one.
+       false ? warning(internalInstance._updateBatchNumber == null || internalInstance._updateBatchNumber === updateBatchNumber + 1, 'performUpdateIfNecessary: Unexpected batch number (current %s, ' + 'pending %s)', updateBatchNumber, internalInstance._updateBatchNumber) : void 0;
+      return;
+    }
+    if (false) {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onBeforeUpdateComponent(internalInstance._debugID, internalInstance._currentElement);
+      }
+    }
+    internalInstance.performUpdateIfNecessary(transaction);
+    if (false) {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onUpdateComponent(internalInstance._debugID);
+      }
+    }
   }
+
 };
 
-var twoArgumentPooler = function twoArgumentPooler(a1, a2) {
-  var Klass = this;
-  if (Klass.instancePool.length) {
-    var instance = Klass.instancePool.pop();
-    Klass.call(instance, a1, a2);
-    return instance;
-  } else {
-    return new Klass(a1, a2);
+module.exports = ReactReconciler;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
   }
-};
 
-var threeArgumentPooler = function threeArgumentPooler(a1, a2, a3) {
-  var Klass = this;
-  if (Klass.instancePool.length) {
-    var instance = Klass.instancePool.pop();
-    Klass.call(instance, a1, a2, a3);
-    return instance;
-  } else {
-    return new Klass(a1, a2, a3);
-  }
-};
+  __REACT_HOT_LOADER__.register(attachRefs, 'attachRefs', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactReconciler.js');
 
-var fourArgumentPooler = function fourArgumentPooler(a1, a2, a3, a4) {
-  var Klass = this;
-  if (Klass.instancePool.length) {
-    var instance = Klass.instancePool.pop();
-    Klass.call(instance, a1, a2, a3, a4);
-    return instance;
-  } else {
-    return new Klass(a1, a2, a3, a4);
-  }
-};
+  __REACT_HOT_LOADER__.register(ReactReconciler, 'ReactReconciler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactReconciler.js');
+}();
 
-var standardReleaser = function standardReleaser(instance) {
-  var Klass = this;
-  !(instance instanceof Klass) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Trying to release an instance into a pool of a different type.') : _prodInvariant('25') : void 0;
-  instance.destructor();
-  if (Klass.instancePool.length < Klass.poolSize) {
-    Klass.instancePool.push(instance);
-  }
-};
-
-var DEFAULT_POOL_SIZE = 10;
-var DEFAULT_POOLER = oneArgumentPooler;
-
-/**
- * Augments `CopyConstructor` to be a poolable class, augmenting only the class
- * itself (statically) not adding any prototypical fields. Any CopyConstructor
- * you give this may have a `poolSize` property, and will look for a
- * prototypical `destructor` on instances.
- *
- * @param {Function} CopyConstructor Constructor that can be used to reset.
- * @param {Function} pooler Customizable pooler.
- */
-var addPoolingTo = function addPoolingTo(CopyConstructor, pooler) {
-  // Casting as any so that flow ignores the actual implementation and trusts
-  // it to match the type we declared
-  var NewKlass = CopyConstructor;
-  NewKlass.instancePool = [];
-  NewKlass.getPooled = pooler || DEFAULT_POOLER;
-  if (!NewKlass.poolSize) {
-    NewKlass.poolSize = DEFAULT_POOL_SIZE;
-  }
-  NewKlass.release = standardReleaser;
-  return NewKlass;
-};
-
-var PooledClass = {
-  addPoolingTo: addPoolingTo,
-  oneArgumentPooler: oneArgumentPooler,
-  twoArgumentPooler: twoArgumentPooler,
-  threeArgumentPooler: threeArgumentPooler,
-  fourArgumentPooler: fourArgumentPooler
-};
-
-module.exports = PooledClass;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var _assign = __webpack_require__(4);
+
+var ReactChildren = __webpack_require__(242);
+var ReactComponent = __webpack_require__(62);
+var ReactPureComponent = __webpack_require__(247);
+var ReactClass = __webpack_require__(243);
+var ReactDOMFactories = __webpack_require__(244);
+var ReactElement = __webpack_require__(21);
+var ReactPropTypes = __webpack_require__(246);
+var ReactVersion = __webpack_require__(248);
+
+var onlyChild = __webpack_require__(251);
+var warning = __webpack_require__(2);
+
+var createElement = ReactElement.createElement;
+var createFactory = ReactElement.createFactory;
+var cloneElement = ReactElement.cloneElement;
+
+if (false) {
+  var canDefineProperty = require('./canDefineProperty');
+  var ReactElementValidator = require('./ReactElementValidator');
+  var didWarnPropTypesDeprecated = false;
+  createElement = ReactElementValidator.createElement;
+  createFactory = ReactElementValidator.createFactory;
+  cloneElement = ReactElementValidator.cloneElement;
+}
+
+var __spread = _assign;
+
+if (false) {
+  var warned = false;
+  __spread = function __spread() {
+    process.env.NODE_ENV !== 'production' ? warning(warned, 'React.__spread is deprecated and should not be used. Use ' + 'Object.assign directly or another helper function with similar ' + 'semantics. You may be seeing this warning due to your compiler. ' + 'See https://fb.me/react-spread-deprecation for more details.') : void 0;
+    warned = true;
+    return _assign.apply(null, arguments);
+  };
+}
+
+var React = {
+
+  // Modern
+
+  Children: {
+    map: ReactChildren.map,
+    forEach: ReactChildren.forEach,
+    count: ReactChildren.count,
+    toArray: ReactChildren.toArray,
+    only: onlyChild
+  },
+
+  Component: ReactComponent,
+  PureComponent: ReactPureComponent,
+
+  createElement: createElement,
+  cloneElement: cloneElement,
+  isValidElement: ReactElement.isValidElement,
+
+  // Classic
+
+  PropTypes: ReactPropTypes,
+  createClass: ReactClass.createClass,
+  createFactory: createFactory,
+  createMixin: function createMixin(mixin) {
+    // Currently a noop. Will be used to validate and trace mixins.
+    return mixin;
+  },
+
+  // This looks DOM specific but these are actually isomorphic helpers
+  // since they are just generating DOM strings.
+  DOM: ReactDOMFactories,
+
+  version: ReactVersion,
+
+  // Deprecated hook for JSX spread, don't use this for anything.
+  __spread: __spread
+};
+
+// TODO: Fix tests so that this deprecation warning doesn't cause failures.
+if (false) {
+  if (canDefineProperty) {
+    Object.defineProperty(React, 'PropTypes', {
+      get: function get() {
+        process.env.NODE_ENV !== 'production' ? warning(didWarnPropTypesDeprecated, 'Accessing PropTypes via the main React package is deprecated. Use ' + 'the prop-types package from npm instead.') : void 0;
+        didWarnPropTypesDeprecated = true;
+        return ReactPropTypes;
+      }
+    });
+  }
+}
+
+module.exports = React;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(createElement, 'createElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/React.js');
+
+  __REACT_HOT_LOADER__.register(createFactory, 'createFactory', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/React.js');
+
+  __REACT_HOT_LOADER__.register(cloneElement, 'cloneElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/React.js');
+
+  __REACT_HOT_LOADER__.register(didWarnPropTypesDeprecated, 'didWarnPropTypesDeprecated', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/React.js');
+
+  __REACT_HOT_LOADER__.register(__spread, '__spread', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/React.js');
+
+  __REACT_HOT_LOADER__.register(warned, 'warned', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/React.js');
+
+  __REACT_HOT_LOADER__.register(React, 'React', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/React.js');
+}();
+
+;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
  * Copyright 2014-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -2249,15 +2538,15 @@ module.exports = PooledClass;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var ReactCurrentOwner = __webpack_require__(14);
+var ReactCurrentOwner = __webpack_require__(13);
 
 var warning = __webpack_require__(2);
-var canDefineProperty = __webpack_require__(40);
+var canDefineProperty = __webpack_require__(108);
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
-var REACT_ELEMENT_TYPE = __webpack_require__(110);
+var REACT_ELEMENT_TYPE = __webpack_require__(107);
 
 var RESERVED_PROPS = {
   key: true,
@@ -2269,7 +2558,7 @@ var RESERVED_PROPS = {
 var specialPropKeyWarningShown, specialPropRefWarningShown;
 
 function hasValidRef(config) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     if (hasOwnProperty.call(config, 'ref')) {
       var getter = Object.getOwnPropertyDescriptor(config, 'ref').get;
       if (getter && getter.isReactWarning) {
@@ -2281,7 +2570,7 @@ function hasValidRef(config) {
 }
 
 function hasValidKey(config) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     if (hasOwnProperty.call(config, 'key')) {
       var getter = Object.getOwnPropertyDescriptor(config, 'key').get;
       if (getter && getter.isReactWarning) {
@@ -2296,7 +2585,7 @@ function defineKeyPropWarningGetter(props, displayName) {
   var warnAboutAccessingKey = function warnAboutAccessingKey() {
     if (!specialPropKeyWarningShown) {
       specialPropKeyWarningShown = true;
-      process.env.NODE_ENV !== 'production' ? warning(false, '%s: `key` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName) : void 0;
+       false ? warning(false, '%s: `key` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName) : void 0;
     }
   };
   warnAboutAccessingKey.isReactWarning = true;
@@ -2310,7 +2599,7 @@ function defineRefPropWarningGetter(props, displayName) {
   var warnAboutAccessingRef = function warnAboutAccessingRef() {
     if (!specialPropRefWarningShown) {
       specialPropRefWarningShown = true;
-      process.env.NODE_ENV !== 'production' ? warning(false, '%s: `ref` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName) : void 0;
+       false ? warning(false, '%s: `ref` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName) : void 0;
     }
   };
   warnAboutAccessingRef.isReactWarning = true;
@@ -2355,7 +2644,7 @@ var ReactElement = function ReactElement(type, key, ref, self, source, owner, pr
     _owner: owner
   };
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     // The validation flag is currently mutative. We put it on
     // an external backing store so that we can freeze the whole object.
     // This can be replaced with a WeakMap once they are implemented in
@@ -2445,7 +2734,7 @@ ReactElement.createElement = function (type, config, children) {
     for (var i = 0; i < childrenLength; i++) {
       childArray[i] = arguments[i + 2];
     }
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       if (Object.freeze) {
         Object.freeze(childArray);
       }
@@ -2462,7 +2751,7 @@ ReactElement.createElement = function (type, config, children) {
       }
     }
   }
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     if (key || ref) {
       if (typeof props.$$typeof === 'undefined' || props.$$typeof !== REACT_ELEMENT_TYPE) {
         var displayName = typeof type === 'function' ? type.displayName || type.name || 'Unknown' : type;
@@ -2577,10 +2866,36 @@ ReactElement.isValidElement = function (object) {
 };
 
 module.exports = ReactElement;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(hasOwnProperty, 'hasOwnProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElement.js');
+
+  __REACT_HOT_LOADER__.register(RESERVED_PROPS, 'RESERVED_PROPS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElement.js');
+
+  __REACT_HOT_LOADER__.register(specialPropKeyWarningShown, 'specialPropKeyWarningShown', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElement.js');
+
+  __REACT_HOT_LOADER__.register(specialPropRefWarningShown, 'specialPropRefWarningShown', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElement.js');
+
+  __REACT_HOT_LOADER__.register(hasValidRef, 'hasValidRef', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElement.js');
+
+  __REACT_HOT_LOADER__.register(hasValidKey, 'hasValidKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElement.js');
+
+  __REACT_HOT_LOADER__.register(defineKeyPropWarningGetter, 'defineKeyPropWarningGetter', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElement.js');
+
+  __REACT_HOT_LOADER__.register(defineRefPropWarningGetter, 'defineRefPropWarningGetter', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElement.js');
+
+  __REACT_HOT_LOADER__.register(ReactElement, 'ReactElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElement.js');
+}();
+
+;
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2622,487 +2937,31 @@ function reactProdInvariant(code) {
 }
 
 module.exports = reactProdInvariant;
+;
 
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = function warning() {};
-
-if (process.env.NODE_ENV !== 'production') {
-  warning = function warning(condition, format, args) {
-    var len = arguments.length;
-    args = new Array(len > 2 ? len - 2 : 0);
-    for (var key = 2; key < len; key++) {
-      args[key - 2] = arguments[key];
-    }
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.length < 10 || /^[s\W]*$/.test(format)) {
-      throw new Error('The warning format should be able to uniquely identify this ' + 'warning. Please, use a more descriptive format than: ' + format);
-    }
-
-    if (!condition) {
-      var argIndex = 0;
-      var message = 'Warning: ' + format.replace(/%s/g, function () {
-        return args[argIndex++];
-      });
-      if (typeof console !== 'undefined') {
-        console.error(message);
-      }
-      try {
-        // This error was thrown as a convenience so that you can use this stack
-        // to find the callsite that caused this warning to fire.
-        throw new Error(message);
-      } catch (x) {}
-    }
-  };
-}
-
-module.exports = warning;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2015-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var DOMNamespaces = __webpack_require__(47);
-var setInnerHTML = __webpack_require__(39);
-
-var createMicrosoftUnsafeLocalFunction = __webpack_require__(54);
-var setTextContent = __webpack_require__(100);
-
-var ELEMENT_NODE_TYPE = 1;
-var DOCUMENT_FRAGMENT_NODE_TYPE = 11;
-
-/**
- * In IE (8-11) and Edge, appending nodes with no children is dramatically
- * faster than appending a full subtree, so we essentially queue up the
- * .appendChild calls here and apply them so each node is added to its parent
- * before any children are added.
- *
- * In other browsers, doing so is slower or neutral compared to the other order
- * (in Firefox, twice as slow) so we only do this inversion in IE.
- *
- * See https://github.com/spicyj/innerhtml-vs-createelement-vs-clonenode.
- */
-var enableLazy = typeof document !== 'undefined' && typeof document.documentMode === 'number' || typeof navigator !== 'undefined' && typeof navigator.userAgent === 'string' && /\bEdge\/\d/.test(navigator.userAgent);
-
-function insertTreeChildren(tree) {
-  if (!enableLazy) {
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
     return;
   }
-  var node = tree.node;
-  var children = tree.children;
-  if (children.length) {
-    for (var i = 0; i < children.length; i++) {
-      insertTreeBefore(node, children[i], null);
-    }
-  } else if (tree.html != null) {
-    setInnerHTML(node, tree.html);
-  } else if (tree.text != null) {
-    setTextContent(node, tree.text);
-  }
-}
 
-var insertTreeBefore = createMicrosoftUnsafeLocalFunction(function (parentNode, tree, referenceNode) {
-  // DocumentFragments aren't actually part of the DOM after insertion so
-  // appending children won't update the DOM. We need to ensure the fragment
-  // is properly populated first, breaking out of our lazy approach for just
-  // this level. Also, some <object> plugins (like Flash Player) will read
-  // <param> nodes immediately upon insertion into the DOM, so <object>
-  // must also be populated prior to insertion into the DOM.
-  if (tree.node.nodeType === DOCUMENT_FRAGMENT_NODE_TYPE || tree.node.nodeType === ELEMENT_NODE_TYPE && tree.node.nodeName.toLowerCase() === 'object' && (tree.node.namespaceURI == null || tree.node.namespaceURI === DOMNamespaces.html)) {
-    insertTreeChildren(tree);
-    parentNode.insertBefore(tree.node, referenceNode);
-  } else {
-    parentNode.insertBefore(tree.node, referenceNode);
-    insertTreeChildren(tree);
-  }
-});
+  __REACT_HOT_LOADER__.register(reactProdInvariant, 'reactProdInvariant', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/reactProdInvariant.js');
+}();
 
-function replaceChildWithTree(oldNode, newTree) {
-  oldNode.parentNode.replaceChild(newTree.node, oldNode);
-  insertTreeChildren(newTree);
-}
-
-function queueChild(parentTree, childTree) {
-  if (enableLazy) {
-    parentTree.children.push(childTree);
-  } else {
-    parentTree.node.appendChild(childTree.node);
-  }
-}
-
-function queueHTML(tree, html) {
-  if (enableLazy) {
-    tree.html = html;
-  } else {
-    setInnerHTML(tree.node, html);
-  }
-}
-
-function queueText(tree, text) {
-  if (enableLazy) {
-    tree.text = text;
-  } else {
-    setTextContent(tree.node, text);
-  }
-}
-
-function toString() {
-  return this.node.nodeName;
-}
-
-function DOMLazyTree(node) {
-  return {
-    node: node,
-    children: [],
-    html: null,
-    text: null,
-    toString: toString
-  };
-}
-
-DOMLazyTree.insertTreeBefore = insertTreeBefore;
-DOMLazyTree.replaceChildWithTree = replaceChildWithTree;
-DOMLazyTree.queueChild = queueChild;
-DOMLazyTree.queueHTML = queueHTML;
-DOMLazyTree.queueText = queueText;
-
-module.exports = DOMLazyTree;
+;
 
 /***/ }),
 /* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var ReactRef = __webpack_require__(191);
-var ReactInstrumentation = __webpack_require__(12);
-
-var warning = __webpack_require__(2);
-
-/**
- * Helper to call ReactRef.attachRefs with this composite component, split out
- * to avoid allocations in the transaction mount-ready queue.
- */
-function attachRefs() {
-  ReactRef.attachRefs(this, this._currentElement);
-}
-
-var ReactReconciler = {
-
-  /**
-   * Initializes the component, renders markup, and registers event listeners.
-   *
-   * @param {ReactComponent} internalInstance
-   * @param {ReactReconcileTransaction|ReactServerRenderingTransaction} transaction
-   * @param {?object} the containing host component instance
-   * @param {?object} info about the host container
-   * @return {?string} Rendered markup to be inserted into the DOM.
-   * @final
-   * @internal
-   */
-  mountComponent: function mountComponent(internalInstance, transaction, hostParent, hostContainerInfo, context, parentDebugID // 0 in production and for roots
-  ) {
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onBeforeMountComponent(internalInstance._debugID, internalInstance._currentElement, parentDebugID);
-      }
-    }
-    var markup = internalInstance.mountComponent(transaction, hostParent, hostContainerInfo, context, parentDebugID);
-    if (internalInstance._currentElement && internalInstance._currentElement.ref != null) {
-      transaction.getReactMountReady().enqueue(attachRefs, internalInstance);
-    }
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onMountComponent(internalInstance._debugID);
-      }
-    }
-    return markup;
-  },
-
-  /**
-   * Returns a value that can be passed to
-   * ReactComponentEnvironment.replaceNodeWithMarkup.
-   */
-  getHostNode: function getHostNode(internalInstance) {
-    return internalInstance.getHostNode();
-  },
-
-  /**
-   * Releases any resources allocated by `mountComponent`.
-   *
-   * @final
-   * @internal
-   */
-  unmountComponent: function unmountComponent(internalInstance, safely) {
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onBeforeUnmountComponent(internalInstance._debugID);
-      }
-    }
-    ReactRef.detachRefs(internalInstance, internalInstance._currentElement);
-    internalInstance.unmountComponent(safely);
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onUnmountComponent(internalInstance._debugID);
-      }
-    }
-  },
-
-  /**
-   * Update a component using a new element.
-   *
-   * @param {ReactComponent} internalInstance
-   * @param {ReactElement} nextElement
-   * @param {ReactReconcileTransaction} transaction
-   * @param {object} context
-   * @internal
-   */
-  receiveComponent: function receiveComponent(internalInstance, nextElement, transaction, context) {
-    var prevElement = internalInstance._currentElement;
-
-    if (nextElement === prevElement && context === internalInstance._context) {
-      // Since elements are immutable after the owner is rendered,
-      // we can do a cheap identity compare here to determine if this is a
-      // superfluous reconcile. It's possible for state to be mutable but such
-      // change should trigger an update of the owner which would recreate
-      // the element. We explicitly check for the existence of an owner since
-      // it's possible for an element created outside a composite to be
-      // deeply mutated and reused.
-
-      // TODO: Bailing out early is just a perf optimization right?
-      // TODO: Removing the return statement should affect correctness?
-      return;
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onBeforeUpdateComponent(internalInstance._debugID, nextElement);
-      }
-    }
-
-    var refsChanged = ReactRef.shouldUpdateRefs(prevElement, nextElement);
-
-    if (refsChanged) {
-      ReactRef.detachRefs(internalInstance, prevElement);
-    }
-
-    internalInstance.receiveComponent(nextElement, transaction, context);
-
-    if (refsChanged && internalInstance._currentElement && internalInstance._currentElement.ref != null) {
-      transaction.getReactMountReady().enqueue(attachRefs, internalInstance);
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onUpdateComponent(internalInstance._debugID);
-      }
-    }
-  },
-
-  /**
-   * Flush any dirty changes in a component.
-   *
-   * @param {ReactComponent} internalInstance
-   * @param {ReactReconcileTransaction} transaction
-   * @internal
-   */
-  performUpdateIfNecessary: function performUpdateIfNecessary(internalInstance, transaction, updateBatchNumber) {
-    if (internalInstance._updateBatchNumber !== updateBatchNumber) {
-      // The component's enqueued batch number should always be the current
-      // batch or the following one.
-      process.env.NODE_ENV !== 'production' ? warning(internalInstance._updateBatchNumber == null || internalInstance._updateBatchNumber === updateBatchNumber + 1, 'performUpdateIfNecessary: Unexpected batch number (current %s, ' + 'pending %s)', updateBatchNumber, internalInstance._updateBatchNumber) : void 0;
-      return;
-    }
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onBeforeUpdateComponent(internalInstance._debugID, internalInstance._currentElement);
-      }
-    }
-    internalInstance.performUpdateIfNecessary(transaction);
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onUpdateComponent(internalInstance._debugID);
-      }
-    }
-  }
-
-};
-
-module.exports = ReactReconciler;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var _assign = __webpack_require__(5);
-
-var ReactChildren = __webpack_require__(255);
-var ReactComponent = __webpack_require__(66);
-var ReactPureComponent = __webpack_require__(260);
-var ReactClass = __webpack_require__(256);
-var ReactDOMFactories = __webpack_require__(257);
-var ReactElement = __webpack_require__(19);
-var ReactPropTypes = __webpack_require__(258);
-var ReactVersion = __webpack_require__(261);
-
-var onlyChild = __webpack_require__(264);
-var warning = __webpack_require__(2);
-
-var createElement = ReactElement.createElement;
-var createFactory = ReactElement.createFactory;
-var cloneElement = ReactElement.cloneElement;
-
-if (process.env.NODE_ENV !== 'production') {
-  var canDefineProperty = __webpack_require__(40);
-  var ReactElementValidator = __webpack_require__(111);
-  var didWarnPropTypesDeprecated = false;
-  createElement = ReactElementValidator.createElement;
-  createFactory = ReactElementValidator.createFactory;
-  cloneElement = ReactElementValidator.cloneElement;
-}
-
-var __spread = _assign;
-
-if (process.env.NODE_ENV !== 'production') {
-  var warned = false;
-  __spread = function __spread() {
-    process.env.NODE_ENV !== 'production' ? warning(warned, 'React.__spread is deprecated and should not be used. Use ' + 'Object.assign directly or another helper function with similar ' + 'semantics. You may be seeing this warning due to your compiler. ' + 'See https://fb.me/react-spread-deprecation for more details.') : void 0;
-    warned = true;
-    return _assign.apply(null, arguments);
-  };
-}
-
-var React = {
-
-  // Modern
-
-  Children: {
-    map: ReactChildren.map,
-    forEach: ReactChildren.forEach,
-    count: ReactChildren.count,
-    toArray: ReactChildren.toArray,
-    only: onlyChild
-  },
-
-  Component: ReactComponent,
-  PureComponent: ReactPureComponent,
-
-  createElement: createElement,
-  cloneElement: cloneElement,
-  isValidElement: ReactElement.isValidElement,
-
-  // Classic
-
-  PropTypes: ReactPropTypes,
-  createClass: ReactClass.createClass,
-  createFactory: createFactory,
-  createMixin: function createMixin(mixin) {
-    // Currently a noop. Will be used to validate and trace mixins.
-    return mixin;
-  },
-
-  // This looks DOM specific but these are actually isomorphic helpers
-  // since they are just generating DOM strings.
-  DOM: ReactDOMFactories,
-
-  version: ReactVersion,
-
-  // Deprecated hook for JSX spread, don't use this for anything.
-  __spread: __spread
-};
-
-// TODO: Fix tests so that this deprecation warning doesn't cause failures.
-if (process.env.NODE_ENV !== 'production') {
-  if (canDefineProperty) {
-    Object.defineProperty(React, 'PropTypes', {
-      get: function get() {
-        process.env.NODE_ENV !== 'production' ? warning(didWarnPropTypesDeprecated, 'Accessing PropTypes via the main React package is deprecated. Use ' + 'the prop-types package from npm instead.') : void 0;
-        didWarnPropTypesDeprecated = true;
-        return ReactPropTypes;
-      }
-    });
-  }
-}
-
-module.exports = React;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 25 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"iconfont":"TOm1xHLNwjrvDsJIp5QbK","icon_shezhi":"_21A23LaI5nUnmYmjtxmZVJ","icon_houdongfangiconfont10":"_2RaC0wLFsF1mJ4JAPpqBNy","icon_xiazai":"_3jfmFoYhmue64sys0K87qW","icon_bendiyinle":"_2S2JGPLA6gn7dS-0BdkbtV","icon_bofangliebiao":"_3s3ukXJVG9N5UO4pPIkD-T","icon_shezhi1":"_1E0zimj2OYFAdxvjCccaAk","icon_hert":"_2gRuukD3EQsDdC7n7iiHna","icon_zuixiaohua":"_1KJ4E3ZRAawnnKBzk3NWwb","icon_yuleyinlediantai":"_1qkn5RBV65Y9Htzqlt3qfC","icon_fenxiang":"_3XqmNMwASiw_S5PNhLl6CV","icon_liebiao":"u-OAByDvyuxbxoE6wFTgF","icon_yinliang1":"_1aG4uE-QhFIYxwr6nachNZ","icon_bofang":"_2AvSEyd5jY0W01rvNt_COe","icon_houtui":"_3oNT7yKbi6wbrrU3164EdL","icon_qianjin":"_2f58wwAU_Uv22Ar3xmzyBs","icon_zanting":"_2FZ9Bc-gpjEFmCyIJm7Jn4","icon_xinhao":"_2WXURkP6fbyovLbqWcMvhr","icon_youxiang_copy":"_16IbWCV8xsiqWPZ_OdSzme","icon_yinle":"K4qZHY2czdTKspsCNgm7H","icon_iconfontttpodicon1eps":"_3pa_DPzibEBh2QWQsbIGfL","icon_zuidahua":"_3NlAEiz07YjmC8PNtD1OAy","icon_yingyongtubiaoxinhao":"OKVXB-p-dEQSyTTYGqIl0","icon_shangyiqu":"Bcm3CzKbeEK9Y_7BA_JIm","icon_xiayiqu":"JIkzBM7idyUA5t8N2mILs","icon_yifu":"_3fFNQxeC4xInf8fuMTxGC2","icon_yun":"_81MxZespjYl8LQZapmLRq","icon_yinliang":"_1FVMtb-476k1rWhUs_U0ei","icon_sousuo_sousuo":"_1EESSEEdGIHajew7rI3LgI","icon_geshou":"_3eRK2U4DW5W1xK35j-uLmG","icon_shipin":"_2bO1cSLGNrO2M71yofGSw4","icon_suoxiao":"_3WUMcCshBV6iW6dl6U2LYY","icon_geci":"_2Nyvxjujgy2361COi-7OlA","icon_pengyou":"_2D8OnpoA6yo3abL4ts0y69","icon_sousuo_sousuo1":"_2YQVM5lpaZhe-EWxRgVVac"};
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright (c) 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -3116,15 +2975,25 @@ module.exports = {"iconfont":"TOm1xHLNwjrvDsJIp5QbK","icon_shezhi":"_21A23LaI5nU
 
 var emptyObject = {};
 
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   Object.freeze(emptyObject);
 }
 
 module.exports = emptyObject;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(emptyObject, 'emptyObject', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/emptyObject.js');
+}();
+
+;
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3186,13 +3055,34 @@ var createPath = exports.createPath = function createPath(location) {
 
   return path;
 };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(addLeadingSlash, 'addLeadingSlash', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/PathUtils.js');
+
+  __REACT_HOT_LOADER__.register(stripLeadingSlash, 'stripLeadingSlash', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/PathUtils.js');
+
+  __REACT_HOT_LOADER__.register(stripPrefix, 'stripPrefix', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/PathUtils.js');
+
+  __REACT_HOT_LOADER__.register(stripTrailingSlash, 'stripTrailingSlash', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/PathUtils.js');
+
+  __REACT_HOT_LOADER__.register(parsePath, 'parsePath', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/PathUtils.js');
+
+  __REACT_HOT_LOADER__.register(createPath, 'createPath', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/PathUtils.js');
+}();
+
+;
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
  *
@@ -3215,7 +3105,7 @@ var createPath = exports.createPath = function createPath(location) {
  */
 
 var invariant = function invariant(condition, format, a, b, c, d, e, f) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     if (format === undefined) {
       throw new Error('invariant requires an error message argument');
     }
@@ -3240,14 +3130,24 @@ var invariant = function invariant(condition, format, a, b, c, d, e, f) {
 };
 
 module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(invariant, 'invariant', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/invariant/browser.js');
+}();
+
+;
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -3261,15 +3161,15 @@ module.exports = invariant;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var EventPluginRegistry = __webpack_require__(34);
-var EventPluginUtils = __webpack_require__(48);
-var ReactErrorUtils = __webpack_require__(52);
+var EventPluginRegistry = __webpack_require__(43);
+var EventPluginUtils = __webpack_require__(44);
+var ReactErrorUtils = __webpack_require__(48);
 
-var accumulateInto = __webpack_require__(94);
-var forEachAccumulated = __webpack_require__(95);
-var invariant = __webpack_require__(1);
+var accumulateInto = __webpack_require__(90);
+var forEachAccumulated = __webpack_require__(91);
+var invariant = __webpack_require__(0);
 
 /**
  * Internal store for event listeners
@@ -3383,7 +3283,7 @@ var EventPluginHub = {
    * @param {function} listener The callback to store.
    */
   putListener: function putListener(inst, registrationName, listener) {
-    !(typeof listener === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected %s listener to be a function, instead got type %s', registrationName, typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) : _prodInvariant('94', registrationName, typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) : void 0;
+    !(typeof listener === 'function') ?  false ? invariant(false, 'Expected %s listener to be a function, instead got type %s', registrationName, typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) : _prodInvariant('94', registrationName, typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) : void 0;
 
     var key = getDictionaryKey(inst);
     var bankForRegistrationName = listenerBank[registrationName] || (listenerBank[registrationName] = {});
@@ -3507,7 +3407,7 @@ var EventPluginHub = {
     } else {
       forEachAccumulated(processingEventQueue, executeDispatchesAndReleaseTopLevel);
     }
-    !!eventQueue ? process.env.NODE_ENV !== 'production' ? invariant(false, 'processEventQueue(): Additional events were enqueued while processing an event queue. Support for this has not yet been implemented.') : _prodInvariant('95') : void 0;
+    !!eventQueue ?  false ? invariant(false, 'processEventQueue(): Additional events were enqueued while processing an event queue. Support for this has not yet been implemented.') : _prodInvariant('95') : void 0;
     // This would be a good time to rethrow if any of the event handlers threw.
     ReactErrorUtils.rethrowCaughtError();
   },
@@ -3526,14 +3426,40 @@ var EventPluginHub = {
 };
 
 module.exports = EventPluginHub;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(listenerBank, 'listenerBank', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginHub.js');
+
+  __REACT_HOT_LOADER__.register(eventQueue, 'eventQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginHub.js');
+
+  __REACT_HOT_LOADER__.register(executeDispatchesAndRelease, 'executeDispatchesAndRelease', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginHub.js');
+
+  __REACT_HOT_LOADER__.register(executeDispatchesAndReleaseSimulated, 'executeDispatchesAndReleaseSimulated', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginHub.js');
+
+  __REACT_HOT_LOADER__.register(executeDispatchesAndReleaseTopLevel, 'executeDispatchesAndReleaseTopLevel', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginHub.js');
+
+  __REACT_HOT_LOADER__.register(getDictionaryKey, 'getDictionaryKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginHub.js');
+
+  __REACT_HOT_LOADER__.register(isInteractive, 'isInteractive', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginHub.js');
+
+  __REACT_HOT_LOADER__.register(shouldPreventMouseEvent, 'shouldPreventMouseEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginHub.js');
+
+  __REACT_HOT_LOADER__.register(EventPluginHub, 'EventPluginHub', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginHub.js');
+}();
+
+;
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -3545,11 +3471,11 @@ module.exports = EventPluginHub;
 
 
 
-var EventPluginHub = __webpack_require__(29);
-var EventPluginUtils = __webpack_require__(48);
+var EventPluginHub = __webpack_require__(27);
+var EventPluginUtils = __webpack_require__(44);
 
-var accumulateInto = __webpack_require__(94);
-var forEachAccumulated = __webpack_require__(95);
+var accumulateInto = __webpack_require__(90);
+var forEachAccumulated = __webpack_require__(91);
 var warning = __webpack_require__(2);
 
 var getListener = EventPluginHub.getListener;
@@ -3570,7 +3496,7 @@ function listenerAtPhase(inst, event, propagationPhase) {
  * "dispatch" object that pairs the event with the listener.
  */
 function accumulateDirectionalDispatches(inst, phase, event) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     process.env.NODE_ENV !== 'production' ? warning(inst, 'Dispatching inst must not be null') : void 0;
   }
   var listener = listenerAtPhase(inst, event, phase);
@@ -3666,10 +3592,42 @@ var EventPropagators = {
 };
 
 module.exports = EventPropagators;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getListener, 'getListener', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(listenerAtPhase, 'listenerAtPhase', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(accumulateDirectionalDispatches, 'accumulateDirectionalDispatches', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(accumulateTwoPhaseDispatchesSingle, 'accumulateTwoPhaseDispatchesSingle', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(accumulateTwoPhaseDispatchesSingleSkipTarget, 'accumulateTwoPhaseDispatchesSingleSkipTarget', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(accumulateDispatches, 'accumulateDispatches', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(accumulateDirectDispatchesSingle, 'accumulateDirectDispatchesSingle', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(accumulateTwoPhaseDispatches, 'accumulateTwoPhaseDispatches', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(accumulateTwoPhaseDispatchesSkipTarget, 'accumulateTwoPhaseDispatchesSkipTarget', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(accumulateEnterLeaveDispatches, 'accumulateEnterLeaveDispatches', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(accumulateDirectDispatches, 'accumulateDirectDispatches', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+
+  __REACT_HOT_LOADER__.register(EventPropagators, 'EventPropagators', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPropagators.js');
+}();
+
+;
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3720,9 +3678,20 @@ var ReactInstanceMap = {
 };
 
 module.exports = ReactInstanceMap;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactInstanceMap, 'ReactInstanceMap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactInstanceMap.js');
+}();
+
+;
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3738,9 +3707,9 @@ module.exports = ReactInstanceMap;
 
 
 
-var SyntheticEvent = __webpack_require__(15);
+var SyntheticEvent = __webpack_require__(12);
 
-var getEventTarget = __webpack_require__(57);
+var getEventTarget = __webpack_require__(53);
 
 /**
  * @interface UIEvent
@@ -3784,15 +3753,28 @@ function SyntheticUIEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEve
 SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 
 module.exports = SyntheticUIEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(UIEventInterface, 'UIEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticUIEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticUIEvent, 'SyntheticUIEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticUIEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(212);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
 /* unused harmony reexport createProvider */
 /* unused harmony reexport connectAdvanced */
@@ -3802,270 +3784,18 @@ module.exports = SyntheticUIEvent;
 
 
 
+;
 
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var _prodInvariant = __webpack_require__(4);
-
-var invariant = __webpack_require__(1);
-
-/**
- * Injectable ordering of event plugins.
- */
-var eventPluginOrder = null;
-
-/**
- * Injectable mapping from names to event plugin modules.
- */
-var namesToPlugins = {};
-
-/**
- * Recomputes the plugin list using the injected plugins and plugin ordering.
- *
- * @private
- */
-function recomputePluginOrdering() {
-  if (!eventPluginOrder) {
-    // Wait until an `eventPluginOrder` is injected.
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
     return;
   }
-  for (var pluginName in namesToPlugins) {
-    var pluginModule = namesToPlugins[pluginName];
-    var pluginIndex = eventPluginOrder.indexOf(pluginName);
-    !(pluginIndex > -1) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Cannot inject event plugins that do not exist in the plugin ordering, `%s`.', pluginName) : _prodInvariant('96', pluginName) : void 0;
-    if (EventPluginRegistry.plugins[pluginIndex]) {
-      continue;
-    }
-    !pluginModule.extractEvents ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Event plugins must implement an `extractEvents` method, but `%s` does not.', pluginName) : _prodInvariant('97', pluginName) : void 0;
-    EventPluginRegistry.plugins[pluginIndex] = pluginModule;
-    var publishedEvents = pluginModule.eventTypes;
-    for (var eventName in publishedEvents) {
-      !publishEventForPlugin(publishedEvents[eventName], pluginModule, eventName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Failed to publish event `%s` for plugin `%s`.', eventName, pluginName) : _prodInvariant('98', eventName, pluginName) : void 0;
-    }
-  }
-}
+}();
 
-/**
- * Publishes an event so that it can be dispatched by the supplied plugin.
- *
- * @param {object} dispatchConfig Dispatch configuration for the event.
- * @param {object} PluginModule Plugin publishing the event.
- * @return {boolean} True if the event was successfully published.
- * @private
- */
-function publishEventForPlugin(dispatchConfig, pluginModule, eventName) {
-  !!EventPluginRegistry.eventNameDispatchConfigs.hasOwnProperty(eventName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same event name, `%s`.', eventName) : _prodInvariant('99', eventName) : void 0;
-  EventPluginRegistry.eventNameDispatchConfigs[eventName] = dispatchConfig;
-
-  var phasedRegistrationNames = dispatchConfig.phasedRegistrationNames;
-  if (phasedRegistrationNames) {
-    for (var phaseName in phasedRegistrationNames) {
-      if (phasedRegistrationNames.hasOwnProperty(phaseName)) {
-        var phasedRegistrationName = phasedRegistrationNames[phaseName];
-        publishRegistrationName(phasedRegistrationName, pluginModule, eventName);
-      }
-    }
-    return true;
-  } else if (dispatchConfig.registrationName) {
-    publishRegistrationName(dispatchConfig.registrationName, pluginModule, eventName);
-    return true;
-  }
-  return false;
-}
-
-/**
- * Publishes a registration name that is used to identify dispatched events and
- * can be used with `EventPluginHub.putListener` to register listeners.
- *
- * @param {string} registrationName Registration name to add.
- * @param {object} PluginModule Plugin publishing the event.
- * @private
- */
-function publishRegistrationName(registrationName, pluginModule, eventName) {
-  !!EventPluginRegistry.registrationNameModules[registrationName] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same registration name, `%s`.', registrationName) : _prodInvariant('100', registrationName) : void 0;
-  EventPluginRegistry.registrationNameModules[registrationName] = pluginModule;
-  EventPluginRegistry.registrationNameDependencies[registrationName] = pluginModule.eventTypes[eventName].dependencies;
-
-  if (process.env.NODE_ENV !== 'production') {
-    var lowerCasedName = registrationName.toLowerCase();
-    EventPluginRegistry.possibleRegistrationNames[lowerCasedName] = registrationName;
-
-    if (registrationName === 'onDoubleClick') {
-      EventPluginRegistry.possibleRegistrationNames.ondblclick = registrationName;
-    }
-  }
-}
-
-/**
- * Registers plugins so that they can extract and dispatch events.
- *
- * @see {EventPluginHub}
- */
-var EventPluginRegistry = {
-
-  /**
-   * Ordered list of injected plugins.
-   */
-  plugins: [],
-
-  /**
-   * Mapping from event name to dispatch config
-   */
-  eventNameDispatchConfigs: {},
-
-  /**
-   * Mapping from registration name to plugin module
-   */
-  registrationNameModules: {},
-
-  /**
-   * Mapping from registration name to event name
-   */
-  registrationNameDependencies: {},
-
-  /**
-   * Mapping from lowercase registration names to the properly cased version,
-   * used to warn in the case of missing event handlers. Available
-   * only in __DEV__.
-   * @type {Object}
-   */
-  possibleRegistrationNames: process.env.NODE_ENV !== 'production' ? {} : null,
-  // Trust the developer to only use possibleRegistrationNames in __DEV__
-
-  /**
-   * Injects an ordering of plugins (by plugin name). This allows the ordering
-   * to be decoupled from injection of the actual plugins so that ordering is
-   * always deterministic regardless of packaging, on-the-fly injection, etc.
-   *
-   * @param {array} InjectedEventPluginOrder
-   * @internal
-   * @see {EventPluginHub.injection.injectEventPluginOrder}
-   */
-  injectEventPluginOrder: function injectEventPluginOrder(injectedEventPluginOrder) {
-    !!eventPluginOrder ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Cannot inject event plugin ordering more than once. You are likely trying to load more than one copy of React.') : _prodInvariant('101') : void 0;
-    // Clone the ordering so it cannot be dynamically mutated.
-    eventPluginOrder = Array.prototype.slice.call(injectedEventPluginOrder);
-    recomputePluginOrdering();
-  },
-
-  /**
-   * Injects plugins to be used by `EventPluginHub`. The plugin names must be
-   * in the ordering injected by `injectEventPluginOrder`.
-   *
-   * Plugins can be injected as part of page initialization or on-the-fly.
-   *
-   * @param {object} injectedNamesToPlugins Map from names to plugin modules.
-   * @internal
-   * @see {EventPluginHub.injection.injectEventPluginsByName}
-   */
-  injectEventPluginsByName: function injectEventPluginsByName(injectedNamesToPlugins) {
-    var isOrderingDirty = false;
-    for (var pluginName in injectedNamesToPlugins) {
-      if (!injectedNamesToPlugins.hasOwnProperty(pluginName)) {
-        continue;
-      }
-      var pluginModule = injectedNamesToPlugins[pluginName];
-      if (!namesToPlugins.hasOwnProperty(pluginName) || namesToPlugins[pluginName] !== pluginModule) {
-        !!namesToPlugins[pluginName] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Cannot inject two different event plugins using the same name, `%s`.', pluginName) : _prodInvariant('102', pluginName) : void 0;
-        namesToPlugins[pluginName] = pluginModule;
-        isOrderingDirty = true;
-      }
-    }
-    if (isOrderingDirty) {
-      recomputePluginOrdering();
-    }
-  },
-
-  /**
-   * Looks up the plugin for the supplied event.
-   *
-   * @param {object} event A synthetic event.
-   * @return {?object} The plugin that created the supplied event.
-   * @internal
-   */
-  getPluginModuleForEvent: function getPluginModuleForEvent(event) {
-    var dispatchConfig = event.dispatchConfig;
-    if (dispatchConfig.registrationName) {
-      return EventPluginRegistry.registrationNameModules[dispatchConfig.registrationName] || null;
-    }
-    if (dispatchConfig.phasedRegistrationNames !== undefined) {
-      // pulling phasedRegistrationNames out of dispatchConfig helps Flow see
-      // that it is not undefined.
-      var phasedRegistrationNames = dispatchConfig.phasedRegistrationNames;
-
-      for (var phase in phasedRegistrationNames) {
-        if (!phasedRegistrationNames.hasOwnProperty(phase)) {
-          continue;
-        }
-        var pluginModule = EventPluginRegistry.registrationNameModules[phasedRegistrationNames[phase]];
-        if (pluginModule) {
-          return pluginModule;
-        }
-      }
-    }
-    return null;
-  },
-
-  /**
-   * Exposed for unit testing.
-   * @private
-   */
-  _resetEventPlugins: function _resetEventPlugins() {
-    eventPluginOrder = null;
-    for (var pluginName in namesToPlugins) {
-      if (namesToPlugins.hasOwnProperty(pluginName)) {
-        delete namesToPlugins[pluginName];
-      }
-    }
-    EventPluginRegistry.plugins.length = 0;
-
-    var eventNameDispatchConfigs = EventPluginRegistry.eventNameDispatchConfigs;
-    for (var eventName in eventNameDispatchConfigs) {
-      if (eventNameDispatchConfigs.hasOwnProperty(eventName)) {
-        delete eventNameDispatchConfigs[eventName];
-      }
-    }
-
-    var registrationNameModules = EventPluginRegistry.registrationNameModules;
-    for (var registrationName in registrationNameModules) {
-      if (registrationNameModules.hasOwnProperty(registrationName)) {
-        delete registrationNameModules[registrationName];
-      }
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-      var possibleRegistrationNames = EventPluginRegistry.possibleRegistrationNames;
-      for (var lowerCasedName in possibleRegistrationNames) {
-        if (possibleRegistrationNames.hasOwnProperty(lowerCasedName)) {
-          delete possibleRegistrationNames[lowerCasedName];
-        }
-      }
-    }
-  }
-
-};
-
-module.exports = EventPluginRegistry;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
 
 /***/ }),
-/* 35 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4081,14 +3811,14 @@ module.exports = EventPluginRegistry;
 
 
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var EventPluginRegistry = __webpack_require__(34);
-var ReactEventEmitterMixin = __webpack_require__(181);
-var ViewportMetrics = __webpack_require__(93);
+var EventPluginRegistry = __webpack_require__(43);
+var ReactEventEmitterMixin = __webpack_require__(171);
+var ViewportMetrics = __webpack_require__(89);
 
-var getVendorPrefixedEventName = __webpack_require__(216);
-var isEventSupported = __webpack_require__(58);
+var getVendorPrefixedEventName = __webpack_require__(203);
+var isEventSupported = __webpack_require__(54);
 
 /**
  * Summary of `ReactBrowserEventEmitter` event handling:
@@ -4396,9 +4126,34 @@ var ReactBrowserEventEmitter = _assign({}, ReactEventEmitterMixin, {
 });
 
 module.exports = ReactBrowserEventEmitter;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(hasEventPageXY, 'hasEventPageXY', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactBrowserEventEmitter.js');
+
+  __REACT_HOT_LOADER__.register(alreadyListeningTo, 'alreadyListeningTo', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactBrowserEventEmitter.js');
+
+  __REACT_HOT_LOADER__.register(isMonitoringScrollValue, 'isMonitoringScrollValue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactBrowserEventEmitter.js');
+
+  __REACT_HOT_LOADER__.register(reactTopListenersCounter, 'reactTopListenersCounter', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactBrowserEventEmitter.js');
+
+  __REACT_HOT_LOADER__.register(topEventMapping, 'topEventMapping', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactBrowserEventEmitter.js');
+
+  __REACT_HOT_LOADER__.register(topListenersIDKey, 'topListenersIDKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactBrowserEventEmitter.js');
+
+  __REACT_HOT_LOADER__.register(getListeningForDocument, 'getListeningForDocument', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactBrowserEventEmitter.js');
+
+  __REACT_HOT_LOADER__.register(ReactBrowserEventEmitter, 'ReactBrowserEventEmitter', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactBrowserEventEmitter.js');
+}();
+
+;
 
 /***/ }),
-/* 36 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4414,10 +4169,10 @@ module.exports = ReactBrowserEventEmitter;
 
 
 
-var SyntheticUIEvent = __webpack_require__(32);
-var ViewportMetrics = __webpack_require__(93);
+var SyntheticUIEvent = __webpack_require__(30);
+var ViewportMetrics = __webpack_require__(89);
 
-var getEventModifierState = __webpack_require__(56);
+var getEventModifierState = __webpack_require__(52);
 
 /**
  * @interface MouseEvent
@@ -4473,13 +4228,26 @@ function SyntheticMouseEvent(dispatchConfig, dispatchMarker, nativeEvent, native
 SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 
 module.exports = SyntheticMouseEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(MouseEventInterface, 'MouseEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticMouseEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticMouseEvent, 'SyntheticMouseEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticMouseEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 37 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -4492,9 +4260,9 @@ module.exports = SyntheticMouseEvent;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 var OBSERVED_ERROR = {};
 
@@ -4607,7 +4375,7 @@ var TransactionImpl = {
    * @return {*} Return value from `method`.
    */
   perform: function perform(method, scope, a, b, c, d, e, f) {
-    !!this.isInTransaction() ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Transaction.perform(...): Cannot initialize a transaction when there is already an outstanding transaction.') : _prodInvariant('27') : void 0;
+    !!this.isInTransaction() ?  false ? invariant(false, 'Transaction.perform(...): Cannot initialize a transaction when there is already an outstanding transaction.') : _prodInvariant('27') : void 0;
     var errorThrown;
     var ret;
     try {
@@ -4671,7 +4439,7 @@ var TransactionImpl = {
    * invoked).
    */
   closeAll: function closeAll(startIndex) {
-    !this.isInTransaction() ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Transaction.closeAll(): Cannot close transaction when none are open.') : _prodInvariant('28') : void 0;
+    !this.isInTransaction() ?  false ? invariant(false, 'Transaction.closeAll(): Cannot close transaction when none are open.') : _prodInvariant('28') : void 0;
     var transactionWrappers = this.transactionWrappers;
     for (var i = startIndex; i < transactionWrappers.length; i++) {
       var wrapper = transactionWrappers[i];
@@ -4703,10 +4471,22 @@ var TransactionImpl = {
 };
 
 module.exports = TransactionImpl;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(OBSERVED_ERROR, 'OBSERVED_ERROR', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/Transaction.js');
+
+  __REACT_HOT_LOADER__.register(TransactionImpl, 'TransactionImpl', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/Transaction.js');
+}();
+
+;
 
 /***/ }),
-/* 38 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4832,9 +4612,24 @@ function escapeTextContentForBrowser(text) {
 }
 
 module.exports = escapeTextContentForBrowser;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(matchHtmlRegExp, 'matchHtmlRegExp', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/escapeTextContentForBrowser.js');
+
+  __REACT_HOT_LOADER__.register(escapeHtml, 'escapeHtml', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/escapeTextContentForBrowser.js');
+
+  __REACT_HOT_LOADER__.register(escapeTextContentForBrowser, 'escapeTextContentForBrowser', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/escapeTextContentForBrowser.js');
+}();
+
+;
 
 /***/ }),
-/* 39 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4850,13 +4645,13 @@ module.exports = escapeTextContentForBrowser;
 
 
 
-var ExecutionEnvironment = __webpack_require__(7);
-var DOMNamespaces = __webpack_require__(47);
+var ExecutionEnvironment = __webpack_require__(8);
+var DOMNamespaces = __webpack_require__(42);
 
 var WHITESPACE_TEST = /^[ \r\n\t\f]/;
 var NONVISIBLE_TEST = /<(!--|link|noscript|meta|script|style)[ \r\n\t\f\/>]/;
 
-var createMicrosoftUnsafeLocalFunction = __webpack_require__(54);
+var createMicrosoftUnsafeLocalFunction = __webpack_require__(50);
 
 // SVG temp container for IE lacking innerHTML
 var reusableSVGContainer;
@@ -4935,41 +4730,28 @@ if (ExecutionEnvironment.canUseDOM) {
 }
 
 module.exports = setInnerHTML;
+;
 
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var canDefineProperty = false;
-if (process.env.NODE_ENV !== 'production') {
-  try {
-    // $FlowFixMe https://github.com/facebook/flow/issues/285
-    Object.defineProperty({}, 'x', { get: function get() {} });
-    canDefineProperty = true;
-  } catch (x) {
-    // IE will fail on defineProperty
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
   }
-}
 
-module.exports = canDefineProperty;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+  __REACT_HOT_LOADER__.register(WHITESPACE_TEST, 'WHITESPACE_TEST', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/setInnerHTML.js');
+
+  __REACT_HOT_LOADER__.register(NONVISIBLE_TEST, 'NONVISIBLE_TEST', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/setInnerHTML.js');
+
+  __REACT_HOT_LOADER__.register(reusableSVGContainer, 'reusableSVGContainer', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/setInnerHTML.js');
+
+  __REACT_HOT_LOADER__.register(setInnerHTML, 'setInnerHTML', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/setInnerHTML.js');
+
+  __REACT_HOT_LOADER__.register(testElement, 'testElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/setInnerHTML.js');
+}();
+
+;
 
 /***/ }),
-/* 41 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5042,9 +4824,24 @@ function shallowEqual(objA, objB) {
 }
 
 module.exports = shallowEqual;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(hasOwnProperty, 'hasOwnProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/shallowEqual.js');
+
+  __REACT_HOT_LOADER__.register(is, 'is', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/shallowEqual.js');
+
+  __REACT_HOT_LOADER__.register(shallowEqual, 'shallowEqual', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/shallowEqual.js');
+}();
+
+;
 
 /***/ }),
-/* 42 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5063,15 +4860,15 @@ var _extends = Object.assign || function (target) {
   }return target;
 };
 
-var _resolvePathname = __webpack_require__(271);
+var _resolvePathname = __webpack_require__(258);
 
 var _resolvePathname2 = _interopRequireDefault(_resolvePathname);
 
-var _valueEqual = __webpack_require__(275);
+var _valueEqual = __webpack_require__(262);
 
 var _valueEqual2 = _interopRequireDefault(_valueEqual);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(25);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -5121,9 +4918,30 @@ var createLocation = exports.createLocation = function createLocation(path, stat
 var locationsAreEqual = exports.locationsAreEqual = function locationsAreEqual(a, b) {
   return a.pathname === b.pathname && a.search === b.search && a.hash === b.hash && a.key === b.key && (0, _valueEqual2.default)(a.state, b.state);
 };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, '_extends', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/LocationUtils.js');
+
+  __REACT_HOT_LOADER__.register(_resolvePathname2, '_resolvePathname2', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/LocationUtils.js');
+
+  __REACT_HOT_LOADER__.register(_valueEqual2, '_valueEqual2', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/LocationUtils.js');
+
+  __REACT_HOT_LOADER__.register(_interopRequireDefault, '_interopRequireDefault', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/LocationUtils.js');
+
+  __REACT_HOT_LOADER__.register(createLocation, 'createLocation', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/LocationUtils.js');
+
+  __REACT_HOT_LOADER__.register(locationsAreEqual, 'locationsAreEqual', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/LocationUtils.js');
+}();
+
+;
 
 /***/ }),
-/* 43 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5131,7 +4949,7 @@ var locationsAreEqual = exports.locationsAreEqual = function locationsAreEqual(a
 
 exports.__esModule = true;
 
-var _warning = __webpack_require__(21);
+var _warning = __webpack_require__(16);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -5214,15 +5032,30 @@ var createTransitionManager = function createTransitionManager() {
 };
 
 exports.default = createTransitionManager;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_warning2, '_warning2', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createTransitionManager.js');
+
+  __REACT_HOT_LOADER__.register(_interopRequireDefault, '_interopRequireDefault', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createTransitionManager.js');
+
+  __REACT_HOT_LOADER__.register(createTransitionManager, 'createTransitionManager', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createTransitionManager.js');
+}();
+
+;
 
 /***/ }),
-/* 44 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(137);
 
 
 
@@ -5283,10 +5116,36 @@ function isPlainObject(value) {
   return typeof Ctor == 'function' && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (isPlainObject);
+var _default = isPlainObject;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(objectTag, 'objectTag', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isPlainObject.js');
+
+  __REACT_HOT_LOADER__.register(funcProto, 'funcProto', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isPlainObject.js');
+
+  __REACT_HOT_LOADER__.register(objectProto, 'objectProto', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isPlainObject.js');
+
+  __REACT_HOT_LOADER__.register(funcToString, 'funcToString', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isPlainObject.js');
+
+  __REACT_HOT_LOADER__.register(hasOwnProperty, 'hasOwnProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isPlainObject.js');
+
+  __REACT_HOT_LOADER__.register(objectCtorString, 'objectCtorString', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isPlainObject.js');
+
+  __REACT_HOT_LOADER__.register(isPlainObject, 'isPlainObject', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isPlainObject.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isPlainObject.js');
+}();
+
+;
 
 /***/ }),
-/* 45 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5297,39 +5156,19 @@ function isPlainObject(value) {
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-
-
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-module.exports = ReactPropTypesSecret;
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
  *
  */
 
 
 
-var DOMLazyTree = __webpack_require__(22);
-var Danger = __webpack_require__(154);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactInstrumentation = __webpack_require__(12);
+var DOMLazyTree = __webpack_require__(17);
+var Danger = __webpack_require__(148);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactInstrumentation = __webpack_require__(10);
 
-var createMicrosoftUnsafeLocalFunction = __webpack_require__(54);
-var setInnerHTML = __webpack_require__(39);
-var setTextContent = __webpack_require__(100);
+var createMicrosoftUnsafeLocalFunction = __webpack_require__(50);
+var setInnerHTML = __webpack_require__(36);
+var setTextContent = __webpack_require__(96);
 
 function getNodeAfter(parentNode, node) {
   // Special case for text components, which return [open, close] comments
@@ -5421,7 +5260,7 @@ function replaceDelimitedText(openingComment, closingComment, stringText) {
     }
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     ReactInstrumentation.debugTool.onHostOperation({
       instanceID: ReactDOMComponentTree.getInstanceFromNode(openingComment)._debugID,
       type: 'replace text',
@@ -5431,7 +5270,7 @@ function replaceDelimitedText(openingComment, closingComment, stringText) {
 }
 
 var dangerouslyReplaceNodeWithMarkup = Danger.dangerouslyReplaceNodeWithMarkup;
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   dangerouslyReplaceNodeWithMarkup = function dangerouslyReplaceNodeWithMarkup(oldChild, markup, prevInstance) {
     Danger.dangerouslyReplaceNodeWithMarkup(oldChild, markup);
     if (prevInstance._debugID !== 0) {
@@ -5470,7 +5309,7 @@ var DOMChildrenOperations = {
    * @internal
    */
   processUpdates: function processUpdates(parentNode, updates) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var parentNodeDebugID = ReactDOMComponentTree.getInstanceFromNode(parentNode)._debugID;
     }
 
@@ -5479,7 +5318,7 @@ var DOMChildrenOperations = {
       switch (update.type) {
         case 'INSERT_MARKUP':
           insertLazyTreeChildAt(parentNode, update.content, getNodeAfter(parentNode, update.afterNode));
-          if (process.env.NODE_ENV !== 'production') {
+          if (false) {
             ReactInstrumentation.debugTool.onHostOperation({
               instanceID: parentNodeDebugID,
               type: 'insert child',
@@ -5489,7 +5328,7 @@ var DOMChildrenOperations = {
           break;
         case 'MOVE_EXISTING':
           moveChild(parentNode, update.fromNode, getNodeAfter(parentNode, update.afterNode));
-          if (process.env.NODE_ENV !== 'production') {
+          if (false) {
             ReactInstrumentation.debugTool.onHostOperation({
               instanceID: parentNodeDebugID,
               type: 'move child',
@@ -5499,7 +5338,7 @@ var DOMChildrenOperations = {
           break;
         case 'SET_MARKUP':
           setInnerHTML(parentNode, update.content);
-          if (process.env.NODE_ENV !== 'production') {
+          if (false) {
             ReactInstrumentation.debugTool.onHostOperation({
               instanceID: parentNodeDebugID,
               type: 'replace children',
@@ -5509,7 +5348,7 @@ var DOMChildrenOperations = {
           break;
         case 'TEXT_CONTENT':
           setTextContent(parentNode, update.content);
-          if (process.env.NODE_ENV !== 'production') {
+          if (false) {
             ReactInstrumentation.debugTool.onHostOperation({
               instanceID: parentNodeDebugID,
               type: 'replace text',
@@ -5519,7 +5358,7 @@ var DOMChildrenOperations = {
           break;
         case 'REMOVE_NODE':
           removeChild(parentNode, update.fromNode);
-          if (process.env.NODE_ENV !== 'production') {
+          if (false) {
             ReactInstrumentation.debugTool.onHostOperation({
               instanceID: parentNodeDebugID,
               type: 'remove child',
@@ -5534,10 +5373,38 @@ var DOMChildrenOperations = {
 };
 
 module.exports = DOMChildrenOperations;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getNodeAfter, 'getNodeAfter', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+
+  __REACT_HOT_LOADER__.register(insertChildAt, 'insertChildAt', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+
+  __REACT_HOT_LOADER__.register(insertLazyTreeChildAt, 'insertLazyTreeChildAt', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+
+  __REACT_HOT_LOADER__.register(moveChild, 'moveChild', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+
+  __REACT_HOT_LOADER__.register(removeChild, 'removeChild', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+
+  __REACT_HOT_LOADER__.register(moveDelimitedText, 'moveDelimitedText', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+
+  __REACT_HOT_LOADER__.register(removeDelimitedText, 'removeDelimitedText', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+
+  __REACT_HOT_LOADER__.register(replaceDelimitedText, 'replaceDelimitedText', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+
+  __REACT_HOT_LOADER__.register(dangerouslyReplaceNodeWithMarkup, 'dangerouslyReplaceNodeWithMarkup', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+
+  __REACT_HOT_LOADER__.register(DOMChildrenOperations, 'DOMChildrenOperations', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMChildrenOperations.js');
+}();
+
+;
 
 /***/ }),
-/* 47 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5560,13 +5427,305 @@ var DOMNamespaces = {
 };
 
 module.exports = DOMNamespaces;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(DOMNamespaces, 'DOMNamespaces', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMNamespaces.js');
+}();
+
+;
 
 /***/ }),
-/* 48 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var _prodInvariant = __webpack_require__(3);
+
+var invariant = __webpack_require__(0);
+
+/**
+ * Injectable ordering of event plugins.
+ */
+var eventPluginOrder = null;
+
+/**
+ * Injectable mapping from names to event plugin modules.
+ */
+var namesToPlugins = {};
+
+/**
+ * Recomputes the plugin list using the injected plugins and plugin ordering.
+ *
+ * @private
+ */
+function recomputePluginOrdering() {
+  if (!eventPluginOrder) {
+    // Wait until an `eventPluginOrder` is injected.
+    return;
+  }
+  for (var pluginName in namesToPlugins) {
+    var pluginModule = namesToPlugins[pluginName];
+    var pluginIndex = eventPluginOrder.indexOf(pluginName);
+    !(pluginIndex > -1) ?  false ? invariant(false, 'EventPluginRegistry: Cannot inject event plugins that do not exist in the plugin ordering, `%s`.', pluginName) : _prodInvariant('96', pluginName) : void 0;
+    if (EventPluginRegistry.plugins[pluginIndex]) {
+      continue;
+    }
+    !pluginModule.extractEvents ?  false ? invariant(false, 'EventPluginRegistry: Event plugins must implement an `extractEvents` method, but `%s` does not.', pluginName) : _prodInvariant('97', pluginName) : void 0;
+    EventPluginRegistry.plugins[pluginIndex] = pluginModule;
+    var publishedEvents = pluginModule.eventTypes;
+    for (var eventName in publishedEvents) {
+      !publishEventForPlugin(publishedEvents[eventName], pluginModule, eventName) ?  false ? invariant(false, 'EventPluginRegistry: Failed to publish event `%s` for plugin `%s`.', eventName, pluginName) : _prodInvariant('98', eventName, pluginName) : void 0;
+    }
+  }
+}
+
+/**
+ * Publishes an event so that it can be dispatched by the supplied plugin.
+ *
+ * @param {object} dispatchConfig Dispatch configuration for the event.
+ * @param {object} PluginModule Plugin publishing the event.
+ * @return {boolean} True if the event was successfully published.
+ * @private
+ */
+function publishEventForPlugin(dispatchConfig, pluginModule, eventName) {
+  !!EventPluginRegistry.eventNameDispatchConfigs.hasOwnProperty(eventName) ?  false ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same event name, `%s`.', eventName) : _prodInvariant('99', eventName) : void 0;
+  EventPluginRegistry.eventNameDispatchConfigs[eventName] = dispatchConfig;
+
+  var phasedRegistrationNames = dispatchConfig.phasedRegistrationNames;
+  if (phasedRegistrationNames) {
+    for (var phaseName in phasedRegistrationNames) {
+      if (phasedRegistrationNames.hasOwnProperty(phaseName)) {
+        var phasedRegistrationName = phasedRegistrationNames[phaseName];
+        publishRegistrationName(phasedRegistrationName, pluginModule, eventName);
+      }
+    }
+    return true;
+  } else if (dispatchConfig.registrationName) {
+    publishRegistrationName(dispatchConfig.registrationName, pluginModule, eventName);
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Publishes a registration name that is used to identify dispatched events and
+ * can be used with `EventPluginHub.putListener` to register listeners.
+ *
+ * @param {string} registrationName Registration name to add.
+ * @param {object} PluginModule Plugin publishing the event.
+ * @private
+ */
+function publishRegistrationName(registrationName, pluginModule, eventName) {
+  !!EventPluginRegistry.registrationNameModules[registrationName] ?  false ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same registration name, `%s`.', registrationName) : _prodInvariant('100', registrationName) : void 0;
+  EventPluginRegistry.registrationNameModules[registrationName] = pluginModule;
+  EventPluginRegistry.registrationNameDependencies[registrationName] = pluginModule.eventTypes[eventName].dependencies;
+
+  if (false) {
+    var lowerCasedName = registrationName.toLowerCase();
+    EventPluginRegistry.possibleRegistrationNames[lowerCasedName] = registrationName;
+
+    if (registrationName === 'onDoubleClick') {
+      EventPluginRegistry.possibleRegistrationNames.ondblclick = registrationName;
+    }
+  }
+}
+
+/**
+ * Registers plugins so that they can extract and dispatch events.
+ *
+ * @see {EventPluginHub}
+ */
+var EventPluginRegistry = {
+
+  /**
+   * Ordered list of injected plugins.
+   */
+  plugins: [],
+
+  /**
+   * Mapping from event name to dispatch config
+   */
+  eventNameDispatchConfigs: {},
+
+  /**
+   * Mapping from registration name to plugin module
+   */
+  registrationNameModules: {},
+
+  /**
+   * Mapping from registration name to event name
+   */
+  registrationNameDependencies: {},
+
+  /**
+   * Mapping from lowercase registration names to the properly cased version,
+   * used to warn in the case of missing event handlers. Available
+   * only in __DEV__.
+   * @type {Object}
+   */
+  possibleRegistrationNames:  false ? {} : null,
+  // Trust the developer to only use possibleRegistrationNames in __DEV__
+
+  /**
+   * Injects an ordering of plugins (by plugin name). This allows the ordering
+   * to be decoupled from injection of the actual plugins so that ordering is
+   * always deterministic regardless of packaging, on-the-fly injection, etc.
+   *
+   * @param {array} InjectedEventPluginOrder
+   * @internal
+   * @see {EventPluginHub.injection.injectEventPluginOrder}
+   */
+  injectEventPluginOrder: function injectEventPluginOrder(injectedEventPluginOrder) {
+    !!eventPluginOrder ?  false ? invariant(false, 'EventPluginRegistry: Cannot inject event plugin ordering more than once. You are likely trying to load more than one copy of React.') : _prodInvariant('101') : void 0;
+    // Clone the ordering so it cannot be dynamically mutated.
+    eventPluginOrder = Array.prototype.slice.call(injectedEventPluginOrder);
+    recomputePluginOrdering();
+  },
+
+  /**
+   * Injects plugins to be used by `EventPluginHub`. The plugin names must be
+   * in the ordering injected by `injectEventPluginOrder`.
+   *
+   * Plugins can be injected as part of page initialization or on-the-fly.
+   *
+   * @param {object} injectedNamesToPlugins Map from names to plugin modules.
+   * @internal
+   * @see {EventPluginHub.injection.injectEventPluginsByName}
+   */
+  injectEventPluginsByName: function injectEventPluginsByName(injectedNamesToPlugins) {
+    var isOrderingDirty = false;
+    for (var pluginName in injectedNamesToPlugins) {
+      if (!injectedNamesToPlugins.hasOwnProperty(pluginName)) {
+        continue;
+      }
+      var pluginModule = injectedNamesToPlugins[pluginName];
+      if (!namesToPlugins.hasOwnProperty(pluginName) || namesToPlugins[pluginName] !== pluginModule) {
+        !!namesToPlugins[pluginName] ?  false ? invariant(false, 'EventPluginRegistry: Cannot inject two different event plugins using the same name, `%s`.', pluginName) : _prodInvariant('102', pluginName) : void 0;
+        namesToPlugins[pluginName] = pluginModule;
+        isOrderingDirty = true;
+      }
+    }
+    if (isOrderingDirty) {
+      recomputePluginOrdering();
+    }
+  },
+
+  /**
+   * Looks up the plugin for the supplied event.
+   *
+   * @param {object} event A synthetic event.
+   * @return {?object} The plugin that created the supplied event.
+   * @internal
+   */
+  getPluginModuleForEvent: function getPluginModuleForEvent(event) {
+    var dispatchConfig = event.dispatchConfig;
+    if (dispatchConfig.registrationName) {
+      return EventPluginRegistry.registrationNameModules[dispatchConfig.registrationName] || null;
+    }
+    if (dispatchConfig.phasedRegistrationNames !== undefined) {
+      // pulling phasedRegistrationNames out of dispatchConfig helps Flow see
+      // that it is not undefined.
+      var phasedRegistrationNames = dispatchConfig.phasedRegistrationNames;
+
+      for (var phase in phasedRegistrationNames) {
+        if (!phasedRegistrationNames.hasOwnProperty(phase)) {
+          continue;
+        }
+        var pluginModule = EventPluginRegistry.registrationNameModules[phasedRegistrationNames[phase]];
+        if (pluginModule) {
+          return pluginModule;
+        }
+      }
+    }
+    return null;
+  },
+
+  /**
+   * Exposed for unit testing.
+   * @private
+   */
+  _resetEventPlugins: function _resetEventPlugins() {
+    eventPluginOrder = null;
+    for (var pluginName in namesToPlugins) {
+      if (namesToPlugins.hasOwnProperty(pluginName)) {
+        delete namesToPlugins[pluginName];
+      }
+    }
+    EventPluginRegistry.plugins.length = 0;
+
+    var eventNameDispatchConfigs = EventPluginRegistry.eventNameDispatchConfigs;
+    for (var eventName in eventNameDispatchConfigs) {
+      if (eventNameDispatchConfigs.hasOwnProperty(eventName)) {
+        delete eventNameDispatchConfigs[eventName];
+      }
+    }
+
+    var registrationNameModules = EventPluginRegistry.registrationNameModules;
+    for (var registrationName in registrationNameModules) {
+      if (registrationNameModules.hasOwnProperty(registrationName)) {
+        delete registrationNameModules[registrationName];
+      }
+    }
+
+    if (false) {
+      var possibleRegistrationNames = EventPluginRegistry.possibleRegistrationNames;
+      for (var lowerCasedName in possibleRegistrationNames) {
+        if (possibleRegistrationNames.hasOwnProperty(lowerCasedName)) {
+          delete possibleRegistrationNames[lowerCasedName];
+        }
+      }
+    }
+  }
+
+};
+
+module.exports = EventPluginRegistry;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(eventPluginOrder, 'eventPluginOrder', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginRegistry.js');
+
+  __REACT_HOT_LOADER__.register(namesToPlugins, 'namesToPlugins', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginRegistry.js');
+
+  __REACT_HOT_LOADER__.register(recomputePluginOrdering, 'recomputePluginOrdering', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginRegistry.js');
+
+  __REACT_HOT_LOADER__.register(publishEventForPlugin, 'publishEventForPlugin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginRegistry.js');
+
+  __REACT_HOT_LOADER__.register(publishRegistrationName, 'publishRegistrationName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginRegistry.js');
+
+  __REACT_HOT_LOADER__.register(EventPluginRegistry, 'EventPluginRegistry', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginRegistry.js');
+}();
+
+;
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -5578,11 +5737,11 @@ module.exports = DOMNamespaces;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var ReactErrorUtils = __webpack_require__(52);
+var ReactErrorUtils = __webpack_require__(48);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
 /**
@@ -5598,13 +5757,13 @@ var TreeTraversal;
 var injection = {
   injectComponentTree: function injectComponentTree(Injected) {
     ComponentTree = Injected;
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       process.env.NODE_ENV !== 'production' ? warning(Injected && Injected.getNodeFromInstance && Injected.getInstanceFromNode, 'EventPluginUtils.injection.injectComponentTree(...): Injected ' + 'module is missing getNodeFromInstance or getInstanceFromNode.') : void 0;
     }
   },
   injectTreeTraversal: function injectTreeTraversal(Injected) {
     TreeTraversal = Injected;
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       process.env.NODE_ENV !== 'production' ? warning(Injected && Injected.isAncestor && Injected.getLowestCommonAncestor, 'EventPluginUtils.injection.injectTreeTraversal(...): Injected ' + 'module is missing isAncestor or getLowestCommonAncestor.') : void 0;
     }
   }
@@ -5622,7 +5781,7 @@ function isStartish(topLevelType) {
 }
 
 var validateEventDispatches;
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   validateEventDispatches = function validateEventDispatches(event) {
     var dispatchListeners = event._dispatchListeners;
     var dispatchInstances = event._dispatchInstances;
@@ -5661,7 +5820,7 @@ function executeDispatch(event, simulated, listener, inst) {
 function executeDispatchesInOrder(event, simulated) {
   var dispatchListeners = event._dispatchListeners;
   var dispatchInstances = event._dispatchInstances;
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     validateEventDispatches(event);
   }
   if (Array.isArray(dispatchListeners)) {
@@ -5689,7 +5848,7 @@ function executeDispatchesInOrder(event, simulated) {
 function executeDispatchesInOrderStopAtTrueImpl(event) {
   var dispatchListeners = event._dispatchListeners;
   var dispatchInstances = event._dispatchInstances;
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     validateEventDispatches(event);
   }
   if (Array.isArray(dispatchListeners)) {
@@ -5730,12 +5889,12 @@ function executeDispatchesInOrderStopAtTrue(event) {
  * @return {*} The return value of executing the single dispatch.
  */
 function executeDirectDispatch(event) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     validateEventDispatches(event);
   }
   var dispatchListener = event._dispatchListeners;
   var dispatchInstance = event._dispatchInstances;
-  !!Array.isArray(dispatchListener) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'executeDirectDispatch(...): Invalid `event`.') : _prodInvariant('103') : void 0;
+  !!Array.isArray(dispatchListener) ?  false ? invariant(false, 'executeDirectDispatch(...): Invalid `event`.') : _prodInvariant('103') : void 0;
   event.currentTarget = dispatchListener ? EventPluginUtils.getNodeFromInstance(dispatchInstance) : null;
   var res = dispatchListener ? dispatchListener(event) : null;
   event.currentTarget = null;
@@ -5791,10 +5950,46 @@ var EventPluginUtils = {
 };
 
 module.exports = EventPluginUtils;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ComponentTree, 'ComponentTree', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(TreeTraversal, 'TreeTraversal', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(injection, 'injection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(isEndish, 'isEndish', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(isMoveish, 'isMoveish', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(isStartish, 'isStartish', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(validateEventDispatches, 'validateEventDispatches', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(executeDispatch, 'executeDispatch', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(executeDispatchesInOrder, 'executeDispatchesInOrder', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(executeDispatchesInOrderStopAtTrueImpl, 'executeDispatchesInOrderStopAtTrueImpl', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(executeDispatchesInOrderStopAtTrue, 'executeDispatchesInOrderStopAtTrue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(executeDirectDispatch, 'executeDirectDispatch', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(hasDispatches, 'hasDispatches', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+
+  __REACT_HOT_LOADER__.register(EventPluginUtils, 'EventPluginUtils', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EventPluginUtils.js');
+}();
+
+;
 
 /***/ }),
-/* 49 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5856,13 +6051,28 @@ var KeyEscapeUtils = {
 };
 
 module.exports = KeyEscapeUtils;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(escape, 'escape', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/KeyEscapeUtils.js');
+
+  __REACT_HOT_LOADER__.register(unescape, 'unescape', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/KeyEscapeUtils.js');
+
+  __REACT_HOT_LOADER__.register(KeyEscapeUtils, 'KeyEscapeUtils', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/KeyEscapeUtils.js');
+}();
+
+;
 
 /***/ }),
-/* 50 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -5874,15 +6084,15 @@ module.exports = KeyEscapeUtils;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var ReactPropTypesSecret = __webpack_require__(92);
-var propTypesFactory = __webpack_require__(79);
+var ReactPropTypesSecret = __webpack_require__(177);
+var propTypesFactory = __webpack_require__(76);
 
-var React = __webpack_require__(24);
+var React = __webpack_require__(20);
 var PropTypes = propTypesFactory(React.isValidElement);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
 var hasReadOnlyValue = {
@@ -5896,16 +6106,16 @@ var hasReadOnlyValue = {
 };
 
 function _assertSingleLink(inputProps) {
-  !(inputProps.checkedLink == null || inputProps.valueLink == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Cannot provide a checkedLink and a valueLink. If you want to use checkedLink, you probably don\'t want to use valueLink and vice versa.') : _prodInvariant('87') : void 0;
+  !(inputProps.checkedLink == null || inputProps.valueLink == null) ?  false ? invariant(false, 'Cannot provide a checkedLink and a valueLink. If you want to use checkedLink, you probably don\'t want to use valueLink and vice versa.') : _prodInvariant('87') : void 0;
 }
 function _assertValueLink(inputProps) {
   _assertSingleLink(inputProps);
-  !(inputProps.value == null && inputProps.onChange == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Cannot provide a valueLink and a value or onChange event. If you want to use value or onChange, you probably don\'t want to use valueLink.') : _prodInvariant('88') : void 0;
+  !(inputProps.value == null && inputProps.onChange == null) ?  false ? invariant(false, 'Cannot provide a valueLink and a value or onChange event. If you want to use value or onChange, you probably don\'t want to use valueLink.') : _prodInvariant('88') : void 0;
 }
 
 function _assertCheckedLink(inputProps) {
   _assertSingleLink(inputProps);
-  !(inputProps.checked == null && inputProps.onChange == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Cannot provide a checkedLink and a checked property or onChange event. If you want to use checked or onChange, you probably don\'t want to use checkedLink') : _prodInvariant('89') : void 0;
+  !(inputProps.checked == null && inputProps.onChange == null) ?  false ? invariant(false, 'Cannot provide a checkedLink and a checked property or onChange event. If you want to use checked or onChange, you probably don\'t want to use checkedLink') : _prodInvariant('89') : void 0;
 }
 
 var propTypes = {
@@ -5951,7 +6161,7 @@ var LinkedValueUtils = {
         loggedTypeFailures[error.message] = true;
 
         var addendum = getDeclarationErrorAddendum(owner);
-        process.env.NODE_ENV !== 'production' ? warning(false, 'Failed form propType: %s%s', error.message, addendum) : void 0;
+         false ? warning(false, 'Failed form propType: %s%s', error.message, addendum) : void 0;
       }
     }
   },
@@ -5999,14 +6209,40 @@ var LinkedValueUtils = {
 };
 
 module.exports = LinkedValueUtils;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(PropTypes, 'PropTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/LinkedValueUtils.js');
+
+  __REACT_HOT_LOADER__.register(hasReadOnlyValue, 'hasReadOnlyValue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/LinkedValueUtils.js');
+
+  __REACT_HOT_LOADER__.register(_assertSingleLink, '_assertSingleLink', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/LinkedValueUtils.js');
+
+  __REACT_HOT_LOADER__.register(_assertValueLink, '_assertValueLink', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/LinkedValueUtils.js');
+
+  __REACT_HOT_LOADER__.register(_assertCheckedLink, '_assertCheckedLink', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/LinkedValueUtils.js');
+
+  __REACT_HOT_LOADER__.register(propTypes, 'propTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/LinkedValueUtils.js');
+
+  __REACT_HOT_LOADER__.register(loggedTypeFailures, 'loggedTypeFailures', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/LinkedValueUtils.js');
+
+  __REACT_HOT_LOADER__.register(getDeclarationErrorAddendum, 'getDeclarationErrorAddendum', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/LinkedValueUtils.js');
+
+  __REACT_HOT_LOADER__.register(LinkedValueUtils, 'LinkedValueUtils', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/LinkedValueUtils.js');
+}();
+
+;
 
 /***/ }),
-/* 51 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2014-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -6019,9 +6255,9 @@ module.exports = LinkedValueUtils;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 var injected = false;
 
@@ -6041,7 +6277,7 @@ var ReactComponentEnvironment = {
 
   injection: {
     injectEnvironment: function injectEnvironment(environment) {
-      !!injected ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactCompositeComponent: injectEnvironment() can only be called once.') : _prodInvariant('104') : void 0;
+      !!injected ?  false ? invariant(false, 'ReactCompositeComponent: injectEnvironment() can only be called once.') : _prodInvariant('104') : void 0;
       ReactComponentEnvironment.replaceNodeWithMarkup = environment.replaceNodeWithMarkup;
       ReactComponentEnvironment.processChildrenUpdates = environment.processChildrenUpdates;
       injected = true;
@@ -6051,14 +6287,26 @@ var ReactComponentEnvironment = {
 };
 
 module.exports = ReactComponentEnvironment;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(injected, 'injected', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactComponentEnvironment.js');
+
+  __REACT_HOT_LOADER__.register(ReactComponentEnvironment, 'ReactComponentEnvironment', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactComponentEnvironment.js');
+}();
+
+;
 
 /***/ }),
-/* 52 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -6113,7 +6361,7 @@ var ReactErrorUtils = {
   }
 };
 
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   /**
    * To help development we can get better devtools integration by simulating a
    * real browser event.
@@ -6133,14 +6381,30 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = ReactErrorUtils;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(caughtError, 'caughtError', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactErrorUtils.js');
+
+  __REACT_HOT_LOADER__.register(invokeGuardedCallback, 'invokeGuardedCallback', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactErrorUtils.js');
+
+  __REACT_HOT_LOADER__.register(ReactErrorUtils, 'ReactErrorUtils', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactErrorUtils.js');
+
+  __REACT_HOT_LOADER__.register(fakeNode, 'fakeNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactErrorUtils.js');
+}();
+
+;
 
 /***/ }),
-/* 53 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2015-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -6154,14 +6418,14 @@ module.exports = ReactErrorUtils;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var ReactCurrentOwner = __webpack_require__(14);
-var ReactInstanceMap = __webpack_require__(31);
-var ReactInstrumentation = __webpack_require__(12);
-var ReactUpdates = __webpack_require__(13);
+var ReactCurrentOwner = __webpack_require__(13);
+var ReactInstanceMap = __webpack_require__(29);
+var ReactInstrumentation = __webpack_require__(10);
+var ReactUpdates = __webpack_require__(11);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
 function enqueueUpdate(internalInstance) {
@@ -6184,7 +6448,7 @@ function formatUnexpectedArgument(arg) {
 function getInternalInstanceReadyForUpdate(publicInstance, callerName) {
   var internalInstance = ReactInstanceMap.get(publicInstance);
   if (!internalInstance) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var ctor = publicInstance.constructor;
       // Only warn when we have a callerName. Otherwise we should be silent.
       // We're probably calling from enqueueCallback. We don't want to warn
@@ -6194,7 +6458,7 @@ function getInternalInstanceReadyForUpdate(publicInstance, callerName) {
     return null;
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     process.env.NODE_ENV !== 'production' ? warning(ReactCurrentOwner.current == null, '%s(...): Cannot update during an existing state transition (such as ' + 'within `render` or another component\'s constructor). Render methods ' + 'should be a pure function of props and state; constructor ' + 'side-effects are an anti-pattern, but can be moved to ' + '`componentWillMount`.', callerName) : void 0;
   }
 
@@ -6215,7 +6479,7 @@ var ReactUpdateQueue = {
    * @final
    */
   isMounted: function isMounted(publicInstance) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var owner = ReactCurrentOwner.current;
       if (owner !== null) {
         process.env.NODE_ENV !== 'production' ? warning(owner._warnedAboutRefsInRender, '%s is accessing isMounted inside its render() function. ' + 'render() should be a pure function of props and state. It should ' + 'never access something that requires stale data from the previous ' + 'render, such as refs. Move this logic to componentDidMount and ' + 'componentDidUpdate instead.', owner.getName() || 'A component') : void 0;
@@ -6346,7 +6610,7 @@ var ReactUpdateQueue = {
    * @internal
    */
   enqueueSetState: function enqueueSetState(publicInstance, partialState) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       ReactInstrumentation.debugTool.onSetState();
       process.env.NODE_ENV !== 'production' ? warning(partialState != null, 'setState(...): You passed an undefined or null state object; ' + 'instead, use forceUpdate().') : void 0;
     }
@@ -6371,16 +6635,32 @@ var ReactUpdateQueue = {
   },
 
   validateCallback: function validateCallback(callback, callerName) {
-    !(!callback || typeof callback === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.', callerName, formatUnexpectedArgument(callback)) : _prodInvariant('122', callerName, formatUnexpectedArgument(callback)) : void 0;
+    !(!callback || typeof callback === 'function') ?  false ? invariant(false, '%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.', callerName, formatUnexpectedArgument(callback)) : _prodInvariant('122', callerName, formatUnexpectedArgument(callback)) : void 0;
   }
 
 };
 
 module.exports = ReactUpdateQueue;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(enqueueUpdate, 'enqueueUpdate', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdateQueue.js');
+
+  __REACT_HOT_LOADER__.register(formatUnexpectedArgument, 'formatUnexpectedArgument', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdateQueue.js');
+
+  __REACT_HOT_LOADER__.register(getInternalInstanceReadyForUpdate, 'getInternalInstanceReadyForUpdate', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdateQueue.js');
+
+  __REACT_HOT_LOADER__.register(ReactUpdateQueue, 'ReactUpdateQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactUpdateQueue.js');
+}();
+
+;
 
 /***/ }),
-/* 54 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6415,9 +6695,20 @@ var createMicrosoftUnsafeLocalFunction = function createMicrosoftUnsafeLocalFunc
 };
 
 module.exports = createMicrosoftUnsafeLocalFunction;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(createMicrosoftUnsafeLocalFunction, 'createMicrosoftUnsafeLocalFunction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/createMicrosoftUnsafeLocalFunction.js');
+}();
+
+;
 
 /***/ }),
-/* 55 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6470,9 +6761,20 @@ function getEventCharCode(nativeEvent) {
 }
 
 module.exports = getEventCharCode;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getEventCharCode, 'getEventCharCode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getEventCharCode.js');
+}();
+
+;
 
 /***/ }),
-/* 56 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6518,9 +6820,24 @@ function getEventModifierState(nativeEvent) {
 }
 
 module.exports = getEventModifierState;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(modifierKeyToProp, 'modifierKeyToProp', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getEventModifierState.js');
+
+  __REACT_HOT_LOADER__.register(modifierStateGetter, 'modifierStateGetter', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getEventModifierState.js');
+
+  __REACT_HOT_LOADER__.register(getEventModifierState, 'getEventModifierState', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getEventModifierState.js');
+}();
+
+;
 
 /***/ }),
-/* 57 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6558,9 +6875,20 @@ function getEventTarget(nativeEvent) {
 }
 
 module.exports = getEventTarget;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getEventTarget, 'getEventTarget', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getEventTarget.js');
+}();
+
+;
 
 /***/ }),
-/* 58 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6576,7 +6904,7 @@ module.exports = getEventTarget;
 
 
 
-var ExecutionEnvironment = __webpack_require__(7);
+var ExecutionEnvironment = __webpack_require__(8);
 
 var useHasFeature;
 if (ExecutionEnvironment.canUseDOM) {
@@ -6623,9 +6951,22 @@ function isEventSupported(eventNameSuffix, capture) {
 }
 
 module.exports = isEventSupported;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(useHasFeature, 'useHasFeature', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/isEventSupported.js');
+
+  __REACT_HOT_LOADER__.register(isEventSupported, 'isEventSupported', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/isEventSupported.js');
+}();
+
+;
 
 /***/ }),
-/* 59 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6672,13 +7013,24 @@ function shouldUpdateReactComponent(prevElement, nextElement) {
 }
 
 module.exports = shouldUpdateReactComponent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(shouldUpdateReactComponent, 'shouldUpdateReactComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/shouldUpdateReactComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 60 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2015-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -6690,14 +7042,14 @@ module.exports = shouldUpdateReactComponent;
 
 
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var emptyFunction = __webpack_require__(11);
+var emptyFunction = __webpack_require__(9);
 var warning = __webpack_require__(2);
 
 var validateDOMNesting = emptyFunction;
 
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   // This validation code was written based on the HTML5 parsing spec:
   // https://html.spec.whatwg.org/multipage/syntax.html#has-an-element-in-scope
   //
@@ -7054,10 +7406,40 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = validateDOMNesting;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(validateDOMNesting, 'validateDOMNesting', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(specialTags, 'specialTags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(inScopeTags, 'inScopeTags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(buttonScopeTags, 'buttonScopeTags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(impliedEndTags, 'impliedEndTags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(emptyAncestorInfo, 'emptyAncestorInfo', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(updatedAncestorInfo, 'updatedAncestorInfo', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(isTagValidWithParent, 'isTagValidWithParent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(findInvalidAncestorForTag, 'findInvalidAncestorForTag', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(findOwnerStack, 'findOwnerStack', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+
+  __REACT_HOT_LOADER__.register(didWarn, 'didWarn', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/validateDOMNesting.js');
+}();
+
+;
 
 /***/ }),
-/* 61 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7083,37 +7465,48 @@ function warning(message) {
   } catch (e) {}
   /* eslint-enable no-empty */
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(warning, 'warning', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/warning.js');
+}();
+
+;
 
 /***/ }),
-/* 62 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(233);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(220);
 /* unused harmony reexport BrowserRouter */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(234);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(221);
 /* unused harmony reexport HashRouter */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(102);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(222);
 /* unused harmony reexport MemoryRouter */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(223);
 /* unused harmony reexport NavLink */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(224);
 /* unused harmony reexport Prompt */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(225);
 /* unused harmony reexport Redirect */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(226);
 /* unused harmony reexport Route */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(227);
 /* unused harmony reexport Router */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(228);
 /* unused harmony reexport StaticRouter */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(229);
 /* unused harmony reexport Switch */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(230);
 /* unused harmony reexport matchPath */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(244);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(231);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
 
 
@@ -7141,18 +7534,27 @@ function warning(message) {
 
 
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 63 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ConnectedRouter__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ConnectedRouter__ = __webpack_require__(232);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__ConnectedRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducer__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducer__ = __webpack_require__(104);
 /* unused harmony reexport LOCATION_CHANGE */
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__reducer__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(103);
 /* unused harmony reexport CALL_HISTORY_METHOD */
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_2__actions__["a"]; });
 /* unused harmony reexport replace */
@@ -7160,7 +7562,7 @@ function warning(message) {
 /* unused harmony reexport goBack */
 /* unused harmony reexport goForward */
 /* unused harmony reexport routerActions */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__middleware__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__middleware__ = __webpack_require__(233);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__middleware__["a"]; });
 
 
@@ -7169,19 +7571,28 @@ function warning(message) {
 
 
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 64 */
+/* 60 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -7307,14 +7718,36 @@ Router.childContextTypes = {
   router: __WEBPACK_IMPORTED_MODULE_3_prop_types___default.a.object.isRequired
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Router);
+var _default = Router;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp2 = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, "_extends", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Router.js");
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Router.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Router.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Router.js");
+
+  __REACT_HOT_LOADER__.register(Router, "Router", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Router.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Router.js");
+}();
+
+;
 
 /***/ }),
-/* 65 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(138);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path_to_regexp__);
 
 
@@ -7382,14 +7815,36 @@ var matchPath = function matchPath(pathname) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (matchPath);
+var _default = matchPath;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(patternCache, 'patternCache', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/matchPath.js');
+
+  __REACT_HOT_LOADER__.register(cacheLimit, 'cacheLimit', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/matchPath.js');
+
+  __REACT_HOT_LOADER__.register(cacheCount, 'cacheCount', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/matchPath.js');
+
+  __REACT_HOT_LOADER__.register(compilePath, 'compilePath', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/matchPath.js');
+
+  __REACT_HOT_LOADER__.register(matchPath, 'matchPath', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/matchPath.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/matchPath.js');
+}();
+
+;
 
 /***/ }),
-/* 66 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -7403,13 +7858,13 @@ var matchPath = function matchPath(pathname) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(20);
+var _prodInvariant = __webpack_require__(22);
 
-var ReactNoopUpdateQueue = __webpack_require__(67);
+var ReactNoopUpdateQueue = __webpack_require__(63);
 
-var canDefineProperty = __webpack_require__(40);
-var emptyObject = __webpack_require__(26);
-var invariant = __webpack_require__(1);
+var canDefineProperty = __webpack_require__(108);
+var emptyObject = __webpack_require__(24);
+var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
 /**
@@ -7452,7 +7907,7 @@ ReactComponent.prototype.isReactComponent = {};
  * @protected
  */
 ReactComponent.prototype.setState = function (partialState, callback) {
-  !((typeof partialState === 'undefined' ? 'undefined' : _typeof(partialState)) === 'object' || typeof partialState === 'function' || partialState == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'setState(...): takes an object of state variables to update or a function which returns an object of state variables.') : _prodInvariant('85') : void 0;
+  !((typeof partialState === 'undefined' ? 'undefined' : _typeof(partialState)) === 'object' || typeof partialState === 'function' || partialState == null) ?  false ? invariant(false, 'setState(...): takes an object of state variables to update or a function which returns an object of state variables.') : _prodInvariant('85') : void 0;
   this.updater.enqueueSetState(this, partialState);
   if (callback) {
     this.updater.enqueueCallback(this, callback, 'setState');
@@ -7485,7 +7940,7 @@ ReactComponent.prototype.forceUpdate = function (callback) {
  * we would like to deprecate them, we're not going to move them over to this
  * modern base class. Instead, we define a getter that warns if it's accessed.
  */
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   var deprecatedAPIs = {
     isMounted: ['isMounted', 'Instead, make sure to clean up subscriptions and pending requests in ' + 'componentWillUnmount to prevent memory leaks.'],
     replaceState: ['replaceState', 'Refactor your code to use setState instead (see ' + 'https://github.com/facebook/react/issues/3236).']
@@ -7508,14 +7963,30 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = ReactComponent;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactComponent, 'ReactComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponent.js');
+
+  __REACT_HOT_LOADER__.register(deprecatedAPIs, 'deprecatedAPIs', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponent.js');
+
+  __REACT_HOT_LOADER__.register(defineDeprecationWarning, 'defineDeprecationWarning', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponent.js');
+
+  __REACT_HOT_LOADER__.register(fnName, 'fnName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 67 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2015-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -7530,7 +8001,7 @@ module.exports = ReactComponent;
 var warning = __webpack_require__(2);
 
 function warnNoop(publicInstance, callerName) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     var constructor = publicInstance.constructor;
     process.env.NODE_ENV !== 'production' ? warning(false, '%s(...): Can only update a mounted or mounting component. ' + 'This usually means you called %s() on an unmounted component. ' + 'This is a no-op. Please check the code for the %s component.', callerName, callerName, constructor && (constructor.displayName || constructor.name) || 'ReactClass') : void 0;
   }
@@ -7610,10 +8081,22 @@ var ReactNoopUpdateQueue = {
 };
 
 module.exports = ReactNoopUpdateQueue;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(warnNoop, 'warnNoop', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactNoopUpdateQueue.js');
+
+  __REACT_HOT_LOADER__.register(ReactNoopUpdateQueue, 'ReactNoopUpdateQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactNoopUpdateQueue.js');
+}();
+
+;
 
 /***/ }),
-/* 68 */
+/* 64 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -7638,9 +8121,20 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(g, "g", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/webpack/buildin/global.js");
+}();
+
+;
 
 /***/ }),
-/* 69 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7686,9 +8180,32 @@ var listFetchPosts = function listFetchPosts(userId) {
         });
     };
 };
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(SELECT_ITEM, 'SELECT_ITEM', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/index.js');
+
+    __REACT_HOT_LOADER__.register(LIST_REQUEST_POSTS, 'LIST_REQUEST_POSTS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/index.js');
+
+    __REACT_HOT_LOADER__.register(LIST_RECEIVE_POSTS, 'LIST_RECEIVE_POSTS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/index.js');
+
+    __REACT_HOT_LOADER__.register(selectItem, 'selectItem', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/index.js');
+
+    __REACT_HOT_LOADER__.register(requestPosts, 'requestPosts', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/index.js');
+
+    __REACT_HOT_LOADER__.register(receivePosts, 'receivePosts', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/index.js');
+
+    __REACT_HOT_LOADER__.register(listFetchPosts, 'listFetchPosts', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/index.js');
+}();
+
+;
 
 /***/ }),
-/* 70 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7705,7 +8222,7 @@ var listFetchPosts = function listFetchPosts(userId) {
 /* unused harmony export requestPosts */
 /* unused harmony export receivePosts */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return fetchPosts; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(65);
 
 
 var REQUEST_POSTS = 'REQUEST_POSTS';
@@ -7765,20 +8282,55 @@ var fetchPosts = function fetchPosts(username, password) {
         });
     };
 };
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(REQUEST_POSTS, 'REQUEST_POSTS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(RECEIVE_POSTS, 'RECEIVE_POSTS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(PHONENUMBER_CHANGED, 'PHONENUMBER_CHANGED', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(PASSWORD_CHANGED, 'PASSWORD_CHANGED', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(CLOSE_LOGIN, 'CLOSE_LOGIN', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(OPEN_LOGIN, 'OPEN_LOGIN', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(closeLogin, 'closeLogin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(openLogin, 'openLogin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(phoneNumberChanged, 'phoneNumberChanged', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(passwordChanged, 'passwordChanged', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(requestPosts, 'requestPosts', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(receivePosts, 'receivePosts', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+
+    __REACT_HOT_LOADER__.register(fetchPosts, 'fetchPosts', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/actions/login.js');
+}();
+
+;
 
 /***/ }),
-/* 71 */
+/* 67 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"likeList":"iidwcXCfgRAvnD5mLx0p1","listItem":"_3VEjpI7-BAfmjMWhoHl9wm","active":"_2IvEdnBcwZb0B5e0_oHk9w","listTitle":"Y_oTCIQgqTKPpviq8teMD","listTitle_shrinkable":"_1xTINm5_7UFC01-lS6aThm","list_hide":"_3YmgmuLWSxbjWDv-k3UsMj"};
 
 /***/ }),
-/* 72 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
+
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -7798,7 +8350,7 @@ module.exports = {"likeList":"iidwcXCfgRAvnD5mLx0p1","listItem":"_3VEjpI7-BAfmjM
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(11);
+var emptyFunction = __webpack_require__(9);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -7848,7 +8400,7 @@ var EventListener = {
         }
       };
     } else {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         console.error('Attempted to listen to events during the capture phase on a ' + 'browser that does not support the capture phase. Your application ' + 'will not receive some events.');
       }
       return {
@@ -7861,10 +8413,20 @@ var EventListener = {
 };
 
 module.exports = EventListener;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(EventListener, 'EventListener', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/EventListener.js');
+}();
+
+;
 
 /***/ }),
-/* 73 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7894,9 +8456,20 @@ function focusNode(node) {
 }
 
 module.exports = focusNode;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(focusNode, 'focusNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/focusNode.js');
+}();
+
+;
 
 /***/ }),
-/* 74 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7939,9 +8512,20 @@ function getActiveElement(doc) /*?DOMElement*/{
 }
 
 module.exports = getActiveElement;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getActiveElement, 'getActiveElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getActiveElement.js');
+}();
+
+;
 
 /***/ }),
-/* 75 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8000,9 +8584,34 @@ var supportsGoWithoutReloadUsingHash = exports.supportsGoWithoutReloadUsingHash 
 var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isExtraneousPopstateEvent(event) {
   return event.state === undefined && navigator.userAgent.indexOf('CriOS') === -1;
 };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(canUseDOM, 'canUseDOM', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/DOMUtils.js');
+
+  __REACT_HOT_LOADER__.register(addEventListener, 'addEventListener', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/DOMUtils.js');
+
+  __REACT_HOT_LOADER__.register(removeEventListener, 'removeEventListener', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/DOMUtils.js');
+
+  __REACT_HOT_LOADER__.register(getConfirmation, 'getConfirmation', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/DOMUtils.js');
+
+  __REACT_HOT_LOADER__.register(supportsHistory, 'supportsHistory', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/DOMUtils.js');
+
+  __REACT_HOT_LOADER__.register(supportsPopStateOnHashChange, 'supportsPopStateOnHashChange', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/DOMUtils.js');
+
+  __REACT_HOT_LOADER__.register(supportsGoWithoutReloadUsingHash, 'supportsGoWithoutReloadUsingHash', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/DOMUtils.js');
+
+  __REACT_HOT_LOADER__.register(isExtraneousPopstateEvent, 'isExtraneousPopstateEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/DOMUtils.js');
+}();
+
+;
 
 /***/ }),
-/* 76 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8028,23 +8637,23 @@ var _extends = Object.assign || function (target) {
   }return target;
 };
 
-var _warning = __webpack_require__(21);
+var _warning = __webpack_require__(16);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _invariant = __webpack_require__(28);
+var _invariant = __webpack_require__(26);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
-var _LocationUtils = __webpack_require__(42);
+var _LocationUtils = __webpack_require__(38);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(25);
 
-var _createTransitionManager = __webpack_require__(43);
+var _createTransitionManager = __webpack_require__(39);
 
 var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 
-var _DOMUtils = __webpack_require__(75);
+var _DOMUtils = __webpack_require__(71);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -8327,9 +8936,38 @@ var createBrowserHistory = function createBrowserHistory() {
 };
 
 exports.default = createBrowserHistory;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_typeof, "_typeof", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+
+  __REACT_HOT_LOADER__.register(_extends, "_extends", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+
+  __REACT_HOT_LOADER__.register(_warning2, "_warning2", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+
+  __REACT_HOT_LOADER__.register(_invariant2, "_invariant2", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+
+  __REACT_HOT_LOADER__.register(_createTransitionManager2, "_createTransitionManager2", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+
+  __REACT_HOT_LOADER__.register(_interopRequireDefault, "_interopRequireDefault", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+
+  __REACT_HOT_LOADER__.register(PopStateEvent, "PopStateEvent", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+
+  __REACT_HOT_LOADER__.register(HashChangeEvent, "HashChangeEvent", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+
+  __REACT_HOT_LOADER__.register(getHistoryState, "getHistoryState", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+
+  __REACT_HOT_LOADER__.register(createBrowserHistory, "createBrowserHistory", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createBrowserHistory.js");
+}();
+
+;
 
 /***/ }),
-/* 77 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8382,22 +9020,280 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 
     return targetComponent;
 };
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(REACT_STATICS, 'REACT_STATICS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/hoist-non-react-statics/index.js');
+
+    __REACT_HOT_LOADER__.register(KNOWN_STATICS, 'KNOWN_STATICS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/hoist-non-react-statics/index.js');
+
+    __REACT_HOT_LOADER__.register(isGetOwnPropertySymbolsAvailable, 'isGetOwnPropertySymbolsAvailable', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/hoist-non-react-statics/index.js');
+}();
+
+;
 
 /***/ }),
-/* 78 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(136);
 
 
 /** Built-in value references. */
 var _Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 
-/* harmony default export */ __webpack_exports__["a"] = (_Symbol);
+var _default = _Symbol;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_Symbol, '_Symbol', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_Symbol.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_Symbol.js');
+}();
+
+;
 
 /***/ }),
-/* 79 */
+/* 75 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout() {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+})();
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch (e) {
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch (e) {
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e) {
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e) {
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while (len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) {
+    return [];
+};
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () {
+    return '/';
+};
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function () {
+    return 0;
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(process, 'process', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(cachedSetTimeout, 'cachedSetTimeout', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(cachedClearTimeout, 'cachedClearTimeout', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(defaultSetTimout, 'defaultSetTimout', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(defaultClearTimeout, 'defaultClearTimeout', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(runTimeout, 'runTimeout', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(runClearTimeout, 'runClearTimeout', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(queue, 'queue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(draining, 'draining', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(currentQueue, 'currentQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(queueIndex, 'queueIndex', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(cleanUpNextTick, 'cleanUpNextTick', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(drainQueue, 'drainQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(Item, 'Item', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+
+    __REACT_HOT_LOADER__.register(noop, 'noop', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/node-libs-browser/node_modules/process/browser.js');
+}();
+
+;
+
+/***/ }),
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8417,19 +9313,28 @@ var _Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 // However if one is migrating to the `prop-types` npm library, they will go through the
 // `index.js` entry point, and it will branch depending on the environment.
 
-var factory = __webpack_require__(80);
+var factory = __webpack_require__(141);
 module.exports = function (isValidElement) {
   // It is still allowed in 15.5.
   var throwOnDirectAccess = false;
   return factory(isValidElement, throwOnDirectAccess);
 };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 80 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -8440,491 +9345,23 @@ module.exports = function (isValidElement) {
 
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
-var emptyFunction = __webpack_require__(11);
-var invariant = __webpack_require__(1);
-var warning = __webpack_require__(2);
+module.exports = ReactPropTypesSecret;
+;
 
-var ReactPropTypesSecret = __webpack_require__(45);
-var checkPropTypes = __webpack_require__(146);
-
-module.exports = function (isValidElement, throwOnDirectAccess) {
-  /* global Symbol */
-  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
-  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
-
-  /**
-   * Returns the iterator method function contained on the iterable object.
-   *
-   * Be sure to invoke the function with the iterable as context:
-   *
-   *     var iteratorFn = getIteratorFn(myIterable);
-   *     if (iteratorFn) {
-   *       var iterator = iteratorFn.call(myIterable);
-   *       ...
-   *     }
-   *
-   * @param {?object} maybeIterable
-   * @return {?function}
-   */
-  function getIteratorFn(maybeIterable) {
-    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-    if (typeof iteratorFn === 'function') {
-      return iteratorFn;
-    }
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
   }
 
-  /**
-   * Collection of methods that allow declaration and validation of props that are
-   * supplied to React components. Example usage:
-   *
-   *   var Props = require('ReactPropTypes');
-   *   var MyArticle = React.createClass({
-   *     propTypes: {
-   *       // An optional string prop named "description".
-   *       description: Props.string,
-   *
-   *       // A required enum prop named "category".
-   *       category: Props.oneOf(['News','Photos']).isRequired,
-   *
-   *       // A prop named "dialog" that requires an instance of Dialog.
-   *       dialog: Props.instanceOf(Dialog).isRequired
-   *     },
-   *     render: function() { ... }
-   *   });
-   *
-   * A more formal specification of how these methods are used:
-   *
-   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
-   *   decl := ReactPropTypes.{type}(.isRequired)?
-   *
-   * Each and every declaration produces a function with the same signature. This
-   * allows the creation of custom validation functions. For example:
-   *
-   *  var MyLink = React.createClass({
-   *    propTypes: {
-   *      // An optional string or URI prop named "href".
-   *      href: function(props, propName, componentName) {
-   *        var propValue = props[propName];
-   *        if (propValue != null && typeof propValue !== 'string' &&
-   *            !(propValue instanceof URI)) {
-   *          return new Error(
-   *            'Expected a string or an URI for ' + propName + ' in ' +
-   *            componentName
-   *          );
-   *        }
-   *      }
-   *    },
-   *    render: function() {...}
-   *  });
-   *
-   * @internal
-   */
+  __REACT_HOT_LOADER__.register(ReactPropTypesSecret, 'ReactPropTypesSecret', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/prop-types/lib/ReactPropTypesSecret.js');
+}();
 
-  var ANONYMOUS = '<<anonymous>>';
-
-  // Important!
-  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
-  var ReactPropTypes = {
-    array: createPrimitiveTypeChecker('array'),
-    bool: createPrimitiveTypeChecker('boolean'),
-    func: createPrimitiveTypeChecker('function'),
-    number: createPrimitiveTypeChecker('number'),
-    object: createPrimitiveTypeChecker('object'),
-    string: createPrimitiveTypeChecker('string'),
-    symbol: createPrimitiveTypeChecker('symbol'),
-
-    any: createAnyTypeChecker(),
-    arrayOf: createArrayOfTypeChecker,
-    element: createElementTypeChecker(),
-    instanceOf: createInstanceTypeChecker,
-    node: createNodeChecker(),
-    objectOf: createObjectOfTypeChecker,
-    oneOf: createEnumTypeChecker,
-    oneOfType: createUnionTypeChecker,
-    shape: createShapeTypeChecker
-  };
-
-  /**
-   * inlined Object.is polyfill to avoid requiring consumers ship their own
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
-   */
-  /*eslint-disable no-self-compare*/
-  function is(x, y) {
-    // SameValue algorithm
-    if (x === y) {
-      // Steps 1-5, 7-10
-      // Steps 6.b-6.e: +0 != -0
-      return x !== 0 || 1 / x === 1 / y;
-    } else {
-      // Step 6.a: NaN == NaN
-      return x !== x && y !== y;
-    }
-  }
-  /*eslint-enable no-self-compare*/
-
-  /**
-   * We use an Error-like object for backward compatibility as people may call
-   * PropTypes directly and inspect their output. However, we don't use real
-   * Errors anymore. We don't inspect their stack anyway, and creating them
-   * is prohibitively expensive if they are created too often, such as what
-   * happens in oneOfType() for any type before the one that matched.
-   */
-  function PropTypeError(message) {
-    this.message = message;
-    this.stack = '';
-  }
-  // Make `instanceof Error` still work for returned errors.
-  PropTypeError.prototype = Error.prototype;
-
-  function createChainableTypeChecker(validate) {
-    if (process.env.NODE_ENV !== 'production') {
-      var manualPropTypeCallCache = {};
-      var manualPropTypeWarningCount = 0;
-    }
-    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
-      componentName = componentName || ANONYMOUS;
-      propFullName = propFullName || propName;
-
-      if (secret !== ReactPropTypesSecret) {
-        if (throwOnDirectAccess) {
-          // New behavior only for users of `prop-types` package
-          invariant(false, 'Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use `PropTypes.checkPropTypes()` to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
-        } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
-          // Old behavior for people using React.PropTypes
-          var cacheKey = componentName + ':' + propName;
-          if (!manualPropTypeCallCache[cacheKey] &&
-          // Avoid spamming the console because they are often not actionable except for lib authors
-          manualPropTypeWarningCount < 3) {
-            warning(false, 'You are manually calling a React.PropTypes validation ' + 'function for the `%s` prop on `%s`. This is deprecated ' + 'and will throw in the standalone `prop-types` package. ' + 'You may be seeing this warning due to a third-party PropTypes ' + 'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.', propFullName, componentName);
-            manualPropTypeCallCache[cacheKey] = true;
-            manualPropTypeWarningCount++;
-          }
-        }
-      }
-      if (props[propName] == null) {
-        if (isRequired) {
-          if (props[propName] === null) {
-            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
-          }
-          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
-        }
-        return null;
-      } else {
-        return validate(props, propName, componentName, location, propFullName);
-      }
-    }
-
-    var chainedCheckType = checkType.bind(null, false);
-    chainedCheckType.isRequired = checkType.bind(null, true);
-
-    return chainedCheckType;
-  }
-
-  function createPrimitiveTypeChecker(expectedType) {
-    function validate(props, propName, componentName, location, propFullName, secret) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== expectedType) {
-        // `propValue` being instance of, say, date/regexp, pass the 'object'
-        // check, but we can offer a more precise error message here rather than
-        // 'of type `object`'.
-        var preciseType = getPreciseType(propValue);
-
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createAnyTypeChecker() {
-    return createChainableTypeChecker(emptyFunction.thatReturnsNull);
-  }
-
-  function createArrayOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
-      }
-      var propValue = props[propName];
-      if (!Array.isArray(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
-      }
-      for (var i = 0; i < propValue.length; i++) {
-        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
-        if (error instanceof Error) {
-          return error;
-        }
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createElementTypeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      if (!isValidElement(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createInstanceTypeChecker(expectedClass) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!(props[propName] instanceof expectedClass)) {
-        var expectedClassName = expectedClass.name || ANONYMOUS;
-        var actualClassName = getClassName(props[propName]);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createEnumTypeChecker(expectedValues) {
-    if (!Array.isArray(expectedValues)) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
-      return emptyFunction.thatReturnsNull;
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      for (var i = 0; i < expectedValues.length; i++) {
-        if (is(propValue, expectedValues[i])) {
-          return null;
-        }
-      }
-
-      var valuesString = JSON.stringify(expectedValues);
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createObjectOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
-      }
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
-      }
-      for (var key in propValue) {
-        if (propValue.hasOwnProperty(key)) {
-          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
-          if (error instanceof Error) {
-            return error;
-          }
-        }
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createUnionTypeChecker(arrayOfTypeCheckers) {
-    if (!Array.isArray(arrayOfTypeCheckers)) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
-      return emptyFunction.thatReturnsNull;
-    }
-
-    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-      var checker = arrayOfTypeCheckers[i];
-      if (typeof checker !== 'function') {
-        warning(false, 'Invalid argument supplid to oneOfType. Expected an array of check functions, but ' + 'received %s at index %s.', getPostfixForTypeWarning(checker), i);
-        return emptyFunction.thatReturnsNull;
-      }
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-        var checker = arrayOfTypeCheckers[i];
-        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
-          return null;
-        }
-      }
-
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createNodeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!isNode(props[propName])) {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createShapeTypeChecker(shapeTypes) {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      }
-      for (var key in shapeTypes) {
-        var checker = shapeTypes[key];
-        if (!checker) {
-          continue;
-        }
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
-        if (error) {
-          return error;
-        }
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function isNode(propValue) {
-    switch (typeof propValue === 'undefined' ? 'undefined' : _typeof(propValue)) {
-      case 'number':
-      case 'string':
-      case 'undefined':
-        return true;
-      case 'boolean':
-        return !propValue;
-      case 'object':
-        if (Array.isArray(propValue)) {
-          return propValue.every(isNode);
-        }
-        if (propValue === null || isValidElement(propValue)) {
-          return true;
-        }
-
-        var iteratorFn = getIteratorFn(propValue);
-        if (iteratorFn) {
-          var iterator = iteratorFn.call(propValue);
-          var step;
-          if (iteratorFn !== propValue.entries) {
-            while (!(step = iterator.next()).done) {
-              if (!isNode(step.value)) {
-                return false;
-              }
-            }
-          } else {
-            // Iterator will provide entry [k,v] tuples rather than values.
-            while (!(step = iterator.next()).done) {
-              var entry = step.value;
-              if (entry) {
-                if (!isNode(entry[1])) {
-                  return false;
-                }
-              }
-            }
-          }
-        } else {
-          return false;
-        }
-
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  function isSymbol(propType, propValue) {
-    // Native Symbol.
-    if (propType === 'symbol') {
-      return true;
-    }
-
-    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
-    if (propValue['@@toStringTag'] === 'Symbol') {
-      return true;
-    }
-
-    // Fallback for non-spec compliant Symbols which are polyfilled.
-    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
-      return true;
-    }
-
-    return false;
-  }
-
-  // Equivalent of `typeof` but with special handling for array and regexp.
-  function getPropType(propValue) {
-    var propType = typeof propValue === 'undefined' ? 'undefined' : _typeof(propValue);
-    if (Array.isArray(propValue)) {
-      return 'array';
-    }
-    if (propValue instanceof RegExp) {
-      // Old webkits (at least until Android 4.0) return 'function' rather than
-      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
-      // passes PropTypes.object.
-      return 'object';
-    }
-    if (isSymbol(propType, propValue)) {
-      return 'symbol';
-    }
-    return propType;
-  }
-
-  // This handles more types than `getPropType`. Only used for error messages.
-  // See `createPrimitiveTypeChecker`.
-  function getPreciseType(propValue) {
-    if (typeof propValue === 'undefined' || propValue === null) {
-      return '' + propValue;
-    }
-    var propType = getPropType(propValue);
-    if (propType === 'object') {
-      if (propValue instanceof Date) {
-        return 'date';
-      } else if (propValue instanceof RegExp) {
-        return 'regexp';
-      }
-    }
-    return propType;
-  }
-
-  // Returns a string that is postfixed to a warning about an invalid type.
-  // For example, "undefined" or "of type array"
-  function getPostfixForTypeWarning(value) {
-    var type = getPreciseType(value);
-    switch (type) {
-      case 'array':
-      case 'object':
-        return 'an ' + type;
-      case 'boolean':
-      case 'date':
-      case 'regexp':
-        return 'a ' + type;
-      default:
-        return type;
-    }
-  }
-
-  // Returns class name of the object, if any.
-  function getClassName(propValue) {
-    if (!propValue.constructor || !propValue.constructor.name) {
-      return ANONYMOUS;
-    }
-    return propValue.constructor.name;
-  }
-
-  ReactPropTypes.checkPropTypes = checkPropTypes;
-  ReactPropTypes.PropTypes = ReactPropTypes;
-
-  return ReactPropTypes;
-};
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
 
 /***/ }),
-/* 81 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9075,13 +9512,32 @@ var CSSProperty = {
 };
 
 module.exports = CSSProperty;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isUnitlessNumber, 'isUnitlessNumber', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSProperty.js');
+
+  __REACT_HOT_LOADER__.register(prefixKey, 'prefixKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSProperty.js');
+
+  __REACT_HOT_LOADER__.register(prefixes, 'prefixes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSProperty.js');
+
+  __REACT_HOT_LOADER__.register(shorthandPropertyExpansions, 'shorthandPropertyExpansions', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSProperty.js');
+
+  __REACT_HOT_LOADER__.register(CSSProperty, 'CSSProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSProperty.js');
+}();
+
+;
 
 /***/ }),
-/* 82 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -9094,7 +9550,7 @@ module.exports = CSSProperty;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -9102,9 +9558,9 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
-var PooledClass = __webpack_require__(18);
+var PooledClass = __webpack_require__(15);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 /**
  * A specialized pseudo-event module to help keep track of components waiting to
@@ -9154,7 +9610,7 @@ var CallbackQueue = function () {
     var contexts = this._contexts;
     var arg = this._arg;
     if (callbacks && contexts) {
-      !(callbacks.length === contexts.length) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Mismatched list of contexts in callback queue') : _prodInvariant('24') : void 0;
+      !(callbacks.length === contexts.length) ?  false ? invariant(false, 'Mismatched list of contexts in callback queue') : _prodInvariant('24') : void 0;
       this._callbacks = null;
       this._contexts = null;
       for (var i = 0; i < callbacks.length; i++) {
@@ -9199,14 +9655,26 @@ var CallbackQueue = function () {
 }();
 
 module.exports = PooledClass.addPoolingTo(CallbackQueue);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, '_classCallCheck', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CallbackQueue.js');
+
+  __REACT_HOT_LOADER__.register(CallbackQueue, 'CallbackQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CallbackQueue.js');
+}();
+
+;
 
 /***/ }),
-/* 83 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -9218,11 +9686,11 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 
 
 
-var DOMProperty = __webpack_require__(16);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactInstrumentation = __webpack_require__(12);
+var DOMProperty = __webpack_require__(18);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactInstrumentation = __webpack_require__(10);
 
-var quoteAttributeValueForBrowser = __webpack_require__(217);
+var quoteAttributeValueForBrowser = __webpack_require__(204);
 var warning = __webpack_require__(2);
 
 var VALID_ATTRIBUTE_NAME_REGEX = new RegExp('^[' + DOMProperty.ATTRIBUTE_NAME_START_CHAR + '][' + DOMProperty.ATTRIBUTE_NAME_CHAR + ']*$');
@@ -9241,7 +9709,7 @@ function isAttributeNameSafe(attributeName) {
     return true;
   }
   illegalAttributeNameCache[attributeName] = true;
-  process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid attribute name: `%s`', attributeName) : void 0;
+   false ? warning(false, 'Invalid attribute name: `%s`', attributeName) : void 0;
   return false;
 }
 
@@ -9355,7 +9823,7 @@ var DOMPropertyOperations = {
       return;
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var payload = {};
       payload[name] = value;
       ReactInstrumentation.debugTool.onHostOperation({
@@ -9376,7 +9844,7 @@ var DOMPropertyOperations = {
       node.setAttribute(name, '' + value);
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var payload = {};
       payload[name] = value;
       ReactInstrumentation.debugTool.onHostOperation({
@@ -9395,7 +9863,7 @@ var DOMPropertyOperations = {
    */
   deleteValueForAttribute: function deleteValueForAttribute(node, name) {
     node.removeAttribute(name);
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       ReactInstrumentation.debugTool.onHostOperation({
         instanceID: ReactDOMComponentTree.getInstanceFromNode(node)._debugID,
         type: 'remove attribute',
@@ -9430,7 +9898,7 @@ var DOMPropertyOperations = {
       node.removeAttribute(name);
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       ReactInstrumentation.debugTool.onHostOperation({
         instanceID: ReactDOMComponentTree.getInstanceFromNode(node)._debugID,
         type: 'remove attribute',
@@ -9442,10 +9910,30 @@ var DOMPropertyOperations = {
 };
 
 module.exports = DOMPropertyOperations;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(VALID_ATTRIBUTE_NAME_REGEX, 'VALID_ATTRIBUTE_NAME_REGEX', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(illegalAttributeNameCache, 'illegalAttributeNameCache', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(validatedAttributeNameCache, 'validatedAttributeNameCache', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(isAttributeNameSafe, 'isAttributeNameSafe', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(shouldIgnoreValue, 'shouldIgnoreValue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(DOMPropertyOperations, 'DOMPropertyOperations', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DOMPropertyOperations.js');
+}();
+
+;
 
 /***/ }),
-/* 84 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9466,13 +9954,24 @@ var ReactDOMComponentFlags = {
 };
 
 module.exports = ReactDOMComponentFlags;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactDOMComponentFlags, 'ReactDOMComponentFlags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponentFlags.js');
+}();
+
+;
 
 /***/ }),
-/* 85 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -9484,11 +9983,11 @@ module.exports = ReactDOMComponentFlags;
 
 
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var LinkedValueUtils = __webpack_require__(50);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactUpdates = __webpack_require__(13);
+var LinkedValueUtils = __webpack_require__(46);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactUpdates = __webpack_require__(11);
 
 var warning = __webpack_require__(2);
 
@@ -9529,7 +10028,7 @@ function checkSelectPropTypes(inst, props) {
   LinkedValueUtils.checkPropTypes('select', props, owner);
 
   if (props.valueLink !== undefined && !didWarnValueLink) {
-    process.env.NODE_ENV !== 'production' ? warning(false, '`valueLink` prop on `select` is deprecated; set `value` and `onChange` instead.') : void 0;
+     false ? warning(false, '`valueLink` prop on `select` is deprecated; set `value` and `onChange` instead.') : void 0;
     didWarnValueLink = true;
   }
 
@@ -9540,9 +10039,9 @@ function checkSelectPropTypes(inst, props) {
     }
     var isArray = Array.isArray(props[propName]);
     if (props.multiple && !isArray) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'The `%s` prop supplied to <select> must be an array if ' + '`multiple` is true.%s', propName, getDeclarationErrorAddendum(owner)) : void 0;
+       false ? warning(false, 'The `%s` prop supplied to <select> must be an array if ' + '`multiple` is true.%s', propName, getDeclarationErrorAddendum(owner)) : void 0;
     } else if (!props.multiple && isArray) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'The `%s` prop supplied to <select> must be a scalar ' + 'value if `multiple` is false.%s', propName, getDeclarationErrorAddendum(owner)) : void 0;
+       false ? warning(false, 'The `%s` prop supplied to <select> must be a scalar ' + 'value if `multiple` is false.%s', propName, getDeclarationErrorAddendum(owner)) : void 0;
     }
   }
 }
@@ -9608,7 +10107,7 @@ var ReactDOMSelect = {
   },
 
   mountWrapper: function mountWrapper(inst, props) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       checkSelectPropTypes(inst, props);
     }
 
@@ -9622,7 +10121,7 @@ var ReactDOMSelect = {
     };
 
     if (props.value !== undefined && props.defaultValue !== undefined && !didWarnValueDefaultValue) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Select elements must be either controlled or uncontrolled ' + '(specify either the value prop, or the defaultValue prop, but not ' + 'both). Decide between using a controlled or uncontrolled select ' + 'element and remove one of these props. More info: ' + 'https://fb.me/react-controlled-components') : void 0;
+       false ? warning(false, 'Select elements must be either controlled or uncontrolled ' + '(specify either the value prop, or the defaultValue prop, but not ' + 'both). Decide between using a controlled or uncontrolled select ' + 'element and remove one of these props. More info: ' + 'https://fb.me/react-controlled-components') : void 0;
       didWarnValueDefaultValue = true;
     }
   },
@@ -9671,10 +10170,36 @@ function _handleChange(event) {
 }
 
 module.exports = ReactDOMSelect;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(didWarnValueLink, 'didWarnValueLink', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelect.js');
+
+  __REACT_HOT_LOADER__.register(didWarnValueDefaultValue, 'didWarnValueDefaultValue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelect.js');
+
+  __REACT_HOT_LOADER__.register(updateOptionsIfPendingUpdateAndMounted, 'updateOptionsIfPendingUpdateAndMounted', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelect.js');
+
+  __REACT_HOT_LOADER__.register(getDeclarationErrorAddendum, 'getDeclarationErrorAddendum', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelect.js');
+
+  __REACT_HOT_LOADER__.register(valuePropNames, 'valuePropNames', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelect.js');
+
+  __REACT_HOT_LOADER__.register(checkSelectPropTypes, 'checkSelectPropTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelect.js');
+
+  __REACT_HOT_LOADER__.register(updateOptions, 'updateOptions', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelect.js');
+
+  __REACT_HOT_LOADER__.register(ReactDOMSelect, 'ReactDOMSelect', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelect.js');
+
+  __REACT_HOT_LOADER__.register(_handleChange, '_handleChange', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelect.js');
+}();
+
+;
 
 /***/ }),
-/* 86 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9707,9 +10232,24 @@ var ReactEmptyComponent = {
 ReactEmptyComponent.injection = ReactEmptyComponentInjection;
 
 module.exports = ReactEmptyComponent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(emptyComponentFactory, 'emptyComponentFactory', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEmptyComponent.js');
+
+  __REACT_HOT_LOADER__.register(ReactEmptyComponentInjection, 'ReactEmptyComponentInjection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEmptyComponent.js');
+
+  __REACT_HOT_LOADER__.register(ReactEmptyComponent, 'ReactEmptyComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEmptyComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 87 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9734,13 +10274,24 @@ var ReactFeatureFlags = {
 };
 
 module.exports = ReactFeatureFlags;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactFeatureFlags, 'ReactFeatureFlags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactFeatureFlags.js');
+}();
+
+;
 
 /***/ }),
-/* 88 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2014-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -9752,9 +10303,9 @@ module.exports = ReactFeatureFlags;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 var genericComponentClass = null;
 var textComponentClass = null;
@@ -9779,7 +10330,7 @@ var ReactHostComponentInjection = {
  * @return {function} The internal class constructor function.
  */
 function createInternalComponent(element) {
-  !genericComponentClass ? process.env.NODE_ENV !== 'production' ? invariant(false, 'There is no registered component for the tag %s', element.type) : _prodInvariant('111', element.type) : void 0;
+  !genericComponentClass ?  false ? invariant(false, 'There is no registered component for the tag %s', element.type) : _prodInvariant('111', element.type) : void 0;
   return new genericComponentClass(element);
 }
 
@@ -9807,10 +10358,32 @@ var ReactHostComponent = {
 };
 
 module.exports = ReactHostComponent;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(genericComponentClass, 'genericComponentClass', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactHostComponent.js');
+
+  __REACT_HOT_LOADER__.register(textComponentClass, 'textComponentClass', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactHostComponent.js');
+
+  __REACT_HOT_LOADER__.register(ReactHostComponentInjection, 'ReactHostComponentInjection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactHostComponent.js');
+
+  __REACT_HOT_LOADER__.register(createInternalComponent, 'createInternalComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactHostComponent.js');
+
+  __REACT_HOT_LOADER__.register(createInstanceForText, 'createInstanceForText', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactHostComponent.js');
+
+  __REACT_HOT_LOADER__.register(isTextComponent, 'isTextComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactHostComponent.js');
+
+  __REACT_HOT_LOADER__.register(ReactHostComponent, 'ReactHostComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactHostComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 89 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9826,11 +10399,11 @@ module.exports = ReactHostComponent;
 
 
 
-var ReactDOMSelection = __webpack_require__(172);
+var ReactDOMSelection = __webpack_require__(164);
 
-var containsNode = __webpack_require__(122);
-var focusNode = __webpack_require__(73);
-var getActiveElement = __webpack_require__(74);
+var containsNode = __webpack_require__(117);
+var focusNode = __webpack_require__(69);
+var getActiveElement = __webpack_require__(70);
 
 function isInDocument(node) {
   return containsNode(document.documentElement, node);
@@ -9937,13 +10510,26 @@ var ReactInputSelection = {
 };
 
 module.exports = ReactInputSelection;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isInDocument, 'isInDocument', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactInputSelection.js');
+
+  __REACT_HOT_LOADER__.register(ReactInputSelection, 'ReactInputSelection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactInputSelection.js');
+}();
+
+;
 
 /***/ }),
-/* 90 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -9955,29 +10541,29 @@ module.exports = ReactInputSelection;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var DOMLazyTree = __webpack_require__(22);
-var DOMProperty = __webpack_require__(16);
-var React = __webpack_require__(24);
-var ReactBrowserEventEmitter = __webpack_require__(35);
-var ReactCurrentOwner = __webpack_require__(14);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactDOMContainerInfo = __webpack_require__(164);
-var ReactDOMFeatureFlags = __webpack_require__(166);
-var ReactFeatureFlags = __webpack_require__(87);
-var ReactInstanceMap = __webpack_require__(31);
-var ReactInstrumentation = __webpack_require__(12);
-var ReactMarkupChecksum = __webpack_require__(186);
-var ReactReconciler = __webpack_require__(23);
-var ReactUpdateQueue = __webpack_require__(53);
-var ReactUpdates = __webpack_require__(13);
+var DOMLazyTree = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
+var React = __webpack_require__(20);
+var ReactBrowserEventEmitter = __webpack_require__(32);
+var ReactCurrentOwner = __webpack_require__(13);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMContainerInfo = __webpack_require__(158);
+var ReactDOMFeatureFlags = __webpack_require__(160);
+var ReactFeatureFlags = __webpack_require__(84);
+var ReactInstanceMap = __webpack_require__(29);
+var ReactInstrumentation = __webpack_require__(10);
+var ReactMarkupChecksum = __webpack_require__(174);
+var ReactReconciler = __webpack_require__(19);
+var ReactUpdateQueue = __webpack_require__(49);
+var ReactUpdates = __webpack_require__(11);
 
-var emptyObject = __webpack_require__(26);
-var instantiateReactComponent = __webpack_require__(98);
-var invariant = __webpack_require__(1);
-var setInnerHTML = __webpack_require__(39);
-var shouldUpdateReactComponent = __webpack_require__(59);
+var emptyObject = __webpack_require__(24);
+var instantiateReactComponent = __webpack_require__(94);
+var invariant = __webpack_require__(0);
+var setInnerHTML = __webpack_require__(36);
+var shouldUpdateReactComponent = __webpack_require__(55);
 var warning = __webpack_require__(2);
 
 var ATTR_NAME = DOMProperty.ID_ATTRIBUTE_NAME;
@@ -10082,11 +10668,11 @@ function batchedMountComponentIntoNode(componentInstance, container, shouldReuse
  * @see {ReactMount.unmountComponentAtNode}
  */
 function unmountComponentFromNode(instance, container, safely) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     ReactInstrumentation.debugTool.onBeginFlush();
   }
   ReactReconciler.unmountComponent(instance, safely);
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     ReactInstrumentation.debugTool.onEndFlush();
   }
 
@@ -10174,7 +10760,7 @@ var TopLevelWrapper = function TopLevelWrapper() {
   this.rootID = topLevelRootCounter++;
 };
 TopLevelWrapper.prototype.isReactComponent = {};
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   TopLevelWrapper.displayName = 'TopLevelWrapper';
 }
 TopLevelWrapper.prototype.render = function () {
@@ -10251,9 +10837,9 @@ var ReactMount = {
     // Various parts of our code (such as ReactCompositeComponent's
     // _renderValidatedComponent) assume that calls to render aren't nested;
     // verify that that's the case.
-    process.env.NODE_ENV !== 'production' ? warning(ReactCurrentOwner.current == null, '_renderNewRootComponent(): Render methods should be a pure function ' + 'of props and state; triggering nested component updates from ' + 'render is not allowed. If necessary, trigger nested updates in ' + 'componentDidUpdate. Check the render method of %s.', ReactCurrentOwner.current && ReactCurrentOwner.current.getName() || 'ReactCompositeComponent') : void 0;
+     false ? warning(ReactCurrentOwner.current == null, '_renderNewRootComponent(): Render methods should be a pure function ' + 'of props and state; triggering nested component updates from ' + 'render is not allowed. If necessary, trigger nested updates in ' + 'componentDidUpdate. Check the render method of %s.', ReactCurrentOwner.current && ReactCurrentOwner.current.getName() || 'ReactCompositeComponent') : void 0;
 
-    !isValidContainer(container) ? process.env.NODE_ENV !== 'production' ? invariant(false, '_registerComponent(...): Target container is not a DOM element.') : _prodInvariant('37') : void 0;
+    !isValidContainer(container) ?  false ? invariant(false, '_registerComponent(...): Target container is not a DOM element.') : _prodInvariant('37') : void 0;
 
     ReactBrowserEventEmitter.ensureScrollValueMonitoring();
     var componentInstance = instantiateReactComponent(nextElement, false);
@@ -10284,17 +10870,17 @@ var ReactMount = {
    * @return {ReactComponent} Component instance rendered in `container`.
    */
   renderSubtreeIntoContainer: function renderSubtreeIntoContainer(parentComponent, nextElement, container, callback) {
-    !(parentComponent != null && ReactInstanceMap.has(parentComponent)) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'parentComponent must be a valid React Component') : _prodInvariant('38') : void 0;
+    !(parentComponent != null && ReactInstanceMap.has(parentComponent)) ?  false ? invariant(false, 'parentComponent must be a valid React Component') : _prodInvariant('38') : void 0;
     return ReactMount._renderSubtreeIntoContainer(parentComponent, nextElement, container, callback);
   },
 
   _renderSubtreeIntoContainer: function _renderSubtreeIntoContainer(parentComponent, nextElement, container, callback) {
     ReactUpdateQueue.validateCallback(callback, 'ReactDOM.render');
-    !React.isValidElement(nextElement) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactDOM.render(): Invalid component element.%s', typeof nextElement === 'string' ? ' Instead of passing a string like \'div\', pass ' + 'React.createElement(\'div\') or <div />.' : typeof nextElement === 'function' ? ' Instead of passing a class like Foo, pass ' + 'React.createElement(Foo) or <Foo />.' :
+    !React.isValidElement(nextElement) ?  false ? invariant(false, 'ReactDOM.render(): Invalid component element.%s', typeof nextElement === 'string' ? ' Instead of passing a string like \'div\', pass ' + 'React.createElement(\'div\') or <div />.' : typeof nextElement === 'function' ? ' Instead of passing a class like Foo, pass ' + 'React.createElement(Foo) or <Foo />.' :
     // Check if it quacks like an element
     nextElement != null && nextElement.props !== undefined ? ' This may be caused by unintentionally loading two independent ' + 'copies of React.' : '') : _prodInvariant('39', typeof nextElement === 'string' ? ' Instead of passing a string like \'div\', pass ' + 'React.createElement(\'div\') or <div />.' : typeof nextElement === 'function' ? ' Instead of passing a class like Foo, pass ' + 'React.createElement(Foo) or <Foo />.' : nextElement != null && nextElement.props !== undefined ? ' This may be caused by unintentionally loading two independent ' + 'copies of React.' : '') : void 0;
 
-    process.env.NODE_ENV !== 'production' ? warning(!container || !container.tagName || container.tagName.toUpperCase() !== 'BODY', 'render(): Rendering components directly into document.body is ' + 'discouraged, since its children are often manipulated by third-party ' + 'scripts and browser extensions. This may lead to subtle ' + 'reconciliation issues. Try rendering into a container element created ' + 'for your app.') : void 0;
+     false ? warning(!container || !container.tagName || container.tagName.toUpperCase() !== 'BODY', 'render(): Rendering components directly into document.body is ' + 'discouraged, since its children are often manipulated by third-party ' + 'scripts and browser extensions. This may lead to subtle ' + 'reconciliation issues. Try rendering into a container element created ' + 'for your app.') : void 0;
 
     var nextWrappedElement = React.createElement(TopLevelWrapper, { child: nextElement });
 
@@ -10327,7 +10913,7 @@ var ReactMount = {
     var containerHasReactMarkup = reactRootElement && !!internalGetID(reactRootElement);
     var containerHasNonRootReactChild = hasNonRootReactChild(container);
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       process.env.NODE_ENV !== 'production' ? warning(!containerHasNonRootReactChild, 'render(...): Replacing React-rendered children with a new root ' + 'component. If you intended to update the children of this node, ' + 'you should instead have the existing children update their state ' + 'and render the new components instead of calling ReactDOM.render.') : void 0;
 
       if (!containerHasReactMarkup || reactRootElement.nextSibling) {
@@ -10380,11 +10966,11 @@ var ReactMount = {
     // _renderValidatedComponent) assume that calls to render aren't nested;
     // verify that that's the case. (Strictly speaking, unmounting won't cause a
     // render but we still don't expect to be in a render call here.)
-    process.env.NODE_ENV !== 'production' ? warning(ReactCurrentOwner.current == null, 'unmountComponentAtNode(): Render methods should be a pure function ' + 'of props and state; triggering nested component updates from render ' + 'is not allowed. If necessary, trigger nested updates in ' + 'componentDidUpdate. Check the render method of %s.', ReactCurrentOwner.current && ReactCurrentOwner.current.getName() || 'ReactCompositeComponent') : void 0;
+     false ? warning(ReactCurrentOwner.current == null, 'unmountComponentAtNode(): Render methods should be a pure function ' + 'of props and state; triggering nested component updates from render ' + 'is not allowed. If necessary, trigger nested updates in ' + 'componentDidUpdate. Check the render method of %s.', ReactCurrentOwner.current && ReactCurrentOwner.current.getName() || 'ReactCompositeComponent') : void 0;
 
-    !isValidContainer(container) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'unmountComponentAtNode(...): Target container is not a DOM element.') : _prodInvariant('40') : void 0;
+    !isValidContainer(container) ?  false ? invariant(false, 'unmountComponentAtNode(...): Target container is not a DOM element.') : _prodInvariant('40') : void 0;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       process.env.NODE_ENV !== 'production' ? warning(!nodeIsRenderedByOtherInstance(container), 'unmountComponentAtNode(): The node you\'re attempting to unmount ' + 'was rendered by another copy of React.') : void 0;
     }
 
@@ -10397,7 +10983,7 @@ var ReactMount = {
       // Check if the container itself is a React root node.
       var isContainerReactRoot = container.nodeType === 1 && container.hasAttribute(ROOT_ATTR_NAME);
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         process.env.NODE_ENV !== 'production' ? warning(!containerHasNonRootReactChild, 'unmountComponentAtNode(): The node you\'re attempting to unmount ' + 'was rendered by React and is not a top-level container. %s', isContainerReactRoot ? 'You may have accidentally passed in a React root node instead ' + 'of its container.' : 'Instead, have the parent component update its state and ' + 'rerender in order to remove this component.') : void 0;
       }
 
@@ -10409,7 +10995,7 @@ var ReactMount = {
   },
 
   _mountImageIntoNode: function _mountImageIntoNode(markup, container, instance, shouldReuseMarkup, transaction) {
-    !isValidContainer(container) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'mountComponentIntoNode(...): Target container is not valid.') : _prodInvariant('41') : void 0;
+    !isValidContainer(container) ?  false ? invariant(false, 'mountComponentIntoNode(...): Target container is not valid.') : _prodInvariant('41') : void 0;
 
     if (shouldReuseMarkup) {
       var rootElement = getReactRootElementInContainer(container);
@@ -10424,7 +11010,7 @@ var ReactMount = {
         rootElement.setAttribute(ReactMarkupChecksum.CHECKSUM_ATTR_NAME, checksum);
 
         var normalizedMarkup = markup;
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           // because rootMarkup is retrieved from the DOM, various normalizations
           // will have occurred which will not be present in `markup`. Here,
           // insert markup into a <div> or <iframe> depending on the container
@@ -10446,15 +11032,15 @@ var ReactMount = {
         var diffIndex = firstDifferenceIndex(normalizedMarkup, rootMarkup);
         var difference = ' (client) ' + normalizedMarkup.substring(diffIndex - 20, diffIndex + 20) + '\n (server) ' + rootMarkup.substring(diffIndex - 20, diffIndex + 20);
 
-        !(container.nodeType !== DOC_NODE_TYPE) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'You\'re trying to render a component to the document using server rendering but the checksum was invalid. This usually means you rendered a different component type or props on the client from the one on the server, or your render() methods are impure. React cannot handle this case due to cross-browser quirks by rendering at the document root. You should look for environment dependent code in your components and ensure the props are the same client and server side:\n%s', difference) : _prodInvariant('42', difference) : void 0;
+        !(container.nodeType !== DOC_NODE_TYPE) ?  false ? invariant(false, 'You\'re trying to render a component to the document using server rendering but the checksum was invalid. This usually means you rendered a different component type or props on the client from the one on the server, or your render() methods are impure. React cannot handle this case due to cross-browser quirks by rendering at the document root. You should look for environment dependent code in your components and ensure the props are the same client and server side:\n%s', difference) : _prodInvariant('42', difference) : void 0;
 
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           process.env.NODE_ENV !== 'production' ? warning(false, 'React attempted to reuse markup in a container but the ' + 'checksum was invalid. This generally means that you are ' + 'using server rendering and the markup generated on the ' + 'server was not what the client was expecting. React injected ' + 'new markup to compensate which works but you have lost many ' + 'of the benefits of server rendering. Instead, figure out ' + 'why the markup being generated is different on the client ' + 'or server:\n%s', difference) : void 0;
         }
       }
     }
 
-    !(container.nodeType !== DOC_NODE_TYPE) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'You\'re trying to render a component to the document but you didn\'t use server rendering. We can\'t do this without using server rendering due to cross-browser quirks. See ReactDOMServer.renderToString() for server rendering.') : _prodInvariant('43') : void 0;
+    !(container.nodeType !== DOC_NODE_TYPE) ?  false ? invariant(false, 'You\'re trying to render a component to the document but you didn\'t use server rendering. We can\'t do this without using server rendering due to cross-browser quirks. See ReactDOMServer.renderToString() for server rendering.') : _prodInvariant('43') : void 0;
 
     if (transaction.useCreateElement) {
       while (container.lastChild) {
@@ -10466,7 +11052,7 @@ var ReactMount = {
       ReactDOMComponentTree.precacheNode(instance, container.firstChild);
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var hostNode = ReactDOMComponentTree.getInstanceFromNode(container.firstChild);
       if (hostNode._debugID !== 0) {
         ReactInstrumentation.debugTool.onHostOperation({
@@ -10480,56 +11066,60 @@ var ReactMount = {
 };
 
 module.exports = ReactMount;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
 
-/***/ }),
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var _prodInvariant = __webpack_require__(4);
-
-var React = __webpack_require__(24);
-
-var invariant = __webpack_require__(1);
-
-var ReactNodeTypes = {
-  HOST: 0,
-  COMPOSITE: 1,
-  EMPTY: 2,
-
-  getType: function getType(node) {
-    if (node === null || node === false) {
-      return ReactNodeTypes.EMPTY;
-    } else if (React.isValidElement(node)) {
-      if (typeof node.type === 'function') {
-        return ReactNodeTypes.COMPOSITE;
-      } else {
-        return ReactNodeTypes.HOST;
-      }
-    }
-     true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Unexpected node: %s', node) : _prodInvariant('26', node) : void 0;
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
   }
-};
 
-module.exports = ReactNodeTypes;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+  __REACT_HOT_LOADER__.register(ATTR_NAME, 'ATTR_NAME', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(ROOT_ATTR_NAME, 'ROOT_ATTR_NAME', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(ELEMENT_NODE_TYPE, 'ELEMENT_NODE_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(DOC_NODE_TYPE, 'DOC_NODE_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(DOCUMENT_FRAGMENT_NODE_TYPE, 'DOCUMENT_FRAGMENT_NODE_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(instancesByReactRootID, 'instancesByReactRootID', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(firstDifferenceIndex, 'firstDifferenceIndex', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(getReactRootElementInContainer, 'getReactRootElementInContainer', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(internalGetID, 'internalGetID', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(mountComponentIntoNode, 'mountComponentIntoNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(batchedMountComponentIntoNode, 'batchedMountComponentIntoNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(unmountComponentFromNode, 'unmountComponentFromNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(hasNonRootReactChild, 'hasNonRootReactChild', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(nodeIsRenderedByOtherInstance, 'nodeIsRenderedByOtherInstance', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(isValidContainer, 'isValidContainer', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(isReactNode, 'isReactNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(getHostRootInstanceInContainer, 'getHostRootInstanceInContainer', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(getTopLevelWrapperInContainer, 'getTopLevelWrapperInContainer', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(topLevelRootCounter, 'topLevelRootCounter', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(TopLevelWrapper, 'TopLevelWrapper', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+
+  __REACT_HOT_LOADER__.register(ReactMount, 'ReactMount', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMount.js');
+}();
+
+;
 
 /***/ }),
-/* 92 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10546,12 +11136,46 @@ module.exports = ReactNodeTypes;
 
 
 
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+var _prodInvariant = __webpack_require__(3);
 
-module.exports = ReactPropTypesSecret;
+var React = __webpack_require__(20);
+
+var invariant = __webpack_require__(0);
+
+var ReactNodeTypes = {
+  HOST: 0,
+  COMPOSITE: 1,
+  EMPTY: 2,
+
+  getType: function getType(node) {
+    if (node === null || node === false) {
+      return ReactNodeTypes.EMPTY;
+    } else if (React.isValidElement(node)) {
+      if (typeof node.type === 'function') {
+        return ReactNodeTypes.COMPOSITE;
+      } else {
+        return ReactNodeTypes.HOST;
+      }
+    }
+     true ?  false ? invariant(false, 'Unexpected node: %s', node) : _prodInvariant('26', node) : void 0;
+  }
+};
+
+module.exports = ReactNodeTypes;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactNodeTypes, 'ReactNodeTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactNodeTypes.js');
+}();
+
+;
 
 /***/ }),
-/* 93 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10581,13 +11205,24 @@ var ViewportMetrics = {
 };
 
 module.exports = ViewportMetrics;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ViewportMetrics, 'ViewportMetrics', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ViewportMetrics.js');
+}();
+
+;
 
 /***/ }),
-/* 94 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2014-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -10600,9 +11235,9 @@ module.exports = ViewportMetrics;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 /**
  * Accumulates items that must not be null or undefined into the first one. This
@@ -10618,7 +11253,7 @@ var invariant = __webpack_require__(1);
  */
 
 function accumulateInto(current, next) {
-  !(next != null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'accumulateInto(...): Accumulated items must not be null or undefined.') : _prodInvariant('30') : void 0;
+  !(next != null) ?  false ? invariant(false, 'accumulateInto(...): Accumulated items must not be null or undefined.') : _prodInvariant('30') : void 0;
 
   if (current == null) {
     return next;
@@ -10644,10 +11279,20 @@ function accumulateInto(current, next) {
 }
 
 module.exports = accumulateInto;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(accumulateInto, 'accumulateInto', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/accumulateInto.js');
+}();
+
+;
 
 /***/ }),
-/* 95 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10681,9 +11326,20 @@ function forEachAccumulated(arr, cb, scope) {
 }
 
 module.exports = forEachAccumulated;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(forEachAccumulated, 'forEachAccumulated', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/forEachAccumulated.js');
+}();
+
+;
 
 /***/ }),
-/* 96 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10699,7 +11355,7 @@ module.exports = forEachAccumulated;
 
 
 
-var ReactNodeTypes = __webpack_require__(91);
+var ReactNodeTypes = __webpack_require__(88);
 
 function getHostComponentFromComposite(inst) {
   var type;
@@ -10716,9 +11372,20 @@ function getHostComponentFromComposite(inst) {
 }
 
 module.exports = getHostComponentFromComposite;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getHostComponentFromComposite, 'getHostComponentFromComposite', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getHostComponentFromComposite.js');
+}();
+
+;
 
 /***/ }),
-/* 97 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10734,7 +11401,7 @@ module.exports = getHostComponentFromComposite;
 
 
 
-var ExecutionEnvironment = __webpack_require__(7);
+var ExecutionEnvironment = __webpack_require__(8);
 
 var contentKey = null;
 
@@ -10754,13 +11421,26 @@ function getTextContentAccessor() {
 }
 
 module.exports = getTextContentAccessor;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(contentKey, 'contentKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getTextContentAccessor.js');
+
+  __REACT_HOT_LOADER__.register(getTextContentAccessor, 'getTextContentAccessor', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getTextContentAccessor.js');
+}();
+
+;
 
 /***/ }),
-/* 98 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -10774,15 +11454,15 @@ module.exports = getTextContentAccessor;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(4),
-    _assign = __webpack_require__(5);
+var _prodInvariant = __webpack_require__(3),
+    _assign = __webpack_require__(4);
 
-var ReactCompositeComponent = __webpack_require__(161);
-var ReactEmptyComponent = __webpack_require__(86);
-var ReactHostComponent = __webpack_require__(88);
+var ReactCompositeComponent = __webpack_require__(155);
+var ReactEmptyComponent = __webpack_require__(83);
+var ReactHostComponent = __webpack_require__(85);
 
-var getNextDebugID = __webpack_require__(263);
-var invariant = __webpack_require__(1);
+var getNextDebugID = __webpack_require__(250);
+var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
 // To avoid a cyclic dependency, we create the final class in this module
@@ -10829,13 +11509,13 @@ function instantiateReactComponent(node, shouldHaveDebugID) {
     var type = element.type;
     if (typeof type !== 'function' && typeof type !== 'string') {
       var info = '';
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         if (type === undefined || (typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object' && type !== null && Object.keys(type).length === 0) {
           info += ' You likely forgot to export your component from the file ' + 'it\'s defined in.';
         }
       }
       info += getDeclarationErrorAddendum(element._owner);
-       true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s', type == null ? type : typeof type === 'undefined' ? 'undefined' : _typeof(type), info) : _prodInvariant('130', type == null ? type : typeof type === 'undefined' ? 'undefined' : _typeof(type), info) : void 0;
+       true ?  false ? invariant(false, 'Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s', type == null ? type : typeof type === 'undefined' ? 'undefined' : _typeof(type), info) : _prodInvariant('130', type == null ? type : typeof type === 'undefined' ? 'undefined' : _typeof(type), info) : void 0;
     }
 
     // Special case string values
@@ -10857,10 +11537,10 @@ function instantiateReactComponent(node, shouldHaveDebugID) {
   } else if (typeof node === 'string' || typeof node === 'number') {
     instance = ReactHostComponent.createInstanceForText(node);
   } else {
-     true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Encountered invalid React node of type %s', typeof node === 'undefined' ? 'undefined' : _typeof(node)) : _prodInvariant('131', typeof node === 'undefined' ? 'undefined' : _typeof(node)) : void 0;
+     true ?  false ? invariant(false, 'Encountered invalid React node of type %s', typeof node === 'undefined' ? 'undefined' : _typeof(node)) : _prodInvariant('131', typeof node === 'undefined' ? 'undefined' : _typeof(node)) : void 0;
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     process.env.NODE_ENV !== 'production' ? warning(typeof instance.mountComponent === 'function' && typeof instance.receiveComponent === 'function' && typeof instance.getHostNode === 'function' && typeof instance.unmountComponent === 'function', 'Only React Components can be mounted.') : void 0;
   }
 
@@ -10870,13 +11550,13 @@ function instantiateReactComponent(node, shouldHaveDebugID) {
   instance._mountIndex = 0;
   instance._mountImage = null;
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     instance._debugID = shouldHaveDebugID ? getNextDebugID() : 0;
   }
 
   // Internal instances should fully constructed at this point, so they should
   // not get any new fields added to them at this point.
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     if (Object.preventExtensions) {
       Object.preventExtensions(instance);
     }
@@ -10890,10 +11570,26 @@ _assign(ReactCompositeComponentWrapper.prototype, ReactCompositeComponent, {
 });
 
 module.exports = instantiateReactComponent;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactCompositeComponentWrapper, 'ReactCompositeComponentWrapper', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/instantiateReactComponent.js');
+
+  __REACT_HOT_LOADER__.register(getDeclarationErrorAddendum, 'getDeclarationErrorAddendum', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/instantiateReactComponent.js');
+
+  __REACT_HOT_LOADER__.register(isInternalComponentType, 'isInternalComponentType', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/instantiateReactComponent.js');
+
+  __REACT_HOT_LOADER__.register(instantiateReactComponent, 'instantiateReactComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/instantiateReactComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 99 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10947,9 +11643,22 @@ function isTextInputElement(elem) {
 }
 
 module.exports = isTextInputElement;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(supportedInputTypes, 'supportedInputTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/isTextInputElement.js');
+
+  __REACT_HOT_LOADER__.register(isTextInputElement, 'isTextInputElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/isTextInputElement.js');
+}();
+
+;
 
 /***/ }),
-/* 100 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10965,9 +11674,9 @@ module.exports = isTextInputElement;
 
 
 
-var ExecutionEnvironment = __webpack_require__(7);
-var escapeTextContentForBrowser = __webpack_require__(38);
-var setInnerHTML = __webpack_require__(39);
+var ExecutionEnvironment = __webpack_require__(8);
+var escapeTextContentForBrowser = __webpack_require__(35);
+var setInnerHTML = __webpack_require__(36);
 
 /**
  * Set the textContent property of a node, ensuring that whitespace is preserved
@@ -11004,13 +11713,24 @@ if (ExecutionEnvironment.canUseDOM) {
 }
 
 module.exports = setTextContent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(setTextContent, 'setTextContent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/setTextContent.js');
+}();
+
+;
 
 /***/ }),
-/* 101 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -11024,14 +11744,14 @@ module.exports = setTextContent;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var ReactCurrentOwner = __webpack_require__(14);
-var REACT_ELEMENT_TYPE = __webpack_require__(180);
+var ReactCurrentOwner = __webpack_require__(13);
+var REACT_ELEMENT_TYPE = __webpack_require__(170);
 
-var getIteratorFn = __webpack_require__(214);
-var invariant = __webpack_require__(1);
-var KeyEscapeUtils = __webpack_require__(49);
+var getIteratorFn = __webpack_require__(201);
+var invariant = __webpack_require__(0);
+var KeyEscapeUtils = __webpack_require__(45);
 var warning = __webpack_require__(2);
 
 var SEPARATOR = '.';
@@ -11119,7 +11839,7 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
           subtreeCount += traverseAllChildrenImpl(child, nextName, callback, traverseContext);
         }
       } else {
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           var mapsAsChildrenAddendum = '';
           if (ReactCurrentOwner.current) {
             var mapsAsChildrenOwnerName = ReactCurrentOwner.current.getName();
@@ -11142,7 +11862,7 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
       }
     } else if (type === 'object') {
       var addendum = '';
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         addendum = ' If you meant to render a collection of children, use an array ' + 'instead or wrap the object using createFragment(object) from the ' + 'React add-ons.';
         if (children._isReactElement) {
           addendum = ' It looks like you\'re using an element created by a different ' + 'version of React. Make sure to use only one copy of React.';
@@ -11155,7 +11875,7 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
         }
       }
       var childrenString = String(children);
-       true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Objects are not valid as a React child (found: %s).%s', childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString, addendum) : _prodInvariant('31', childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString, addendum) : void 0;
+       true ?  false ? invariant(false, 'Objects are not valid as a React child (found: %s).%s', childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString, addendum) : _prodInvariant('31', childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString, addendum) : void 0;
     }
   }
 
@@ -11187,22 +11907,42 @@ function traverseAllChildren(children, callback, traverseContext) {
 }
 
 module.exports = traverseAllChildren;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SEPARATOR, 'SEPARATOR', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(SUBSEPARATOR, 'SUBSEPARATOR', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(didWarnAboutMaps, 'didWarnAboutMaps', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(getComponentKey, 'getComponentKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(traverseAllChildrenImpl, 'traverseAllChildrenImpl', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(traverseAllChildren, 'traverseAllChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/traverseAllChildren.js');
+}();
+
+;
 
 /***/ }),
-/* 102 */
+/* 98 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = connectAdvanced;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__ = __webpack_require__(77);
+/* harmony export (immutable) */ __webpack_exports__["a"] = connectAdvanced;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Subscription__ = __webpack_require__(231);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_PropTypes__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Subscription__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_PropTypes__ = __webpack_require__(100);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) {
@@ -11484,7 +12224,7 @@ selectorFactory) {
     Connect.contextTypes = contextTypes;
     Connect.propTypes = contextTypes;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       Connect.prototype.componentWillUpdate = function componentWillUpdate() {
         // We are hot reloading!
         if (this.version !== version) {
@@ -11501,17 +12241,45 @@ selectorFactory) {
     return __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics___default()(Connect, WrappedComponent);
   };
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, "_extends", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+
+  __REACT_HOT_LOADER__.register(_objectWithoutProperties, "_objectWithoutProperties", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+
+  __REACT_HOT_LOADER__.register(hotReloadingVersion, "hotReloadingVersion", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+
+  __REACT_HOT_LOADER__.register(dummyState, "dummyState", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+
+  __REACT_HOT_LOADER__.register(noop, "noop", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+
+  __REACT_HOT_LOADER__.register(makeSelectorStateful, "makeSelectorStateful", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+
+  __REACT_HOT_LOADER__.register(connectAdvanced, "connectAdvanced", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/connectAdvanced.js");
+}();
+
+;
 
 /***/ }),
-/* 103 */
+/* 99 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["b"] = wrapMapToPropsConstant;
+/* harmony export (immutable) */ __webpack_exports__["b"] = wrapMapToPropsConstant;
 /* unused harmony export getDependsOnOwnProps */
 /* harmony export (immutable) */ __webpack_exports__["a"] = wrapMapToPropsFunc;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(101);
 
 
 function wrapMapToPropsConstant(getConstant) {
@@ -11571,7 +12339,7 @@ function wrapMapToPropsFunc(mapToProps, methodName) {
         props = proxy(stateOrDispatch, ownProps);
       }
 
-      if (process.env.NODE_ENV !== 'production') __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__["a" /* default */])(props, displayName, methodName);
+      if (false) verifyPlainObject(props, displayName, methodName);
 
       return props;
     };
@@ -11579,16 +12347,30 @@ function wrapMapToPropsFunc(mapToProps, methodName) {
     return proxy;
   };
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(wrapMapToPropsConstant, 'wrapMapToPropsConstant', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/wrapMapToProps.js');
+
+  __REACT_HOT_LOADER__.register(getDependsOnOwnProps, 'getDependsOnOwnProps', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/wrapMapToProps.js');
+
+  __REACT_HOT_LOADER__.register(wrapMapToPropsFunc, 'wrapMapToPropsFunc', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/wrapMapToProps.js');
+}();
+
+;
 
 /***/ }),
-/* 104 */
+/* 100 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return subscriptionShape; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return storeShape; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_prop_types__);
 
 
@@ -11604,15 +12386,28 @@ var storeShape = __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
   dispatch: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.func.isRequired,
   getState: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.func.isRequired
 });
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(subscriptionShape, 'subscriptionShape', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/PropTypes.js');
+
+  __REACT_HOT_LOADER__.register(storeShape, 'storeShape', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/PropTypes.js');
+}();
+
+;
 
 /***/ }),
-/* 105 */
+/* 101 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = verifyPlainObject;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__warning__ = __webpack_require__(61);
+/* unused harmony export default */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__warning__ = __webpack_require__(57);
 
 
 
@@ -11621,15 +12416,26 @@ function verifyPlainObject(value, displayName, methodName) {
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__warning__["a" /* default */])(methodName + '() in ' + displayName + ' must return a plain object. Instead received ' + value + '.');
   }
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(verifyPlainObject, 'verifyPlainObject', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/verifyPlainObject.js');
+}();
+
+;
 
 /***/ }),
-/* 106 */
+/* 102 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -11747,10 +12553,36 @@ Link.contextTypes = {
   }).isRequired
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Link);
+var _default = Link;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp2 = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, "_extends", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/Link.js");
+
+  __REACT_HOT_LOADER__.register(_objectWithoutProperties, "_objectWithoutProperties", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/Link.js");
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/Link.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/Link.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/Link.js");
+
+  __REACT_HOT_LOADER__.register(isModifiedEvent, "isModifiedEvent", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/Link.js");
+
+  __REACT_HOT_LOADER__.register(Link, "Link", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/Link.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/Link.js");
+}();
+
+;
 
 /***/ }),
-/* 107 */
+/* 103 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11794,9 +12626,34 @@ var goBack = updateLocation('goBack');
 var goForward = updateLocation('goForward');
 
 var routerActions = { push: push, replace: replace, go: go, goBack: goBack, goForward: goForward };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(CALL_HISTORY_METHOD, 'CALL_HISTORY_METHOD', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/actions.js');
+
+  __REACT_HOT_LOADER__.register(updateLocation, 'updateLocation', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/actions.js');
+
+  __REACT_HOT_LOADER__.register(push, 'push', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/actions.js');
+
+  __REACT_HOT_LOADER__.register(replace, 'replace', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/actions.js');
+
+  __REACT_HOT_LOADER__.register(go, 'go', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/actions.js');
+
+  __REACT_HOT_LOADER__.register(goBack, 'goBack', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/actions.js');
+
+  __REACT_HOT_LOADER__.register(goForward, 'goForward', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/actions.js');
+
+  __REACT_HOT_LOADER__.register(routerActions, 'routerActions', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/actions.js');
+}();
+
+;
 
 /***/ }),
-/* 108 */
+/* 104 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11841,19 +12698,36 @@ function routerReducer() {
 
   return state;
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, '_extends', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/reducer.js');
+
+  __REACT_HOT_LOADER__.register(LOCATION_CHANGE, 'LOCATION_CHANGE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/reducer.js');
+
+  __REACT_HOT_LOADER__.register(initialState, 'initialState', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/reducer.js');
+
+  __REACT_HOT_LOADER__.register(routerReducer, 'routerReducer', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/reducer.js');
+}();
+
+;
 
 /***/ }),
-/* 109 */
+/* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__matchPath__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__matchPath__ = __webpack_require__(61);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) {
@@ -12004,10 +12878,423 @@ Route.childContextTypes = {
   router: __WEBPACK_IMPORTED_MODULE_2_prop_types___default.a.object.isRequired
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Route);
+var _default = Route;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp2 = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, "_extends", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Route.js");
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Route.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Route.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Route.js");
+
+  __REACT_HOT_LOADER__.register(Route, "Route", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Route.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Route.js");
+}();
+
+;
 
 /***/ }),
-/* 110 */
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _prodInvariant = __webpack_require__(22);
+
+var ReactCurrentOwner = __webpack_require__(13);
+
+var invariant = __webpack_require__(0);
+var warning = __webpack_require__(2);
+
+function isNative(fn) {
+  // Based on isNative() from Lodash
+  var funcToString = Function.prototype.toString;
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  var reIsNative = RegExp('^' + funcToString
+  // Take an example native function source for comparison
+  .call(hasOwnProperty
+  // Strip regex characters so we can use it for regex
+  ).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&'
+  // Remove hasOwnProperty from the template to make it generic
+  ).replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+  try {
+    var source = funcToString.call(fn);
+    return reIsNative.test(source);
+  } catch (err) {
+    return false;
+  }
+}
+
+var canUseCollections =
+// Array.from
+typeof Array.from === 'function' &&
+// Map
+typeof Map === 'function' && isNative(Map) &&
+// Map.prototype.keys
+Map.prototype != null && typeof Map.prototype.keys === 'function' && isNative(Map.prototype.keys) &&
+// Set
+typeof Set === 'function' && isNative(Set) &&
+// Set.prototype.keys
+Set.prototype != null && typeof Set.prototype.keys === 'function' && isNative(Set.prototype.keys);
+
+var setItem;
+var getItem;
+var removeItem;
+var getItemIDs;
+var addRoot;
+var removeRoot;
+var getRootIDs;
+
+if (canUseCollections) {
+  var itemMap = new Map();
+  var rootIDSet = new Set();
+
+  setItem = function setItem(id, item) {
+    itemMap.set(id, item);
+  };
+  getItem = function getItem(id) {
+    return itemMap.get(id);
+  };
+  removeItem = function removeItem(id) {
+    itemMap['delete'](id);
+  };
+  getItemIDs = function getItemIDs() {
+    return Array.from(itemMap.keys());
+  };
+
+  addRoot = function addRoot(id) {
+    rootIDSet.add(id);
+  };
+  removeRoot = function removeRoot(id) {
+    rootIDSet['delete'](id);
+  };
+  getRootIDs = function getRootIDs() {
+    return Array.from(rootIDSet.keys());
+  };
+} else {
+  var itemByKey = {};
+  var rootByKey = {};
+
+  // Use non-numeric keys to prevent V8 performance issues:
+  // https://github.com/facebook/react/pull/7232
+  var getKeyFromID = function getKeyFromID(id) {
+    return '.' + id;
+  };
+  var getIDFromKey = function getIDFromKey(key) {
+    return parseInt(key.substr(1), 10);
+  };
+
+  setItem = function setItem(id, item) {
+    var key = getKeyFromID(id);
+    itemByKey[key] = item;
+  };
+  getItem = function getItem(id) {
+    var key = getKeyFromID(id);
+    return itemByKey[key];
+  };
+  removeItem = function removeItem(id) {
+    var key = getKeyFromID(id);
+    delete itemByKey[key];
+  };
+  getItemIDs = function getItemIDs() {
+    return Object.keys(itemByKey).map(getIDFromKey);
+  };
+
+  addRoot = function addRoot(id) {
+    var key = getKeyFromID(id);
+    rootByKey[key] = true;
+  };
+  removeRoot = function removeRoot(id) {
+    var key = getKeyFromID(id);
+    delete rootByKey[key];
+  };
+  getRootIDs = function getRootIDs() {
+    return Object.keys(rootByKey).map(getIDFromKey);
+  };
+}
+
+var unmountedIDs = [];
+
+function purgeDeep(id) {
+  var item = getItem(id);
+  if (item) {
+    var childIDs = item.childIDs;
+
+    removeItem(id);
+    childIDs.forEach(purgeDeep);
+  }
+}
+
+function describeComponentFrame(name, source, ownerName) {
+  return '\n    in ' + (name || 'Unknown') + (source ? ' (at ' + source.fileName.replace(/^.*[\\\/]/, '') + ':' + source.lineNumber + ')' : ownerName ? ' (created by ' + ownerName + ')' : '');
+}
+
+function _getDisplayName(element) {
+  if (element == null) {
+    return '#empty';
+  } else if (typeof element === 'string' || typeof element === 'number') {
+    return '#text';
+  } else if (typeof element.type === 'string') {
+    return element.type;
+  } else {
+    return element.type.displayName || element.type.name || 'Unknown';
+  }
+}
+
+function describeID(id) {
+  var name = ReactComponentTreeHook.getDisplayName(id);
+  var element = ReactComponentTreeHook.getElement(id);
+  var ownerID = ReactComponentTreeHook.getOwnerID(id);
+  var ownerName;
+  if (ownerID) {
+    ownerName = ReactComponentTreeHook.getDisplayName(ownerID);
+  }
+   false ? warning(element, 'ReactComponentTreeHook: Missing React element for debugID %s when ' + 'building stack', id) : void 0;
+  return describeComponentFrame(name, element && element._source, ownerName);
+}
+
+var ReactComponentTreeHook = {
+  onSetChildren: function onSetChildren(id, nextChildIDs) {
+    var item = getItem(id);
+    !item ?  false ? invariant(false, 'Item must have been set') : _prodInvariant('144') : void 0;
+    item.childIDs = nextChildIDs;
+
+    for (var i = 0; i < nextChildIDs.length; i++) {
+      var nextChildID = nextChildIDs[i];
+      var nextChild = getItem(nextChildID);
+      !nextChild ?  false ? invariant(false, 'Expected hook events to fire for the child before its parent includes it in onSetChildren().') : _prodInvariant('140') : void 0;
+      !(nextChild.childIDs != null || _typeof(nextChild.element) !== 'object' || nextChild.element == null) ?  false ? invariant(false, 'Expected onSetChildren() to fire for a container child before its parent includes it in onSetChildren().') : _prodInvariant('141') : void 0;
+      !nextChild.isMounted ?  false ? invariant(false, 'Expected onMountComponent() to fire for the child before its parent includes it in onSetChildren().') : _prodInvariant('71') : void 0;
+      if (nextChild.parentID == null) {
+        nextChild.parentID = id;
+        // TODO: This shouldn't be necessary but mounting a new root during in
+        // componentWillMount currently causes not-yet-mounted components to
+        // be purged from our tree data so their parent id is missing.
+      }
+      !(nextChild.parentID === id) ?  false ? invariant(false, 'Expected onBeforeMountComponent() parent and onSetChildren() to be consistent (%s has parents %s and %s).', nextChildID, nextChild.parentID, id) : _prodInvariant('142', nextChildID, nextChild.parentID, id) : void 0;
+    }
+  },
+  onBeforeMountComponent: function onBeforeMountComponent(id, element, parentID) {
+    var item = {
+      element: element,
+      parentID: parentID,
+      text: null,
+      childIDs: [],
+      isMounted: false,
+      updateCount: 0
+    };
+    setItem(id, item);
+  },
+  onBeforeUpdateComponent: function onBeforeUpdateComponent(id, element) {
+    var item = getItem(id);
+    if (!item || !item.isMounted) {
+      // We may end up here as a result of setState() in componentWillUnmount().
+      // In this case, ignore the element.
+      return;
+    }
+    item.element = element;
+  },
+  onMountComponent: function onMountComponent(id) {
+    var item = getItem(id);
+    !item ?  false ? invariant(false, 'Item must have been set') : _prodInvariant('144') : void 0;
+    item.isMounted = true;
+    var isRoot = item.parentID === 0;
+    if (isRoot) {
+      addRoot(id);
+    }
+  },
+  onUpdateComponent: function onUpdateComponent(id) {
+    var item = getItem(id);
+    if (!item || !item.isMounted) {
+      // We may end up here as a result of setState() in componentWillUnmount().
+      // In this case, ignore the element.
+      return;
+    }
+    item.updateCount++;
+  },
+  onUnmountComponent: function onUnmountComponent(id) {
+    var item = getItem(id);
+    if (item) {
+      // We need to check if it exists.
+      // `item` might not exist if it is inside an error boundary, and a sibling
+      // error boundary child threw while mounting. Then this instance never
+      // got a chance to mount, but it still gets an unmounting event during
+      // the error boundary cleanup.
+      item.isMounted = false;
+      var isRoot = item.parentID === 0;
+      if (isRoot) {
+        removeRoot(id);
+      }
+    }
+    unmountedIDs.push(id);
+  },
+  purgeUnmountedComponents: function purgeUnmountedComponents() {
+    if (ReactComponentTreeHook._preventPurging) {
+      // Should only be used for testing.
+      return;
+    }
+
+    for (var i = 0; i < unmountedIDs.length; i++) {
+      var id = unmountedIDs[i];
+      purgeDeep(id);
+    }
+    unmountedIDs.length = 0;
+  },
+  isMounted: function isMounted(id) {
+    var item = getItem(id);
+    return item ? item.isMounted : false;
+  },
+  getCurrentStackAddendum: function getCurrentStackAddendum(topElement) {
+    var info = '';
+    if (topElement) {
+      var name = _getDisplayName(topElement);
+      var owner = topElement._owner;
+      info += describeComponentFrame(name, topElement._source, owner && owner.getName());
+    }
+
+    var currentOwner = ReactCurrentOwner.current;
+    var id = currentOwner && currentOwner._debugID;
+
+    info += ReactComponentTreeHook.getStackAddendumByID(id);
+    return info;
+  },
+  getStackAddendumByID: function getStackAddendumByID(id) {
+    var info = '';
+    while (id) {
+      info += describeID(id);
+      id = ReactComponentTreeHook.getParentID(id);
+    }
+    return info;
+  },
+  getChildIDs: function getChildIDs(id) {
+    var item = getItem(id);
+    return item ? item.childIDs : [];
+  },
+  getDisplayName: function getDisplayName(id) {
+    var element = ReactComponentTreeHook.getElement(id);
+    if (!element) {
+      return null;
+    }
+    return _getDisplayName(element);
+  },
+  getElement: function getElement(id) {
+    var item = getItem(id);
+    return item ? item.element : null;
+  },
+  getOwnerID: function getOwnerID(id) {
+    var element = ReactComponentTreeHook.getElement(id);
+    if (!element || !element._owner) {
+      return null;
+    }
+    return element._owner._debugID;
+  },
+  getParentID: function getParentID(id) {
+    var item = getItem(id);
+    return item ? item.parentID : null;
+  },
+  getSource: function getSource(id) {
+    var item = getItem(id);
+    var element = item ? item.element : null;
+    var source = element != null ? element._source : null;
+    return source;
+  },
+  getText: function getText(id) {
+    var element = ReactComponentTreeHook.getElement(id);
+    if (typeof element === 'string') {
+      return element;
+    } else if (typeof element === 'number') {
+      return '' + element;
+    } else {
+      return null;
+    }
+  },
+  getUpdateCount: function getUpdateCount(id) {
+    var item = getItem(id);
+    return item ? item.updateCount : 0;
+  },
+
+  getRootIDs: getRootIDs,
+  getRegisteredIDs: getItemIDs
+};
+
+module.exports = ReactComponentTreeHook;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isNative, 'isNative', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(canUseCollections, 'canUseCollections', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(setItem, 'setItem', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(getItem, 'getItem', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(removeItem, 'removeItem', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(getItemIDs, 'getItemIDs', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(addRoot, 'addRoot', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(removeRoot, 'removeRoot', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(getRootIDs, 'getRootIDs', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(itemMap, 'itemMap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(rootIDSet, 'rootIDSet', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(itemByKey, 'itemByKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(rootByKey, 'rootByKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(getKeyFromID, 'getKeyFromID', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(getIDFromKey, 'getIDFromKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(unmountedIDs, 'unmountedIDs', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(purgeDeep, 'purgeDeep', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(describeComponentFrame, 'describeComponentFrame', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(_getDisplayName, 'getDisplayName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(describeID, 'describeID', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+
+  __REACT_HOT_LOADER__.register(ReactComponentTreeHook, 'ReactComponentTreeHook', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactComponentTreeHook.js');
+}();
+
+;
+
+/***/ }),
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12030,301 +13317,20 @@ Route.childContextTypes = {
 var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 0xeac7;
 
 module.exports = REACT_ELEMENT_TYPE;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(REACT_ELEMENT_TYPE, 'REACT_ELEMENT_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactElementSymbol.js');
+}();
+
+;
 
 /***/ }),
-/* 111 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-/**
- * ReactElementValidator provides a wrapper around a element factory
- * which validates the props passed to the element. This is intended to be
- * used only in DEV and could be replaced by a static type checker for languages
- * that support it.
- */
-
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var ReactCurrentOwner = __webpack_require__(14);
-var ReactComponentTreeHook = __webpack_require__(10);
-var ReactElement = __webpack_require__(19);
-
-var checkReactTypeSpec = __webpack_require__(262);
-
-var canDefineProperty = __webpack_require__(40);
-var getIteratorFn = __webpack_require__(113);
-var warning = __webpack_require__(2);
-
-function getDeclarationErrorAddendum() {
-  if (ReactCurrentOwner.current) {
-    var name = ReactCurrentOwner.current.getName();
-    if (name) {
-      return ' Check the render method of `' + name + '`.';
-    }
-  }
-  return '';
-}
-
-function getSourceInfoErrorAddendum(elementProps) {
-  if (elementProps !== null && elementProps !== undefined && elementProps.__source !== undefined) {
-    var source = elementProps.__source;
-    var fileName = source.fileName.replace(/^.*[\\\/]/, '');
-    var lineNumber = source.lineNumber;
-    return ' Check your code at ' + fileName + ':' + lineNumber + '.';
-  }
-  return '';
-}
-
-/**
- * Warn if there's no key explicitly set on dynamic arrays of children or
- * object keys are not valid. This allows us to keep track of children between
- * updates.
- */
-var ownerHasKeyUseWarning = {};
-
-function getCurrentComponentErrorInfo(parentType) {
-  var info = getDeclarationErrorAddendum();
-
-  if (!info) {
-    var parentName = typeof parentType === 'string' ? parentType : parentType.displayName || parentType.name;
-    if (parentName) {
-      info = ' Check the top-level render call using <' + parentName + '>.';
-    }
-  }
-  return info;
-}
-
-/**
- * Warn if the element doesn't have an explicit key assigned to it.
- * This element is in an array. The array could grow and shrink or be
- * reordered. All children that haven't already been validated are required to
- * have a "key" property assigned to it. Error statuses are cached so a warning
- * will only be shown once.
- *
- * @internal
- * @param {ReactElement} element Element that requires a key.
- * @param {*} parentType element's parent's type.
- */
-function validateExplicitKey(element, parentType) {
-  if (!element._store || element._store.validated || element.key != null) {
-    return;
-  }
-  element._store.validated = true;
-
-  var memoizer = ownerHasKeyUseWarning.uniqueKey || (ownerHasKeyUseWarning.uniqueKey = {});
-
-  var currentComponentErrorInfo = getCurrentComponentErrorInfo(parentType);
-  if (memoizer[currentComponentErrorInfo]) {
-    return;
-  }
-  memoizer[currentComponentErrorInfo] = true;
-
-  // Usually the current owner is the offender, but if it accepts children as a
-  // property, it may be the creator of the child that's responsible for
-  // assigning it a key.
-  var childOwner = '';
-  if (element && element._owner && element._owner !== ReactCurrentOwner.current) {
-    // Give the component that originally created this child.
-    childOwner = ' It was passed a child from ' + element._owner.getName() + '.';
-  }
-
-  process.env.NODE_ENV !== 'production' ? warning(false, 'Each child in an array or iterator should have a unique "key" prop.' + '%s%s See https://fb.me/react-warning-keys for more information.%s', currentComponentErrorInfo, childOwner, ReactComponentTreeHook.getCurrentStackAddendum(element)) : void 0;
-}
-
-/**
- * Ensure that every element either is passed in a static location, in an
- * array with an explicit keys property defined, or in an object literal
- * with valid key property.
- *
- * @internal
- * @param {ReactNode} node Statically passed child of any type.
- * @param {*} parentType node's parent's type.
- */
-function validateChildKeys(node, parentType) {
-  if ((typeof node === 'undefined' ? 'undefined' : _typeof(node)) !== 'object') {
-    return;
-  }
-  if (Array.isArray(node)) {
-    for (var i = 0; i < node.length; i++) {
-      var child = node[i];
-      if (ReactElement.isValidElement(child)) {
-        validateExplicitKey(child, parentType);
-      }
-    }
-  } else if (ReactElement.isValidElement(node)) {
-    // This element was passed in a valid location.
-    if (node._store) {
-      node._store.validated = true;
-    }
-  } else if (node) {
-    var iteratorFn = getIteratorFn(node);
-    // Entry iterators provide implicit keys.
-    if (iteratorFn) {
-      if (iteratorFn !== node.entries) {
-        var iterator = iteratorFn.call(node);
-        var step;
-        while (!(step = iterator.next()).done) {
-          if (ReactElement.isValidElement(step.value)) {
-            validateExplicitKey(step.value, parentType);
-          }
-        }
-      }
-    }
-  }
-}
-
-/**
- * Given an element, validate that its props follow the propTypes definition,
- * provided by the type.
- *
- * @param {ReactElement} element
- */
-function validatePropTypes(element) {
-  var componentClass = element.type;
-  if (typeof componentClass !== 'function') {
-    return;
-  }
-  var name = componentClass.displayName || componentClass.name;
-  if (componentClass.propTypes) {
-    checkReactTypeSpec(componentClass.propTypes, element.props, 'prop', name, element, null);
-  }
-  if (typeof componentClass.getDefaultProps === 'function') {
-    process.env.NODE_ENV !== 'production' ? warning(componentClass.getDefaultProps.isReactClassApproved, 'getDefaultProps is only used on classic React.createClass ' + 'definitions. Use a static property named `defaultProps` instead.') : void 0;
-  }
-}
-
-var ReactElementValidator = {
-
-  createElement: function createElement(type, props, children) {
-    var validType = typeof type === 'string' || typeof type === 'function';
-    // We warn in this case but don't throw. We expect the element creation to
-    // succeed and there will likely be errors in render.
-    if (!validType) {
-      if (typeof type !== 'function' && typeof type !== 'string') {
-        var info = '';
-        if (type === undefined || (typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object' && type !== null && Object.keys(type).length === 0) {
-          info += ' You likely forgot to export your component from the file ' + 'it\'s defined in.';
-        }
-
-        var sourceInfo = getSourceInfoErrorAddendum(props);
-        if (sourceInfo) {
-          info += sourceInfo;
-        } else {
-          info += getDeclarationErrorAddendum();
-        }
-
-        info += ReactComponentTreeHook.getCurrentStackAddendum();
-
-        process.env.NODE_ENV !== 'production' ? warning(false, 'React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', type == null ? type : typeof type === 'undefined' ? 'undefined' : _typeof(type), info) : void 0;
-      }
-    }
-
-    var element = ReactElement.createElement.apply(this, arguments);
-
-    // The result can be nullish if a mock or a custom function is used.
-    // TODO: Drop this when these are no longer allowed as the type argument.
-    if (element == null) {
-      return element;
-    }
-
-    // Skip key warning if the type isn't valid since our key validation logic
-    // doesn't expect a non-string/function type and can throw confusing errors.
-    // We don't want exception behavior to differ between dev and prod.
-    // (Rendering will throw with a helpful message and as soon as the type is
-    // fixed, the key warnings will appear.)
-    if (validType) {
-      for (var i = 2; i < arguments.length; i++) {
-        validateChildKeys(arguments[i], type);
-      }
-    }
-
-    validatePropTypes(element);
-
-    return element;
-  },
-
-  createFactory: function createFactory(type) {
-    var validatedFactory = ReactElementValidator.createElement.bind(null, type);
-    // Legacy hook TODO: Warn if this is accessed
-    validatedFactory.type = type;
-
-    if (process.env.NODE_ENV !== 'production') {
-      if (canDefineProperty) {
-        Object.defineProperty(validatedFactory, 'type', {
-          enumerable: false,
-          get: function get() {
-            process.env.NODE_ENV !== 'production' ? warning(false, 'Factory.type is deprecated. Access the class directly ' + 'before passing it to createFactory.') : void 0;
-            Object.defineProperty(this, 'type', {
-              value: type
-            });
-            return type;
-          }
-        });
-      }
-    }
-
-    return validatedFactory;
-  },
-
-  cloneElement: function cloneElement(element, props, children) {
-    var newElement = ReactElement.cloneElement.apply(this, arguments);
-    for (var i = 2; i < arguments.length; i++) {
-      validateChildKeys(arguments[i], newElement.type);
-    }
-    validatePropTypes(newElement);
-    return newElement;
-  }
-
-};
-
-module.exports = ReactElementValidator;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 112 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var ReactPropTypeLocationNames = {};
-
-if (process.env.NODE_ENV !== 'production') {
-  ReactPropTypeLocationNames = {
-    prop: 'prop',
-    context: 'context',
-    childContext: 'child context'
-  };
-}
-
-module.exports = ReactPropTypeLocationNames;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 113 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12341,36 +13347,32 @@ module.exports = ReactPropTypeLocationNames;
 
 
 
-/* global Symbol */
-
-var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
-var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
-
-/**
- * Returns the iterator method function contained on the iterable object.
- *
- * Be sure to invoke the function with the iterable as context:
- *
- *     var iteratorFn = getIteratorFn(myIterable);
- *     if (iteratorFn) {
- *       var iterator = iteratorFn.call(myIterable);
- *       ...
- *     }
- *
- * @param {?object} maybeIterable
- * @return {?function}
- */
-function getIteratorFn(maybeIterable) {
-  var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-  if (typeof iteratorFn === 'function') {
-    return iteratorFn;
+var canDefineProperty = false;
+if (false) {
+  try {
+    // $FlowFixMe https://github.com/facebook/flow/issues/285
+    Object.defineProperty({}, 'x', { get: function get() {} });
+    canDefineProperty = true;
+  } catch (x) {
+    // IE will fail on defineProperty
   }
 }
 
-module.exports = getIteratorFn;
+module.exports = canDefineProperty;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(canDefineProperty, 'canDefineProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/canDefineProperty.js');
+}();
+
+;
 
 /***/ }),
-/* 114 */
+/* 109 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12409,16 +13411,27 @@ function compose() {
     }, last.apply(undefined, arguments));
   };
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(compose, "compose", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/compose.js");
+}();
+
+;
 
 /***/ }),
-/* 115 */
+/* 110 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ActionTypes; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = createStore;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(259);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_symbol_observable__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -12670,18 +13683,31 @@ function createStore(reducer, preloadedState, enhancer) {
     replaceReducer: replaceReducer
   }, _ref2[__WEBPACK_IMPORTED_MODULE_1_symbol_observable___default.a] = observable, _ref2;
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ActionTypes, 'ActionTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/createStore.js');
+
+  __REACT_HOT_LOADER__.register(createStore, 'createStore', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/createStore.js');
+}();
+
+;
 
 /***/ }),
-/* 116 */
+/* 111 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(269);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(268);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(112);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
@@ -12700,19 +13726,29 @@ function createStore(reducer, preloadedState, enhancer) {
 */
 function isCrushed() {}
 
-if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_warning__["a" /* default */])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+if (false) {
+  warning('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isCrushed, 'isCrushed', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/index.js');
+}();
+
+;
 
 /***/ }),
-/* 117 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = warning;
+/* unused harmony export default */
 /**
  * Prints a warning in the console if it exists.
  *
@@ -12734,9 +13770,20 @@ function warning(message) {
   } catch (e) {}
   /* eslint-enable no-empty */
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(warning, 'warning', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/utils/warning.js');
+}();
+
+;
 
 /***/ }),
-/* 118 */
+/* 113 */
 /***/ (function(module, exports) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
@@ -12745,29 +13792,29 @@ module.exports = __webpack_amd_options__;
 /* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ }),
-/* 119 */
+/* 114 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_createBrowserHistory__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_createBrowserHistory__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_history_createBrowserHistory__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_redux__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_redux_thunk__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_redux__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_redux_thunk__ = __webpack_require__(254);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_redux_thunk__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_redux_logger__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_redux_logger__ = __webpack_require__(253);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_redux_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_redux_logger__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_hot_loader__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_hot_loader__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_hot_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_react_hot_loader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_App__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__reducers__ = __webpack_require__(300);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__reducers_login__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_App__ = __webpack_require__(264);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__reducers__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__reducers_login__ = __webpack_require__(288);
 
 
 
@@ -12786,8 +13833,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var history = __WEBPACK_IMPORTED_MODULE_4_history_createBrowserHistory___default()();
 var middleware = [__WEBPACK_IMPORTED_MODULE_6_redux_thunk___default.a, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react_router_redux__["a" /* routerMiddleware */])(history)];
-if (process.env.NODE_ENV !== 'production') {
-    middleware.push(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_redux_logger__["createLogger"])());
+if (false) {
+    middleware.push(createLogger());
 }
 
 var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_redux__["a" /* createStore */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_redux__["b" /* combineReducers */])({
@@ -12819,10 +13866,26 @@ if (false) {
         render(App);
     });
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(history, 'history', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/index.js');
+
+    __REACT_HOT_LOADER__.register(middleware, 'middleware', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/index.js');
+
+    __REACT_HOT_LOADER__.register(store, 'store', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/index.js');
+
+    __REACT_HOT_LOADER__.register(render, 'render', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/index.js');
+}();
+
+;
 
 /***/ }),
-/* 120 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12857,9 +13920,22 @@ function camelize(string) {
 }
 
 module.exports = camelize;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_hyphenPattern, "_hyphenPattern", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/camelize.js");
+
+  __REACT_HOT_LOADER__.register(camelize, "camelize", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/camelize.js");
+}();
+
+;
 
 /***/ }),
-/* 121 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12876,7 +13952,7 @@ module.exports = camelize;
 
 
 
-var camelize = __webpack_require__(120);
+var camelize = __webpack_require__(115);
 
 var msPattern = /^-ms-/;
 
@@ -12902,9 +13978,22 @@ function camelizeStyleName(string) {
 }
 
 module.exports = camelizeStyleName;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(msPattern, 'msPattern', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/camelizeStyleName.js');
+
+  __REACT_HOT_LOADER__.register(camelizeStyleName, 'camelizeStyleName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/camelizeStyleName.js');
+}();
+
+;
 
 /***/ }),
-/* 122 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12921,7 +14010,7 @@ module.exports = camelizeStyleName;
  * 
  */
 
-var isTextNode = __webpack_require__(130);
+var isTextNode = __webpack_require__(125);
 
 /*eslint-disable no-bitwise */
 
@@ -12947,13 +14036,24 @@ function containsNode(outerNode, innerNode) {
 }
 
 module.exports = containsNode;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(containsNode, 'containsNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/containsNode.js');
+}();
+
+;
 
 /***/ }),
-/* 123 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
+
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -12968,7 +14068,7 @@ module.exports = containsNode;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 /**
  * Convert array-like objects to arrays.
@@ -12984,13 +14084,13 @@ function toArray(obj) {
 
   // Some browsers builtin objects can report typeof 'function' (e.g. NodeList
   // in old versions of Safari).
-  !(!Array.isArray(obj) && ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' || typeof obj === 'function')) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'toArray: Array-like object expected') : invariant(false) : void 0;
+  !(!Array.isArray(obj) && ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' || typeof obj === 'function')) ?  false ? invariant(false, 'toArray: Array-like object expected') : invariant(false) : void 0;
 
-  !(typeof length === 'number') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'toArray: Object needs a length property') : invariant(false) : void 0;
+  !(typeof length === 'number') ?  false ? invariant(false, 'toArray: Object needs a length property') : invariant(false) : void 0;
 
-  !(length === 0 || length - 1 in obj) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'toArray: Object should have keys for indices') : invariant(false) : void 0;
+  !(length === 0 || length - 1 in obj) ?  false ? invariant(false, 'toArray: Object should have keys for indices') : invariant(false) : void 0;
 
-  !(typeof obj.callee !== 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'toArray: Object can\'t be `arguments`. Use rest params ' + '(function(...args) {}) or Array.from() instead.') : invariant(false) : void 0;
+  !(typeof obj.callee !== 'function') ?  false ? invariant(false, 'toArray: Object can\'t be `arguments`. Use rest params ' + '(function(...args) {}) or Array.from() instead.') : invariant(false) : void 0;
 
   // Old IE doesn't give collections access to hasOwnProperty. Assume inputs
   // without method will throw during the slice call and skip straight to the
@@ -13081,14 +14181,28 @@ function createArrayFromMixed(obj) {
 }
 
 module.exports = createArrayFromMixed;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(toArray, 'toArray', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/createArrayFromMixed.js');
+
+  __REACT_HOT_LOADER__.register(hasArrayNature, 'hasArrayNature', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/createArrayFromMixed.js');
+
+  __REACT_HOT_LOADER__.register(createArrayFromMixed, 'createArrayFromMixed', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/createArrayFromMixed.js');
+}();
+
+;
 
 /***/ }),
-/* 124 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
+
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -13103,11 +14217,11 @@ module.exports = createArrayFromMixed;
 
 /*eslint-disable fb-www/unsafe-html*/
 
-var ExecutionEnvironment = __webpack_require__(7);
+var ExecutionEnvironment = __webpack_require__(8);
 
-var createArrayFromMixed = __webpack_require__(123);
-var getMarkupWrap = __webpack_require__(125);
-var invariant = __webpack_require__(1);
+var createArrayFromMixed = __webpack_require__(118);
+var getMarkupWrap = __webpack_require__(120);
+var invariant = __webpack_require__(0);
 
 /**
  * Dummy container used to render all markup.
@@ -13142,7 +14256,7 @@ function getNodeName(markup) {
  */
 function createNodesFromMarkup(markup, handleScript) {
   var node = dummyNode;
-  !!!dummyNode ? process.env.NODE_ENV !== 'production' ? invariant(false, 'createNodesFromMarkup dummy not initialized') : invariant(false) : void 0;
+  !!!dummyNode ?  false ? invariant(false, 'createNodesFromMarkup dummy not initialized') : invariant(false) : void 0;
   var nodeName = getNodeName(markup);
 
   var wrap = nodeName && getMarkupWrap(nodeName);
@@ -13159,7 +14273,7 @@ function createNodesFromMarkup(markup, handleScript) {
 
   var scripts = node.getElementsByTagName('script');
   if (scripts.length) {
-    !handleScript ? process.env.NODE_ENV !== 'production' ? invariant(false, 'createNodesFromMarkup(...): Unexpected <script> element rendered.') : invariant(false) : void 0;
+    !handleScript ?  false ? invariant(false, 'createNodesFromMarkup(...): Unexpected <script> element rendered.') : invariant(false) : void 0;
     createArrayFromMixed(scripts).forEach(handleScript);
   }
 
@@ -13171,14 +14285,30 @@ function createNodesFromMarkup(markup, handleScript) {
 }
 
 module.exports = createNodesFromMarkup;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(dummyNode, 'dummyNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/createNodesFromMarkup.js');
+
+  __REACT_HOT_LOADER__.register(nodeNamePattern, 'nodeNamePattern', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/createNodesFromMarkup.js');
+
+  __REACT_HOT_LOADER__.register(getNodeName, 'getNodeName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/createNodesFromMarkup.js');
+
+  __REACT_HOT_LOADER__.register(createNodesFromMarkup, 'createNodesFromMarkup', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/createNodesFromMarkup.js');
+}();
+
+;
 
 /***/ }),
-/* 125 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
+
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -13192,9 +14322,9 @@ module.exports = createNodesFromMarkup;
 
 /*eslint-disable fb-www/unsafe-html */
 
-var ExecutionEnvironment = __webpack_require__(7);
+var ExecutionEnvironment = __webpack_require__(8);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 /**
  * Dummy container used to detect which wraps are necessary.
@@ -13256,7 +14386,7 @@ svgElements.forEach(function (nodeName) {
  * @return {?array} Markup wrap configuration, if applicable.
  */
 function getMarkupWrap(nodeName) {
-  !!!dummyNode ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Markup wrapping node not initialized') : invariant(false) : void 0;
+  !!!dummyNode ?  false ? invariant(false, 'Markup wrapping node not initialized') : invariant(false) : void 0;
   if (!markupWrap.hasOwnProperty(nodeName)) {
     nodeName = '*';
   }
@@ -13272,10 +14402,36 @@ function getMarkupWrap(nodeName) {
 }
 
 module.exports = getMarkupWrap;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(dummyNode, 'dummyNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getMarkupWrap.js');
+
+  __REACT_HOT_LOADER__.register(shouldWrap, 'shouldWrap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getMarkupWrap.js');
+
+  __REACT_HOT_LOADER__.register(selectWrap, 'selectWrap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getMarkupWrap.js');
+
+  __REACT_HOT_LOADER__.register(tableWrap, 'tableWrap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getMarkupWrap.js');
+
+  __REACT_HOT_LOADER__.register(trWrap, 'trWrap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getMarkupWrap.js');
+
+  __REACT_HOT_LOADER__.register(svgWrap, 'svgWrap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getMarkupWrap.js');
+
+  __REACT_HOT_LOADER__.register(markupWrap, 'markupWrap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getMarkupWrap.js');
+
+  __REACT_HOT_LOADER__.register(svgElements, 'svgElements', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getMarkupWrap.js');
+
+  __REACT_HOT_LOADER__.register(getMarkupWrap, 'getMarkupWrap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getMarkupWrap.js');
+}();
+
+;
 
 /***/ }),
-/* 126 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13317,9 +14473,20 @@ function getUnboundedScrollPosition(scrollable) {
 }
 
 module.exports = getUnboundedScrollPosition;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getUnboundedScrollPosition, 'getUnboundedScrollPosition', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/getUnboundedScrollPosition.js');
+}();
+
+;
 
 /***/ }),
-/* 127 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13355,9 +14522,22 @@ function hyphenate(string) {
 }
 
 module.exports = hyphenate;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_uppercasePattern, '_uppercasePattern', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/hyphenate.js');
+
+  __REACT_HOT_LOADER__.register(hyphenate, 'hyphenate', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/hyphenate.js');
+}();
+
+;
 
 /***/ }),
-/* 128 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13374,7 +14554,7 @@ module.exports = hyphenate;
 
 
 
-var hyphenate = __webpack_require__(127);
+var hyphenate = __webpack_require__(122);
 
 var msPattern = /^ms-/;
 
@@ -13399,9 +14579,22 @@ function hyphenateStyleName(string) {
 }
 
 module.exports = hyphenateStyleName;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(msPattern, 'msPattern', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/hyphenateStyleName.js');
+
+  __REACT_HOT_LOADER__.register(hyphenateStyleName, 'hyphenateStyleName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/hyphenateStyleName.js');
+}();
+
+;
 
 /***/ }),
-/* 129 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13432,9 +14625,20 @@ function isNode(object) {
 }
 
 module.exports = isNode;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isNode, 'isNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/isNode.js');
+}();
+
+;
 
 /***/ }),
-/* 130 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13451,7 +14655,7 @@ module.exports = isNode;
  * @typechecks
  */
 
-var isNode = __webpack_require__(129);
+var isNode = __webpack_require__(124);
 
 /**
  * @param {*} object The object to check.
@@ -13462,9 +14666,20 @@ function isTextNode(object) {
 }
 
 module.exports = isTextNode;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isTextNode, 'isTextNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/isTextNode.js');
+}();
+
+;
 
 /***/ }),
-/* 131 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13497,76 +14712,20 @@ function memoizeStringOnly(callback) {
 }
 
 module.exports = memoizeStringOnly;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(memoizeStringOnly, 'memoizeStringOnly', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/fbjs/lib/memoizeStringOnly.js');
+}();
+
+;
 
 /***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
-
-
-
-var ExecutionEnvironment = __webpack_require__(7);
-
-var performance;
-
-if (ExecutionEnvironment.canUseDOM) {
-  performance = window.performance || window.msPerformance || window.webkitPerformance;
-}
-
-module.exports = performance || {};
-
-/***/ }),
-/* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
-
-var performance = __webpack_require__(132);
-
-var performanceNow;
-
-/**
- * Detect if we can use `window.performance.now()` and gracefully fallback to
- * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
- * because of Facebook's testing infrastructure.
- */
-if (performance.now) {
-  performanceNow = function performanceNow() {
-    return performance.now();
-  };
-} else {
-  performanceNow = function performanceNow() {
-    return Date.now();
-  };
-}
-
-module.exports = performanceNow;
-
-/***/ }),
-/* 134 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13584,23 +14743,23 @@ var _extends = Object.assign || function (target) {
   }return target;
 };
 
-var _warning = __webpack_require__(21);
+var _warning = __webpack_require__(16);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _invariant = __webpack_require__(28);
+var _invariant = __webpack_require__(26);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
-var _LocationUtils = __webpack_require__(42);
+var _LocationUtils = __webpack_require__(38);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(25);
 
-var _createTransitionManager = __webpack_require__(43);
+var _createTransitionManager = __webpack_require__(39);
 
 var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 
-var _DOMUtils = __webpack_require__(75);
+var _DOMUtils = __webpack_require__(71);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -13901,9 +15060,40 @@ var createHashHistory = function createHashHistory() {
 };
 
 exports.default = createHashHistory;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, '_extends', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(_warning2, '_warning2', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(_invariant2, '_invariant2', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(_createTransitionManager2, '_createTransitionManager2', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(_interopRequireDefault, '_interopRequireDefault', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(HashChangeEvent, 'HashChangeEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(HashPathCoders, 'HashPathCoders', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(getHashPath, 'getHashPath', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(pushHashPath, 'pushHashPath', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(replaceHashPath, 'replaceHashPath', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+
+  __REACT_HOT_LOADER__.register(createHashHistory, 'createHashHistory', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createHashHistory.js');
+}();
+
+;
 
 /***/ }),
-/* 135 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13929,15 +15119,15 @@ var _extends = Object.assign || function (target) {
   }return target;
 };
 
-var _warning = __webpack_require__(21);
+var _warning = __webpack_require__(16);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(25);
 
-var _LocationUtils = __webpack_require__(42);
+var _LocationUtils = __webpack_require__(38);
 
-var _createTransitionManager = __webpack_require__(43);
+var _createTransitionManager = __webpack_require__(39);
 
 var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 
@@ -14092,23 +15282,55 @@ var createMemoryHistory = function createMemoryHistory() {
 };
 
 exports.default = createMemoryHistory;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_typeof, "_typeof", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createMemoryHistory.js");
+
+  __REACT_HOT_LOADER__.register(_extends, "_extends", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createMemoryHistory.js");
+
+  __REACT_HOT_LOADER__.register(_warning2, "_warning2", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createMemoryHistory.js");
+
+  __REACT_HOT_LOADER__.register(_createTransitionManager2, "_createTransitionManager2", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createMemoryHistory.js");
+
+  __REACT_HOT_LOADER__.register(_interopRequireDefault, "_interopRequireDefault", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createMemoryHistory.js");
+
+  __REACT_HOT_LOADER__.register(clamp, "clamp", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createMemoryHistory.js");
+
+  __REACT_HOT_LOADER__.register(createMemoryHistory, "createMemoryHistory", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/history/createMemoryHistory.js");
+}();
+
+;
 
 /***/ }),
-/* 136 */
+/* 129 */
 /***/ (function(module, exports) {
 
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 137 */
+/* 130 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(134);
 
 
 
@@ -14134,10 +15356,30 @@ function baseGetTag(value) {
   return symToStringTag && symToStringTag in Object(value) ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__getRawTag_js__["a" /* default */])(value) : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__objectToString_js__["a" /* default */])(value);
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (baseGetTag);
+var _default = baseGetTag;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(nullTag, 'nullTag', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_baseGetTag.js');
+
+  __REACT_HOT_LOADER__.register(undefinedTag, 'undefinedTag', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_baseGetTag.js');
+
+  __REACT_HOT_LOADER__.register(symToStringTag, 'symToStringTag', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_baseGetTag.js');
+
+  __REACT_HOT_LOADER__.register(baseGetTag, 'baseGetTag', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_baseGetTag.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_baseGetTag.js');
+}();
+
+;
 
 /***/ }),
-/* 138 */
+/* 131 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14146,28 +15388,56 @@ function baseGetTag(value) {
 /** Detect free variable `global` from Node.js. */
 var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
 
-/* harmony default export */ __webpack_exports__["a"] = (freeGlobal);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(68)))
+var _default = freeGlobal;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(freeGlobal, 'freeGlobal', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_freeGlobal.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_freeGlobal.js');
+}();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(64)))
 
 /***/ }),
-/* 139 */
+/* 132 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(135);
 
 
 /** Built-in value references. */
 var getPrototype = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__overArg_js__["a" /* default */])(Object.getPrototypeOf, Object);
 
-/* harmony default export */ __webpack_exports__["a"] = (getPrototype);
+var _default = getPrototype;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getPrototype, 'getPrototype', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_getPrototype.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_getPrototype.js');
+}();
+
+;
 
 /***/ }),
-/* 140 */
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(74);
 
 
 /** Used for built-in method references. */
@@ -14213,10 +15483,32 @@ function getRawTag(value) {
   return result;
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (getRawTag);
+var _default = getRawTag;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(objectProto, 'objectProto', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_getRawTag.js');
+
+  __REACT_HOT_LOADER__.register(hasOwnProperty, 'hasOwnProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_getRawTag.js');
+
+  __REACT_HOT_LOADER__.register(nativeObjectToString, 'nativeObjectToString', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_getRawTag.js');
+
+  __REACT_HOT_LOADER__.register(symToStringTag, 'symToStringTag', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_getRawTag.js');
+
+  __REACT_HOT_LOADER__.register(getRawTag, 'getRawTag', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_getRawTag.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_getRawTag.js');
+}();
+
+;
 
 /***/ }),
-/* 141 */
+/* 134 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14241,10 +15533,28 @@ function objectToString(value) {
   return nativeObjectToString.call(value);
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (objectToString);
+var _default = objectToString;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(objectProto, "objectProto", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_objectToString.js");
+
+  __REACT_HOT_LOADER__.register(nativeObjectToString, "nativeObjectToString", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_objectToString.js");
+
+  __REACT_HOT_LOADER__.register(objectToString, "objectToString", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_objectToString.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_objectToString.js");
+}();
+
+;
 
 /***/ }),
-/* 142 */
+/* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14262,14 +15572,28 @@ function overArg(func, transform) {
   };
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (overArg);
+var _default = overArg;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(overArg, "overArg", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_overArg.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_overArg.js");
+}();
+
+;
 
 /***/ }),
-/* 143 */
+/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(131);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 
@@ -14280,10 +15604,26 @@ var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'o
 /** Used as a reference to the global object. */
 var root = __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__["a" /* default */] || freeSelf || Function('return this')();
 
-/* harmony default export */ __webpack_exports__["a"] = (root);
+var _default = root;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(freeSelf, 'freeSelf', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_root.js');
+
+  __REACT_HOT_LOADER__.register(root, 'root', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_root.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/_root.js');
+}();
+
+;
 
 /***/ }),
-/* 144 */
+/* 137 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14317,15 +15657,29 @@ function isObjectLike(value) {
   return value != null && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (isObjectLike);
+var _default = isObjectLike;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isObjectLike, 'isObjectLike', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isObjectLike.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/lodash-es/isObjectLike.js');
+}();
+
+;
 
 /***/ }),
-/* 145 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var isarray = __webpack_require__(136
+var isarray = __webpack_require__(129
 
 /**
  * Expose `pathToRegexp`.
@@ -14750,13 +16104,52 @@ function pathToRegexp(path, keys, options) {
 
   return stringToRegexp( /** @type {string} */path, /** @type {!Array} */keys, options);
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(PATH_REGEXP, 'PATH_REGEXP', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(parse, 'parse', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(compile, 'compile', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(encodeURIComponentPretty, 'encodeURIComponentPretty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(encodeAsterisk, 'encodeAsterisk', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(tokensToFunction, 'tokensToFunction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(escapeString, 'escapeString', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(escapeGroup, 'escapeGroup', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(attachKeys, 'attachKeys', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(flags, 'flags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(regexpToRegexp, 'regexpToRegexp', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(arrayToRegexp, 'arrayToRegexp', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(stringToRegexp, 'stringToRegexp', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(tokensToRegExp, 'tokensToRegExp', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+
+  __REACT_HOT_LOADER__.register(pathToRegexp, 'pathToRegexp', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/path-to-regexp/index.js');
+}();
+
+;
 
 /***/ }),
-/* 146 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -14769,10 +16162,10 @@ function pathToRegexp(path, keys, options) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(1);
-  var warning = __webpack_require__(2);
-  var ReactPropTypesSecret = __webpack_require__(45);
+if (false) {
+  var invariant = require('fbjs/lib/invariant');
+  var warning = require('fbjs/lib/warning');
+  var ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');
   var loggedTypeFailures = {};
 }
 
@@ -14788,7 +16181,7 @@ if (process.env.NODE_ENV !== 'production') {
  * @private
  */
 function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     for (var typeSpecName in typeSpecs) {
       if (typeSpecs.hasOwnProperty(typeSpecName)) {
         var error;
@@ -14819,10 +16212,22 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 }
 
 module.exports = checkPropTypes;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(loggedTypeFailures, 'loggedTypeFailures', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/prop-types/checkPropTypes.js');
+
+  __REACT_HOT_LOADER__.register(checkPropTypes, 'checkPropTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/prop-types/checkPropTypes.js');
+}();
+
+;
 
 /***/ }),
-/* 147 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14837,9 +16242,9 @@ module.exports = checkPropTypes;
 
 
 
-var emptyFunction = __webpack_require__(11);
-var invariant = __webpack_require__(1);
-var ReactPropTypesSecret = __webpack_require__(45);
+var emptyFunction = __webpack_require__(9);
+var invariant = __webpack_require__(0);
+var ReactPropTypesSecret = __webpack_require__(77);
 
 module.exports = function () {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -14880,18 +16285,543 @@ module.exports = function () {
 
   return ReactPropTypes;
 };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 148 */
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var emptyFunction = __webpack_require__(9);
+var invariant = __webpack_require__(0);
+var warning = __webpack_require__(2);
+
+var ReactPropTypesSecret = __webpack_require__(77);
+var checkPropTypes = __webpack_require__(139);
+
+module.exports = function (isValidElement, throwOnDirectAccess) {
+  /* global Symbol */
+  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+
+  /**
+   * Returns the iterator method function contained on the iterable object.
+   *
+   * Be sure to invoke the function with the iterable as context:
+   *
+   *     var iteratorFn = getIteratorFn(myIterable);
+   *     if (iteratorFn) {
+   *       var iterator = iteratorFn.call(myIterable);
+   *       ...
+   *     }
+   *
+   * @param {?object} maybeIterable
+   * @return {?function}
+   */
+  function getIteratorFn(maybeIterable) {
+    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+    if (typeof iteratorFn === 'function') {
+      return iteratorFn;
+    }
+  }
+
+  /**
+   * Collection of methods that allow declaration and validation of props that are
+   * supplied to React components. Example usage:
+   *
+   *   var Props = require('ReactPropTypes');
+   *   var MyArticle = React.createClass({
+   *     propTypes: {
+   *       // An optional string prop named "description".
+   *       description: Props.string,
+   *
+   *       // A required enum prop named "category".
+   *       category: Props.oneOf(['News','Photos']).isRequired,
+   *
+   *       // A prop named "dialog" that requires an instance of Dialog.
+   *       dialog: Props.instanceOf(Dialog).isRequired
+   *     },
+   *     render: function() { ... }
+   *   });
+   *
+   * A more formal specification of how these methods are used:
+   *
+   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+   *   decl := ReactPropTypes.{type}(.isRequired)?
+   *
+   * Each and every declaration produces a function with the same signature. This
+   * allows the creation of custom validation functions. For example:
+   *
+   *  var MyLink = React.createClass({
+   *    propTypes: {
+   *      // An optional string or URI prop named "href".
+   *      href: function(props, propName, componentName) {
+   *        var propValue = props[propName];
+   *        if (propValue != null && typeof propValue !== 'string' &&
+   *            !(propValue instanceof URI)) {
+   *          return new Error(
+   *            'Expected a string or an URI for ' + propName + ' in ' +
+   *            componentName
+   *          );
+   *        }
+   *      }
+   *    },
+   *    render: function() {...}
+   *  });
+   *
+   * @internal
+   */
+
+  var ANONYMOUS = '<<anonymous>>';
+
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+  var ReactPropTypes = {
+    array: createPrimitiveTypeChecker('array'),
+    bool: createPrimitiveTypeChecker('boolean'),
+    func: createPrimitiveTypeChecker('function'),
+    number: createPrimitiveTypeChecker('number'),
+    object: createPrimitiveTypeChecker('object'),
+    string: createPrimitiveTypeChecker('string'),
+    symbol: createPrimitiveTypeChecker('symbol'),
+
+    any: createAnyTypeChecker(),
+    arrayOf: createArrayOfTypeChecker,
+    element: createElementTypeChecker(),
+    instanceOf: createInstanceTypeChecker,
+    node: createNodeChecker(),
+    objectOf: createObjectOfTypeChecker,
+    oneOf: createEnumTypeChecker,
+    oneOfType: createUnionTypeChecker,
+    shape: createShapeTypeChecker
+  };
+
+  /**
+   * inlined Object.is polyfill to avoid requiring consumers ship their own
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+   */
+  /*eslint-disable no-self-compare*/
+  function is(x, y) {
+    // SameValue algorithm
+    if (x === y) {
+      // Steps 1-5, 7-10
+      // Steps 6.b-6.e: +0 != -0
+      return x !== 0 || 1 / x === 1 / y;
+    } else {
+      // Step 6.a: NaN == NaN
+      return x !== x && y !== y;
+    }
+  }
+  /*eslint-enable no-self-compare*/
+
+  /**
+   * We use an Error-like object for backward compatibility as people may call
+   * PropTypes directly and inspect their output. However, we don't use real
+   * Errors anymore. We don't inspect their stack anyway, and creating them
+   * is prohibitively expensive if they are created too often, such as what
+   * happens in oneOfType() for any type before the one that matched.
+   */
+  function PropTypeError(message) {
+    this.message = message;
+    this.stack = '';
+  }
+  // Make `instanceof Error` still work for returned errors.
+  PropTypeError.prototype = Error.prototype;
+
+  function createChainableTypeChecker(validate) {
+    if (false) {
+      var manualPropTypeCallCache = {};
+      var manualPropTypeWarningCount = 0;
+    }
+    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+      componentName = componentName || ANONYMOUS;
+      propFullName = propFullName || propName;
+
+      if (secret !== ReactPropTypesSecret) {
+        if (throwOnDirectAccess) {
+          // New behavior only for users of `prop-types` package
+          invariant(false, 'Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use `PropTypes.checkPropTypes()` to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
+        } else if (false) {
+          // Old behavior for people using React.PropTypes
+          var cacheKey = componentName + ':' + propName;
+          if (!manualPropTypeCallCache[cacheKey] &&
+          // Avoid spamming the console because they are often not actionable except for lib authors
+          manualPropTypeWarningCount < 3) {
+            warning(false, 'You are manually calling a React.PropTypes validation ' + 'function for the `%s` prop on `%s`. This is deprecated ' + 'and will throw in the standalone `prop-types` package. ' + 'You may be seeing this warning due to a third-party PropTypes ' + 'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.', propFullName, componentName);
+            manualPropTypeCallCache[cacheKey] = true;
+            manualPropTypeWarningCount++;
+          }
+        }
+      }
+      if (props[propName] == null) {
+        if (isRequired) {
+          if (props[propName] === null) {
+            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+          }
+          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+        }
+        return null;
+      } else {
+        return validate(props, propName, componentName, location, propFullName);
+      }
+    }
+
+    var chainedCheckType = checkType.bind(null, false);
+    chainedCheckType.isRequired = checkType.bind(null, true);
+
+    return chainedCheckType;
+  }
+
+  function createPrimitiveTypeChecker(expectedType) {
+    function validate(props, propName, componentName, location, propFullName, secret) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== expectedType) {
+        // `propValue` being instance of, say, date/regexp, pass the 'object'
+        // check, but we can offer a more precise error message here rather than
+        // 'of type `object`'.
+        var preciseType = getPreciseType(propValue);
+
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createAnyTypeChecker() {
+    return createChainableTypeChecker(emptyFunction.thatReturnsNull);
+  }
+
+  function createArrayOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+      }
+      var propValue = props[propName];
+      if (!Array.isArray(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+      }
+      for (var i = 0; i < propValue.length; i++) {
+        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
+        if (error instanceof Error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createElementTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      if (!isValidElement(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createInstanceTypeChecker(expectedClass) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!(props[propName] instanceof expectedClass)) {
+        var expectedClassName = expectedClass.name || ANONYMOUS;
+        var actualClassName = getClassName(props[propName]);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createEnumTypeChecker(expectedValues) {
+    if (!Array.isArray(expectedValues)) {
+       false ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+      return emptyFunction.thatReturnsNull;
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      for (var i = 0; i < expectedValues.length; i++) {
+        if (is(propValue, expectedValues[i])) {
+          return null;
+        }
+      }
+
+      var valuesString = JSON.stringify(expectedValues);
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createObjectOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+      }
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+      }
+      for (var key in propValue) {
+        if (propValue.hasOwnProperty(key)) {
+          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+          if (error instanceof Error) {
+            return error;
+          }
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createUnionTypeChecker(arrayOfTypeCheckers) {
+    if (!Array.isArray(arrayOfTypeCheckers)) {
+       false ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      return emptyFunction.thatReturnsNull;
+    }
+
+    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+      var checker = arrayOfTypeCheckers[i];
+      if (typeof checker !== 'function') {
+        warning(false, 'Invalid argument supplid to oneOfType. Expected an array of check functions, but ' + 'received %s at index %s.', getPostfixForTypeWarning(checker), i);
+        return emptyFunction.thatReturnsNull;
+      }
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+        var checker = arrayOfTypeCheckers[i];
+        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
+          return null;
+        }
+      }
+
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createNodeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!isNode(props[propName])) {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      for (var key in shapeTypes) {
+        var checker = shapeTypes[key];
+        if (!checker) {
+          continue;
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function isNode(propValue) {
+    switch (typeof propValue === 'undefined' ? 'undefined' : _typeof(propValue)) {
+      case 'number':
+      case 'string':
+      case 'undefined':
+        return true;
+      case 'boolean':
+        return !propValue;
+      case 'object':
+        if (Array.isArray(propValue)) {
+          return propValue.every(isNode);
+        }
+        if (propValue === null || isValidElement(propValue)) {
+          return true;
+        }
+
+        var iteratorFn = getIteratorFn(propValue);
+        if (iteratorFn) {
+          var iterator = iteratorFn.call(propValue);
+          var step;
+          if (iteratorFn !== propValue.entries) {
+            while (!(step = iterator.next()).done) {
+              if (!isNode(step.value)) {
+                return false;
+              }
+            }
+          } else {
+            // Iterator will provide entry [k,v] tuples rather than values.
+            while (!(step = iterator.next()).done) {
+              var entry = step.value;
+              if (entry) {
+                if (!isNode(entry[1])) {
+                  return false;
+                }
+              }
+            }
+          }
+        } else {
+          return false;
+        }
+
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  function isSymbol(propType, propValue) {
+    // Native Symbol.
+    if (propType === 'symbol') {
+      return true;
+    }
+
+    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+    if (propValue['@@toStringTag'] === 'Symbol') {
+      return true;
+    }
+
+    // Fallback for non-spec compliant Symbols which are polyfilled.
+    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Equivalent of `typeof` but with special handling for array and regexp.
+  function getPropType(propValue) {
+    var propType = typeof propValue === 'undefined' ? 'undefined' : _typeof(propValue);
+    if (Array.isArray(propValue)) {
+      return 'array';
+    }
+    if (propValue instanceof RegExp) {
+      // Old webkits (at least until Android 4.0) return 'function' rather than
+      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+      // passes PropTypes.object.
+      return 'object';
+    }
+    if (isSymbol(propType, propValue)) {
+      return 'symbol';
+    }
+    return propType;
+  }
+
+  // This handles more types than `getPropType`. Only used for error messages.
+  // See `createPrimitiveTypeChecker`.
+  function getPreciseType(propValue) {
+    if (typeof propValue === 'undefined' || propValue === null) {
+      return '' + propValue;
+    }
+    var propType = getPropType(propValue);
+    if (propType === 'object') {
+      if (propValue instanceof Date) {
+        return 'date';
+      } else if (propValue instanceof RegExp) {
+        return 'regexp';
+      }
+    }
+    return propType;
+  }
+
+  // Returns a string that is postfixed to a warning about an invalid type.
+  // For example, "undefined" or "of type array"
+  function getPostfixForTypeWarning(value) {
+    var type = getPreciseType(value);
+    switch (type) {
+      case 'array':
+      case 'object':
+        return 'an ' + type;
+      case 'boolean':
+      case 'date':
+      case 'regexp':
+        return 'a ' + type;
+      default:
+        return type;
+    }
+  }
+
+  // Returns class name of the object, if any.
+  function getClassName(propValue) {
+    if (!propValue.constructor || !propValue.constructor.name) {
+      return ANONYMOUS;
+    }
+    return propValue.constructor.name;
+  }
+
+  ReactPropTypes.checkPropTypes = checkPropTypes;
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
+
+/***/ }),
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(162);
+module.exports = __webpack_require__(156);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 149 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14968,9 +16898,20 @@ var ARIADOMPropertyConfig = {
 };
 
 module.exports = ARIADOMPropertyConfig;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ARIADOMPropertyConfig, 'ARIADOMPropertyConfig', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ARIADOMPropertyConfig.js');
+}();
+
+;
 
 /***/ }),
-/* 150 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14986,9 +16927,9 @@ module.exports = ARIADOMPropertyConfig;
 
 
 
-var ReactDOMComponentTree = __webpack_require__(6);
+var ReactDOMComponentTree = __webpack_require__(5);
 
-var focusNode = __webpack_require__(73);
+var focusNode = __webpack_require__(69);
 
 var AutoFocusUtils = {
   focusDOMComponent: function focusDOMComponent() {
@@ -14997,9 +16938,20 @@ var AutoFocusUtils = {
 };
 
 module.exports = AutoFocusUtils;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(AutoFocusUtils, 'AutoFocusUtils', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/AutoFocusUtils.js');
+}();
+
+;
 
 /***/ }),
-/* 151 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15017,11 +16969,11 @@ module.exports = AutoFocusUtils;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var EventPropagators = __webpack_require__(30);
-var ExecutionEnvironment = __webpack_require__(7);
-var FallbackCompositionState = __webpack_require__(157);
-var SyntheticCompositionEvent = __webpack_require__(200);
-var SyntheticInputEvent = __webpack_require__(203);
+var EventPropagators = __webpack_require__(28);
+var ExecutionEnvironment = __webpack_require__(8);
+var FallbackCompositionState = __webpack_require__(151);
+var SyntheticCompositionEvent = __webpack_require__(188);
+var SyntheticInputEvent = __webpack_require__(191);
 
 var END_KEYCODES = [9, 13, 27, 32]; // Tab, Return, Esc, Space
 var START_KEYCODE = 229;
@@ -15389,13 +17341,66 @@ var BeforeInputEventPlugin = {
 };
 
 module.exports = BeforeInputEventPlugin;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(END_KEYCODES, 'END_KEYCODES', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(START_KEYCODE, 'START_KEYCODE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(canUseCompositionEvent, 'canUseCompositionEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(documentMode, 'documentMode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(canUseTextInputEvent, 'canUseTextInputEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(useFallbackCompositionData, 'useFallbackCompositionData', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(isPresto, 'isPresto', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(SPACEBAR_CODE, 'SPACEBAR_CODE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(SPACEBAR_CHAR, 'SPACEBAR_CHAR', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(eventTypes, 'eventTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(hasSpaceKeypress, 'hasSpaceKeypress', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(isKeypressCommand, 'isKeypressCommand', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getCompositionEventType, 'getCompositionEventType', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(isFallbackCompositionStart, 'isFallbackCompositionStart', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(isFallbackCompositionEnd, 'isFallbackCompositionEnd', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getDataFromCustomEvent, 'getDataFromCustomEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(currentComposition, 'currentComposition', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(extractCompositionEvent, 'extractCompositionEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getNativeBeforeInputChars, 'getNativeBeforeInputChars', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getFallbackBeforeInputChars, 'getFallbackBeforeInputChars', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(extractBeforeInputEvent, 'extractBeforeInputEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(BeforeInputEventPlugin, 'BeforeInputEventPlugin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/BeforeInputEventPlugin.js');
+}();
+
+;
 
 /***/ }),
-/* 152 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -15407,14 +17412,14 @@ module.exports = BeforeInputEventPlugin;
 
 
 
-var CSSProperty = __webpack_require__(81);
-var ExecutionEnvironment = __webpack_require__(7);
-var ReactInstrumentation = __webpack_require__(12);
+var CSSProperty = __webpack_require__(78);
+var ExecutionEnvironment = __webpack_require__(8);
+var ReactInstrumentation = __webpack_require__(10);
 
-var camelizeStyleName = __webpack_require__(121);
-var dangerousStyleValue = __webpack_require__(210);
-var hyphenateStyleName = __webpack_require__(128);
-var memoizeStringOnly = __webpack_require__(131);
+var camelizeStyleName = __webpack_require__(116);
+var dangerousStyleValue = __webpack_require__(197);
+var hyphenateStyleName = __webpack_require__(123);
+var memoizeStringOnly = __webpack_require__(126);
 var warning = __webpack_require__(2);
 
 var processStyleName = memoizeStringOnly(function (styleName) {
@@ -15437,7 +17442,7 @@ if (ExecutionEnvironment.canUseDOM) {
   }
 }
 
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   // 'msTransform' is correct, but the other prefixes should be capitalized
   var badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/;
 
@@ -15543,7 +17548,7 @@ var CSSPropertyOperations = {
         continue;
       }
       var styleValue = styles[styleName];
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         warnValidStyle(styleName, styleValue, component);
       }
       if (styleValue != null) {
@@ -15563,7 +17568,7 @@ var CSSPropertyOperations = {
    * @param {ReactDOMComponent} component
    */
   setValueForStyles: function setValueForStyles(node, styles, component) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       ReactInstrumentation.debugTool.onHostOperation({
         instanceID: component._debugID,
         type: 'update styles',
@@ -15576,7 +17581,7 @@ var CSSPropertyOperations = {
       if (!styles.hasOwnProperty(styleName)) {
         continue;
       }
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         warnValidStyle(styleName, styles[styleName], component);
       }
       var styleValue = dangerousStyleValue(styleName, styles[styleName], component);
@@ -15603,10 +17608,50 @@ var CSSPropertyOperations = {
 };
 
 module.exports = CSSPropertyOperations;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(processStyleName, 'processStyleName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(hasShorthandPropertyBug, 'hasShorthandPropertyBug', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(styleFloatAccessor, 'styleFloatAccessor', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(tempStyle, 'tempStyle', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(badVendoredStyleNamePattern, 'badVendoredStyleNamePattern', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(badStyleValueWithSemicolonPattern, 'badStyleValueWithSemicolonPattern', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(warnedStyleNames, 'warnedStyleNames', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(warnedStyleValues, 'warnedStyleValues', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(warnedForNaNValue, 'warnedForNaNValue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(warnHyphenatedStyleName, 'warnHyphenatedStyleName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(warnBadVendoredStyleName, 'warnBadVendoredStyleName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(warnStyleValueWithSemicolon, 'warnStyleValueWithSemicolon', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(warnStyleValueIsNaN, 'warnStyleValueIsNaN', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(checkRenderMessage, 'checkRenderMessage', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(warnValidStyle, 'warnValidStyle', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+
+  __REACT_HOT_LOADER__.register(CSSPropertyOperations, 'CSSPropertyOperations', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/CSSPropertyOperations.js');
+}();
+
+;
 
 /***/ }),
-/* 153 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15622,16 +17667,16 @@ module.exports = CSSPropertyOperations;
 
 
 
-var EventPluginHub = __webpack_require__(29);
-var EventPropagators = __webpack_require__(30);
-var ExecutionEnvironment = __webpack_require__(7);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactUpdates = __webpack_require__(13);
-var SyntheticEvent = __webpack_require__(15);
+var EventPluginHub = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
+var ExecutionEnvironment = __webpack_require__(8);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactUpdates = __webpack_require__(11);
+var SyntheticEvent = __webpack_require__(12);
 
-var getEventTarget = __webpack_require__(57);
-var isEventSupported = __webpack_require__(58);
-var isTextInputElement = __webpack_require__(99);
+var getEventTarget = __webpack_require__(53);
+var isEventSupported = __webpack_require__(54);
+var isTextInputElement = __webpack_require__(95);
 
 var eventTypes = {
   change: {
@@ -15955,13 +18000,72 @@ var ChangeEventPlugin = {
 };
 
 module.exports = ChangeEventPlugin;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(eventTypes, 'eventTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(activeElement, 'activeElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(activeElementInst, 'activeElementInst', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(activeElementValue, 'activeElementValue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(activeElementValueProp, 'activeElementValueProp', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(shouldUseChangeEvent, 'shouldUseChangeEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(doesChangeEventBubble, 'doesChangeEventBubble', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(manualDispatchChangeEvent, 'manualDispatchChangeEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(runEventInBatch, 'runEventInBatch', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(startWatchingForChangeEventIE8, 'startWatchingForChangeEventIE8', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(stopWatchingForChangeEventIE8, 'stopWatchingForChangeEventIE8', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getTargetInstForChangeEvent, 'getTargetInstForChangeEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(handleEventsForChangeEventIE8, 'handleEventsForChangeEventIE8', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(isInputEventSupported, 'isInputEventSupported', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(newValueProp, 'newValueProp', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(startWatchingForValueChange, 'startWatchingForValueChange', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(stopWatchingForValueChange, 'stopWatchingForValueChange', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(handlePropertyChange, 'handlePropertyChange', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getTargetInstForInputEvent, 'getTargetInstForInputEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(handleEventsForInputEventIE, 'handleEventsForInputEventIE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getTargetInstForInputEventIE, 'getTargetInstForInputEventIE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(shouldUseClickEvent, 'shouldUseClickEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getTargetInstForClickEvent, 'getTargetInstForClickEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(handleControlledInputBlur, 'handleControlledInputBlur', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(ChangeEventPlugin, 'ChangeEventPlugin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ChangeEventPlugin.js');
+}();
+
+;
 
 /***/ }),
-/* 154 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -15973,14 +18077,14 @@ module.exports = ChangeEventPlugin;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var DOMLazyTree = __webpack_require__(22);
-var ExecutionEnvironment = __webpack_require__(7);
+var DOMLazyTree = __webpack_require__(17);
+var ExecutionEnvironment = __webpack_require__(8);
 
-var createNodesFromMarkup = __webpack_require__(124);
-var emptyFunction = __webpack_require__(11);
-var invariant = __webpack_require__(1);
+var createNodesFromMarkup = __webpack_require__(119);
+var emptyFunction = __webpack_require__(9);
+var invariant = __webpack_require__(0);
 
 var Danger = {
 
@@ -15993,9 +18097,9 @@ var Danger = {
    * @internal
    */
   dangerouslyReplaceNodeWithMarkup: function dangerouslyReplaceNodeWithMarkup(oldChild, markup) {
-    !ExecutionEnvironment.canUseDOM ? process.env.NODE_ENV !== 'production' ? invariant(false, 'dangerouslyReplaceNodeWithMarkup(...): Cannot render markup in a worker thread. Make sure `window` and `document` are available globally before requiring React when unit testing or use ReactDOMServer.renderToString() for server rendering.') : _prodInvariant('56') : void 0;
-    !markup ? process.env.NODE_ENV !== 'production' ? invariant(false, 'dangerouslyReplaceNodeWithMarkup(...): Missing markup.') : _prodInvariant('57') : void 0;
-    !(oldChild.nodeName !== 'HTML') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'dangerouslyReplaceNodeWithMarkup(...): Cannot replace markup of the <html> node. This is because browser quirks make this unreliable and/or slow. If you want to render to the root you must use server rendering. See ReactDOMServer.renderToString().') : _prodInvariant('58') : void 0;
+    !ExecutionEnvironment.canUseDOM ?  false ? invariant(false, 'dangerouslyReplaceNodeWithMarkup(...): Cannot render markup in a worker thread. Make sure `window` and `document` are available globally before requiring React when unit testing or use ReactDOMServer.renderToString() for server rendering.') : _prodInvariant('56') : void 0;
+    !markup ?  false ? invariant(false, 'dangerouslyReplaceNodeWithMarkup(...): Missing markup.') : _prodInvariant('57') : void 0;
+    !(oldChild.nodeName !== 'HTML') ?  false ? invariant(false, 'dangerouslyReplaceNodeWithMarkup(...): Cannot replace markup of the <html> node. This is because browser quirks make this unreliable and/or slow. If you want to render to the root you must use server rendering. See ReactDOMServer.renderToString().') : _prodInvariant('58') : void 0;
 
     if (typeof markup === 'string') {
       var newChild = createNodesFromMarkup(markup, emptyFunction)[0];
@@ -16008,10 +18112,20 @@ var Danger = {
 };
 
 module.exports = Danger;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Danger, 'Danger', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/Danger.js');
+}();
+
+;
 
 /***/ }),
-/* 155 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16040,9 +18154,20 @@ module.exports = Danger;
 var DefaultEventPluginOrder = ['ResponderEventPlugin', 'SimpleEventPlugin', 'TapEventPlugin', 'EnterLeaveEventPlugin', 'ChangeEventPlugin', 'SelectEventPlugin', 'BeforeInputEventPlugin'];
 
 module.exports = DefaultEventPluginOrder;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(DefaultEventPluginOrder, 'DefaultEventPluginOrder', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/DefaultEventPluginOrder.js');
+}();
+
+;
 
 /***/ }),
-/* 156 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16058,9 +18183,9 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(30);
-var ReactDOMComponentTree = __webpack_require__(6);
-var SyntheticMouseEvent = __webpack_require__(36);
+var EventPropagators = __webpack_require__(28);
+var ReactDOMComponentTree = __webpack_require__(5);
+var SyntheticMouseEvent = __webpack_require__(33);
 
 var eventTypes = {
   mouseEnter: {
@@ -16145,9 +18270,22 @@ var EnterLeaveEventPlugin = {
 };
 
 module.exports = EnterLeaveEventPlugin;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(eventTypes, 'eventTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EnterLeaveEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(EnterLeaveEventPlugin, 'EnterLeaveEventPlugin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/EnterLeaveEventPlugin.js');
+}();
+
+;
 
 /***/ }),
-/* 157 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16163,11 +18301,11 @@ module.exports = EnterLeaveEventPlugin;
 
 
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var PooledClass = __webpack_require__(18);
+var PooledClass = __webpack_require__(15);
 
-var getTextContentAccessor = __webpack_require__(97);
+var getTextContentAccessor = __webpack_require__(93);
 
 /**
  * This helper class stores information about text content of a target node,
@@ -16245,9 +18383,20 @@ _assign(FallbackCompositionState.prototype, {
 PooledClass.addPoolingTo(FallbackCompositionState);
 
 module.exports = FallbackCompositionState;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(FallbackCompositionState, 'FallbackCompositionState', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/FallbackCompositionState.js');
+}();
+
+;
 
 /***/ }),
-/* 158 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16263,7 +18412,7 @@ module.exports = FallbackCompositionState;
 
 
 
-var DOMProperty = __webpack_require__(16);
+var DOMProperty = __webpack_require__(18);
 
 var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -16486,9 +18635,30 @@ var HTMLDOMPropertyConfig = {
 };
 
 module.exports = HTMLDOMPropertyConfig;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(MUST_USE_PROPERTY, 'MUST_USE_PROPERTY', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/HTMLDOMPropertyConfig.js');
+
+  __REACT_HOT_LOADER__.register(HAS_BOOLEAN_VALUE, 'HAS_BOOLEAN_VALUE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/HTMLDOMPropertyConfig.js');
+
+  __REACT_HOT_LOADER__.register(HAS_NUMERIC_VALUE, 'HAS_NUMERIC_VALUE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/HTMLDOMPropertyConfig.js');
+
+  __REACT_HOT_LOADER__.register(HAS_POSITIVE_NUMERIC_VALUE, 'HAS_POSITIVE_NUMERIC_VALUE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/HTMLDOMPropertyConfig.js');
+
+  __REACT_HOT_LOADER__.register(HAS_OVERLOADED_BOOLEAN_VALUE, 'HAS_OVERLOADED_BOOLEAN_VALUE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/HTMLDOMPropertyConfig.js');
+
+  __REACT_HOT_LOADER__.register(HTMLDOMPropertyConfig, 'HTMLDOMPropertyConfig', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/HTMLDOMPropertyConfig.js');
+}();
+
+;
 
 /***/ }),
-/* 159 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16504,31 +18674,31 @@ module.exports = HTMLDOMPropertyConfig;
 
 
 
-var ReactReconciler = __webpack_require__(23);
+var ReactReconciler = __webpack_require__(19);
 
-var instantiateReactComponent = __webpack_require__(98);
-var KeyEscapeUtils = __webpack_require__(49);
-var shouldUpdateReactComponent = __webpack_require__(59);
-var traverseAllChildren = __webpack_require__(101);
+var instantiateReactComponent = __webpack_require__(94);
+var KeyEscapeUtils = __webpack_require__(45);
+var shouldUpdateReactComponent = __webpack_require__(55);
+var traverseAllChildren = __webpack_require__(97);
 var warning = __webpack_require__(2);
 
 var ReactComponentTreeHook;
 
-if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && __webpack_require__.i({"NODE_ENV":"production"}) && "production" === 'test') {
   // Temporary hack.
   // Inline requires don't work well with Jest:
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(10);
+  ReactComponentTreeHook = __webpack_require__(106);
 }
 
 function instantiateChild(childInstances, child, name, selfDebugID) {
   // We found a component instance.
   var keyUnique = childInstances[name] === undefined;
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     if (!ReactComponentTreeHook) {
-      ReactComponentTreeHook = __webpack_require__(10);
+      ReactComponentTreeHook = require('react/lib/ReactComponentTreeHook');
     }
     if (!keyUnique) {
       process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -16560,7 +18730,7 @@ var ReactChildReconciler = {
     }
     var childInstances = {};
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       traverseAllChildren(nestedChildNodes, function (childInsts, child, name) {
         return instantiateChild(childInsts, child, name, selfDebugID);
       }, childInstances);
@@ -16645,10 +18815,25 @@ var ReactChildReconciler = {
 };
 
 module.exports = ReactChildReconciler;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactComponentTreeHook, 'ReactComponentTreeHook', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactChildReconciler.js');
+
+  __REACT_HOT_LOADER__.register(instantiateChild, 'instantiateChild', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactChildReconciler.js');
+
+  __REACT_HOT_LOADER__.register(ReactChildReconciler, 'ReactChildReconciler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactChildReconciler.js');
+}();
+
+;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(75)))
 
 /***/ }),
-/* 160 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16664,8 +18849,8 @@ module.exports = ReactChildReconciler;
 
 
 
-var DOMChildrenOperations = __webpack_require__(46);
-var ReactDOMIDOperations = __webpack_require__(167);
+var DOMChildrenOperations = __webpack_require__(41);
+var ReactDOMIDOperations = __webpack_require__(161);
 
 /**
  * Abstracts away all functionality of the reconciler that requires knowledge of
@@ -16681,13 +18866,24 @@ var ReactComponentBrowserEnvironment = {
 };
 
 module.exports = ReactComponentBrowserEnvironment;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactComponentBrowserEnvironment, 'ReactComponentBrowserEnvironment', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactComponentBrowserEnvironment.js');
+}();
+
+;
 
 /***/ }),
-/* 161 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -16701,26 +18897,26 @@ module.exports = ReactComponentBrowserEnvironment;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(4),
-    _assign = __webpack_require__(5);
+var _prodInvariant = __webpack_require__(3),
+    _assign = __webpack_require__(4);
 
-var React = __webpack_require__(24);
-var ReactComponentEnvironment = __webpack_require__(51);
-var ReactCurrentOwner = __webpack_require__(14);
-var ReactErrorUtils = __webpack_require__(52);
-var ReactInstanceMap = __webpack_require__(31);
-var ReactInstrumentation = __webpack_require__(12);
-var ReactNodeTypes = __webpack_require__(91);
-var ReactReconciler = __webpack_require__(23);
+var React = __webpack_require__(20);
+var ReactComponentEnvironment = __webpack_require__(47);
+var ReactCurrentOwner = __webpack_require__(13);
+var ReactErrorUtils = __webpack_require__(48);
+var ReactInstanceMap = __webpack_require__(29);
+var ReactInstrumentation = __webpack_require__(10);
+var ReactNodeTypes = __webpack_require__(88);
+var ReactReconciler = __webpack_require__(19);
 
-if (process.env.NODE_ENV !== 'production') {
-  var checkReactTypeSpec = __webpack_require__(209);
+if (false) {
+  var checkReactTypeSpec = require('./checkReactTypeSpec');
 }
 
-var emptyObject = __webpack_require__(26);
-var invariant = __webpack_require__(1);
-var shallowEqual = __webpack_require__(41);
-var shouldUpdateReactComponent = __webpack_require__(59);
+var emptyObject = __webpack_require__(24);
+var invariant = __webpack_require__(0);
+var shallowEqual = __webpack_require__(37);
+var shouldUpdateReactComponent = __webpack_require__(55);
 var warning = __webpack_require__(2);
 
 var CompositeTypes = {
@@ -16738,7 +18934,7 @@ StatelessComponent.prototype.render = function () {
 };
 
 function warnIfInvalidElement(Component, element) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     process.env.NODE_ENV !== 'production' ? warning(element === null || element === false || React.isValidElement(element), '%s(...): A valid React element (or null) must be returned. You may have ' + 'returned undefined, an array or some other invalid object.', Component.displayName || Component.name || 'Component') : void 0;
     process.env.NODE_ENV !== 'production' ? warning(!Component.childContextTypes, '%s(...): childContextTypes cannot be defined on a functional component.', Component.displayName || Component.name || 'Component') : void 0;
   }
@@ -16843,7 +19039,7 @@ var ReactCompositeComponent = {
     // ComponentWillUnmount shall only be called once
     this._calledComponentWillUnmount = false;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       this._warnedAboutRefsInRender = false;
     }
   },
@@ -16883,7 +19079,7 @@ var ReactCompositeComponent = {
     if (!doConstruct && (inst == null || inst.render == null)) {
       renderedElement = inst;
       warnIfInvalidElement(Component, renderedElement);
-      !(inst === null || inst === false || React.isValidElement(inst)) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s(...): A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.', Component.displayName || Component.name || 'Component') : _prodInvariant('105', Component.displayName || Component.name || 'Component') : void 0;
+      !(inst === null || inst === false || React.isValidElement(inst)) ?  false ? invariant(false, '%s(...): A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.', Component.displayName || Component.name || 'Component') : _prodInvariant('105', Component.displayName || Component.name || 'Component') : void 0;
       inst = new StatelessComponent(Component);
       this._compositeType = CompositeTypes.StatelessFunctional;
     } else {
@@ -16894,7 +19090,7 @@ var ReactCompositeComponent = {
       }
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       // This will throw later in _renderValidatedComponent, but add an early
       // warning now to help debugging
       if (inst.render == null) {
@@ -16919,7 +19115,7 @@ var ReactCompositeComponent = {
     // Store a reference from the instance back to the internal representation
     ReactInstanceMap.set(inst, this);
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       // Since plain JS classes are defined without any special initialization
       // logic, we can not catch common errors early. Therefore, we have to
       // catch them here, at initialization time, instead.
@@ -16936,7 +19132,7 @@ var ReactCompositeComponent = {
     if (initialState === undefined) {
       inst.state = initialState = null;
     }
-    !((typeof initialState === 'undefined' ? 'undefined' : _typeof(initialState)) === 'object' && !Array.isArray(initialState)) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.state: must be set to an object or null', this.getName() || 'ReactCompositeComponent') : _prodInvariant('106', this.getName() || 'ReactCompositeComponent') : void 0;
+    !((typeof initialState === 'undefined' ? 'undefined' : _typeof(initialState)) === 'object' && !Array.isArray(initialState)) ?  false ? invariant(false, '%s.state: must be set to an object or null', this.getName() || 'ReactCompositeComponent') : _prodInvariant('106', this.getName() || 'ReactCompositeComponent') : void 0;
 
     this._pendingStateQueue = null;
     this._pendingReplaceState = false;
@@ -16950,7 +19146,7 @@ var ReactCompositeComponent = {
     }
 
     if (inst.componentDidMount) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         transaction.getReactMountReady().enqueue(function () {
           measureLifeCyclePerf(function () {
             return inst.componentDidMount();
@@ -16965,7 +19161,7 @@ var ReactCompositeComponent = {
   },
 
   _constructComponent: function _constructComponent(doConstruct, publicProps, publicContext, updateQueue) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       ReactCurrentOwner.current = this;
       try {
         return this._constructComponentWithoutOwner(doConstruct, publicProps, publicContext, updateQueue);
@@ -16981,7 +19177,7 @@ var ReactCompositeComponent = {
     var Component = this._currentElement.type;
 
     if (doConstruct) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         return measureLifeCyclePerf(function () {
           return new Component(publicProps, publicContext, updateQueue);
         }, this._debugID, 'ctor');
@@ -16992,7 +19188,7 @@ var ReactCompositeComponent = {
 
     // This can still be an instance in case of factory components
     // but we'll count this as time spent rendering as the more common case.
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       return measureLifeCyclePerf(function () {
         return Component(publicProps, publicContext, updateQueue);
       }, this._debugID, 'render');
@@ -17029,12 +19225,12 @@ var ReactCompositeComponent = {
     var inst = this._instance;
 
     var debugID = 0;
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       debugID = this._debugID;
     }
 
     if (inst.componentWillMount) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         measureLifeCyclePerf(function () {
           return inst.componentWillMount();
         }, debugID, 'componentWillMount');
@@ -17061,7 +19257,7 @@ var ReactCompositeComponent = {
 
     var markup = ReactReconciler.mountComponent(child, transaction, hostParent, hostContainerInfo, this._processChildContext(context), debugID);
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       if (debugID !== 0) {
         var childDebugIDs = child._debugID !== 0 ? [child._debugID] : [];
         ReactInstrumentation.debugTool.onSetChildren(debugID, childDebugIDs);
@@ -17095,7 +19291,7 @@ var ReactCompositeComponent = {
         var name = this.getName() + '.componentWillUnmount()';
         ReactErrorUtils.invokeGuardedCallback(name, inst.componentWillUnmount.bind(inst));
       } else {
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           measureLifeCyclePerf(function () {
             return inst.componentWillUnmount();
           }, this._debugID, 'componentWillUnmount');
@@ -17170,7 +19366,7 @@ var ReactCompositeComponent = {
    */
   _processContext: function _processContext(context) {
     var maskedContext = this._maskContext(context);
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var Component = this._currentElement.type;
       if (Component.contextTypes) {
         this._checkContextTypes(Component.contextTypes, maskedContext, 'context');
@@ -17190,7 +19386,7 @@ var ReactCompositeComponent = {
     var childContext;
 
     if (inst.getChildContext) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         ReactInstrumentation.debugTool.onBeginProcessingChildContext();
         try {
           childContext = inst.getChildContext();
@@ -17203,12 +19399,12 @@ var ReactCompositeComponent = {
     }
 
     if (childContext) {
-      !(_typeof(Component.childContextTypes) === 'object') ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.getChildContext(): childContextTypes must be defined in order to use getChildContext().', this.getName() || 'ReactCompositeComponent') : _prodInvariant('107', this.getName() || 'ReactCompositeComponent') : void 0;
-      if (process.env.NODE_ENV !== 'production') {
+      !(_typeof(Component.childContextTypes) === 'object') ?  false ? invariant(false, '%s.getChildContext(): childContextTypes must be defined in order to use getChildContext().', this.getName() || 'ReactCompositeComponent') : _prodInvariant('107', this.getName() || 'ReactCompositeComponent') : void 0;
+      if (false) {
         this._checkContextTypes(Component.childContextTypes, childContext, 'child context');
       }
       for (var name in childContext) {
-        !(name in Component.childContextTypes) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.getChildContext(): key "%s" is not defined in childContextTypes.', this.getName() || 'ReactCompositeComponent', name) : _prodInvariant('108', this.getName() || 'ReactCompositeComponent', name) : void 0;
+        !(name in Component.childContextTypes) ?  false ? invariant(false, '%s.getChildContext(): key "%s" is not defined in childContextTypes.', this.getName() || 'ReactCompositeComponent', name) : _prodInvariant('108', this.getName() || 'ReactCompositeComponent', name) : void 0;
       }
       return _assign({}, currentContext, childContext);
     }
@@ -17224,7 +19420,7 @@ var ReactCompositeComponent = {
    * @private
    */
   _checkContextTypes: function _checkContextTypes(typeSpecs, values, location) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       checkReactTypeSpec(typeSpecs, values, location, this.getName(), null, this._debugID);
     }
   },
@@ -17272,7 +19468,7 @@ var ReactCompositeComponent = {
    */
   updateComponent: function updateComponent(transaction, prevParentElement, nextParentElement, prevUnmaskedContext, nextUnmaskedContext) {
     var inst = this._instance;
-    !(inst != null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Attempted to update component `%s` that has already been unmounted (or failed to mount).', this.getName() || 'ReactCompositeComponent') : _prodInvariant('136', this.getName() || 'ReactCompositeComponent') : void 0;
+    !(inst != null) ?  false ? invariant(false, 'Attempted to update component `%s` that has already been unmounted (or failed to mount).', this.getName() || 'ReactCompositeComponent') : _prodInvariant('136', this.getName() || 'ReactCompositeComponent') : void 0;
 
     var willReceive = false;
     var nextContext;
@@ -17297,7 +19493,7 @@ var ReactCompositeComponent = {
     // _pendingStateQueue which will ensure that any state updates gets
     // immediately reconciled instead of waiting for the next batch.
     if (willReceive && inst.componentWillReceiveProps) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         measureLifeCyclePerf(function () {
           return inst.componentWillReceiveProps(nextProps, nextContext);
         }, this._debugID, 'componentWillReceiveProps');
@@ -17311,7 +19507,7 @@ var ReactCompositeComponent = {
 
     if (!this._pendingForceUpdate) {
       if (inst.shouldComponentUpdate) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           shouldUpdate = measureLifeCyclePerf(function () {
             return inst.shouldComponentUpdate(nextProps, nextState, nextContext);
           }, this._debugID, 'shouldComponentUpdate');
@@ -17325,7 +19521,7 @@ var ReactCompositeComponent = {
       }
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       process.env.NODE_ENV !== 'production' ? warning(shouldUpdate !== undefined, '%s.shouldComponentUpdate(): Returned undefined instead of a ' + 'boolean value. Make sure to return true or false.', this.getName() || 'ReactCompositeComponent') : void 0;
     }
 
@@ -17397,7 +19593,7 @@ var ReactCompositeComponent = {
     }
 
     if (inst.componentWillUpdate) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         measureLifeCyclePerf(function () {
           return inst.componentWillUpdate(nextProps, nextState, nextContext);
         }, this._debugID, 'componentWillUpdate');
@@ -17415,7 +19611,7 @@ var ReactCompositeComponent = {
     this._updateRenderedComponent(transaction, unmaskedContext);
 
     if (hasComponentDidUpdate) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         transaction.getReactMountReady().enqueue(function () {
           measureLifeCyclePerf(inst.componentDidUpdate.bind(inst, prevProps, prevState, prevContext), _this2._debugID, 'componentDidUpdate');
         });
@@ -17437,7 +19633,7 @@ var ReactCompositeComponent = {
     var nextRenderedElement = this._renderValidatedComponent();
 
     var debugID = 0;
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       debugID = this._debugID;
     }
 
@@ -17455,7 +19651,7 @@ var ReactCompositeComponent = {
 
       var nextMarkup = ReactReconciler.mountComponent(child, transaction, this._hostParent, this._hostContainerInfo, this._processChildContext(context), debugID);
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         if (debugID !== 0) {
           var childDebugIDs = child._debugID !== 0 ? [child._debugID] : [];
           ReactInstrumentation.debugTool.onSetChildren(debugID, childDebugIDs);
@@ -17482,7 +19678,7 @@ var ReactCompositeComponent = {
     var inst = this._instance;
     var renderedElement;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       renderedElement = measureLifeCyclePerf(function () {
         return inst.render();
       }, this._debugID, 'render');
@@ -17490,7 +19686,7 @@ var ReactCompositeComponent = {
       renderedElement = inst.render();
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       // We allow auto-mocks to proceed as if they're returning null.
       if (renderedElement === undefined && inst.render._isMockFunction) {
         // This is probably bad practice. Consider warning here and
@@ -17507,7 +19703,7 @@ var ReactCompositeComponent = {
    */
   _renderValidatedComponent: function _renderValidatedComponent() {
     var renderedElement;
-    if (process.env.NODE_ENV !== 'production' || this._compositeType !== CompositeTypes.StatelessFunctional) {
+    if ("production" !== 'production' || this._compositeType !== CompositeTypes.StatelessFunctional) {
       ReactCurrentOwner.current = this;
       try {
         renderedElement = this._renderValidatedComponentWithoutOwnerOrContext();
@@ -17519,7 +19715,7 @@ var ReactCompositeComponent = {
     }
     !(
     // TODO: An `isValidNode` function would probably be more appropriate
-    renderedElement === null || renderedElement === false || React.isValidElement(renderedElement)) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.render(): A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.', this.getName() || 'ReactCompositeComponent') : _prodInvariant('109', this.getName() || 'ReactCompositeComponent') : void 0;
+    renderedElement === null || renderedElement === false || React.isValidElement(renderedElement)) ?  false ? invariant(false, '%s.render(): A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.', this.getName() || 'ReactCompositeComponent') : _prodInvariant('109', this.getName() || 'ReactCompositeComponent') : void 0;
 
     return renderedElement;
   },
@@ -17534,9 +19730,9 @@ var ReactCompositeComponent = {
    */
   attachRef: function attachRef(ref, component) {
     var inst = this.getPublicInstance();
-    !(inst != null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Stateless function components cannot have refs.') : _prodInvariant('110') : void 0;
+    !(inst != null) ?  false ? invariant(false, 'Stateless function components cannot have refs.') : _prodInvariant('110') : void 0;
     var publicComponentInstance = component.getPublicInstance();
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var componentName = component && component.getName ? component.getName() : 'a component';
       process.env.NODE_ENV !== 'production' ? warning(publicComponentInstance != null || component._compositeType !== CompositeTypes.StatelessFunctional, 'Stateless function components cannot be given refs ' + '(See ref "%s" in %s created by %s). ' + 'Attempts to access this ref will fail.', ref, componentName, this.getName()) : void 0;
     }
@@ -17590,14 +19786,38 @@ var ReactCompositeComponent = {
 };
 
 module.exports = ReactCompositeComponent;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(CompositeTypes, 'CompositeTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactCompositeComponent.js');
+
+  __REACT_HOT_LOADER__.register(StatelessComponent, 'StatelessComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactCompositeComponent.js');
+
+  __REACT_HOT_LOADER__.register(warnIfInvalidElement, 'warnIfInvalidElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactCompositeComponent.js');
+
+  __REACT_HOT_LOADER__.register(shouldConstruct, 'shouldConstruct', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactCompositeComponent.js');
+
+  __REACT_HOT_LOADER__.register(isPureComponent, 'isPureComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactCompositeComponent.js');
+
+  __REACT_HOT_LOADER__.register(measureLifeCyclePerf, 'measureLifeCyclePerf', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactCompositeComponent.js');
+
+  __REACT_HOT_LOADER__.register(nextMountID, 'nextMountID', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactCompositeComponent.js');
+
+  __REACT_HOT_LOADER__.register(ReactCompositeComponent, 'ReactCompositeComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactCompositeComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 162 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -17611,16 +19831,16 @@ module.exports = ReactCompositeComponent;
 
 
 
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactDefaultInjection = __webpack_require__(179);
-var ReactMount = __webpack_require__(90);
-var ReactReconciler = __webpack_require__(23);
-var ReactUpdates = __webpack_require__(13);
-var ReactVersion = __webpack_require__(194);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDefaultInjection = __webpack_require__(169);
+var ReactMount = __webpack_require__(87);
+var ReactReconciler = __webpack_require__(19);
+var ReactUpdates = __webpack_require__(11);
+var ReactVersion = __webpack_require__(182);
 
-var findDOMNode = __webpack_require__(211);
-var getHostComponentFromComposite = __webpack_require__(96);
-var renderSubtreeIntoContainer = __webpack_require__(218);
+var findDOMNode = __webpack_require__(198);
+var getHostComponentFromComposite = __webpack_require__(92);
+var renderSubtreeIntoContainer = __webpack_require__(205);
 var warning = __webpack_require__(2);
 
 ReactDefaultInjection.inject();
@@ -17659,8 +19879,8 @@ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== 'undefined' && typeof __REACT_DEVT
   });
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  var ExecutionEnvironment = __webpack_require__(7);
+if (false) {
+  var ExecutionEnvironment = require('fbjs/lib/ExecutionEnvironment');
   if (ExecutionEnvironment.canUseDOM && window.top === window.self) {
 
     // First check if devtools is not installed
@@ -17695,11 +19915,11 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  var ReactInstrumentation = __webpack_require__(12);
-  var ReactDOMUnknownPropertyHook = __webpack_require__(176);
-  var ReactDOMNullInputValuePropHook = __webpack_require__(170);
-  var ReactDOMInvalidARIAHook = __webpack_require__(169);
+if (false) {
+  var ReactInstrumentation = require('./ReactInstrumentation');
+  var ReactDOMUnknownPropertyHook = require('./ReactDOMUnknownPropertyHook');
+  var ReactDOMNullInputValuePropHook = require('./ReactDOMNullInputValuePropHook');
+  var ReactDOMInvalidARIAHook = require('./ReactDOMInvalidARIAHook');
 
   ReactInstrumentation.debugTool.addHook(ReactDOMUnknownPropertyHook);
   ReactInstrumentation.debugTool.addHook(ReactDOMNullInputValuePropHook);
@@ -17707,14 +19927,34 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = ReactDOM;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactDOM, 'ReactDOM', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOM.js');
+
+  __REACT_HOT_LOADER__.register(showFileUrlMessage, 'showFileUrlMessage', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOM.js');
+
+  __REACT_HOT_LOADER__.register(testFunc, 'testFunc', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOM.js');
+
+  __REACT_HOT_LOADER__.register(ieCompatibilityMode, 'ieCompatibilityMode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOM.js');
+
+  __REACT_HOT_LOADER__.register(expectedFeatures, 'expectedFeatures', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOM.js');
+
+  __REACT_HOT_LOADER__.register(i, 'i', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOM.js');
+}();
+
+;
 
 /***/ }),
-/* 163 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -17730,34 +19970,34 @@ module.exports = ReactDOM;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(4),
-    _assign = __webpack_require__(5);
+var _prodInvariant = __webpack_require__(3),
+    _assign = __webpack_require__(4);
 
-var AutoFocusUtils = __webpack_require__(150);
-var CSSPropertyOperations = __webpack_require__(152);
-var DOMLazyTree = __webpack_require__(22);
-var DOMNamespaces = __webpack_require__(47);
-var DOMProperty = __webpack_require__(16);
-var DOMPropertyOperations = __webpack_require__(83);
-var EventPluginHub = __webpack_require__(29);
-var EventPluginRegistry = __webpack_require__(34);
-var ReactBrowserEventEmitter = __webpack_require__(35);
-var ReactDOMComponentFlags = __webpack_require__(84);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactDOMInput = __webpack_require__(168);
-var ReactDOMOption = __webpack_require__(171);
-var ReactDOMSelect = __webpack_require__(85);
-var ReactDOMTextarea = __webpack_require__(174);
-var ReactInstrumentation = __webpack_require__(12);
-var ReactMultiChild = __webpack_require__(187);
-var ReactServerRenderingTransaction = __webpack_require__(192);
+var AutoFocusUtils = __webpack_require__(144);
+var CSSPropertyOperations = __webpack_require__(146);
+var DOMLazyTree = __webpack_require__(17);
+var DOMNamespaces = __webpack_require__(42);
+var DOMProperty = __webpack_require__(18);
+var DOMPropertyOperations = __webpack_require__(80);
+var EventPluginHub = __webpack_require__(27);
+var EventPluginRegistry = __webpack_require__(43);
+var ReactBrowserEventEmitter = __webpack_require__(32);
+var ReactDOMComponentFlags = __webpack_require__(81);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMInput = __webpack_require__(162);
+var ReactDOMOption = __webpack_require__(163);
+var ReactDOMSelect = __webpack_require__(82);
+var ReactDOMTextarea = __webpack_require__(166);
+var ReactInstrumentation = __webpack_require__(10);
+var ReactMultiChild = __webpack_require__(175);
+var ReactServerRenderingTransaction = __webpack_require__(180);
 
-var emptyFunction = __webpack_require__(11);
-var escapeTextContentForBrowser = __webpack_require__(38);
-var invariant = __webpack_require__(1);
-var isEventSupported = __webpack_require__(58);
-var shallowEqual = __webpack_require__(41);
-var validateDOMNesting = __webpack_require__(60);
+var emptyFunction = __webpack_require__(9);
+var escapeTextContentForBrowser = __webpack_require__(35);
+var invariant = __webpack_require__(0);
+var isEventSupported = __webpack_require__(54);
+var shallowEqual = __webpack_require__(37);
+var validateDOMNesting = __webpack_require__(56);
 var warning = __webpack_require__(2);
 
 var Flags = ReactDOMComponentFlags;
@@ -17842,7 +20082,7 @@ function checkAndWarnForMutatedStyle(style1, style2, component) {
 
   styleMutationWarning[hash] = true;
 
-  process.env.NODE_ENV !== 'production' ? warning(false, '`%s` was passed a style object that has previously been mutated. ' + 'Mutating `style` is deprecated. Consider cloning it beforehand. Check ' + 'the `render` %s. Previous style: %s. Mutated style: %s.', componentName, owner ? 'of `' + ownerName + '`' : 'using <' + componentName + '>', friendlyStringify(style1), friendlyStringify(style2)) : void 0;
+   false ? warning(false, '`%s` was passed a style object that has previously been mutated. ' + 'Mutating `style` is deprecated. Consider cloning it beforehand. Check ' + 'the `render` %s. Previous style: %s. Mutated style: %s.', componentName, owner ? 'of `' + ownerName + '`' : 'using <' + componentName + '>', friendlyStringify(style1), friendlyStringify(style2)) : void 0;
 }
 
 /**
@@ -17855,25 +20095,25 @@ function assertValidProps(component, props) {
   }
   // Note the use of `==` which checks for null or undefined.
   if (voidElementTags[component._tag]) {
-    !(props.children == null && props.dangerouslySetInnerHTML == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s is a void element tag and must neither have `children` nor use `dangerouslySetInnerHTML`.%s', component._tag, component._currentElement._owner ? ' Check the render method of ' + component._currentElement._owner.getName() + '.' : '') : _prodInvariant('137', component._tag, component._currentElement._owner ? ' Check the render method of ' + component._currentElement._owner.getName() + '.' : '') : void 0;
+    !(props.children == null && props.dangerouslySetInnerHTML == null) ?  false ? invariant(false, '%s is a void element tag and must neither have `children` nor use `dangerouslySetInnerHTML`.%s', component._tag, component._currentElement._owner ? ' Check the render method of ' + component._currentElement._owner.getName() + '.' : '') : _prodInvariant('137', component._tag, component._currentElement._owner ? ' Check the render method of ' + component._currentElement._owner.getName() + '.' : '') : void 0;
   }
   if (props.dangerouslySetInnerHTML != null) {
-    !(props.children == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Can only set one of `children` or `props.dangerouslySetInnerHTML`.') : _prodInvariant('60') : void 0;
-    !(_typeof(props.dangerouslySetInnerHTML) === 'object' && HTML in props.dangerouslySetInnerHTML) ? process.env.NODE_ENV !== 'production' ? invariant(false, '`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. Please visit https://fb.me/react-invariant-dangerously-set-inner-html for more information.') : _prodInvariant('61') : void 0;
+    !(props.children == null) ?  false ? invariant(false, 'Can only set one of `children` or `props.dangerouslySetInnerHTML`.') : _prodInvariant('60') : void 0;
+    !(_typeof(props.dangerouslySetInnerHTML) === 'object' && HTML in props.dangerouslySetInnerHTML) ?  false ? invariant(false, '`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. Please visit https://fb.me/react-invariant-dangerously-set-inner-html for more information.') : _prodInvariant('61') : void 0;
   }
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     process.env.NODE_ENV !== 'production' ? warning(props.innerHTML == null, 'Directly setting property `innerHTML` is not permitted. ' + 'For more information, lookup documentation on `dangerouslySetInnerHTML`.') : void 0;
     process.env.NODE_ENV !== 'production' ? warning(props.suppressContentEditableWarning || !props.contentEditable || props.children == null, 'A component is `contentEditable` and contains `children` managed by ' + 'React. It is now your responsibility to guarantee that none of ' + 'those nodes are unexpectedly modified or duplicated. This is ' + 'probably not intentional.') : void 0;
     process.env.NODE_ENV !== 'production' ? warning(props.onFocusIn == null && props.onFocusOut == null, 'React uses onFocus and onBlur instead of onFocusIn and onFocusOut. ' + 'All React events are normalized to bubble, so onFocusIn and onFocusOut ' + 'are not needed/supported by React.') : void 0;
   }
-  !(props.style == null || _typeof(props.style) === 'object') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + \'em\'}} when using JSX.%s', getDeclarationErrorAddendum(component)) : _prodInvariant('62', getDeclarationErrorAddendum(component)) : void 0;
+  !(props.style == null || _typeof(props.style) === 'object') ?  false ? invariant(false, 'The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + \'em\'}} when using JSX.%s', getDeclarationErrorAddendum(component)) : _prodInvariant('62', getDeclarationErrorAddendum(component)) : void 0;
 }
 
 function enqueuePutListener(inst, registrationName, listener, transaction) {
   if (transaction instanceof ReactServerRenderingTransaction) {
     return;
   }
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     // IE8 has no API for event capturing and the `onScroll` event doesn't
     // bubble.
     process.env.NODE_ENV !== 'production' ? warning(registrationName !== 'onScroll' || isEventSupported('scroll', true), 'This browser doesn\'t support the `onScroll` event') : void 0;
@@ -17910,7 +20150,7 @@ function optionPostMount() {
 }
 
 var setAndValidateContentChildDev = emptyFunction;
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   setAndValidateContentChildDev = function setAndValidateContentChildDev(content) {
     var hasExistingContent = this._contentDebugID != null;
     var debugID = this._debugID;
@@ -17970,9 +20210,9 @@ function trapBubbledEventsLocal() {
   var inst = this;
   // If a component renders to null or if another component fatals and causes
   // the state of the tree to be corrupted, `node` here can be null.
-  !inst._rootNodeID ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Must be mounted to trap events') : _prodInvariant('63') : void 0;
+  !inst._rootNodeID ?  false ? invariant(false, 'Must be mounted to trap events') : _prodInvariant('63') : void 0;
   var node = getNode(inst);
-  !node ? process.env.NODE_ENV !== 'production' ? invariant(false, 'trapBubbledEvent(...): Requires node to be rendered.') : _prodInvariant('64') : void 0;
+  !node ?  false ? invariant(false, 'trapBubbledEvent(...): Requires node to be rendered.') : _prodInvariant('64') : void 0;
 
   switch (inst._tag) {
     case 'iframe':
@@ -18055,7 +20295,7 @@ var hasOwnProperty = {}.hasOwnProperty;
 
 function validateDangerousTag(tag) {
   if (!hasOwnProperty.call(validatedTagCache, tag)) {
-    !VALID_TAG_REGEX.test(tag) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Invalid tag: %s', tag) : _prodInvariant('65', tag) : void 0;
+    !VALID_TAG_REGEX.test(tag) ?  false ? invariant(false, 'Invalid tag: %s', tag) : _prodInvariant('65', tag) : void 0;
     validatedTagCache[tag] = true;
   }
 }
@@ -18097,7 +20337,7 @@ function ReactDOMComponent(element) {
   this._wrapperState = null;
   this._topLevelWrapper = null;
   this._flags = 0;
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     this._ancestorInfo = null;
     setAndValidateContentChildDev.call(this, null);
   }
@@ -18186,7 +20426,7 @@ ReactDOMComponent.Mixin = {
     }
     this._namespaceURI = namespaceURI;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var parentInfo;
       if (hostParent != null) {
         parentInfo = hostParent._ancestorInfo;
@@ -18305,7 +20545,7 @@ ReactDOMComponent.Mixin = {
       } else {
         if (propKey === STYLE) {
           if (propValue) {
-            if (process.env.NODE_ENV !== 'production') {
+            if (false) {
               // See `_updateDOMProperties`. style block
               this._previousStyle = propValue;
             }
@@ -18364,7 +20604,7 @@ ReactDOMComponent.Mixin = {
       if (contentToUse != null) {
         // TODO: Validate that text is allowed as a child of this node
         ret = escapeTextContentForBrowser(contentToUse);
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           setAndValidateContentChildDev.call(this, contentToUse);
         }
       } else if (childrenToUse != null) {
@@ -18406,7 +20646,7 @@ ReactDOMComponent.Mixin = {
         // show within the textarea until it has been focused and blurred again.
         // https://github.com/facebook/react/issues/6731#issuecomment-254874553
         if (contentToUse !== '') {
-          if (process.env.NODE_ENV !== 'production') {
+          if (false) {
             setAndValidateContentChildDev.call(this, contentToUse);
           }
           DOMLazyTree.queueText(lazyTree, contentToUse);
@@ -18545,7 +20785,7 @@ ReactDOMComponent.Mixin = {
       }
       if (propKey === STYLE) {
         if (nextProp) {
-          if (process.env.NODE_ENV !== 'production') {
+          if (false) {
             checkAndWarnForMutatedStyle(this._previousStyleCopy, this._previousStyle, this);
             this._previousStyle = nextProp;
           }
@@ -18627,7 +20867,7 @@ ReactDOMComponent.Mixin = {
       this.updateChildren(null, transaction, context);
     } else if (lastHasContentOrHtml && !nextHasContentOrHtml) {
       this.updateTextContent('');
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         ReactInstrumentation.debugTool.onSetChildren(this._debugID, []);
       }
     }
@@ -18635,7 +20875,7 @@ ReactDOMComponent.Mixin = {
     if (nextContent != null) {
       if (lastContent !== nextContent) {
         this.updateTextContent('' + nextContent);
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           setAndValidateContentChildDev.call(this, nextContent);
         }
       }
@@ -18643,11 +20883,11 @@ ReactDOMComponent.Mixin = {
       if (lastHtml !== nextHtml) {
         this.updateMarkup('' + nextHtml);
       }
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         ReactInstrumentation.debugTool.onSetChildren(this._debugID, []);
       }
     } else if (nextChildren != null) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         setAndValidateContentChildDev.call(this, null);
       }
 
@@ -18691,7 +20931,7 @@ ReactDOMComponent.Mixin = {
          * take advantage of React's reconciliation for styling and <title>
          * management. So we just document it and throw in dangerous cases.
          */
-         true ? process.env.NODE_ENV !== 'production' ? invariant(false, '<%s> tried to unmount. Because of cross-browser quirks it is impossible to unmount some top-level components (eg <html>, <head>, and <body>) reliably and efficiently. To fix this, have a single top-level component that never unmounts render these elements.', this._tag) : _prodInvariant('66', this._tag) : void 0;
+         true ?  false ? invariant(false, '<%s> tried to unmount. Because of cross-browser quirks it is impossible to unmount some top-level components (eg <html>, <head>, and <body>) reliably and efficiently. To fix this, have a single top-level component that never unmounts render these elements.', this._tag) : _prodInvariant('66', this._tag) : void 0;
         break;
     }
 
@@ -18702,7 +20942,7 @@ ReactDOMComponent.Mixin = {
     this._domID = 0;
     this._wrapperState = null;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       setAndValidateContentChildDev.call(this, null);
     }
   },
@@ -18716,14 +20956,90 @@ ReactDOMComponent.Mixin = {
 _assign(ReactDOMComponent.prototype, ReactDOMComponent.Mixin, ReactMultiChild.Mixin);
 
 module.exports = ReactDOMComponent;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Flags, 'Flags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(deleteListener, 'deleteListener', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(getNode, 'getNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(listenTo, 'listenTo', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(registrationNameModules, 'registrationNameModules', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(CONTENT_TYPES, 'CONTENT_TYPES', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(STYLE, 'STYLE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(HTML, 'HTML', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(RESERVED_PROPS, 'RESERVED_PROPS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(DOC_FRAGMENT_TYPE, 'DOC_FRAGMENT_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(getDeclarationErrorAddendum, 'getDeclarationErrorAddendum', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(friendlyStringify, 'friendlyStringify', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(styleMutationWarning, 'styleMutationWarning', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(checkAndWarnForMutatedStyle, 'checkAndWarnForMutatedStyle', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(assertValidProps, 'assertValidProps', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(enqueuePutListener, 'enqueuePutListener', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(putListener, 'putListener', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(inputPostMount, 'inputPostMount', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(textareaPostMount, 'textareaPostMount', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(optionPostMount, 'optionPostMount', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(setAndValidateContentChildDev, 'setAndValidateContentChildDev', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(mediaEvents, 'mediaEvents', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(trapBubbledEventsLocal, 'trapBubbledEventsLocal', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(postUpdateSelectWrapper, 'postUpdateSelectWrapper', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(omittedCloseTags, 'omittedCloseTags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(newlineEatingTags, 'newlineEatingTags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(voidElementTags, 'voidElementTags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(VALID_TAG_REGEX, 'VALID_TAG_REGEX', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(validatedTagCache, 'validatedTagCache', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(hasOwnProperty, 'hasOwnProperty', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(validateDangerousTag, 'validateDangerousTag', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(isCustomComponent, 'isCustomComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(globalIdCounter, 'globalIdCounter', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+
+  __REACT_HOT_LOADER__.register(ReactDOMComponent, 'ReactDOMComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 164 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -18735,7 +21051,7 @@ module.exports = ReactDOMComponent;
 
 
 
-var validateDOMNesting = __webpack_require__(60);
+var validateDOMNesting = __webpack_require__(56);
 
 var DOC_NODE_TYPE = 9;
 
@@ -18748,17 +21064,29 @@ function ReactDOMContainerInfo(topLevelWrapper, node) {
     _tag: node ? node.nodeName.toLowerCase() : null,
     _namespaceURI: node ? node.namespaceURI : null
   };
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     info._ancestorInfo = node ? validateDOMNesting.updatedAncestorInfo(null, info._tag, null) : null;
   }
   return info;
 }
 
 module.exports = ReactDOMContainerInfo;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(DOC_NODE_TYPE, 'DOC_NODE_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMContainerInfo.js');
+
+  __REACT_HOT_LOADER__.register(ReactDOMContainerInfo, 'ReactDOMContainerInfo', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMContainerInfo.js');
+}();
+
+;
 
 /***/ }),
-/* 165 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18774,10 +21102,10 @@ module.exports = ReactDOMContainerInfo;
 
 
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var DOMLazyTree = __webpack_require__(22);
-var ReactDOMComponentTree = __webpack_require__(6);
+var DOMLazyTree = __webpack_require__(17);
+var ReactDOMComponentTree = __webpack_require__(5);
 
 var ReactDOMEmptyComponent = function ReactDOMEmptyComponent(instantiate) {
   // ReactCompositeComponent uses this:
@@ -18821,9 +21149,20 @@ _assign(ReactDOMEmptyComponent.prototype, {
 });
 
 module.exports = ReactDOMEmptyComponent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactDOMEmptyComponent, 'ReactDOMEmptyComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMEmptyComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 166 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18845,9 +21184,20 @@ var ReactDOMFeatureFlags = {
 };
 
 module.exports = ReactDOMFeatureFlags;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactDOMFeatureFlags, 'ReactDOMFeatureFlags', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMFeatureFlags.js');
+}();
+
+;
 
 /***/ }),
-/* 167 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18863,8 +21213,8 @@ module.exports = ReactDOMFeatureFlags;
 
 
 
-var DOMChildrenOperations = __webpack_require__(46);
-var ReactDOMComponentTree = __webpack_require__(6);
+var DOMChildrenOperations = __webpack_require__(41);
+var ReactDOMComponentTree = __webpack_require__(5);
 
 /**
  * Operations used to process updates to DOM nodes.
@@ -18884,13 +21234,24 @@ var ReactDOMIDOperations = {
 };
 
 module.exports = ReactDOMIDOperations;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactDOMIDOperations, 'ReactDOMIDOperations', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMIDOperations.js');
+}();
+
+;
 
 /***/ }),
-/* 168 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -18902,15 +21263,15 @@ module.exports = ReactDOMIDOperations;
 
 
 
-var _prodInvariant = __webpack_require__(4),
-    _assign = __webpack_require__(5);
+var _prodInvariant = __webpack_require__(3),
+    _assign = __webpack_require__(4);
 
-var DOMPropertyOperations = __webpack_require__(83);
-var LinkedValueUtils = __webpack_require__(50);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactUpdates = __webpack_require__(13);
+var DOMPropertyOperations = __webpack_require__(80);
+var LinkedValueUtils = __webpack_require__(46);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactUpdates = __webpack_require__(11);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
 var didWarnValueLink = false;
@@ -18976,7 +21337,7 @@ var ReactDOMInput = {
   },
 
   mountWrapper: function mountWrapper(inst, props) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       LinkedValueUtils.checkPropTypes('input', props, inst._currentElement._owner);
 
       var owner = inst._currentElement._owner;
@@ -19012,7 +21373,7 @@ var ReactDOMInput = {
   updateWrapper: function updateWrapper(inst) {
     var props = inst._currentElement.props;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var controlled = isControlled(props);
       var owner = inst._currentElement._owner;
 
@@ -19162,7 +21523,7 @@ function _handleChange(event) {
       // That's probably okay; we don't support it just as we don't support
       // mixing React radio buttons with non-React ones.
       var otherInstance = ReactDOMComponentTree.getInstanceFromNode(otherNode);
-      !otherInstance ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactDOMInput: Mixing React and non-React radio inputs with the same `name` is not supported.') : _prodInvariant('90') : void 0;
+      !otherInstance ?  false ? invariant(false, 'ReactDOMInput: Mixing React and non-React radio inputs with the same `name` is not supported.') : _prodInvariant('90') : void 0;
       // If this is a controlled radio button group, forcing the input that
       // was previously checked to update will cause it to be come re-checked
       // as appropriate.
@@ -19174,14 +21535,42 @@ function _handleChange(event) {
 }
 
 module.exports = ReactDOMInput;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(didWarnValueLink, 'didWarnValueLink', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+
+  __REACT_HOT_LOADER__.register(didWarnCheckedLink, 'didWarnCheckedLink', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+
+  __REACT_HOT_LOADER__.register(didWarnValueDefaultValue, 'didWarnValueDefaultValue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+
+  __REACT_HOT_LOADER__.register(didWarnCheckedDefaultChecked, 'didWarnCheckedDefaultChecked', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+
+  __REACT_HOT_LOADER__.register(didWarnControlledToUncontrolled, 'didWarnControlledToUncontrolled', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+
+  __REACT_HOT_LOADER__.register(didWarnUncontrolledToControlled, 'didWarnUncontrolledToControlled', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+
+  __REACT_HOT_LOADER__.register(forceUpdateIfMounted, 'forceUpdateIfMounted', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+
+  __REACT_HOT_LOADER__.register(isControlled, 'isControlled', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+
+  __REACT_HOT_LOADER__.register(ReactDOMInput, 'ReactDOMInput', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+
+  __REACT_HOT_LOADER__.register(_handleChange, '_handleChange', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMInput.js');
+}();
+
+;
 
 /***/ }),
-/* 169 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -19193,159 +21582,11 @@ module.exports = ReactDOMInput;
 
 
 
-var DOMProperty = __webpack_require__(16);
-var ReactComponentTreeHook = __webpack_require__(10);
+var _assign = __webpack_require__(4);
 
-var warning = __webpack_require__(2);
-
-var warnedProperties = {};
-var rARIA = new RegExp('^(aria)-[' + DOMProperty.ATTRIBUTE_NAME_CHAR + ']*$');
-
-function validateProperty(tagName, name, debugID) {
-  if (warnedProperties.hasOwnProperty(name) && warnedProperties[name]) {
-    return true;
-  }
-
-  if (rARIA.test(name)) {
-    var lowerCasedName = name.toLowerCase();
-    var standardName = DOMProperty.getPossibleStandardName.hasOwnProperty(lowerCasedName) ? DOMProperty.getPossibleStandardName[lowerCasedName] : null;
-
-    // If this is an aria-* attribute, but is not listed in the known DOM
-    // DOM properties, then it is an invalid aria-* attribute.
-    if (standardName == null) {
-      warnedProperties[name] = true;
-      return false;
-    }
-    // aria-* attributes should be lowercase; suggest the lowercase version.
-    if (name !== standardName) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Unknown ARIA attribute %s. Did you mean %s?%s', name, standardName, ReactComponentTreeHook.getStackAddendumByID(debugID)) : void 0;
-      warnedProperties[name] = true;
-      return true;
-    }
-  }
-
-  return true;
-}
-
-function warnInvalidARIAProps(debugID, element) {
-  var invalidProps = [];
-
-  for (var key in element.props) {
-    var isValid = validateProperty(element.type, key, debugID);
-    if (!isValid) {
-      invalidProps.push(key);
-    }
-  }
-
-  var unknownPropString = invalidProps.map(function (prop) {
-    return '`' + prop + '`';
-  }).join(', ');
-
-  if (invalidProps.length === 1) {
-    process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid aria prop %s on <%s> tag. ' + 'For details, see https://fb.me/invalid-aria-prop%s', unknownPropString, element.type, ReactComponentTreeHook.getStackAddendumByID(debugID)) : void 0;
-  } else if (invalidProps.length > 1) {
-    process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid aria props %s on <%s> tag. ' + 'For details, see https://fb.me/invalid-aria-prop%s', unknownPropString, element.type, ReactComponentTreeHook.getStackAddendumByID(debugID)) : void 0;
-  }
-}
-
-function handleElement(debugID, element) {
-  if (element == null || typeof element.type !== 'string') {
-    return;
-  }
-  if (element.type.indexOf('-') >= 0 || element.props.is) {
-    return;
-  }
-
-  warnInvalidARIAProps(debugID, element);
-}
-
-var ReactDOMInvalidARIAHook = {
-  onBeforeMountComponent: function onBeforeMountComponent(debugID, element) {
-    if (process.env.NODE_ENV !== 'production') {
-      handleElement(debugID, element);
-    }
-  },
-  onBeforeUpdateComponent: function onBeforeUpdateComponent(debugID, element) {
-    if (process.env.NODE_ENV !== 'production') {
-      handleElement(debugID, element);
-    }
-  }
-};
-
-module.exports = ReactDOMInvalidARIAHook;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 170 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var ReactComponentTreeHook = __webpack_require__(10);
-
-var warning = __webpack_require__(2);
-
-var didWarnValueNull = false;
-
-function handleElement(debugID, element) {
-  if (element == null) {
-    return;
-  }
-  if (element.type !== 'input' && element.type !== 'textarea' && element.type !== 'select') {
-    return;
-  }
-  if (element.props != null && element.props.value === null && !didWarnValueNull) {
-    process.env.NODE_ENV !== 'production' ? warning(false, '`value` prop on `%s` should not be null. ' + 'Consider using the empty string to clear the component or `undefined` ' + 'for uncontrolled components.%s', element.type, ReactComponentTreeHook.getStackAddendumByID(debugID)) : void 0;
-
-    didWarnValueNull = true;
-  }
-}
-
-var ReactDOMNullInputValuePropHook = {
-  onBeforeMountComponent: function onBeforeMountComponent(debugID, element) {
-    handleElement(debugID, element);
-  },
-  onBeforeUpdateComponent: function onBeforeUpdateComponent(debugID, element) {
-    handleElement(debugID, element);
-  }
-};
-
-module.exports = ReactDOMNullInputValuePropHook;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 171 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var _assign = __webpack_require__(5);
-
-var React = __webpack_require__(24);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactDOMSelect = __webpack_require__(85);
+var React = __webpack_require__(20);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMSelect = __webpack_require__(82);
 
 var warning = __webpack_require__(2);
 var didWarnInvalidOptionChildren = false;
@@ -19363,7 +21604,7 @@ function flattenChildren(children) {
       content += child;
     } else if (!didWarnInvalidOptionChildren) {
       didWarnInvalidOptionChildren = true;
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Only strings and numbers are supported as <option> children.') : void 0;
+       false ? warning(false, 'Only strings and numbers are supported as <option> children.') : void 0;
     }
   });
 
@@ -19376,7 +21617,7 @@ function flattenChildren(children) {
 var ReactDOMOption = {
   mountWrapper: function mountWrapper(inst, props, hostParent) {
     // TODO (yungsters): Remove support for `selected` in <option>.
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       process.env.NODE_ENV !== 'production' ? warning(props.selected == null, 'Use the `defaultValue` or `value` props on <select> instead of ' + 'setting `selected` on <option>.') : void 0;
     }
 
@@ -19451,10 +21692,24 @@ var ReactDOMOption = {
 };
 
 module.exports = ReactDOMOption;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(didWarnInvalidOptionChildren, 'didWarnInvalidOptionChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMOption.js');
+
+  __REACT_HOT_LOADER__.register(flattenChildren, 'flattenChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMOption.js');
+
+  __REACT_HOT_LOADER__.register(ReactDOMOption, 'ReactDOMOption', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMOption.js');
+}();
+
+;
 
 /***/ }),
-/* 172 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19470,10 +21725,10 @@ module.exports = ReactDOMOption;
 
 
 
-var ExecutionEnvironment = __webpack_require__(7);
+var ExecutionEnvironment = __webpack_require__(8);
 
-var getNodeForCharacterOffset = __webpack_require__(215);
-var getTextContentAccessor = __webpack_require__(97);
+var getNodeForCharacterOffset = __webpack_require__(202);
+var getTextContentAccessor = __webpack_require__(93);
 
 /**
  * While `isCollapsed` is available on the Selection object and `collapsed`
@@ -19669,13 +21924,36 @@ var ReactDOMSelection = {
 };
 
 module.exports = ReactDOMSelection;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isCollapsed, 'isCollapsed', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelection.js');
+
+  __REACT_HOT_LOADER__.register(getIEOffsets, 'getIEOffsets', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelection.js');
+
+  __REACT_HOT_LOADER__.register(getModernOffsets, 'getModernOffsets', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelection.js');
+
+  __REACT_HOT_LOADER__.register(setIEOffsets, 'setIEOffsets', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelection.js');
+
+  __REACT_HOT_LOADER__.register(setModernOffsets, 'setModernOffsets', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelection.js');
+
+  __REACT_HOT_LOADER__.register(useIEOffsets, 'useIEOffsets', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelection.js');
+
+  __REACT_HOT_LOADER__.register(ReactDOMSelection, 'ReactDOMSelection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMSelection.js');
+}();
+
+;
 
 /***/ }),
-/* 173 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -19687,16 +21965,16 @@ module.exports = ReactDOMSelection;
 
 
 
-var _prodInvariant = __webpack_require__(4),
-    _assign = __webpack_require__(5);
+var _prodInvariant = __webpack_require__(3),
+    _assign = __webpack_require__(4);
 
-var DOMChildrenOperations = __webpack_require__(46);
-var DOMLazyTree = __webpack_require__(22);
-var ReactDOMComponentTree = __webpack_require__(6);
+var DOMChildrenOperations = __webpack_require__(41);
+var DOMLazyTree = __webpack_require__(17);
+var ReactDOMComponentTree = __webpack_require__(5);
 
-var escapeTextContentForBrowser = __webpack_require__(38);
-var invariant = __webpack_require__(1);
-var validateDOMNesting = __webpack_require__(60);
+var escapeTextContentForBrowser = __webpack_require__(35);
+var invariant = __webpack_require__(0);
+var validateDOMNesting = __webpack_require__(56);
 
 /**
  * Text nodes violate a couple assumptions that React makes about components:
@@ -19739,7 +22017,7 @@ _assign(ReactDOMTextComponent.prototype, {
    * @internal
    */
   mountComponent: function mountComponent(transaction, hostParent, hostContainerInfo, context) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var parentInfo;
       if (hostParent != null) {
         parentInfo = hostParent._ancestorInfo;
@@ -19816,7 +22094,7 @@ _assign(ReactDOMTextComponent.prototype, {
       var openingComment = ReactDOMComponentTree.getNodeFromInstance(this);
       var node = openingComment.nextSibling;
       while (true) {
-        !(node != null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Missing closing comment for text component %s', this._domID) : _prodInvariant('67', this._domID) : void 0;
+        !(node != null) ?  false ? invariant(false, 'Missing closing comment for text component %s', this._domID) : _prodInvariant('67', this._domID) : void 0;
         if (node.nodeType === 8 && node.nodeValue === ' /react-text ') {
           this._closingComment = node;
           break;
@@ -19838,14 +22116,24 @@ _assign(ReactDOMTextComponent.prototype, {
 });
 
 module.exports = ReactDOMTextComponent;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactDOMTextComponent, 'ReactDOMTextComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTextComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 174 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -19857,14 +22145,14 @@ module.exports = ReactDOMTextComponent;
 
 
 
-var _prodInvariant = __webpack_require__(4),
-    _assign = __webpack_require__(5);
+var _prodInvariant = __webpack_require__(3),
+    _assign = __webpack_require__(4);
 
-var LinkedValueUtils = __webpack_require__(50);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactUpdates = __webpack_require__(13);
+var LinkedValueUtils = __webpack_require__(46);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactUpdates = __webpack_require__(11);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
 var didWarnValueLink = false;
@@ -19894,7 +22182,7 @@ function forceUpdateIfMounted() {
  */
 var ReactDOMTextarea = {
   getHostProps: function getHostProps(inst, props) {
-    !(props.dangerouslySetInnerHTML == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, '`dangerouslySetInnerHTML` does not make sense on <textarea>.') : _prodInvariant('91') : void 0;
+    !(props.dangerouslySetInnerHTML == null) ?  false ? invariant(false, '`dangerouslySetInnerHTML` does not make sense on <textarea>.') : _prodInvariant('91') : void 0;
 
     // Always set children to the same thing. In IE9, the selection range will
     // get reset if `textContent` is mutated.  We could add a check in setTextContent
@@ -19912,7 +22200,7 @@ var ReactDOMTextarea = {
   },
 
   mountWrapper: function mountWrapper(inst, props) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       LinkedValueUtils.checkPropTypes('textarea', props, inst._currentElement._owner);
       if (props.valueLink !== undefined && !didWarnValueLink) {
         process.env.NODE_ENV !== 'production' ? warning(false, '`valueLink` prop on `textarea` is deprecated; set `value` and `onChange` instead.') : void 0;
@@ -19933,12 +22221,12 @@ var ReactDOMTextarea = {
       // TODO (yungsters): Remove support for children content in <textarea>.
       var children = props.children;
       if (children != null) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           process.env.NODE_ENV !== 'production' ? warning(false, 'Use the `defaultValue` or `value` props instead of setting ' + 'children on <textarea>.') : void 0;
         }
-        !(defaultValue == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'If you supply `defaultValue` on a <textarea>, do not pass children.') : _prodInvariant('92') : void 0;
+        !(defaultValue == null) ?  false ? invariant(false, 'If you supply `defaultValue` on a <textarea>, do not pass children.') : _prodInvariant('92') : void 0;
         if (Array.isArray(children)) {
-          !(children.length <= 1) ? process.env.NODE_ENV !== 'production' ? invariant(false, '<textarea> can only have at most one child.') : _prodInvariant('93') : void 0;
+          !(children.length <= 1) ?  false ? invariant(false, '<textarea> can only have at most one child.') : _prodInvariant('93') : void 0;
           children = children[0];
         }
 
@@ -20004,14 +22292,32 @@ function _handleChange(event) {
 }
 
 module.exports = ReactDOMTextarea;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(didWarnValueLink, 'didWarnValueLink', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTextarea.js');
+
+  __REACT_HOT_LOADER__.register(didWarnValDefaultVal, 'didWarnValDefaultVal', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTextarea.js');
+
+  __REACT_HOT_LOADER__.register(forceUpdateIfMounted, 'forceUpdateIfMounted', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTextarea.js');
+
+  __REACT_HOT_LOADER__.register(ReactDOMTextarea, 'ReactDOMTextarea', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTextarea.js');
+
+  __REACT_HOT_LOADER__.register(_handleChange, '_handleChange', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTextarea.js');
+}();
+
+;
 
 /***/ }),
-/* 175 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2015-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -20023,17 +22329,17 @@ module.exports = ReactDOMTextarea;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 /**
  * Return the lowest common ancestor of A and B, or null if they are in
  * different trees.
  */
 function getLowestCommonAncestor(instA, instB) {
-  !('_hostNode' in instA) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'getNodeFromInstance: Invalid argument.') : _prodInvariant('33') : void 0;
-  !('_hostNode' in instB) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'getNodeFromInstance: Invalid argument.') : _prodInvariant('33') : void 0;
+  !('_hostNode' in instA) ?  false ? invariant(false, 'getNodeFromInstance: Invalid argument.') : _prodInvariant('33') : void 0;
+  !('_hostNode' in instB) ?  false ? invariant(false, 'getNodeFromInstance: Invalid argument.') : _prodInvariant('33') : void 0;
 
   var depthA = 0;
   for (var tempA = instA; tempA; tempA = tempA._hostParent) {
@@ -20072,8 +22378,8 @@ function getLowestCommonAncestor(instA, instB) {
  * Return if A is an ancestor of B.
  */
 function isAncestor(instA, instB) {
-  !('_hostNode' in instA) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'isAncestor: Invalid argument.') : _prodInvariant('35') : void 0;
-  !('_hostNode' in instB) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'isAncestor: Invalid argument.') : _prodInvariant('35') : void 0;
+  !('_hostNode' in instA) ?  false ? invariant(false, 'isAncestor: Invalid argument.') : _prodInvariant('35') : void 0;
+  !('_hostNode' in instB) ?  false ? invariant(false, 'isAncestor: Invalid argument.') : _prodInvariant('35') : void 0;
 
   while (instB) {
     if (instB === instA) {
@@ -20088,7 +22394,7 @@ function isAncestor(instA, instB) {
  * Return the parent instance of the passed-in instance.
  */
 function getParentInstance(inst) {
-  !('_hostNode' in inst) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'getParentInstance: Invalid argument.') : _prodInvariant('36') : void 0;
+  !('_hostNode' in inst) ?  false ? invariant(false, 'getParentInstance: Invalid argument.') : _prodInvariant('36') : void 0;
 
   return inst._hostParent;
 }
@@ -20146,495 +22452,28 @@ module.exports = {
   traverseTwoPhase: traverseTwoPhase,
   traverseEnterLeave: traverseEnterLeave
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getLowestCommonAncestor, 'getLowestCommonAncestor', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTreeTraversal.js');
+
+  __REACT_HOT_LOADER__.register(isAncestor, 'isAncestor', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTreeTraversal.js');
+
+  __REACT_HOT_LOADER__.register(getParentInstance, 'getParentInstance', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTreeTraversal.js');
+
+  __REACT_HOT_LOADER__.register(traverseTwoPhase, 'traverseTwoPhase', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTreeTraversal.js');
+
+  __REACT_HOT_LOADER__.register(traverseEnterLeave, 'traverseEnterLeave', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDOMTreeTraversal.js');
+}();
+
+;
 
 /***/ }),
-/* 176 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var DOMProperty = __webpack_require__(16);
-var EventPluginRegistry = __webpack_require__(34);
-var ReactComponentTreeHook = __webpack_require__(10);
-
-var warning = __webpack_require__(2);
-
-if (process.env.NODE_ENV !== 'production') {
-  var reactProps = {
-    children: true,
-    dangerouslySetInnerHTML: true,
-    key: true,
-    ref: true,
-
-    autoFocus: true,
-    defaultValue: true,
-    valueLink: true,
-    defaultChecked: true,
-    checkedLink: true,
-    innerHTML: true,
-    suppressContentEditableWarning: true,
-    onFocusIn: true,
-    onFocusOut: true
-  };
-  var warnedProperties = {};
-
-  var validateProperty = function validateProperty(tagName, name, debugID) {
-    if (DOMProperty.properties.hasOwnProperty(name) || DOMProperty.isCustomAttribute(name)) {
-      return true;
-    }
-    if (reactProps.hasOwnProperty(name) && reactProps[name] || warnedProperties.hasOwnProperty(name) && warnedProperties[name]) {
-      return true;
-    }
-    if (EventPluginRegistry.registrationNameModules.hasOwnProperty(name)) {
-      return true;
-    }
-    warnedProperties[name] = true;
-    var lowerCasedName = name.toLowerCase();
-
-    // data-* attributes should be lowercase; suggest the lowercase version
-    var standardName = DOMProperty.isCustomAttribute(lowerCasedName) ? lowerCasedName : DOMProperty.getPossibleStandardName.hasOwnProperty(lowerCasedName) ? DOMProperty.getPossibleStandardName[lowerCasedName] : null;
-
-    var registrationName = EventPluginRegistry.possibleRegistrationNames.hasOwnProperty(lowerCasedName) ? EventPluginRegistry.possibleRegistrationNames[lowerCasedName] : null;
-
-    if (standardName != null) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Unknown DOM property %s. Did you mean %s?%s', name, standardName, ReactComponentTreeHook.getStackAddendumByID(debugID)) : void 0;
-      return true;
-    } else if (registrationName != null) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Unknown event handler property %s. Did you mean `%s`?%s', name, registrationName, ReactComponentTreeHook.getStackAddendumByID(debugID)) : void 0;
-      return true;
-    } else {
-      // We were unable to guess which prop the user intended.
-      // It is likely that the user was just blindly spreading/forwarding props
-      // Components should be careful to only render valid props/attributes.
-      // Warning will be invoked in warnUnknownProperties to allow grouping.
-      return false;
-    }
-  };
-}
-
-var warnUnknownProperties = function warnUnknownProperties(debugID, element) {
-  var unknownProps = [];
-  for (var key in element.props) {
-    var isValid = validateProperty(element.type, key, debugID);
-    if (!isValid) {
-      unknownProps.push(key);
-    }
-  }
-
-  var unknownPropString = unknownProps.map(function (prop) {
-    return '`' + prop + '`';
-  }).join(', ');
-
-  if (unknownProps.length === 1) {
-    process.env.NODE_ENV !== 'production' ? warning(false, 'Unknown prop %s on <%s> tag. Remove this prop from the element. ' + 'For details, see https://fb.me/react-unknown-prop%s', unknownPropString, element.type, ReactComponentTreeHook.getStackAddendumByID(debugID)) : void 0;
-  } else if (unknownProps.length > 1) {
-    process.env.NODE_ENV !== 'production' ? warning(false, 'Unknown props %s on <%s> tag. Remove these props from the element. ' + 'For details, see https://fb.me/react-unknown-prop%s', unknownPropString, element.type, ReactComponentTreeHook.getStackAddendumByID(debugID)) : void 0;
-  }
-};
-
-function handleElement(debugID, element) {
-  if (element == null || typeof element.type !== 'string') {
-    return;
-  }
-  if (element.type.indexOf('-') >= 0 || element.props.is) {
-    return;
-  }
-  warnUnknownProperties(debugID, element);
-}
-
-var ReactDOMUnknownPropertyHook = {
-  onBeforeMountComponent: function onBeforeMountComponent(debugID, element) {
-    handleElement(debugID, element);
-  },
-  onBeforeUpdateComponent: function onBeforeUpdateComponent(debugID, element) {
-    handleElement(debugID, element);
-  }
-};
-
-module.exports = ReactDOMUnknownPropertyHook;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 177 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var ReactInvalidSetStateWarningHook = __webpack_require__(185);
-var ReactHostOperationHistoryHook = __webpack_require__(183);
-var ReactComponentTreeHook = __webpack_require__(10);
-var ExecutionEnvironment = __webpack_require__(7);
-
-var performanceNow = __webpack_require__(133);
-var warning = __webpack_require__(2);
-
-var hooks = [];
-var didHookThrowForEvent = {};
-
-function callHook(event, fn, context, arg1, arg2, arg3, arg4, arg5) {
-  try {
-    fn.call(context, arg1, arg2, arg3, arg4, arg5);
-  } catch (e) {
-    process.env.NODE_ENV !== 'production' ? warning(didHookThrowForEvent[event], 'Exception thrown by hook while handling %s: %s', event, e + '\n' + e.stack) : void 0;
-    didHookThrowForEvent[event] = true;
-  }
-}
-
-function emitEvent(event, arg1, arg2, arg3, arg4, arg5) {
-  for (var i = 0; i < hooks.length; i++) {
-    var hook = hooks[i];
-    var fn = hook[event];
-    if (fn) {
-      callHook(event, fn, hook, arg1, arg2, arg3, arg4, arg5);
-    }
-  }
-}
-
-var _isProfiling = false;
-var flushHistory = [];
-var lifeCycleTimerStack = [];
-var currentFlushNesting = 0;
-var currentFlushMeasurements = [];
-var currentFlushStartTime = 0;
-var currentTimerDebugID = null;
-var currentTimerStartTime = 0;
-var currentTimerNestedFlushDuration = 0;
-var currentTimerType = null;
-
-var lifeCycleTimerHasWarned = false;
-
-function clearHistory() {
-  ReactComponentTreeHook.purgeUnmountedComponents();
-  ReactHostOperationHistoryHook.clearHistory();
-}
-
-function getTreeSnapshot(registeredIDs) {
-  return registeredIDs.reduce(function (tree, id) {
-    var ownerID = ReactComponentTreeHook.getOwnerID(id);
-    var parentID = ReactComponentTreeHook.getParentID(id);
-    tree[id] = {
-      displayName: ReactComponentTreeHook.getDisplayName(id),
-      text: ReactComponentTreeHook.getText(id),
-      updateCount: ReactComponentTreeHook.getUpdateCount(id),
-      childIDs: ReactComponentTreeHook.getChildIDs(id),
-      // Text nodes don't have owners but this is close enough.
-      ownerID: ownerID || parentID && ReactComponentTreeHook.getOwnerID(parentID) || 0,
-      parentID: parentID
-    };
-    return tree;
-  }, {});
-}
-
-function resetMeasurements() {
-  var previousStartTime = currentFlushStartTime;
-  var previousMeasurements = currentFlushMeasurements;
-  var previousOperations = ReactHostOperationHistoryHook.getHistory();
-
-  if (currentFlushNesting === 0) {
-    currentFlushStartTime = 0;
-    currentFlushMeasurements = [];
-    clearHistory();
-    return;
-  }
-
-  if (previousMeasurements.length || previousOperations.length) {
-    var registeredIDs = ReactComponentTreeHook.getRegisteredIDs();
-    flushHistory.push({
-      duration: performanceNow() - previousStartTime,
-      measurements: previousMeasurements || [],
-      operations: previousOperations || [],
-      treeSnapshot: getTreeSnapshot(registeredIDs)
-    });
-  }
-
-  clearHistory();
-  currentFlushStartTime = performanceNow();
-  currentFlushMeasurements = [];
-}
-
-function checkDebugID(debugID) {
-  var allowRoot = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-  if (allowRoot && debugID === 0) {
-    return;
-  }
-  if (!debugID) {
-    process.env.NODE_ENV !== 'production' ? warning(false, 'ReactDebugTool: debugID may not be empty.') : void 0;
-  }
-}
-
-function beginLifeCycleTimer(debugID, timerType) {
-  if (currentFlushNesting === 0) {
-    return;
-  }
-  if (currentTimerType && !lifeCycleTimerHasWarned) {
-    process.env.NODE_ENV !== 'production' ? warning(false, 'There is an internal error in the React performance measurement code. ' + 'Did not expect %s timer to start while %s timer is still in ' + 'progress for %s instance.', timerType, currentTimerType || 'no', debugID === currentTimerDebugID ? 'the same' : 'another') : void 0;
-    lifeCycleTimerHasWarned = true;
-  }
-  currentTimerStartTime = performanceNow();
-  currentTimerNestedFlushDuration = 0;
-  currentTimerDebugID = debugID;
-  currentTimerType = timerType;
-}
-
-function endLifeCycleTimer(debugID, timerType) {
-  if (currentFlushNesting === 0) {
-    return;
-  }
-  if (currentTimerType !== timerType && !lifeCycleTimerHasWarned) {
-    process.env.NODE_ENV !== 'production' ? warning(false, 'There is an internal error in the React performance measurement code. ' + 'We did not expect %s timer to stop while %s timer is still in ' + 'progress for %s instance. Please report this as a bug in React.', timerType, currentTimerType || 'no', debugID === currentTimerDebugID ? 'the same' : 'another') : void 0;
-    lifeCycleTimerHasWarned = true;
-  }
-  if (_isProfiling) {
-    currentFlushMeasurements.push({
-      timerType: timerType,
-      instanceID: debugID,
-      duration: performanceNow() - currentTimerStartTime - currentTimerNestedFlushDuration
-    });
-  }
-  currentTimerStartTime = 0;
-  currentTimerNestedFlushDuration = 0;
-  currentTimerDebugID = null;
-  currentTimerType = null;
-}
-
-function pauseCurrentLifeCycleTimer() {
-  var currentTimer = {
-    startTime: currentTimerStartTime,
-    nestedFlushStartTime: performanceNow(),
-    debugID: currentTimerDebugID,
-    timerType: currentTimerType
-  };
-  lifeCycleTimerStack.push(currentTimer);
-  currentTimerStartTime = 0;
-  currentTimerNestedFlushDuration = 0;
-  currentTimerDebugID = null;
-  currentTimerType = null;
-}
-
-function resumeCurrentLifeCycleTimer() {
-  var _lifeCycleTimerStack$ = lifeCycleTimerStack.pop(),
-      startTime = _lifeCycleTimerStack$.startTime,
-      nestedFlushStartTime = _lifeCycleTimerStack$.nestedFlushStartTime,
-      debugID = _lifeCycleTimerStack$.debugID,
-      timerType = _lifeCycleTimerStack$.timerType;
-
-  var nestedFlushDuration = performanceNow() - nestedFlushStartTime;
-  currentTimerStartTime = startTime;
-  currentTimerNestedFlushDuration += nestedFlushDuration;
-  currentTimerDebugID = debugID;
-  currentTimerType = timerType;
-}
-
-var lastMarkTimeStamp = 0;
-var canUsePerformanceMeasure = typeof performance !== 'undefined' && typeof performance.mark === 'function' && typeof performance.clearMarks === 'function' && typeof performance.measure === 'function' && typeof performance.clearMeasures === 'function';
-
-function shouldMark(debugID) {
-  if (!_isProfiling || !canUsePerformanceMeasure) {
-    return false;
-  }
-  var element = ReactComponentTreeHook.getElement(debugID);
-  if (element == null || (typeof element === 'undefined' ? 'undefined' : _typeof(element)) !== 'object') {
-    return false;
-  }
-  var isHostElement = typeof element.type === 'string';
-  if (isHostElement) {
-    return false;
-  }
-  return true;
-}
-
-function markBegin(debugID, markType) {
-  if (!shouldMark(debugID)) {
-    return;
-  }
-
-  var markName = debugID + '::' + markType;
-  lastMarkTimeStamp = performanceNow();
-  performance.mark(markName);
-}
-
-function markEnd(debugID, markType) {
-  if (!shouldMark(debugID)) {
-    return;
-  }
-
-  var markName = debugID + '::' + markType;
-  var displayName = ReactComponentTreeHook.getDisplayName(debugID) || 'Unknown';
-
-  // Chrome has an issue of dropping markers recorded too fast:
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=640652
-  // To work around this, we will not report very small measurements.
-  // I determined the magic number by tweaking it back and forth.
-  // 0.05ms was enough to prevent the issue, but I set it to 0.1ms to be safe.
-  // When the bug is fixed, we can `measure()` unconditionally if we want to.
-  var timeStamp = performanceNow();
-  if (timeStamp - lastMarkTimeStamp > 0.1) {
-    var measurementName = displayName + ' [' + markType + ']';
-    performance.measure(measurementName, markName);
-  }
-
-  performance.clearMarks(markName);
-  performance.clearMeasures(measurementName);
-}
-
-var ReactDebugTool = {
-  addHook: function addHook(hook) {
-    hooks.push(hook);
-  },
-  removeHook: function removeHook(hook) {
-    for (var i = 0; i < hooks.length; i++) {
-      if (hooks[i] === hook) {
-        hooks.splice(i, 1);
-        i--;
-      }
-    }
-  },
-  isProfiling: function isProfiling() {
-    return _isProfiling;
-  },
-  beginProfiling: function beginProfiling() {
-    if (_isProfiling) {
-      return;
-    }
-
-    _isProfiling = true;
-    flushHistory.length = 0;
-    resetMeasurements();
-    ReactDebugTool.addHook(ReactHostOperationHistoryHook);
-  },
-  endProfiling: function endProfiling() {
-    if (!_isProfiling) {
-      return;
-    }
-
-    _isProfiling = false;
-    resetMeasurements();
-    ReactDebugTool.removeHook(ReactHostOperationHistoryHook);
-  },
-  getFlushHistory: function getFlushHistory() {
-    return flushHistory;
-  },
-  onBeginFlush: function onBeginFlush() {
-    currentFlushNesting++;
-    resetMeasurements();
-    pauseCurrentLifeCycleTimer();
-    emitEvent('onBeginFlush');
-  },
-  onEndFlush: function onEndFlush() {
-    resetMeasurements();
-    currentFlushNesting--;
-    resumeCurrentLifeCycleTimer();
-    emitEvent('onEndFlush');
-  },
-  onBeginLifeCycleTimer: function onBeginLifeCycleTimer(debugID, timerType) {
-    checkDebugID(debugID);
-    emitEvent('onBeginLifeCycleTimer', debugID, timerType);
-    markBegin(debugID, timerType);
-    beginLifeCycleTimer(debugID, timerType);
-  },
-  onEndLifeCycleTimer: function onEndLifeCycleTimer(debugID, timerType) {
-    checkDebugID(debugID);
-    endLifeCycleTimer(debugID, timerType);
-    markEnd(debugID, timerType);
-    emitEvent('onEndLifeCycleTimer', debugID, timerType);
-  },
-  onBeginProcessingChildContext: function onBeginProcessingChildContext() {
-    emitEvent('onBeginProcessingChildContext');
-  },
-  onEndProcessingChildContext: function onEndProcessingChildContext() {
-    emitEvent('onEndProcessingChildContext');
-  },
-  onHostOperation: function onHostOperation(operation) {
-    checkDebugID(operation.instanceID);
-    emitEvent('onHostOperation', operation);
-  },
-  onSetState: function onSetState() {
-    emitEvent('onSetState');
-  },
-  onSetChildren: function onSetChildren(debugID, childDebugIDs) {
-    checkDebugID(debugID);
-    childDebugIDs.forEach(checkDebugID);
-    emitEvent('onSetChildren', debugID, childDebugIDs);
-  },
-  onBeforeMountComponent: function onBeforeMountComponent(debugID, element, parentDebugID) {
-    checkDebugID(debugID);
-    checkDebugID(parentDebugID, true);
-    emitEvent('onBeforeMountComponent', debugID, element, parentDebugID);
-    markBegin(debugID, 'mount');
-  },
-  onMountComponent: function onMountComponent(debugID) {
-    checkDebugID(debugID);
-    markEnd(debugID, 'mount');
-    emitEvent('onMountComponent', debugID);
-  },
-  onBeforeUpdateComponent: function onBeforeUpdateComponent(debugID, element) {
-    checkDebugID(debugID);
-    emitEvent('onBeforeUpdateComponent', debugID, element);
-    markBegin(debugID, 'update');
-  },
-  onUpdateComponent: function onUpdateComponent(debugID) {
-    checkDebugID(debugID);
-    markEnd(debugID, 'update');
-    emitEvent('onUpdateComponent', debugID);
-  },
-  onBeforeUnmountComponent: function onBeforeUnmountComponent(debugID) {
-    checkDebugID(debugID);
-    emitEvent('onBeforeUnmountComponent', debugID);
-    markBegin(debugID, 'unmount');
-  },
-  onUnmountComponent: function onUnmountComponent(debugID) {
-    checkDebugID(debugID);
-    markEnd(debugID, 'unmount');
-    emitEvent('onUnmountComponent', debugID);
-  },
-  onTestEvent: function onTestEvent() {
-    emitEvent('onTestEvent');
-  }
-};
-
-// TODO remove these when RN/www gets updated
-ReactDebugTool.addDevtool = ReactDebugTool.addHook;
-ReactDebugTool.removeDevtool = ReactDebugTool.removeHook;
-
-ReactDebugTool.addHook(ReactInvalidSetStateWarningHook);
-ReactDebugTool.addHook(ReactComponentTreeHook);
-var url = ExecutionEnvironment.canUseDOM && window.location.href || '';
-if (/[?&]react_perf\b/.test(url)) {
-  ReactDebugTool.beginProfiling();
-}
-
-module.exports = ReactDebugTool;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 178 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20650,12 +22489,12 @@ module.exports = ReactDebugTool;
 
 
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var ReactUpdates = __webpack_require__(13);
-var Transaction = __webpack_require__(37);
+var ReactUpdates = __webpack_require__(11);
+var Transaction = __webpack_require__(34);
 
-var emptyFunction = __webpack_require__(11);
+var emptyFunction = __webpack_require__(9);
 
 var RESET_BATCHED_UPDATES = {
   initialize: emptyFunction,
@@ -20705,9 +22544,30 @@ var ReactDefaultBatchingStrategy = {
 };
 
 module.exports = ReactDefaultBatchingStrategy;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(RESET_BATCHED_UPDATES, 'RESET_BATCHED_UPDATES', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDefaultBatchingStrategy.js');
+
+  __REACT_HOT_LOADER__.register(FLUSH_BATCHED_UPDATES, 'FLUSH_BATCHED_UPDATES', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDefaultBatchingStrategy.js');
+
+  __REACT_HOT_LOADER__.register(TRANSACTION_WRAPPERS, 'TRANSACTION_WRAPPERS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDefaultBatchingStrategy.js');
+
+  __REACT_HOT_LOADER__.register(ReactDefaultBatchingStrategyTransaction, 'ReactDefaultBatchingStrategyTransaction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDefaultBatchingStrategy.js');
+
+  __REACT_HOT_LOADER__.register(transaction, 'transaction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDefaultBatchingStrategy.js');
+
+  __REACT_HOT_LOADER__.register(ReactDefaultBatchingStrategy, 'ReactDefaultBatchingStrategy', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDefaultBatchingStrategy.js');
+}();
+
+;
 
 /***/ }),
-/* 179 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20723,25 +22583,25 @@ module.exports = ReactDefaultBatchingStrategy;
 
 
 
-var ARIADOMPropertyConfig = __webpack_require__(149);
-var BeforeInputEventPlugin = __webpack_require__(151);
-var ChangeEventPlugin = __webpack_require__(153);
-var DefaultEventPluginOrder = __webpack_require__(155);
-var EnterLeaveEventPlugin = __webpack_require__(156);
-var HTMLDOMPropertyConfig = __webpack_require__(158);
-var ReactComponentBrowserEnvironment = __webpack_require__(160);
-var ReactDOMComponent = __webpack_require__(163);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactDOMEmptyComponent = __webpack_require__(165);
-var ReactDOMTreeTraversal = __webpack_require__(175);
-var ReactDOMTextComponent = __webpack_require__(173);
-var ReactDefaultBatchingStrategy = __webpack_require__(178);
-var ReactEventListener = __webpack_require__(182);
-var ReactInjection = __webpack_require__(184);
-var ReactReconcileTransaction = __webpack_require__(190);
-var SVGDOMPropertyConfig = __webpack_require__(195);
-var SelectEventPlugin = __webpack_require__(196);
-var SimpleEventPlugin = __webpack_require__(197);
+var ARIADOMPropertyConfig = __webpack_require__(143);
+var BeforeInputEventPlugin = __webpack_require__(145);
+var ChangeEventPlugin = __webpack_require__(147);
+var DefaultEventPluginOrder = __webpack_require__(149);
+var EnterLeaveEventPlugin = __webpack_require__(150);
+var HTMLDOMPropertyConfig = __webpack_require__(152);
+var ReactComponentBrowserEnvironment = __webpack_require__(154);
+var ReactDOMComponent = __webpack_require__(157);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactDOMEmptyComponent = __webpack_require__(159);
+var ReactDOMTreeTraversal = __webpack_require__(167);
+var ReactDOMTextComponent = __webpack_require__(165);
+var ReactDefaultBatchingStrategy = __webpack_require__(168);
+var ReactEventListener = __webpack_require__(172);
+var ReactInjection = __webpack_require__(173);
+var ReactReconcileTransaction = __webpack_require__(178);
+var SVGDOMPropertyConfig = __webpack_require__(183);
+var SelectEventPlugin = __webpack_require__(184);
+var SimpleEventPlugin = __webpack_require__(185);
 
 var alreadyInjected = false;
 
@@ -20796,9 +22656,22 @@ function inject() {
 module.exports = {
   inject: inject
 };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(alreadyInjected, 'alreadyInjected', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDefaultInjection.js');
+
+  __REACT_HOT_LOADER__.register(inject, 'inject', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactDefaultInjection.js');
+}();
+
+;
 
 /***/ }),
-/* 180 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20821,9 +22694,20 @@ module.exports = {
 var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 0xeac7;
 
 module.exports = REACT_ELEMENT_TYPE;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(REACT_ELEMENT_TYPE, 'REACT_ELEMENT_TYPE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactElementSymbol.js');
+}();
+
+;
 
 /***/ }),
-/* 181 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20839,7 +22723,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 
 
-var EventPluginHub = __webpack_require__(29);
+var EventPluginHub = __webpack_require__(27);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -20859,9 +22743,22 @@ var ReactEventEmitterMixin = {
 };
 
 module.exports = ReactEventEmitterMixin;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(runEventQueueInBatch, 'runEventQueueInBatch', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEventEmitterMixin.js');
+
+  __REACT_HOT_LOADER__.register(ReactEventEmitterMixin, 'ReactEventEmitterMixin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEventEmitterMixin.js');
+}();
+
+;
 
 /***/ }),
-/* 182 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20877,16 +22774,16 @@ module.exports = ReactEventEmitterMixin;
 
 
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var EventListener = __webpack_require__(72);
-var ExecutionEnvironment = __webpack_require__(7);
-var PooledClass = __webpack_require__(18);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactUpdates = __webpack_require__(13);
+var EventListener = __webpack_require__(68);
+var ExecutionEnvironment = __webpack_require__(8);
+var PooledClass = __webpack_require__(15);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactUpdates = __webpack_require__(11);
 
-var getEventTarget = __webpack_require__(57);
-var getUnboundedScrollPosition = __webpack_require__(126);
+var getEventTarget = __webpack_require__(53);
+var getUnboundedScrollPosition = __webpack_require__(121);
 
 /**
  * Find the deepest React component completely containing the root of the
@@ -21019,48 +22916,28 @@ var ReactEventListener = {
 };
 
 module.exports = ReactEventListener;
+;
 
-/***/ }),
-/* 183 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var history = [];
-
-var ReactHostOperationHistoryHook = {
-  onHostOperation: function onHostOperation(operation) {
-    history.push(operation);
-  },
-  clearHistory: function clearHistory() {
-    if (ReactHostOperationHistoryHook._preventClearing) {
-      // Should only be used for tests.
-      return;
-    }
-
-    history = [];
-  },
-  getHistory: function getHistory() {
-    return history;
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
   }
-};
 
-module.exports = ReactHostOperationHistoryHook;
+  __REACT_HOT_LOADER__.register(findParent, 'findParent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEventListener.js');
+
+  __REACT_HOT_LOADER__.register(TopLevelCallbackBookKeeping, 'TopLevelCallbackBookKeeping', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEventListener.js');
+
+  __REACT_HOT_LOADER__.register(handleTopLevelImpl, 'handleTopLevelImpl', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEventListener.js');
+
+  __REACT_HOT_LOADER__.register(scrollValueMonitor, 'scrollValueMonitor', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEventListener.js');
+
+  __REACT_HOT_LOADER__.register(ReactEventListener, 'ReactEventListener', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactEventListener.js');
+}();
+
+;
 
 /***/ }),
-/* 184 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21076,14 +22953,14 @@ module.exports = ReactHostOperationHistoryHook;
 
 
 
-var DOMProperty = __webpack_require__(16);
-var EventPluginHub = __webpack_require__(29);
-var EventPluginUtils = __webpack_require__(48);
-var ReactComponentEnvironment = __webpack_require__(51);
-var ReactEmptyComponent = __webpack_require__(86);
-var ReactBrowserEventEmitter = __webpack_require__(35);
-var ReactHostComponent = __webpack_require__(88);
-var ReactUpdates = __webpack_require__(13);
+var DOMProperty = __webpack_require__(18);
+var EventPluginHub = __webpack_require__(27);
+var EventPluginUtils = __webpack_require__(44);
+var ReactComponentEnvironment = __webpack_require__(47);
+var ReactEmptyComponent = __webpack_require__(83);
+var ReactBrowserEventEmitter = __webpack_require__(32);
+var ReactHostComponent = __webpack_require__(85);
+var ReactUpdates = __webpack_require__(11);
 
 var ReactInjection = {
   Component: ReactComponentEnvironment.injection,
@@ -21097,52 +22974,20 @@ var ReactInjection = {
 };
 
 module.exports = ReactInjection;
+;
 
-/***/ }),
-/* 185 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var warning = __webpack_require__(2);
-
-if (process.env.NODE_ENV !== 'production') {
-  var processingChildContext = false;
-
-  var warnInvalidSetState = function warnInvalidSetState() {
-    process.env.NODE_ENV !== 'production' ? warning(!processingChildContext, 'setState(...): Cannot call setState() inside getChildContext()') : void 0;
-  };
-}
-
-var ReactInvalidSetStateWarningHook = {
-  onBeginProcessingChildContext: function onBeginProcessingChildContext() {
-    processingChildContext = true;
-  },
-  onEndProcessingChildContext: function onEndProcessingChildContext() {
-    processingChildContext = false;
-  },
-  onSetState: function onSetState() {
-    warnInvalidSetState();
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
   }
-};
 
-module.exports = ReactInvalidSetStateWarningHook;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+  __REACT_HOT_LOADER__.register(ReactInjection, 'ReactInjection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactInjection.js');
+}();
+
+;
 
 /***/ }),
-/* 186 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21158,7 +23003,7 @@ module.exports = ReactInvalidSetStateWarningHook;
 
 
 
-var adler32 = __webpack_require__(208);
+var adler32 = __webpack_require__(196);
 
 var TAG_END = /\/?>/;
 var COMMENT_START = /^<\!\-\-/;
@@ -21195,13 +23040,28 @@ var ReactMarkupChecksum = {
 };
 
 module.exports = ReactMarkupChecksum;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(TAG_END, 'TAG_END', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMarkupChecksum.js');
+
+  __REACT_HOT_LOADER__.register(COMMENT_START, 'COMMENT_START', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMarkupChecksum.js');
+
+  __REACT_HOT_LOADER__.register(ReactMarkupChecksum, 'ReactMarkupChecksum', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMarkupChecksum.js');
+}();
+
+;
 
 /***/ }),
-/* 187 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -21213,19 +23073,19 @@ module.exports = ReactMarkupChecksum;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var ReactComponentEnvironment = __webpack_require__(51);
-var ReactInstanceMap = __webpack_require__(31);
-var ReactInstrumentation = __webpack_require__(12);
+var ReactComponentEnvironment = __webpack_require__(47);
+var ReactInstanceMap = __webpack_require__(29);
+var ReactInstrumentation = __webpack_require__(10);
 
-var ReactCurrentOwner = __webpack_require__(14);
-var ReactReconciler = __webpack_require__(23);
-var ReactChildReconciler = __webpack_require__(159);
+var ReactCurrentOwner = __webpack_require__(13);
+var ReactReconciler = __webpack_require__(19);
+var ReactChildReconciler = __webpack_require__(153);
 
-var emptyFunction = __webpack_require__(11);
-var flattenChildren = __webpack_require__(212);
-var invariant = __webpack_require__(1);
+var emptyFunction = __webpack_require__(9);
+var flattenChildren = __webpack_require__(199);
+var invariant = __webpack_require__(0);
 
 /**
  * Make an update for markup to be rendered and inserted at a supplied index.
@@ -21341,7 +23201,7 @@ function processQueue(inst, updateQueue) {
 }
 
 var setChildrenForInstrumentation = emptyFunction;
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   var getDebugID = function getDebugID(inst) {
     if (!inst._debugID) {
       // Check for ART-like instances. TODO: This is silly/gross.
@@ -21382,7 +23242,7 @@ var ReactMultiChild = {
   Mixin: {
 
     _reconcilerInstantiateChildren: function _reconcilerInstantiateChildren(nestedChildren, transaction, context) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         var selfDebugID = getDebugID(this);
         if (this._currentElement) {
           try {
@@ -21399,7 +23259,7 @@ var ReactMultiChild = {
     _reconcilerUpdateChildren: function _reconcilerUpdateChildren(prevChildren, nextNestedChildrenElements, mountImages, removedNodes, transaction, context) {
       var nextChildren;
       var selfDebugID = 0;
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         selfDebugID = getDebugID(this);
         if (this._currentElement) {
           try {
@@ -21435,7 +23295,7 @@ var ReactMultiChild = {
         if (children.hasOwnProperty(name)) {
           var child = children[name];
           var selfDebugID = 0;
-          if (process.env.NODE_ENV !== 'production') {
+          if (false) {
             selfDebugID = getDebugID(this);
           }
           var mountImage = ReactReconciler.mountComponent(child, transaction, this, this._hostContainerInfo, context, selfDebugID);
@@ -21444,7 +23304,7 @@ var ReactMultiChild = {
         }
       }
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         setChildrenForInstrumentation.call(this, children);
       }
 
@@ -21463,7 +23323,7 @@ var ReactMultiChild = {
       ReactChildReconciler.unmountChildren(prevChildren, false);
       for (var name in prevChildren) {
         if (prevChildren.hasOwnProperty(name)) {
-           true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'updateTextContent called on non-empty component.') : _prodInvariant('118') : void 0;
+           true ?  false ? invariant(false, 'updateTextContent called on non-empty component.') : _prodInvariant('118') : void 0;
         }
       }
       // Set new text content.
@@ -21483,7 +23343,7 @@ var ReactMultiChild = {
       ReactChildReconciler.unmountChildren(prevChildren, false);
       for (var name in prevChildren) {
         if (prevChildren.hasOwnProperty(name)) {
-           true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'updateTextContent called on non-empty component.') : _prodInvariant('118') : void 0;
+           true ?  false ? invariant(false, 'updateTextContent called on non-empty component.') : _prodInvariant('118') : void 0;
         }
       }
       var updates = [makeSetMarkup(nextMarkup)];
@@ -21559,7 +23419,7 @@ var ReactMultiChild = {
       }
       this._renderedChildren = nextChildren;
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         setChildrenForInstrumentation.call(this, nextChildren);
       }
     },
@@ -21650,14 +23510,42 @@ var ReactMultiChild = {
 };
 
 module.exports = ReactMultiChild;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(makeInsertMarkup, 'makeInsertMarkup', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+
+  __REACT_HOT_LOADER__.register(makeMove, 'makeMove', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+
+  __REACT_HOT_LOADER__.register(makeRemove, 'makeRemove', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+
+  __REACT_HOT_LOADER__.register(makeSetMarkup, 'makeSetMarkup', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+
+  __REACT_HOT_LOADER__.register(makeTextContent, 'makeTextContent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+
+  __REACT_HOT_LOADER__.register(enqueue, 'enqueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+
+  __REACT_HOT_LOADER__.register(processQueue, 'processQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+
+  __REACT_HOT_LOADER__.register(setChildrenForInstrumentation, 'setChildrenForInstrumentation', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+
+  __REACT_HOT_LOADER__.register(getDebugID, 'getDebugID', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+
+  __REACT_HOT_LOADER__.register(ReactMultiChild, 'ReactMultiChild', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactMultiChild.js');
+}();
+
+;
 
 /***/ }),
-/* 188 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -21670,9 +23558,9 @@ module.exports = ReactMultiChild;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 /**
  * @param {?object} object
@@ -21724,7 +23612,7 @@ var ReactOwner = {
    * @internal
    */
   addComponentAsRefTo: function addComponentAsRefTo(component, ref, owner) {
-    !isValidOwner(owner) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'addComponentAsRefTo(...): Only a ReactOwner can have refs. You might be adding a ref to a component that was not created inside a component\'s `render` method, or you have multiple copies of React loaded (details: https://fb.me/react-refs-must-have-owner).') : _prodInvariant('119') : void 0;
+    !isValidOwner(owner) ?  false ? invariant(false, 'addComponentAsRefTo(...): Only a ReactOwner can have refs. You might be adding a ref to a component that was not created inside a component\'s `render` method, or you have multiple copies of React loaded (details: https://fb.me/react-refs-must-have-owner).') : _prodInvariant('119') : void 0;
     owner.attachRef(ref, component);
   },
 
@@ -21738,7 +23626,7 @@ var ReactOwner = {
    * @internal
    */
   removeComponentAsRefFrom: function removeComponentAsRefFrom(component, ref, owner) {
-    !isValidOwner(owner) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'removeComponentAsRefFrom(...): Only a ReactOwner can have refs. You might be removing a ref to a component that was not created inside a component\'s `render` method, or you have multiple copies of React loaded (details: https://fb.me/react-refs-must-have-owner).') : _prodInvariant('120') : void 0;
+    !isValidOwner(owner) ?  false ? invariant(false, 'removeComponentAsRefFrom(...): Only a ReactOwner can have refs. You might be removing a ref to a component that was not created inside a component\'s `render` method, or you have multiple copies of React loaded (details: https://fb.me/react-refs-must-have-owner).') : _prodInvariant('120') : void 0;
     var ownerPublicInstance = owner.getPublicInstance();
     // Check that `component`'s owner is still alive and that `component` is still the current ref
     // because we do not want to detach the ref if another component stole it.
@@ -21750,14 +23638,26 @@ var ReactOwner = {
 };
 
 module.exports = ReactOwner;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isValidOwner, 'isValidOwner', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactOwner.js');
+
+  __REACT_HOT_LOADER__.register(ReactOwner, 'ReactOwner', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactOwner.js');
+}();
+
+;
 
 /***/ }),
-/* 189 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -21770,25 +23670,27 @@ module.exports = ReactOwner;
 
 
 
-var ReactPropTypeLocationNames = {};
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
-if (process.env.NODE_ENV !== 'production') {
-  ReactPropTypeLocationNames = {
-    prop: 'prop',
-    context: 'context',
-    childContext: 'child context'
-  };
-}
+module.exports = ReactPropTypesSecret;
+;
 
-module.exports = ReactPropTypeLocationNames;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactPropTypesSecret, 'ReactPropTypesSecret', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactPropTypesSecret.js');
+}();
+
+;
 
 /***/ }),
-/* 190 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -21800,15 +23702,15 @@ module.exports = ReactPropTypeLocationNames;
 
 
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var CallbackQueue = __webpack_require__(82);
-var PooledClass = __webpack_require__(18);
-var ReactBrowserEventEmitter = __webpack_require__(35);
-var ReactInputSelection = __webpack_require__(89);
-var ReactInstrumentation = __webpack_require__(12);
-var Transaction = __webpack_require__(37);
-var ReactUpdateQueue = __webpack_require__(53);
+var CallbackQueue = __webpack_require__(79);
+var PooledClass = __webpack_require__(15);
+var ReactBrowserEventEmitter = __webpack_require__(32);
+var ReactInputSelection = __webpack_require__(86);
+var ReactInstrumentation = __webpack_require__(10);
+var Transaction = __webpack_require__(34);
+var ReactUpdateQueue = __webpack_require__(49);
 
 /**
  * Ensures that, when possible, the selection range (currently selected text
@@ -21878,7 +23780,7 @@ var ON_DOM_READY_QUEUEING = {
  */
 var TRANSACTION_WRAPPERS = [SELECTION_RESTORATION, EVENT_SUPPRESSION, ON_DOM_READY_QUEUEING];
 
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   TRANSACTION_WRAPPERS.push({
     initialize: ReactInstrumentation.debugTool.onBeginFlush,
     close: ReactInstrumentation.debugTool.onEndFlush
@@ -21965,10 +23867,30 @@ _assign(ReactReconcileTransaction.prototype, Transaction, Mixin);
 PooledClass.addPoolingTo(ReactReconcileTransaction);
 
 module.exports = ReactReconcileTransaction;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SELECTION_RESTORATION, 'SELECTION_RESTORATION', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactReconcileTransaction.js');
+
+  __REACT_HOT_LOADER__.register(EVENT_SUPPRESSION, 'EVENT_SUPPRESSION', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactReconcileTransaction.js');
+
+  __REACT_HOT_LOADER__.register(ON_DOM_READY_QUEUEING, 'ON_DOM_READY_QUEUEING', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactReconcileTransaction.js');
+
+  __REACT_HOT_LOADER__.register(TRANSACTION_WRAPPERS, 'TRANSACTION_WRAPPERS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactReconcileTransaction.js');
+
+  __REACT_HOT_LOADER__.register(ReactReconcileTransaction, 'ReactReconcileTransaction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactReconcileTransaction.js');
+
+  __REACT_HOT_LOADER__.register(Mixin, 'Mixin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactReconcileTransaction.js');
+}();
+
+;
 
 /***/ }),
-/* 191 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21987,7 +23909,7 @@ module.exports = ReactReconcileTransaction;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var ReactOwner = __webpack_require__(188);
+var ReactOwner = __webpack_require__(176);
 
 var ReactRef = {};
 
@@ -22062,13 +23984,28 @@ ReactRef.detachRefs = function (instance, element) {
 };
 
 module.exports = ReactRef;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactRef, 'ReactRef', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactRef.js');
+
+  __REACT_HOT_LOADER__.register(attachRef, 'attachRef', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactRef.js');
+
+  __REACT_HOT_LOADER__.register(detachRef, 'detachRef', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactRef.js');
+}();
+
+;
 
 /***/ }),
-/* 192 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2014-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -22080,12 +24017,12 @@ module.exports = ReactRef;
 
 
 
-var _assign = __webpack_require__(5);
+var _assign = __webpack_require__(4);
 
-var PooledClass = __webpack_require__(18);
-var Transaction = __webpack_require__(37);
-var ReactInstrumentation = __webpack_require__(12);
-var ReactServerUpdateQueue = __webpack_require__(193);
+var PooledClass = __webpack_require__(15);
+var Transaction = __webpack_require__(34);
+var ReactInstrumentation = __webpack_require__(10);
+var ReactServerUpdateQueue = __webpack_require__(181);
 
 /**
  * Executed within the scope of the `Transaction` instance. Consider these as
@@ -22094,7 +24031,7 @@ var ReactServerUpdateQueue = __webpack_require__(193);
  */
 var TRANSACTION_WRAPPERS = [];
 
-if (process.env.NODE_ENV !== 'production') {
+if (false) {
   TRANSACTION_WRAPPERS.push({
     initialize: ReactInstrumentation.debugTool.onBeginFlush,
     close: ReactInstrumentation.debugTool.onEndFlush
@@ -22157,14 +24094,30 @@ _assign(ReactServerRenderingTransaction.prototype, Transaction, Mixin);
 PooledClass.addPoolingTo(ReactServerRenderingTransaction);
 
 module.exports = ReactServerRenderingTransaction;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(TRANSACTION_WRAPPERS, 'TRANSACTION_WRAPPERS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactServerRenderingTransaction.js');
+
+  __REACT_HOT_LOADER__.register(noopCallbackQueue, 'noopCallbackQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactServerRenderingTransaction.js');
+
+  __REACT_HOT_LOADER__.register(ReactServerRenderingTransaction, 'ReactServerRenderingTransaction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactServerRenderingTransaction.js');
+
+  __REACT_HOT_LOADER__.register(Mixin, 'Mixin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactServerRenderingTransaction.js');
+}();
+
+;
 
 /***/ }),
-/* 193 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2015-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -22183,12 +24136,12 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
-var ReactUpdateQueue = __webpack_require__(53);
+var ReactUpdateQueue = __webpack_require__(49);
 
 var warning = __webpack_require__(2);
 
 function warnNoop(publicInstance, callerName) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     var constructor = publicInstance.constructor;
     process.env.NODE_ENV !== 'production' ? warning(false, '%s(...): Can only update a mounting component. ' + 'This usually means you called %s() outside componentWillMount() on the server. ' + 'This is a no-op. Please check the code for the %s component.', callerName, callerName, constructor && (constructor.displayName || constructor.name) || 'ReactClass') : void 0;
   }
@@ -22301,10 +24254,24 @@ var ReactServerUpdateQueue = function () {
 }();
 
 module.exports = ReactServerUpdateQueue;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, '_classCallCheck', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactServerUpdateQueue.js');
+
+  __REACT_HOT_LOADER__.register(warnNoop, 'warnNoop', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactServerUpdateQueue.js');
+
+  __REACT_HOT_LOADER__.register(ReactServerUpdateQueue, 'ReactServerUpdateQueue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/ReactServerUpdateQueue.js');
+}();
+
+;
 
 /***/ }),
-/* 194 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22321,9 +24288,18 @@ module.exports = ReactServerUpdateQueue;
 
 
 module.exports = '15.5.4';
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 195 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22628,9 +24604,24 @@ Object.keys(ATTRS).forEach(function (key) {
 });
 
 module.exports = SVGDOMPropertyConfig;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(NS, 'NS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SVGDOMPropertyConfig.js');
+
+  __REACT_HOT_LOADER__.register(ATTRS, 'ATTRS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SVGDOMPropertyConfig.js');
+
+  __REACT_HOT_LOADER__.register(SVGDOMPropertyConfig, 'SVGDOMPropertyConfig', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SVGDOMPropertyConfig.js');
+}();
+
+;
 
 /***/ }),
-/* 196 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22646,15 +24637,15 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(30);
-var ExecutionEnvironment = __webpack_require__(7);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactInputSelection = __webpack_require__(89);
-var SyntheticEvent = __webpack_require__(15);
+var EventPropagators = __webpack_require__(28);
+var ExecutionEnvironment = __webpack_require__(8);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactInputSelection = __webpack_require__(86);
+var SyntheticEvent = __webpack_require__(12);
 
-var getActiveElement = __webpack_require__(74);
-var isTextInputElement = __webpack_require__(99);
-var shallowEqual = __webpack_require__(41);
+var getActiveElement = __webpack_require__(70);
+var isTextInputElement = __webpack_require__(95);
+var shallowEqual = __webpack_require__(37);
 
 var skipSelectionChangeEvent = ExecutionEnvironment.canUseDOM && 'documentMode' in document && document.documentMode <= 11;
 
@@ -22824,13 +24815,42 @@ var SelectEventPlugin = {
 };
 
 module.exports = SelectEventPlugin;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(skipSelectionChangeEvent, 'skipSelectionChangeEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(eventTypes, 'eventTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(activeElement, 'activeElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(activeElementInst, 'activeElementInst', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(lastSelection, 'lastSelection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(mouseDown, 'mouseDown', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(hasListener, 'hasListener', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getSelection, 'getSelection', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(constructSelectEvent, 'constructSelectEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(SelectEventPlugin, 'SelectEventPlugin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SelectEventPlugin.js');
+}();
+
+;
 
 /***/ }),
-/* 197 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -22843,26 +24863,26 @@ module.exports = SelectEventPlugin;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var EventListener = __webpack_require__(72);
-var EventPropagators = __webpack_require__(30);
-var ReactDOMComponentTree = __webpack_require__(6);
-var SyntheticAnimationEvent = __webpack_require__(198);
-var SyntheticClipboardEvent = __webpack_require__(199);
-var SyntheticEvent = __webpack_require__(15);
-var SyntheticFocusEvent = __webpack_require__(202);
-var SyntheticKeyboardEvent = __webpack_require__(204);
-var SyntheticMouseEvent = __webpack_require__(36);
-var SyntheticDragEvent = __webpack_require__(201);
-var SyntheticTouchEvent = __webpack_require__(205);
-var SyntheticTransitionEvent = __webpack_require__(206);
-var SyntheticUIEvent = __webpack_require__(32);
-var SyntheticWheelEvent = __webpack_require__(207);
+var EventListener = __webpack_require__(68);
+var EventPropagators = __webpack_require__(28);
+var ReactDOMComponentTree = __webpack_require__(5);
+var SyntheticAnimationEvent = __webpack_require__(186);
+var SyntheticClipboardEvent = __webpack_require__(187);
+var SyntheticEvent = __webpack_require__(12);
+var SyntheticFocusEvent = __webpack_require__(190);
+var SyntheticKeyboardEvent = __webpack_require__(192);
+var SyntheticMouseEvent = __webpack_require__(33);
+var SyntheticDragEvent = __webpack_require__(189);
+var SyntheticTouchEvent = __webpack_require__(193);
+var SyntheticTransitionEvent = __webpack_require__(194);
+var SyntheticUIEvent = __webpack_require__(30);
+var SyntheticWheelEvent = __webpack_require__(195);
 
-var emptyFunction = __webpack_require__(11);
-var getEventCharCode = __webpack_require__(55);
-var invariant = __webpack_require__(1);
+var emptyFunction = __webpack_require__(9);
+var getEventCharCode = __webpack_require__(51);
+var invariant = __webpack_require__(0);
 
 /**
  * Turns
@@ -23025,7 +25045,7 @@ var SimpleEventPlugin = {
         EventConstructor = SyntheticClipboardEvent;
         break;
     }
-    !EventConstructor ? process.env.NODE_ENV !== 'production' ? invariant(false, 'SimpleEventPlugin: Unhandled event type, `%s`.', topLevelType) : _prodInvariant('86', topLevelType) : void 0;
+    !EventConstructor ?  false ? invariant(false, 'SimpleEventPlugin: Unhandled event type, `%s`.', topLevelType) : _prodInvariant('86', topLevelType) : void 0;
     var event = EventConstructor.getPooled(dispatchConfig, targetInst, nativeEvent, nativeEventTarget);
     EventPropagators.accumulateTwoPhaseDispatches(event);
     return event;
@@ -23057,10 +25077,30 @@ var SimpleEventPlugin = {
 };
 
 module.exports = SimpleEventPlugin;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(eventTypes, 'eventTypes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SimpleEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(topLevelEventsToDispatchConfig, 'topLevelEventsToDispatchConfig', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SimpleEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(onClickListeners, 'onClickListeners', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SimpleEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(getDictionaryKey, 'getDictionaryKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SimpleEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(isInteractive, 'isInteractive', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SimpleEventPlugin.js');
+
+  __REACT_HOT_LOADER__.register(SimpleEventPlugin, 'SimpleEventPlugin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SimpleEventPlugin.js');
+}();
+
+;
 
 /***/ }),
-/* 198 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23076,7 +25116,7 @@ module.exports = SimpleEventPlugin;
 
 
 
-var SyntheticEvent = __webpack_require__(15);
+var SyntheticEvent = __webpack_require__(12);
 
 /**
  * @interface Event
@@ -23102,9 +25142,22 @@ function SyntheticAnimationEvent(dispatchConfig, dispatchMarker, nativeEvent, na
 SyntheticEvent.augmentClass(SyntheticAnimationEvent, AnimationEventInterface);
 
 module.exports = SyntheticAnimationEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(AnimationEventInterface, 'AnimationEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticAnimationEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticAnimationEvent, 'SyntheticAnimationEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticAnimationEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 199 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23120,7 +25173,7 @@ module.exports = SyntheticAnimationEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(15);
+var SyntheticEvent = __webpack_require__(12);
 
 /**
  * @interface Event
@@ -23145,9 +25198,22 @@ function SyntheticClipboardEvent(dispatchConfig, dispatchMarker, nativeEvent, na
 SyntheticEvent.augmentClass(SyntheticClipboardEvent, ClipboardEventInterface);
 
 module.exports = SyntheticClipboardEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ClipboardEventInterface, 'ClipboardEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticClipboardEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticClipboardEvent, 'SyntheticClipboardEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticClipboardEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 200 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23163,7 +25229,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(15);
+var SyntheticEvent = __webpack_require__(12);
 
 /**
  * @interface Event
@@ -23186,9 +25252,22 @@ function SyntheticCompositionEvent(dispatchConfig, dispatchMarker, nativeEvent, 
 SyntheticEvent.augmentClass(SyntheticCompositionEvent, CompositionEventInterface);
 
 module.exports = SyntheticCompositionEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(CompositionEventInterface, 'CompositionEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticCompositionEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticCompositionEvent, 'SyntheticCompositionEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticCompositionEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 201 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23204,7 +25283,7 @@ module.exports = SyntheticCompositionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(36);
+var SyntheticMouseEvent = __webpack_require__(33);
 
 /**
  * @interface DragEvent
@@ -23227,9 +25306,22 @@ function SyntheticDragEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeE
 SyntheticMouseEvent.augmentClass(SyntheticDragEvent, DragEventInterface);
 
 module.exports = SyntheticDragEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(DragEventInterface, 'DragEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticDragEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticDragEvent, 'SyntheticDragEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticDragEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 202 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23245,7 +25337,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(32);
+var SyntheticUIEvent = __webpack_require__(30);
 
 /**
  * @interface FocusEvent
@@ -23268,9 +25360,22 @@ function SyntheticFocusEvent(dispatchConfig, dispatchMarker, nativeEvent, native
 SyntheticUIEvent.augmentClass(SyntheticFocusEvent, FocusEventInterface);
 
 module.exports = SyntheticFocusEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(FocusEventInterface, 'FocusEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticFocusEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticFocusEvent, 'SyntheticFocusEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticFocusEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 203 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23286,7 +25391,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(15);
+var SyntheticEvent = __webpack_require__(12);
 
 /**
  * @interface Event
@@ -23310,9 +25415,22 @@ function SyntheticInputEvent(dispatchConfig, dispatchMarker, nativeEvent, native
 SyntheticEvent.augmentClass(SyntheticInputEvent, InputEventInterface);
 
 module.exports = SyntheticInputEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(InputEventInterface, 'InputEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticInputEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticInputEvent, 'SyntheticInputEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticInputEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 204 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23328,11 +25446,11 @@ module.exports = SyntheticInputEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(32);
+var SyntheticUIEvent = __webpack_require__(30);
 
-var getEventCharCode = __webpack_require__(55);
-var getEventKey = __webpack_require__(213);
-var getEventModifierState = __webpack_require__(56);
+var getEventCharCode = __webpack_require__(51);
+var getEventKey = __webpack_require__(200);
+var getEventModifierState = __webpack_require__(52);
 
 /**
  * @interface KeyboardEvent
@@ -23399,9 +25517,22 @@ function SyntheticKeyboardEvent(dispatchConfig, dispatchMarker, nativeEvent, nat
 SyntheticUIEvent.augmentClass(SyntheticKeyboardEvent, KeyboardEventInterface);
 
 module.exports = SyntheticKeyboardEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(KeyboardEventInterface, 'KeyboardEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticKeyboardEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticKeyboardEvent, 'SyntheticKeyboardEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticKeyboardEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 205 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23417,9 +25548,9 @@ module.exports = SyntheticKeyboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(32);
+var SyntheticUIEvent = __webpack_require__(30);
 
-var getEventModifierState = __webpack_require__(56);
+var getEventModifierState = __webpack_require__(52);
 
 /**
  * @interface TouchEvent
@@ -23449,9 +25580,22 @@ function SyntheticTouchEvent(dispatchConfig, dispatchMarker, nativeEvent, native
 SyntheticUIEvent.augmentClass(SyntheticTouchEvent, TouchEventInterface);
 
 module.exports = SyntheticTouchEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(TouchEventInterface, 'TouchEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticTouchEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticTouchEvent, 'SyntheticTouchEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticTouchEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 206 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23467,7 +25611,7 @@ module.exports = SyntheticTouchEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(15);
+var SyntheticEvent = __webpack_require__(12);
 
 /**
  * @interface Event
@@ -23493,9 +25637,22 @@ function SyntheticTransitionEvent(dispatchConfig, dispatchMarker, nativeEvent, n
 SyntheticEvent.augmentClass(SyntheticTransitionEvent, TransitionEventInterface);
 
 module.exports = SyntheticTransitionEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(TransitionEventInterface, 'TransitionEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticTransitionEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticTransitionEvent, 'SyntheticTransitionEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticTransitionEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 207 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23511,7 +25668,7 @@ module.exports = SyntheticTransitionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(36);
+var SyntheticMouseEvent = __webpack_require__(33);
 
 /**
  * @interface WheelEvent
@@ -23552,9 +25709,22 @@ function SyntheticWheelEvent(dispatchConfig, dispatchMarker, nativeEvent, native
 SyntheticMouseEvent.augmentClass(SyntheticWheelEvent, WheelEventInterface);
 
 module.exports = SyntheticWheelEvent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(WheelEventInterface, 'WheelEventInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticWheelEvent.js');
+
+  __REACT_HOT_LOADER__.register(SyntheticWheelEvent, 'SyntheticWheelEvent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/SyntheticWheelEvent.js');
+}();
+
+;
 
 /***/ }),
-/* 208 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23601,108 +25771,26 @@ function adler32(data) {
 }
 
 module.exports = adler32;
+;
 
-/***/ }),
-/* 209 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _prodInvariant = __webpack_require__(4);
-
-var ReactPropTypeLocationNames = __webpack_require__(189);
-var ReactPropTypesSecret = __webpack_require__(92);
-
-var invariant = __webpack_require__(1);
-var warning = __webpack_require__(2);
-
-var ReactComponentTreeHook;
-
-if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'test') {
-  // Temporary hack.
-  // Inline requires don't work well with Jest:
-  // https://github.com/facebook/react/issues/7240
-  // Remove the inline requires when we don't need them anymore:
-  // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(10);
-}
-
-var loggedTypeFailures = {};
-
-/**
- * Assert that the values match with the type specs.
- * Error messages are memorized and will only be shown once.
- *
- * @param {object} typeSpecs Map of name to a ReactPropType
- * @param {object} values Runtime values that need to be type-checked
- * @param {string} location e.g. "prop", "context", "child context"
- * @param {string} componentName Name of the component for error messages.
- * @param {?object} element The React element that is being type-checked
- * @param {?number} debugID The React component instance that is being type-checked
- * @private
- */
-function checkReactTypeSpec(typeSpecs, values, location, componentName, element, debugID) {
-  for (var typeSpecName in typeSpecs) {
-    if (typeSpecs.hasOwnProperty(typeSpecName)) {
-      var error;
-      // Prop type validation may throw. In case they do, we don't want to
-      // fail the render phase where it didn't fail before. So we log it.
-      // After these have been cleaned up, we'll let them throw.
-      try {
-        // This is intentionally an invariant that gets caught. It's the same
-        // behavior as without this statement except with a better message.
-        !(typeof typeSpecs[typeSpecName] === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s: %s type `%s` is invalid; it must be a function, usually from React.PropTypes.', componentName || 'React class', ReactPropTypeLocationNames[location], typeSpecName) : _prodInvariant('84', componentName || 'React class', ReactPropTypeLocationNames[location], typeSpecName) : void 0;
-        error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
-      } catch (ex) {
-        error = ex;
-      }
-      process.env.NODE_ENV !== 'production' ? warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', ReactPropTypeLocationNames[location], typeSpecName, typeof error === 'undefined' ? 'undefined' : _typeof(error)) : void 0;
-      if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-        // Only monitor this failure once because there tends to be a lot of the
-        // same error.
-        loggedTypeFailures[error.message] = true;
-
-        var componentStackInfo = '';
-
-        if (process.env.NODE_ENV !== 'production') {
-          if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(10);
-          }
-          if (debugID !== null) {
-            componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
-          } else if (element !== null) {
-            componentStackInfo = ReactComponentTreeHook.getCurrentStackAddendum(element);
-          }
-        }
-
-        process.env.NODE_ENV !== 'production' ? warning(false, 'Failed %s type: %s%s', location, error.message, componentStackInfo) : void 0;
-      }
-    }
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
   }
-}
 
-module.exports = checkReactTypeSpec;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+  __REACT_HOT_LOADER__.register(MOD, 'MOD', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/adler32.js');
+
+  __REACT_HOT_LOADER__.register(adler32, 'adler32', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/adler32.js');
+}();
+
+;
 
 /***/ }),
-/* 210 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -23714,7 +25802,7 @@ module.exports = checkReactTypeSpec;
 
 
 
-var CSSProperty = __webpack_require__(81);
+var CSSProperty = __webpack_require__(78);
 var warning = __webpack_require__(2);
 
 var isUnitlessNumber = CSSProperty.isUnitlessNumber;
@@ -23752,7 +25840,7 @@ function dangerousStyleValue(name, value, component) {
   }
 
   if (typeof value === 'string') {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       // Allow '0' to pass through without warning. 0 is already special and
       // doesn't require units, so we don't need to warn about it.
       if (component && value !== '0') {
@@ -23780,14 +25868,28 @@ function dangerousStyleValue(name, value, component) {
 }
 
 module.exports = dangerousStyleValue;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isUnitlessNumber, 'isUnitlessNumber', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/dangerousStyleValue.js');
+
+  __REACT_HOT_LOADER__.register(styleWarnings, 'styleWarnings', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/dangerousStyleValue.js');
+
+  __REACT_HOT_LOADER__.register(dangerousStyleValue, 'dangerousStyleValue', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/dangerousStyleValue.js');
+}();
+
+;
 
 /***/ }),
-/* 211 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -23799,14 +25901,14 @@ module.exports = dangerousStyleValue;
 
 
 
-var _prodInvariant = __webpack_require__(4);
+var _prodInvariant = __webpack_require__(3);
 
-var ReactCurrentOwner = __webpack_require__(14);
-var ReactDOMComponentTree = __webpack_require__(6);
-var ReactInstanceMap = __webpack_require__(31);
+var ReactCurrentOwner = __webpack_require__(13);
+var ReactDOMComponentTree = __webpack_require__(5);
+var ReactInstanceMap = __webpack_require__(29);
 
-var getHostComponentFromComposite = __webpack_require__(96);
-var invariant = __webpack_require__(1);
+var getHostComponentFromComposite = __webpack_require__(92);
+var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
 /**
@@ -23818,7 +25920,7 @@ var warning = __webpack_require__(2);
  * @return {?DOMElement} The root node of this element.
  */
 function findDOMNode(componentOrElement) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     var owner = ReactCurrentOwner.current;
     if (owner !== null) {
       process.env.NODE_ENV !== 'production' ? warning(owner._warnedAboutRefsInRender, '%s is accessing findDOMNode inside its render(). ' + 'render() should be a pure function of props and state. It should ' + 'never access something that requires stale data from the previous ' + 'render, such as refs. Move this logic to componentDidMount and ' + 'componentDidUpdate instead.', owner.getName() || 'A component') : void 0;
@@ -23839,17 +25941,27 @@ function findDOMNode(componentOrElement) {
   }
 
   if (typeof componentOrElement.render === 'function') {
-     true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'findDOMNode was called on an unmounted component.') : _prodInvariant('44') : void 0;
+     true ?  false ? invariant(false, 'findDOMNode was called on an unmounted component.') : _prodInvariant('44') : void 0;
   } else {
-     true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Element appears to be neither ReactComponent nor DOMNode (keys: %s)', Object.keys(componentOrElement)) : _prodInvariant('45', Object.keys(componentOrElement)) : void 0;
+     true ?  false ? invariant(false, 'Element appears to be neither ReactComponent nor DOMNode (keys: %s)', Object.keys(componentOrElement)) : _prodInvariant('45', Object.keys(componentOrElement)) : void 0;
   }
 }
 
 module.exports = findDOMNode;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(findDOMNode, 'findDOMNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/findDOMNode.js');
+}();
+
+;
 
 /***/ }),
-/* 212 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23868,19 +25980,19 @@ module.exports = findDOMNode;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var KeyEscapeUtils = __webpack_require__(49);
-var traverseAllChildren = __webpack_require__(101);
+var KeyEscapeUtils = __webpack_require__(45);
+var traverseAllChildren = __webpack_require__(97);
 var warning = __webpack_require__(2);
 
 var ReactComponentTreeHook;
 
-if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && __webpack_require__.i({"NODE_ENV":"production"}) && "production" === 'test') {
   // Temporary hack.
   // Inline requires don't work well with Jest:
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(10);
+  ReactComponentTreeHook = __webpack_require__(106);
 }
 
 /**
@@ -23894,9 +26006,9 @@ function flattenSingleChildIntoContext(traverseContext, child, name, selfDebugID
   if (traverseContext && (typeof traverseContext === 'undefined' ? 'undefined' : _typeof(traverseContext)) === 'object') {
     var result = traverseContext;
     var keyUnique = result[name] === undefined;
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       if (!ReactComponentTreeHook) {
-        ReactComponentTreeHook = __webpack_require__(10);
+        ReactComponentTreeHook = require('react/lib/ReactComponentTreeHook');
       }
       if (!keyUnique) {
         process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -23919,7 +26031,7 @@ function flattenChildren(children, selfDebugID) {
   }
   var result = {};
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     traverseAllChildren(children, function (traverseContext, child, name) {
       return flattenSingleChildIntoContext(traverseContext, child, name, selfDebugID);
     }, result);
@@ -23930,10 +26042,25 @@ function flattenChildren(children, selfDebugID) {
 }
 
 module.exports = flattenChildren;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactComponentTreeHook, 'ReactComponentTreeHook', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/flattenChildren.js');
+
+  __REACT_HOT_LOADER__.register(flattenSingleChildIntoContext, 'flattenSingleChildIntoContext', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/flattenChildren.js');
+
+  __REACT_HOT_LOADER__.register(flattenChildren, 'flattenChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/flattenChildren.js');
+}();
+
+;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(75)))
 
 /***/ }),
-/* 213 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23949,7 +26076,7 @@ module.exports = flattenChildren;
 
 
 
-var getEventCharCode = __webpack_require__(55);
+var getEventCharCode = __webpack_require__(51);
 
 /**
  * Normalization of deprecated HTML5 `key` values
@@ -24038,9 +26165,24 @@ function getEventKey(nativeEvent) {
 }
 
 module.exports = getEventKey;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(normalizeKey, 'normalizeKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getEventKey.js');
+
+  __REACT_HOT_LOADER__.register(translateToKey, 'translateToKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getEventKey.js');
+
+  __REACT_HOT_LOADER__.register(getEventKey, 'getEventKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getEventKey.js');
+}();
+
+;
 
 /***/ }),
-/* 214 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24084,9 +26226,24 @@ function getIteratorFn(maybeIterable) {
 }
 
 module.exports = getIteratorFn;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ITERATOR_SYMBOL, 'ITERATOR_SYMBOL', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getIteratorFn.js');
+
+  __REACT_HOT_LOADER__.register(FAUX_ITERATOR_SYMBOL, 'FAUX_ITERATOR_SYMBOL', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getIteratorFn.js');
+
+  __REACT_HOT_LOADER__.register(getIteratorFn, 'getIteratorFn', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getIteratorFn.js');
+}();
+
+;
 
 /***/ }),
-/* 215 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24163,9 +26320,24 @@ function getNodeForCharacterOffset(root, offset) {
 }
 
 module.exports = getNodeForCharacterOffset;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getLeafNode, 'getLeafNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getNodeForCharacterOffset.js');
+
+  __REACT_HOT_LOADER__.register(getSiblingNode, 'getSiblingNode', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getNodeForCharacterOffset.js');
+
+  __REACT_HOT_LOADER__.register(getNodeForCharacterOffset, 'getNodeForCharacterOffset', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getNodeForCharacterOffset.js');
+}();
+
+;
 
 /***/ }),
-/* 216 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24181,7 +26353,7 @@ module.exports = getNodeForCharacterOffset;
 
 
 
-var ExecutionEnvironment = __webpack_require__(7);
+var ExecutionEnvironment = __webpack_require__(8);
 
 /**
  * Generate a mapping of standard vendor prefixes using the defined style property and event name.
@@ -24269,9 +26441,28 @@ function getVendorPrefixedEventName(eventName) {
 }
 
 module.exports = getVendorPrefixedEventName;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(makePrefixMap, 'makePrefixMap', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getVendorPrefixedEventName.js');
+
+  __REACT_HOT_LOADER__.register(vendorPrefixes, 'vendorPrefixes', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getVendorPrefixedEventName.js');
+
+  __REACT_HOT_LOADER__.register(prefixedEventNames, 'prefixedEventNames', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getVendorPrefixedEventName.js');
+
+  __REACT_HOT_LOADER__.register(style, 'style', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getVendorPrefixedEventName.js');
+
+  __REACT_HOT_LOADER__.register(getVendorPrefixedEventName, 'getVendorPrefixedEventName', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/getVendorPrefixedEventName.js');
+}();
+
+;
 
 /***/ }),
-/* 217 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24287,7 +26478,7 @@ module.exports = getVendorPrefixedEventName;
 
 
 
-var escapeTextContentForBrowser = __webpack_require__(38);
+var escapeTextContentForBrowser = __webpack_require__(35);
 
 /**
  * Escapes attribute value to prevent scripting attacks.
@@ -24300,9 +26491,20 @@ function quoteAttributeValueForBrowser(value) {
 }
 
 module.exports = quoteAttributeValueForBrowser;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(quoteAttributeValueForBrowser, 'quoteAttributeValueForBrowser', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-dom/lib/quoteAttributeValueForBrowser.js');
+}();
+
+;
 
 /***/ }),
-/* 218 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24318,18 +26520,36 @@ module.exports = quoteAttributeValueForBrowser;
 
 
 
-var ReactMount = __webpack_require__(90);
+var ReactMount = __webpack_require__(87);
 
 module.exports = ReactMount.renderSubtreeIntoContainer;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 219 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(222);
+module.exports = __webpack_require__(209);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 220 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24338,13 +26558,22 @@ module.exports = __webpack_require__(222);
 
 
 if (true) {
-  module.exports = __webpack_require__(221);
+  module.exports = __webpack_require__(208);
 } else {
   module.exports = require('./AppContainer.dev');
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 221 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24382,7 +26611,7 @@ function _inherits(subClass, superClass) {
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var React = __webpack_require__(3);
+var React = __webpack_require__(1);
 var Component = React.Component;
 
 var AppContainer = function (_Component) {
@@ -24409,9 +26638,30 @@ var AppContainer = function (_Component) {
 }(Component);
 
 module.exports = AppContainer;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_createClass, "_createClass", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-hot-loader/lib/AppContainer.prod.js");
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-hot-loader/lib/AppContainer.prod.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-hot-loader/lib/AppContainer.prod.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-hot-loader/lib/AppContainer.prod.js");
+
+  __REACT_HOT_LOADER__.register(Component, "Component", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-hot-loader/lib/AppContainer.prod.js");
+
+  __REACT_HOT_LOADER__.register(AppContainer, "AppContainer", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-hot-loader/lib/AppContainer.prod.js");
+}();
+
+;
 
 /***/ }),
-/* 222 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24420,32 +26670,50 @@ module.exports = AppContainer;
 
 
 if (true) {
-  module.exports = __webpack_require__(223);
+  module.exports = __webpack_require__(210);
 } else {
   module.exports = require('./index.dev');
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 223 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports.AppContainer = __webpack_require__(220);
+module.exports.AppContainer = __webpack_require__(207);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 224 */
+/* 211 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export createProvider */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* unused harmony export createProvider */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_warning__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_warning__ = __webpack_require__(57);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function _classCallCheck(instance, Constructor) {
@@ -24514,7 +26782,7 @@ function createProvider() {
     return Provider;
   }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     Provider.prototype.componentWillReceiveProps = function (nextProps) {
       if (this[storeKey] !== nextProps.store) {
         warnAboutReceivingStore();
@@ -24532,21 +26800,45 @@ function createProvider() {
   return Provider;
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (createProvider());
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+var _default = createProvider();
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/Provider.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/Provider.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/Provider.js");
+
+  __REACT_HOT_LOADER__.register(didWarnAboutReceivingStore, "didWarnAboutReceivingStore", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/Provider.js");
+
+  __REACT_HOT_LOADER__.register(warnAboutReceivingStore, "warnAboutReceivingStore", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/Provider.js");
+
+  __REACT_HOT_LOADER__.register(createProvider, "createProvider", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/Provider.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/components/Provider.js");
+}();
+
+;
 
 /***/ }),
-/* 225 */
+/* 212 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export createConnect */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_connectAdvanced__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_shallowEqual__ = __webpack_require__(232);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mapDispatchToProps__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mapStateToProps__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mergeProps__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__selectorFactory__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_connectAdvanced__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_shallowEqual__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mapDispatchToProps__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mapStateToProps__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mergeProps__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__selectorFactory__ = __webpack_require__(216);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) {
@@ -24663,18 +26955,41 @@ function createConnect() {
   };
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (createConnect());
+var _default = createConnect();
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, '_extends', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/connect.js');
+
+  __REACT_HOT_LOADER__.register(_objectWithoutProperties, '_objectWithoutProperties', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/connect.js');
+
+  __REACT_HOT_LOADER__.register(match, 'match', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/connect.js');
+
+  __REACT_HOT_LOADER__.register(strictEqual, 'strictEqual', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/connect.js');
+
+  __REACT_HOT_LOADER__.register(createConnect, 'createConnect', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/connect.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/connect.js');
+}();
+
+;
 
 /***/ }),
-/* 226 */
+/* 213 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export whenMapDispatchToPropsIsFunction */
 /* unused harmony export whenMapDispatchToPropsIsMissing */
 /* unused harmony export whenMapDispatchToPropsIsObject */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapMapToProps__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapMapToProps__ = __webpack_require__(99);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 
@@ -24696,16 +27011,34 @@ function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
   }) : undefined;
 }
 
-/* harmony default export */ __webpack_exports__["a"] = ([whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject]);
+var _default = [whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject];
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(whenMapDispatchToPropsIsFunction, 'whenMapDispatchToPropsIsFunction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mapDispatchToProps.js');
+
+  __REACT_HOT_LOADER__.register(whenMapDispatchToPropsIsMissing, 'whenMapDispatchToPropsIsMissing', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mapDispatchToProps.js');
+
+  __REACT_HOT_LOADER__.register(whenMapDispatchToPropsIsObject, 'whenMapDispatchToPropsIsObject', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mapDispatchToProps.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mapDispatchToProps.js');
+}();
+
+;
 
 /***/ }),
-/* 227 */
+/* 214 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export whenMapStateToPropsIsFunction */
 /* unused harmony export whenMapStateToPropsIsMissing */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrapMapToProps__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrapMapToProps__ = __webpack_require__(99);
 
 
 function whenMapStateToPropsIsFunction(mapStateToProps) {
@@ -24718,18 +27051,34 @@ function whenMapStateToPropsIsMissing(mapStateToProps) {
   }) : undefined;
 }
 
-/* harmony default export */ __webpack_exports__["a"] = ([whenMapStateToPropsIsFunction, whenMapStateToPropsIsMissing]);
+var _default = [whenMapStateToPropsIsFunction, whenMapStateToPropsIsMissing];
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(whenMapStateToPropsIsFunction, 'whenMapStateToPropsIsFunction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mapStateToProps.js');
+
+  __REACT_HOT_LOADER__.register(whenMapStateToPropsIsMissing, 'whenMapStateToPropsIsMissing', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mapStateToProps.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mapStateToProps.js');
+}();
+
+;
 
 /***/ }),
-/* 228 */
+/* 215 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export defaultMergeProps */
+/* unused harmony export defaultMergeProps */
 /* unused harmony export wrapMergePropsFunc */
 /* unused harmony export whenMergePropsIsFunction */
 /* unused harmony export whenMergePropsIsOmitted */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(101);
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];for (var key in source) {
@@ -24764,7 +27113,7 @@ function wrapMergePropsFunc(mergeProps) {
         hasRunOnce = true;
         mergedProps = nextMergedProps;
 
-        if (process.env.NODE_ENV !== 'production') __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__["a" /* default */])(mergedProps, displayName, 'mergeProps');
+        if (false) verifyPlainObject(mergedProps, displayName, 'mergeProps');
       }
 
       return mergedProps;
@@ -24782,18 +27131,39 @@ function whenMergePropsIsOmitted(mergeProps) {
   } : undefined;
 }
 
-/* harmony default export */ __webpack_exports__["a"] = ([whenMergePropsIsFunction, whenMergePropsIsOmitted]);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+var _default = [whenMergePropsIsFunction, whenMergePropsIsOmitted];
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, '_extends', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mergeProps.js');
+
+  __REACT_HOT_LOADER__.register(defaultMergeProps, 'defaultMergeProps', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mergeProps.js');
+
+  __REACT_HOT_LOADER__.register(wrapMergePropsFunc, 'wrapMergePropsFunc', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mergeProps.js');
+
+  __REACT_HOT_LOADER__.register(whenMergePropsIsFunction, 'whenMergePropsIsFunction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mergeProps.js');
+
+  __REACT_HOT_LOADER__.register(whenMergePropsIsOmitted, 'whenMergePropsIsOmitted', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mergeProps.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/mergeProps.js');
+}();
+
+;
 
 /***/ }),
-/* 229 */
+/* 216 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export impureFinalPropsSelectorFactory */
+/* unused harmony export impureFinalPropsSelectorFactory */
 /* unused harmony export pureFinalPropsSelectorFactory */
 /* harmony export (immutable) */ __webpack_exports__["a"] = finalPropsSelectorFactory;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__verifySubselectors__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__verifySubselectors__ = __webpack_require__(217);
 function _objectWithoutProperties(obj, keys) {
   var target = {};for (var i in obj) {
     if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
@@ -24892,23 +27262,39 @@ function finalPropsSelectorFactory(dispatch, _ref2) {
   var mapDispatchToProps = initMapDispatchToProps(dispatch, options);
   var mergeProps = initMergeProps(dispatch, options);
 
-  if (process.env.NODE_ENV !== 'production') {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__verifySubselectors__["a" /* default */])(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
+  if (false) {
+    verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
   }
 
   var selectorFactory = options.pure ? pureFinalPropsSelectorFactory : impureFinalPropsSelectorFactory;
 
   return selectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, options);
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_objectWithoutProperties, '_objectWithoutProperties', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/selectorFactory.js');
+
+  __REACT_HOT_LOADER__.register(impureFinalPropsSelectorFactory, 'impureFinalPropsSelectorFactory', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/selectorFactory.js');
+
+  __REACT_HOT_LOADER__.register(pureFinalPropsSelectorFactory, 'pureFinalPropsSelectorFactory', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/selectorFactory.js');
+
+  __REACT_HOT_LOADER__.register(finalPropsSelectorFactory, 'finalPropsSelectorFactory', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/selectorFactory.js');
+}();
+
+;
 
 /***/ }),
-/* 230 */
+/* 217 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = verifySubselectors;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_warning__ = __webpack_require__(61);
+/* unused harmony export default */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_warning__ = __webpack_require__(57);
 
 
 function verify(selector, methodName, displayName) {
@@ -24926,9 +27312,22 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
   verify(mapDispatchToProps, 'mapDispatchToProps', displayName);
   verify(mergeProps, 'mergeProps', displayName);
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(verify, 'verify', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/verifySubselectors.js');
+
+  __REACT_HOT_LOADER__.register(verifySubselectors, 'verifySubselectors', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/connect/verifySubselectors.js');
+}();
+
+;
 
 /***/ }),
-/* 231 */
+/* 218 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25026,9 +27425,28 @@ var Subscription = function () {
 }();
 
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/Subscription.js");
+
+  __REACT_HOT_LOADER__.register(CLEARED, "CLEARED", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/Subscription.js");
+
+  __REACT_HOT_LOADER__.register(nullListeners, "nullListeners", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/Subscription.js");
+
+  __REACT_HOT_LOADER__.register(createListenerCollection, "createListenerCollection", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/Subscription.js");
+
+  __REACT_HOT_LOADER__.register(Subscription, "Subscription", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/Subscription.js");
+}();
+
+;
 
 /***/ }),
-/* 232 */
+/* 219 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25065,19 +27483,34 @@ function shallowEqual(objA, objB) {
 
   return true;
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(hasOwn, 'hasOwn', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/shallowEqual.js');
+
+  __REACT_HOT_LOADER__.register(is, 'is', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/shallowEqual.js');
+
+  __REACT_HOT_LOADER__.register(shallowEqual, 'shallowEqual', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-redux/es/utils/shallowEqual.js');
+}();
+
+;
 
 /***/ }),
-/* 233 */
+/* 220 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createBrowserHistory__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createBrowserHistory__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_history_createBrowserHistory__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_router__ = __webpack_require__(6);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function _classCallCheck(instance, Constructor) {
@@ -25137,20 +27570,40 @@ BrowserRouter.propTypes = {
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.node
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = (BrowserRouter);
+var _default = BrowserRouter;
+/* unused harmony default export */ var _unused_webpack_default_export = (_default);
+;
+
+var _temp2 = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/BrowserRouter.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/BrowserRouter.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/BrowserRouter.js");
+
+  __REACT_HOT_LOADER__.register(BrowserRouter, "BrowserRouter", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/BrowserRouter.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/BrowserRouter.js");
+}();
+
+;
 
 /***/ }),
-/* 234 */
+/* 221 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createHashHistory__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createHashHistory__ = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createHashHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_history_createHashHistory__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_router__ = __webpack_require__(6);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function _classCallCheck(instance, Constructor) {
@@ -25209,28 +27662,57 @@ HashRouter.propTypes = {
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.node
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = (HashRouter);
+var _default = HashRouter;
+/* unused harmony default export */ var _unused_webpack_default_export = (_default);
+;
+
+var _temp2 = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/HashRouter.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/HashRouter.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/HashRouter.js");
+
+  __REACT_HOT_LOADER__.register(HashRouter, "HashRouter", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/HashRouter.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/HashRouter.js");
+}();
+
+;
 
 /***/ }),
-/* 235 */
+/* 222 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(6);
 /* unused harmony reexport default */
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 236 */
+/* 223 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Link__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Link__ = __webpack_require__(102);
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) {
@@ -25313,91 +27795,183 @@ NavLink.defaultProps = {
   activeClassName: 'active'
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = (NavLink);
+var _default = NavLink;
+/* unused harmony default export */ var _unused_webpack_default_export = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, "_extends", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/NavLink.js");
+
+  __REACT_HOT_LOADER__.register(_typeof, "_typeof", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/NavLink.js");
+
+  __REACT_HOT_LOADER__.register(_objectWithoutProperties, "_objectWithoutProperties", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/NavLink.js");
+
+  __REACT_HOT_LOADER__.register(NavLink, "NavLink", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/NavLink.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-dom/es/NavLink.js");
+}();
+
+;
 
 /***/ }),
-/* 237 */
+/* 224 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(6);
 /* unused harmony reexport default */
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 238 */
+/* 225 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(6);
 /* unused harmony reexport default */
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 239 */
+/* 226 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(6);
 /* unused harmony reexport default */
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 240 */
+/* 227 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(6);
 /* unused harmony reexport default */
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 241 */
+/* 228 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(6);
 /* unused harmony reexport default */
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 242 */
+/* 229 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(6);
 /* unused harmony reexport default */
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 243 */
+/* 230 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(6);
 /* unused harmony reexport default */
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 244 */
+/* 231 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(6);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0_react_router__["b"]; });
 
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 245 */
+/* 232 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducer__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducer__ = __webpack_require__(104);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function _classCallCheck(instance, Constructor) {
@@ -25475,15 +28049,35 @@ ConnectedRouter.contextTypes = {
   store: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (ConnectedRouter);
+var _default = ConnectedRouter;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp2 = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/ConnectedRouter.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/ConnectedRouter.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/ConnectedRouter.js");
+
+  __REACT_HOT_LOADER__.register(ConnectedRouter, "ConnectedRouter", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/ConnectedRouter.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/ConnectedRouter.js");
+}();
+
+;
 
 /***/ }),
-/* 246 */
+/* 233 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = routerMiddleware;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(103);
 
 
 /**
@@ -25508,19 +28102,30 @@ function routerMiddleware(history) {
     };
   };
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(routerMiddleware, 'routerMiddleware', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router-redux/es/middleware.js');
+}();
+
+;
 
 /***/ }),
-/* 247 */
+/* 234 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createMemoryHistory__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createMemoryHistory__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createMemoryHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_history_createMemoryHistory__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Router__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Router__ = __webpack_require__(60);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function _classCallCheck(instance, Constructor) {
@@ -25580,16 +28185,36 @@ MemoryRouter.propTypes = {
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.node
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = (MemoryRouter);
+var _default = MemoryRouter;
+/* unused harmony default export */ var _unused_webpack_default_export = (_default);
+;
+
+var _temp2 = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/MemoryRouter.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/MemoryRouter.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/MemoryRouter.js");
+
+  __REACT_HOT_LOADER__.register(MemoryRouter, "MemoryRouter", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/MemoryRouter.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/MemoryRouter.js");
+}();
+
+;
 
 /***/ }),
-/* 248 */
+/* 235 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -25679,16 +28304,36 @@ Prompt.contextTypes = {
   }).isRequired
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Prompt);
+var _default = Prompt;
+/* unused harmony default export */ var _unused_webpack_default_export = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Prompt.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Prompt.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Prompt.js");
+
+  __REACT_HOT_LOADER__.register(Prompt, "Prompt", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Prompt.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Prompt.js");
+}();
+
+;
 
 /***/ }),
-/* 249 */
+/* 236 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -25777,22 +28422,42 @@ Redirect.contextTypes = {
   }).isRequired
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Redirect);
+var _default = Redirect;
+/* unused harmony default export */ var _unused_webpack_default_export = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Redirect.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Redirect.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Redirect.js");
+
+  __REACT_HOT_LOADER__.register(Redirect, "Redirect", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Redirect.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Redirect.js");
+}();
+
+;
 
 /***/ }),
-/* 250 */
+/* 237 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_PathUtils__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_PathUtils__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_PathUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_history_PathUtils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(60);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) {
@@ -25977,20 +28642,58 @@ StaticRouter.childContextTypes = {
   router: __WEBPACK_IMPORTED_MODULE_2_prop_types___default.a.object.isRequired
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = (StaticRouter);
+var _default = StaticRouter;
+/* unused harmony default export */ var _unused_webpack_default_export = (_default);
+;
+
+var _temp2 = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, "_extends", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(_objectWithoutProperties, "_objectWithoutProperties", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(normalizeLocation, "normalizeLocation", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(addBasename, "addBasename", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(stripBasename, "stripBasename", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(createLocation, "createLocation", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(createURL, "createURL", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(staticHandler, "staticHandler", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(noop, "noop", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(StaticRouter, "StaticRouter", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/StaticRouter.js");
+}();
+
+;
 
 /***/ }),
-/* 251 */
+/* 238 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__matchPath__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__matchPath__ = __webpack_require__(61);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function _classCallCheck(instance, Constructor) {
@@ -26076,20 +28779,40 @@ Switch.propTypes = {
   location: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Switch);
+var _default = Switch;
+/* unused harmony default export */ var _unused_webpack_default_export = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_classCallCheck, "_classCallCheck", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Switch.js");
+
+  __REACT_HOT_LOADER__.register(_possibleConstructorReturn, "_possibleConstructorReturn", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Switch.js");
+
+  __REACT_HOT_LOADER__.register(_inherits, "_inherits", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Switch.js");
+
+  __REACT_HOT_LOADER__.register(Switch, "Switch", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Switch.js");
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/Switch.js");
+}();
+
+;
 
 /***/ }),
-/* 252 */
+/* 239 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Route__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Route__ = __webpack_require__(105);
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];for (var key in source) {
@@ -26133,10 +28856,28 @@ var withRouter = function withRouter(Component) {
   return __WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics___default()(C, Component);
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (withRouter);
+var _default = withRouter;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, '_extends', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/withRouter.js');
+
+  __REACT_HOT_LOADER__.register(_objectWithoutProperties, '_objectWithoutProperties', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/withRouter.js');
+
+  __REACT_HOT_LOADER__.register(withRouter, 'withRouter', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/withRouter.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react-router/es/withRouter.js');
+}();
+
+;
 
 /***/ }),
-/* 253 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26198,13 +28939,28 @@ var KeyEscapeUtils = {
 };
 
 module.exports = KeyEscapeUtils;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(escape, 'escape', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/KeyEscapeUtils.js');
+
+  __REACT_HOT_LOADER__.register(unescape, 'unescape', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/KeyEscapeUtils.js');
+
+  __REACT_HOT_LOADER__.register(KeyEscapeUtils, 'KeyEscapeUtils', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/KeyEscapeUtils.js');
+}();
+
+;
 
 /***/ }),
-/* 254 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -26217,9 +28973,9 @@ module.exports = KeyEscapeUtils;
 
 
 
-var _prodInvariant = __webpack_require__(20);
+var _prodInvariant = __webpack_require__(22);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 /**
  * Static poolers. Several custom versions for each potential number of
@@ -26274,7 +29030,7 @@ var fourArgumentPooler = function fourArgumentPooler(a1, a2, a3, a4) {
 
 var standardReleaser = function standardReleaser(instance) {
   var Klass = this;
-  !(instance instanceof Klass) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Trying to release an instance into a pool of a different type.') : _prodInvariant('25') : void 0;
+  !(instance instanceof Klass) ?  false ? invariant(false, 'Trying to release an instance into a pool of a different type.') : _prodInvariant('25') : void 0;
   instance.destructor();
   if (Klass.instancePool.length < Klass.poolSize) {
     Klass.instancePool.push(instance);
@@ -26315,10 +29071,36 @@ var PooledClass = {
 };
 
 module.exports = PooledClass;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(oneArgumentPooler, 'oneArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(twoArgumentPooler, 'twoArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(threeArgumentPooler, 'threeArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(fourArgumentPooler, 'fourArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(standardReleaser, 'standardReleaser', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(DEFAULT_POOL_SIZE, 'DEFAULT_POOL_SIZE', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(DEFAULT_POOLER, 'DEFAULT_POOLER', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(addPoolingTo, 'addPoolingTo', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/PooledClass.js');
+
+  __REACT_HOT_LOADER__.register(PooledClass, 'PooledClass', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/PooledClass.js');
+}();
+
+;
 
 /***/ }),
-/* 255 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26334,11 +29116,11 @@ module.exports = PooledClass;
 
 
 
-var PooledClass = __webpack_require__(254);
-var ReactElement = __webpack_require__(19);
+var PooledClass = __webpack_require__(241);
+var ReactElement = __webpack_require__(21);
 
-var emptyFunction = __webpack_require__(11);
-var traverseAllChildren = __webpack_require__(265);
+var emptyFunction = __webpack_require__(9);
+var traverseAllChildren = __webpack_require__(252);
 
 var twoArgumentPooler = PooledClass.twoArgumentPooler;
 var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -26511,13 +29293,52 @@ var ReactChildren = {
 };
 
 module.exports = ReactChildren;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(twoArgumentPooler, 'twoArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(fourArgumentPooler, 'fourArgumentPooler', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(userProvidedKeyEscapeRegex, 'userProvidedKeyEscapeRegex', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(escapeUserProvidedKey, 'escapeUserProvidedKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(ForEachBookKeeping, 'ForEachBookKeeping', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(forEachSingleChild, 'forEachSingleChild', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(forEachChildren, 'forEachChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(MapBookKeeping, 'MapBookKeeping', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(mapSingleChildIntoContext, 'mapSingleChildIntoContext', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(mapIntoWithKeyPrefixInternal, 'mapIntoWithKeyPrefixInternal', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(mapChildren, 'mapChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(forEachSingleChildDummy, 'forEachSingleChildDummy', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(countChildren, 'countChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(toArray, 'toArray', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+
+  __REACT_HOT_LOADER__.register(ReactChildren, 'ReactChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactChildren.js');
+}();
+
+;
 
 /***/ }),
-/* 256 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -26531,16 +29352,16 @@ module.exports = ReactChildren;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(20),
-    _assign = __webpack_require__(5);
+var _prodInvariant = __webpack_require__(22),
+    _assign = __webpack_require__(4);
 
-var ReactComponent = __webpack_require__(66);
-var ReactElement = __webpack_require__(19);
-var ReactPropTypeLocationNames = __webpack_require__(112);
-var ReactNoopUpdateQueue = __webpack_require__(67);
+var ReactComponent = __webpack_require__(62);
+var ReactElement = __webpack_require__(21);
+var ReactPropTypeLocationNames = __webpack_require__(245);
+var ReactNoopUpdateQueue = __webpack_require__(63);
 
-var emptyObject = __webpack_require__(26);
-var invariant = __webpack_require__(1);
+var emptyObject = __webpack_require__(24);
+var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
 var MIXINS_KEY = 'mixins';
@@ -26822,13 +29643,13 @@ var RESERVED_SPEC_KEYS = {
     }
   },
   childContextTypes: function childContextTypes(Constructor, _childContextTypes) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       validateTypeDef(Constructor, _childContextTypes, 'childContext');
     }
     Constructor.childContextTypes = _assign({}, Constructor.childContextTypes, _childContextTypes);
   },
   contextTypes: function contextTypes(Constructor, _contextTypes) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       validateTypeDef(Constructor, _contextTypes, 'context');
     }
     Constructor.contextTypes = _assign({}, Constructor.contextTypes, _contextTypes);
@@ -26845,7 +29666,7 @@ var RESERVED_SPEC_KEYS = {
     }
   },
   propTypes: function propTypes(Constructor, _propTypes) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       validateTypeDef(Constructor, _propTypes, 'prop');
     }
     Constructor.propTypes = _assign({}, Constructor.propTypes, _propTypes);
@@ -26860,7 +29681,7 @@ function validateTypeDef(Constructor, typeDef, location) {
     if (typeDef.hasOwnProperty(propName)) {
       // use a warning instead of an invariant so components
       // don't show up in prod but only in __DEV__
-      process.env.NODE_ENV !== 'production' ? warning(typeof typeDef[propName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'React.PropTypes.', Constructor.displayName || 'ReactClass', ReactPropTypeLocationNames[location], propName) : void 0;
+       false ? warning(typeof typeDef[propName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'React.PropTypes.', Constructor.displayName || 'ReactClass', ReactPropTypeLocationNames[location], propName) : void 0;
     }
   }
 }
@@ -26870,12 +29691,12 @@ function validateMethodOverride(isAlreadyDefined, name) {
 
   // Disallow overriding of base class methods unless explicitly allowed.
   if (ReactClassMixin.hasOwnProperty(name)) {
-    !(specPolicy === 'OVERRIDE_BASE') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactClassInterface: You are attempting to override `%s` from your class specification. Ensure that your method names do not overlap with React methods.', name) : _prodInvariant('73', name) : void 0;
+    !(specPolicy === 'OVERRIDE_BASE') ?  false ? invariant(false, 'ReactClassInterface: You are attempting to override `%s` from your class specification. Ensure that your method names do not overlap with React methods.', name) : _prodInvariant('73', name) : void 0;
   }
 
   // Disallow defining methods more than once unless explicitly allowed.
   if (isAlreadyDefined) {
-    !(specPolicy === 'DEFINE_MANY' || specPolicy === 'DEFINE_MANY_MERGED') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactClassInterface: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.', name) : _prodInvariant('74', name) : void 0;
+    !(specPolicy === 'DEFINE_MANY' || specPolicy === 'DEFINE_MANY_MERGED') ?  false ? invariant(false, 'ReactClassInterface: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.', name) : _prodInvariant('74', name) : void 0;
   }
 }
 
@@ -26885,7 +29706,7 @@ function validateMethodOverride(isAlreadyDefined, name) {
  */
 function mixSpecIntoComponent(Constructor, spec) {
   if (!spec) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var typeofSpec = typeof spec === 'undefined' ? 'undefined' : _typeof(spec);
       var isMixinValid = typeofSpec === 'object' && spec !== null;
 
@@ -26895,8 +29716,8 @@ function mixSpecIntoComponent(Constructor, spec) {
     return;
   }
 
-  !(typeof spec !== 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactClass: You\'re attempting to use a component class or function as a mixin. Instead, just use a regular object.') : _prodInvariant('75') : void 0;
-  !!ReactElement.isValidElement(spec) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactClass: You\'re attempting to use a component as a mixin. Instead, just use a regular object.') : _prodInvariant('76') : void 0;
+  !(typeof spec !== 'function') ?  false ? invariant(false, 'ReactClass: You\'re attempting to use a component class or function as a mixin. Instead, just use a regular object.') : _prodInvariant('75') : void 0;
+  !!ReactElement.isValidElement(spec) ?  false ? invariant(false, 'ReactClass: You\'re attempting to use a component as a mixin. Instead, just use a regular object.') : _prodInvariant('76') : void 0;
 
   var proto = Constructor.prototype;
   var autoBindPairs = proto.__reactAutoBindPairs;
@@ -26941,7 +29762,7 @@ function mixSpecIntoComponent(Constructor, spec) {
           var specPolicy = ReactClassInterface[name];
 
           // These cases should already be caught by validateMethodOverride.
-          !(isReactClassMethod && (specPolicy === 'DEFINE_MANY_MERGED' || specPolicy === 'DEFINE_MANY')) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactClass: Unexpected spec policy %s for key %s when mixing in component specs.', specPolicy, name) : _prodInvariant('77', specPolicy, name) : void 0;
+          !(isReactClassMethod && (specPolicy === 'DEFINE_MANY_MERGED' || specPolicy === 'DEFINE_MANY')) ?  false ? invariant(false, 'ReactClass: Unexpected spec policy %s for key %s when mixing in component specs.', specPolicy, name) : _prodInvariant('77', specPolicy, name) : void 0;
 
           // For methods which are defined more than once, call the existing
           // methods before calling the new property, merging if appropriate.
@@ -26952,7 +29773,7 @@ function mixSpecIntoComponent(Constructor, spec) {
           }
         } else {
           proto[name] = property;
-          if (process.env.NODE_ENV !== 'production') {
+          if (false) {
             // Add verbose displayName to the function, which helps when looking
             // at profiling tools.
             if (typeof property === 'function' && spec.displayName) {
@@ -26976,10 +29797,10 @@ function mixStaticSpecIntoComponent(Constructor, statics) {
     }
 
     var isReserved = name in RESERVED_SPEC_KEYS;
-    !!isReserved ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactClass: You are attempting to define a reserved property, `%s`, that shouldn\'t be on the "statics" key. Define it as an instance property instead; it will still be accessible on the constructor.', name) : _prodInvariant('78', name) : void 0;
+    !!isReserved ?  false ? invariant(false, 'ReactClass: You are attempting to define a reserved property, `%s`, that shouldn\'t be on the "statics" key. Define it as an instance property instead; it will still be accessible on the constructor.', name) : _prodInvariant('78', name) : void 0;
 
     var isInherited = name in Constructor;
-    !!isInherited ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactClass: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.', name) : _prodInvariant('79', name) : void 0;
+    !!isInherited ?  false ? invariant(false, 'ReactClass: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.', name) : _prodInvariant('79', name) : void 0;
     Constructor[name] = property;
   }
 }
@@ -26992,11 +29813,11 @@ function mixStaticSpecIntoComponent(Constructor, statics) {
  * @return {object} one after it has been mutated to contain everything in two.
  */
 function mergeIntoWithNoDuplicateKeys(one, two) {
-  !(one && two && (typeof one === 'undefined' ? 'undefined' : _typeof(one)) === 'object' && (typeof two === 'undefined' ? 'undefined' : _typeof(two)) === 'object') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'mergeIntoWithNoDuplicateKeys(): Cannot merge non-objects.') : _prodInvariant('80') : void 0;
+  !(one && two && (typeof one === 'undefined' ? 'undefined' : _typeof(one)) === 'object' && (typeof two === 'undefined' ? 'undefined' : _typeof(two)) === 'object') ?  false ? invariant(false, 'mergeIntoWithNoDuplicateKeys(): Cannot merge non-objects.') : _prodInvariant('80') : void 0;
 
   for (var key in two) {
     if (two.hasOwnProperty(key)) {
-      !(one[key] === undefined) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'mergeIntoWithNoDuplicateKeys(): Tried to merge two objects with the same key: `%s`. This conflict may be due to a mixin; in particular, this may be caused by two getInitialState() or getDefaultProps() methods returning objects with clashing keys.', key) : _prodInvariant('81', key) : void 0;
+      !(one[key] === undefined) ?  false ? invariant(false, 'mergeIntoWithNoDuplicateKeys(): Tried to merge two objects with the same key: `%s`. This conflict may be due to a mixin; in particular, this may be caused by two getInitialState() or getDefaultProps() methods returning objects with clashing keys.', key) : _prodInvariant('81', key) : void 0;
       one[key] = two[key];
     }
   }
@@ -27051,7 +29872,7 @@ function createChainedFunction(one, two) {
  */
 function bindAutoBindMethod(component, method) {
   var boundMethod = method.bind(component);
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     boundMethod.__reactBoundContext = component;
     boundMethod.__reactBoundMethod = method;
     boundMethod.__reactBoundArguments = null;
@@ -27144,7 +29965,7 @@ var ReactClass = {
    * @public
    */
   createClass: function createClass(spec) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       process.env.NODE_ENV !== 'production' ? warning(didWarnDeprecated, '%s: React.createClass is deprecated and will be removed in version 16. ' + 'Use plain JavaScript classes instead. If you\'re not yet ready to ' + 'migrate, create-react-class is available on npm as a ' + 'drop-in replacement.', spec && spec.displayName || 'A Component') : void 0;
       didWarnDeprecated = true;
     }
@@ -27156,7 +29977,7 @@ var ReactClass = {
       // This constructor gets overridden by mocks. The argument is used
       // by mocks to assert on what gets mounted.
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         process.env.NODE_ENV !== 'production' ? warning(this instanceof Constructor, 'Something is calling a React component directly. Use a factory or ' + 'JSX instead. See: https://fb.me/react-legacyfactory') : void 0;
       }
 
@@ -27176,7 +29997,7 @@ var ReactClass = {
       // getInitialState and componentWillMount methods for initialization.
 
       var initialState = this.getInitialState ? this.getInitialState() : null;
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         // We allow auto-mocks to proceed as if they're returning null.
         if (initialState === undefined && this.getInitialState._isMockFunction) {
           // This is probably bad practice. Consider warning here and
@@ -27184,7 +30005,7 @@ var ReactClass = {
           initialState = null;
         }
       }
-      !((typeof initialState === 'undefined' ? 'undefined' : _typeof(initialState)) === 'object' && !Array.isArray(initialState)) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.getInitialState(): must return an object or null', Constructor.displayName || 'ReactCompositeComponent') : _prodInvariant('82', Constructor.displayName || 'ReactCompositeComponent') : void 0;
+      !((typeof initialState === 'undefined' ? 'undefined' : _typeof(initialState)) === 'object' && !Array.isArray(initialState)) ?  false ? invariant(false, '%s.getInitialState(): must return an object or null', Constructor.displayName || 'ReactCompositeComponent') : _prodInvariant('82', Constructor.displayName || 'ReactCompositeComponent') : void 0;
 
       this.state = initialState;
     });
@@ -27201,7 +30022,7 @@ var ReactClass = {
       Constructor.defaultProps = Constructor.getDefaultProps();
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       // This is a tag to indicate that the use of these method names is ok,
       // since it's used with createClass. If it's not, then it's likely a
       // mistake so we'll warn you to use the static property, property
@@ -27214,9 +30035,9 @@ var ReactClass = {
       }
     }
 
-    !Constructor.prototype.render ? process.env.NODE_ENV !== 'production' ? invariant(false, 'createClass(...): Class specification must implement a `render` method.') : _prodInvariant('83') : void 0;
+    !Constructor.prototype.render ?  false ? invariant(false, 'createClass(...): Class specification must implement a `render` method.') : _prodInvariant('83') : void 0;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       process.env.NODE_ENV !== 'production' ? warning(!Constructor.prototype.componentShouldUpdate, '%s has a method called ' + 'componentShouldUpdate(). Did you mean shouldComponentUpdate()? ' + 'The name is phrased as a question because the function is ' + 'expected to return a value.', spec.displayName || 'A component') : void 0;
       process.env.NODE_ENV !== 'production' ? warning(!Constructor.prototype.componentWillRecieveProps, '%s has a method called ' + 'componentWillRecieveProps(). Did you mean componentWillReceiveProps()?', spec.displayName || 'A component') : void 0;
     }
@@ -27240,14 +30061,58 @@ var ReactClass = {
 };
 
 module.exports = ReactClass;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(MIXINS_KEY, 'MIXINS_KEY', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(identity, 'identity', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(injectedMixins, 'injectedMixins', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(ReactClassInterface, 'ReactClassInterface', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(RESERVED_SPEC_KEYS, 'RESERVED_SPEC_KEYS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(validateTypeDef, 'validateTypeDef', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(validateMethodOverride, 'validateMethodOverride', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(mixSpecIntoComponent, 'mixSpecIntoComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(mixStaticSpecIntoComponent, 'mixStaticSpecIntoComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(mergeIntoWithNoDuplicateKeys, 'mergeIntoWithNoDuplicateKeys', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(createMergedResultFunction, 'createMergedResultFunction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(createChainedFunction, 'createChainedFunction', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(bindAutoBindMethod, 'bindAutoBindMethod', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(bindAutoBindMethods, 'bindAutoBindMethods', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(ReactClassMixin, 'ReactClassMixin', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(ReactClassComponent, 'ReactClassComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(didWarnDeprecated, 'didWarnDeprecated', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+
+  __REACT_HOT_LOADER__.register(ReactClass, 'ReactClass', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactClass.js');
+}();
+
+;
 
 /***/ }),
-/* 257 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -27259,7 +30124,7 @@ module.exports = ReactClass;
 
 
 
-var ReactElement = __webpack_require__(19);
+var ReactElement = __webpack_require__(21);
 
 /**
  * Create a factory that creates HTML tag elements.
@@ -27267,8 +30132,8 @@ var ReactElement = __webpack_require__(19);
  * @private
  */
 var createDOMFactory = ReactElement.createFactory;
-if (process.env.NODE_ENV !== 'production') {
-  var ReactElementValidator = __webpack_require__(111);
+if (false) {
+  var ReactElementValidator = require('./ReactElementValidator');
   createDOMFactory = ReactElementValidator.createFactory;
 }
 
@@ -27416,34 +30281,22 @@ var ReactDOMFactories = {
 };
 
 module.exports = ReactDOMFactories;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(createDOMFactory, 'createDOMFactory', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactDOMFactories.js');
+
+  __REACT_HOT_LOADER__.register(ReactDOMFactories, 'ReactDOMFactories', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactDOMFactories.js');
+}();
+
+;
 
 /***/ }),
-/* 258 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var _require = __webpack_require__(19),
-    isValidElement = _require.isValidElement;
-
-var factory = __webpack_require__(79);
-
-module.exports = factory(isValidElement);
-
-/***/ }),
-/* 259 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27460,12 +30313,31 @@ module.exports = factory(isValidElement);
 
 
 
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+var ReactPropTypeLocationNames = {};
 
-module.exports = ReactPropTypesSecret;
+if (false) {
+  ReactPropTypeLocationNames = {
+    prop: 'prop',
+    context: 'context',
+    childContext: 'child context'
+  };
+}
+
+module.exports = ReactPropTypeLocationNames;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactPropTypeLocationNames, 'ReactPropTypeLocationNames', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactPropTypeLocationNames.js');
+}();
+
+;
 
 /***/ }),
-/* 260 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27481,12 +30353,47 @@ module.exports = ReactPropTypesSecret;
 
 
 
-var _assign = __webpack_require__(5);
+var _require = __webpack_require__(21),
+    isValidElement = _require.isValidElement;
 
-var ReactComponent = __webpack_require__(66);
-var ReactNoopUpdateQueue = __webpack_require__(67);
+var factory = __webpack_require__(76);
 
-var emptyObject = __webpack_require__(26);
+module.exports = factory(isValidElement);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isValidElement, 'isValidElement', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactPropTypes.js');
+}();
+
+;
+
+/***/ }),
+/* 247 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var _assign = __webpack_require__(4);
+
+var ReactComponent = __webpack_require__(62);
+var ReactNoopUpdateQueue = __webpack_require__(63);
+
+var emptyObject = __webpack_require__(24);
 
 /**
  * Base class helpers for the updating state of a component.
@@ -27510,9 +30417,22 @@ _assign(ReactPureComponent.prototype, ReactComponent.prototype);
 ReactPureComponent.prototype.isPureReactComponent = true;
 
 module.exports = ReactPureComponent;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ReactPureComponent, 'ReactPureComponent', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactPureComponent.js');
+
+  __REACT_HOT_LOADER__.register(ComponentDummy, 'ComponentDummy', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/ReactPureComponent.js');
+}();
+
+;
 
 /***/ }),
-/* 261 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27529,13 +30449,22 @@ module.exports = ReactPureComponent;
 
 
 module.exports = '15.5.4';
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 262 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -27543,90 +30472,56 @@ module.exports = '15.5.4';
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
+ * 
  */
 
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+/* global Symbol */
 
-var _prodInvariant = __webpack_require__(20);
-
-var ReactPropTypeLocationNames = __webpack_require__(112);
-var ReactPropTypesSecret = __webpack_require__(259);
-
-var invariant = __webpack_require__(1);
-var warning = __webpack_require__(2);
-
-var ReactComponentTreeHook;
-
-if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'test') {
-  // Temporary hack.
-  // Inline requires don't work well with Jest:
-  // https://github.com/facebook/react/issues/7240
-  // Remove the inline requires when we don't need them anymore:
-  // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(10);
-}
-
-var loggedTypeFailures = {};
+var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
 
 /**
- * Assert that the values match with the type specs.
- * Error messages are memorized and will only be shown once.
+ * Returns the iterator method function contained on the iterable object.
  *
- * @param {object} typeSpecs Map of name to a ReactPropType
- * @param {object} values Runtime values that need to be type-checked
- * @param {string} location e.g. "prop", "context", "child context"
- * @param {string} componentName Name of the component for error messages.
- * @param {?object} element The React element that is being type-checked
- * @param {?number} debugID The React component instance that is being type-checked
- * @private
+ * Be sure to invoke the function with the iterable as context:
+ *
+ *     var iteratorFn = getIteratorFn(myIterable);
+ *     if (iteratorFn) {
+ *       var iterator = iteratorFn.call(myIterable);
+ *       ...
+ *     }
+ *
+ * @param {?object} maybeIterable
+ * @return {?function}
  */
-function checkReactTypeSpec(typeSpecs, values, location, componentName, element, debugID) {
-  for (var typeSpecName in typeSpecs) {
-    if (typeSpecs.hasOwnProperty(typeSpecName)) {
-      var error;
-      // Prop type validation may throw. In case they do, we don't want to
-      // fail the render phase where it didn't fail before. So we log it.
-      // After these have been cleaned up, we'll let them throw.
-      try {
-        // This is intentionally an invariant that gets caught. It's the same
-        // behavior as without this statement except with a better message.
-        !(typeof typeSpecs[typeSpecName] === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s: %s type `%s` is invalid; it must be a function, usually from React.PropTypes.', componentName || 'React class', ReactPropTypeLocationNames[location], typeSpecName) : _prodInvariant('84', componentName || 'React class', ReactPropTypeLocationNames[location], typeSpecName) : void 0;
-        error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
-      } catch (ex) {
-        error = ex;
-      }
-      process.env.NODE_ENV !== 'production' ? warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', ReactPropTypeLocationNames[location], typeSpecName, typeof error === 'undefined' ? 'undefined' : _typeof(error)) : void 0;
-      if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-        // Only monitor this failure once because there tends to be a lot of the
-        // same error.
-        loggedTypeFailures[error.message] = true;
-
-        var componentStackInfo = '';
-
-        if (process.env.NODE_ENV !== 'production') {
-          if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(10);
-          }
-          if (debugID !== null) {
-            componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
-          } else if (element !== null) {
-            componentStackInfo = ReactComponentTreeHook.getCurrentStackAddendum(element);
-          }
-        }
-
-        process.env.NODE_ENV !== 'production' ? warning(false, 'Failed %s type: %s%s', location, error.message, componentStackInfo) : void 0;
-      }
-    }
+function getIteratorFn(maybeIterable) {
+  var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+  if (typeof iteratorFn === 'function') {
+    return iteratorFn;
   }
 }
 
-module.exports = checkReactTypeSpec;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+module.exports = getIteratorFn;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ITERATOR_SYMBOL, 'ITERATOR_SYMBOL', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/getIteratorFn.js');
+
+  __REACT_HOT_LOADER__.register(FAUX_ITERATOR_SYMBOL, 'FAUX_ITERATOR_SYMBOL', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/getIteratorFn.js');
+
+  __REACT_HOT_LOADER__.register(getIteratorFn, 'getIteratorFn', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/getIteratorFn.js');
+}();
+
+;
 
 /***/ }),
-/* 263 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27650,13 +30545,26 @@ function getNextDebugID() {
 }
 
 module.exports = getNextDebugID;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(nextDebugID, 'nextDebugID', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/getNextDebugID.js');
+
+  __REACT_HOT_LOADER__.register(getNextDebugID, 'getNextDebugID', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/getNextDebugID.js');
+}();
+
+;
 
 /***/ }),
-/* 264 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -27667,11 +30575,11 @@ module.exports = getNextDebugID;
  */
 
 
-var _prodInvariant = __webpack_require__(20);
+var _prodInvariant = __webpack_require__(22);
 
-var ReactElement = __webpack_require__(19);
+var ReactElement = __webpack_require__(21);
 
-var invariant = __webpack_require__(1);
+var invariant = __webpack_require__(0);
 
 /**
  * Returns the first child in a collection of children and verifies that there
@@ -27688,19 +30596,29 @@ var invariant = __webpack_require__(1);
  * structure.
  */
 function onlyChild(children) {
-  !ReactElement.isValidElement(children) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'React.Children.only expected to receive a single React element child.') : _prodInvariant('143') : void 0;
+  !ReactElement.isValidElement(children) ?  false ? invariant(false, 'React.Children.only expected to receive a single React element child.') : _prodInvariant('143') : void 0;
   return children;
 }
 
 module.exports = onlyChild;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(onlyChild, 'onlyChild', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/onlyChild.js');
+}();
+
+;
 
 /***/ }),
-/* 265 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
+/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
  *
@@ -27714,14 +30632,14 @@ module.exports = onlyChild;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(20);
+var _prodInvariant = __webpack_require__(22);
 
-var ReactCurrentOwner = __webpack_require__(14);
-var REACT_ELEMENT_TYPE = __webpack_require__(110);
+var ReactCurrentOwner = __webpack_require__(13);
+var REACT_ELEMENT_TYPE = __webpack_require__(107);
 
-var getIteratorFn = __webpack_require__(113);
-var invariant = __webpack_require__(1);
-var KeyEscapeUtils = __webpack_require__(253);
+var getIteratorFn = __webpack_require__(249);
+var invariant = __webpack_require__(0);
+var KeyEscapeUtils = __webpack_require__(240);
 var warning = __webpack_require__(2);
 
 var SEPARATOR = '.';
@@ -27809,7 +30727,7 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
           subtreeCount += traverseAllChildrenImpl(child, nextName, callback, traverseContext);
         }
       } else {
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           var mapsAsChildrenAddendum = '';
           if (ReactCurrentOwner.current) {
             var mapsAsChildrenOwnerName = ReactCurrentOwner.current.getName();
@@ -27832,7 +30750,7 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
       }
     } else if (type === 'object') {
       var addendum = '';
-      if (process.env.NODE_ENV !== 'production') {
+      if (false) {
         addendum = ' If you meant to render a collection of children, use an array ' + 'instead or wrap the object using createFragment(object) from the ' + 'React add-ons.';
         if (children._isReactElement) {
           addendum = ' It looks like you\'re using an element created by a different ' + 'version of React. Make sure to use only one copy of React.';
@@ -27845,7 +30763,7 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
         }
       }
       var childrenString = String(children);
-       true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Objects are not valid as a React child (found: %s).%s', childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString, addendum) : _prodInvariant('31', childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString, addendum) : void 0;
+       true ?  false ? invariant(false, 'Objects are not valid as a React child (found: %s).%s', childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString, addendum) : _prodInvariant('31', childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString, addendum) : void 0;
     }
   }
 
@@ -27877,10 +30795,30 @@ function traverseAllChildren(children, callback, traverseContext) {
 }
 
 module.exports = traverseAllChildren;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SEPARATOR, 'SEPARATOR', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(SUBSEPARATOR, 'SUBSEPARATOR', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(didWarnAboutMaps, 'didWarnAboutMaps', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(getComponentKey, 'getComponentKey', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(traverseAllChildrenImpl, 'traverseAllChildrenImpl', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/traverseAllChildren.js');
+
+  __REACT_HOT_LOADER__.register(traverseAllChildren, 'traverseAllChildren', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/react/lib/traverseAllChildren.js');
+}();
+
+;
 
 /***/ }),
-/* 266 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -28169,10 +31107,19 @@ module.exports = traverseAllChildren;
         r = e.getState;return "function" == typeof t || "function" == typeof r ? S()({ dispatch: t, getState: r }) : void console.error("\n[redux-logger v3] BREAKING CHANGE\n[redux-logger v3] Since 3.0.0 redux-logger exports by default logger with default settings.\n[redux-logger v3] Change\n[redux-logger v3] import createLogger from 'redux-logger'\n[redux-logger v3] to\n[redux-logger v3] import { createLogger } from 'redux-logger'\n");
   };e.defaults = L, e.createLogger = S, e.logger = T, e.default = T, Object.defineProperty(e, "__esModule", { value: !0 });
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(68)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(64)))
 
 /***/ }),
-/* 267 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28199,14 +31146,27 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 exports['default'] = thunk;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(createThunkMiddleware, 'createThunkMiddleware', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux-thunk/lib/index.js');
+
+  __REACT_HOT_LOADER__.register(thunk, 'thunk', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux-thunk/lib/index.js');
+}();
+
+;
 
 /***/ }),
-/* 268 */
+/* 255 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(109);
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];for (var key in source) {
@@ -28263,9 +31223,22 @@ function applyMiddleware() {
     };
   };
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_extends, '_extends', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/applyMiddleware.js');
+
+  __REACT_HOT_LOADER__.register(applyMiddleware, 'applyMiddleware', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/applyMiddleware.js');
+}();
+
+;
 
 /***/ }),
-/* 269 */
+/* 256 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28319,16 +31292,29 @@ function bindActionCreators(actionCreators, dispatch) {
   }
   return boundActionCreators;
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(bindActionCreator, 'bindActionCreator', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/bindActionCreators.js');
+
+  __REACT_HOT_LOADER__.register(bindActionCreators, 'bindActionCreators', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/bindActionCreators.js');
+}();
+
+;
 
 /***/ }),
-/* 270 */
+/* 257 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(117);
+/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(112);
 
 
 
@@ -28403,9 +31389,9 @@ function combineReducers(reducers) {
   for (var i = 0; i < reducerKeys.length; i++) {
     var key = reducerKeys[i];
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       if (typeof reducers[key] === 'undefined') {
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils_warning__["a" /* default */])('No reducer provided for key "' + key + '"');
+        warning('No reducer provided for key "' + key + '"');
       }
     }
 
@@ -28415,7 +31401,7 @@ function combineReducers(reducers) {
   }
   var finalReducerKeys = Object.keys(finalReducers);
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     var unexpectedKeyCache = {};
   }
 
@@ -28434,10 +31420,10 @@ function combineReducers(reducers) {
       throw sanityError;
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
       if (warningMessage) {
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils_warning__["a" /* default */])(warningMessage);
+        warning(warningMessage);
       }
     }
 
@@ -28458,10 +31444,26 @@ function combineReducers(reducers) {
     return hasChanged ? nextState : state;
   };
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getUndefinedStateErrorMessage, 'getUndefinedStateErrorMessage', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/combineReducers.js');
+
+  __REACT_HOT_LOADER__.register(getUnexpectedStateShapeWarningMessage, 'getUnexpectedStateShapeWarningMessage', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/combineReducers.js');
+
+  __REACT_HOT_LOADER__.register(assertReducerSanity, 'assertReducerSanity', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/combineReducers.js');
+
+  __REACT_HOT_LOADER__.register(combineReducers, 'combineReducers', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/redux/es/combineReducers.js');
+}();
+
+;
 
 /***/ }),
-/* 271 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28535,15 +31537,39 @@ var resolvePathname = function resolvePathname(to) {
 };
 
 module.exports = resolvePathname;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isAbsolute, 'isAbsolute', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/resolve-pathname/index.js');
+
+  __REACT_HOT_LOADER__.register(spliceOne, 'spliceOne', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/resolve-pathname/index.js');
+
+  __REACT_HOT_LOADER__.register(resolvePathname, 'resolvePathname', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/resolve-pathname/index.js');
+}();
+
+;
 
 /***/ }),
-/* 272 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(273);
+module.exports = __webpack_require__(260);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
-/* 273 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28553,7 +31579,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(274);
+var _ponyfill = __webpack_require__(261);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -28577,10 +31603,27 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(68), __webpack_require__(276)(module)))
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_ponyfill2, '_ponyfill2', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/symbol-observable/lib/index.js');
+
+  __REACT_HOT_LOADER__.register(_interopRequireDefault, '_interopRequireDefault', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/symbol-observable/lib/index.js');
+
+  __REACT_HOT_LOADER__.register(root, 'root', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/symbol-observable/lib/index.js');
+
+  __REACT_HOT_LOADER__.register(result, 'result', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/symbol-observable/lib/index.js');
+}();
+
+;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(64), __webpack_require__(263)(module)))
 
 /***/ }),
-/* 274 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28607,9 +31650,20 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(symbolObservablePonyfill, 'symbolObservablePonyfill', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/symbol-observable/lib/ponyfill.js');
+}();
+
+;
 
 /***/ }),
-/* 275 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28659,9 +31713,22 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_typeof, "_typeof", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/value-equal/index.js");
+
+  __REACT_HOT_LOADER__.register(valueEqual, "valueEqual", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/node_modules/value-equal/index.js");
+}();
+
+;
 
 /***/ }),
-/* 276 */
+/* 263 */
 /***/ (function(module, exports) {
 
 module.exports = function (module) {
@@ -28686,21 +31753,30 @@ module.exports = function (module) {
 	}
 	return module;
 };
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
 
 /***/ }),
-/* 277 */
+/* 264 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Footer__ = __webpack_require__(279);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Banner_index__ = __webpack_require__(278);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MainWindow__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Login__ = __webpack_require__(280);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__App_css__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Footer__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Banner_index__ = __webpack_require__(265);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MainWindow__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Login__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__App_css__ = __webpack_require__(290);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__App_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__App_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_normalize_css__ = __webpack_require__(302);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_normalize_css__ = __webpack_require__(289);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_normalize_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_normalize_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28746,23 +31822,39 @@ var App = function (_Component) {
     return App;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (App);
+var _default = App;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(App, 'App', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/App.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/App.js');
+}();
+
+;
 
 /***/ }),
-/* 278 */
+/* 265 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Banner_css__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Banner_css__ = __webpack_require__(291);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Banner_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Banner_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style_iconfont_css__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style_iconfont_css__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style_iconfont_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__style_iconfont_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_login__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_login__ = __webpack_require__(66);
 
 
 
@@ -28852,20 +31944,36 @@ var Banner = function Banner(_ref) {
 };
 Banner = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_react_redux__["b" /* connect */])(getState)(Banner);
 
-/* harmony default export */ __webpack_exports__["a"] = (Banner);
+var _default = Banner;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(getState, 'getState', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/Banner/index.js');
+
+    __REACT_HOT_LOADER__.register(Banner, 'Banner', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/Banner/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/Banner/index.js');
+}();
+
+;
 
 /***/ }),
-/* 279 */
+/* 266 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Footer_css__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Footer_css__ = __webpack_require__(292);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Footer_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Footer_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_iconfont_css__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_iconfont_css__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_iconfont_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__style_iconfont_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28937,23 +32045,39 @@ var Footer = function (_Component) {
     return Footer;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Footer);
+var _default = Footer;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Footer, 'Footer', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/Footer/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/Footer/index.js');
+}();
+
+;
 
 /***/ }),
-/* 280 */
+/* 267 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Login_css__ = __webpack_require__(306);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Login_css__ = __webpack_require__(293);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Login_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Login_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__style_iconfont_css__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__style_iconfont_css__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__style_iconfont_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__style_iconfont_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_login__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_login__ = __webpack_require__(66);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -29040,21 +32164,38 @@ var Login = function Login(_ref) {
     );
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(selector)(Login));
+var _default = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(selector)(Login);
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(selector, 'selector', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/Login/index.js');
+
+    __REACT_HOT_LOADER__.register(Login, 'Login', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/Login/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/Login/index.js');
+}();
+
+;
 
 /***/ }),
-/* 281 */
+/* 268 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Style_css__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Style_css__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ListItem__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ListItem__ = __webpack_require__(269);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__style_iconfont_css__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__style_iconfont_css__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__style_iconfont_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__style_iconfont_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -29135,22 +32276,38 @@ var List = function (_Component) {
     return List;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (List);
+var _default = List;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(List, 'List', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/LikeList/List.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/LikeList/List.js');
+}();
+
+;
 
 /***/ }),
-/* 282 */
+/* 269 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Style_css__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Style_css__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_iconfont_css__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_iconfont_css__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_iconfont_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__style_iconfont_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router__ = __webpack_require__(6);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -29203,22 +32360,38 @@ var ListItem = function (_Component) {
     return ListItem;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (ListItem);
+var _default = ListItem;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(ListItem, 'ListItem', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/LikeList/ListItem.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/LikeList/ListItem.js');
+}();
+
+;
 
 /***/ }),
-/* 283 */
+/* 270 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_redux__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Style_css__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_redux__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Style_css__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__List__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_redux__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_router_dom__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__List__ = __webpack_require__(268);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_redux__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_router_dom__ = __webpack_require__(58);
 
 
 
@@ -29254,16 +32427,33 @@ var LikeList = function LikeList(_ref) {
     );
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_react_router_dom__["b" /* withRouter */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react_redux__["b" /* connect */])(selector)(LikeList)));
+var _default = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_react_router_dom__["b" /* withRouter */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react_redux__["b" /* connect */])(selector)(LikeList));
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(selector, 'selector', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/LikeList/index.js');
+
+    __REACT_HOT_LOADER__.register(LikeList, 'LikeList', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/LikeList/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/LikeList/index.js');
+}();
+
+;
 
 /***/ }),
-/* 284 */
+/* 271 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MiniBox__ = __webpack_require__(308);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MiniBox__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MiniBox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__MiniBox__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -29300,19 +32490,35 @@ var MiniBox = function (_Component) {
     return MiniBox;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (MiniBox);
+var _default = MiniBox;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(MiniBox, 'MiniBox', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/MiniBox/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/MiniBox/index.js');
+}();
+
+;
 
 /***/ }),
-/* 285 */
+/* 272 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LeftMenu_css__ = __webpack_require__(307);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LeftMenu_css__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LeftMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__LeftMenu_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MiniBox__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LikeList_index__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MiniBox__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LikeList_index__ = __webpack_require__(270);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29350,22 +32556,38 @@ var LeftMenu = function (_Component) {
     return LeftMenu;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (LeftMenu);
+var _default = LeftMenu;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(LeftMenu, 'LeftMenu', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/LeftMenu/index.js');
+}();
+
+;
 
 /***/ }),
-/* 286 */
+/* 273 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__RightWindow_css__ = __webpack_require__(310);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__RightWindow_css__ = __webpack_require__(297);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__RightWindow_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__RightWindow_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__window_DiscoverMusic__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__window_PersonalFM__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__window_MV__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_router_dom__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__window_DiscoverMusic__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__window_PersonalFM__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__window_MV__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_router_dom__ = __webpack_require__(58);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29472,19 +32694,35 @@ var RightWindow = function (_Component) {
     return RightWindow;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (RightWindow);
+var _default = RightWindow;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(RightWindow, 'RightWindow', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/RightWindow/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/RightWindow/index.js');
+}();
+
+;
 
 /***/ }),
-/* 287 */
+/* 274 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MainWindow_css__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MainWindow_css__ = __webpack_require__(296);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MainWindow_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__MainWindow_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LeftMenu__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__RightWindow__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LeftMenu__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__RightWindow__ = __webpack_require__(273);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29525,17 +32763,33 @@ var MainWindow = function (_Component) {
     return MainWindow;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (MainWindow);
+var _default = MainWindow;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(MainWindow, 'MainWindow', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/MainWindow/index.js');
+}();
+
+;
 
 /***/ }),
-/* 288 */
+/* 275 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SongListItem__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SunList_css__ = __webpack_require__(311);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SongListItem__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SunList_css__ = __webpack_require__(298);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SunList_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__SunList_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -29621,20 +32875,36 @@ var SunList = function (_Component) {
     return SunList;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (SunList);
+var _default = SunList;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(SunList, 'SunList', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/page_components/SongList/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/page_components/SongList/index.js');
+}();
+
+;
 
 /***/ }),
-/* 289 */
+/* 276 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SunListItem_css__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SunListItem_css__ = __webpack_require__(299);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SunListItem_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__SunListItem_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_iconfont_css__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_iconfont_css__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_iconfont_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__style_iconfont_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -29704,16 +32974,32 @@ var SunListItem = function (_Component) {
     return SunListItem;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (SunListItem);
+var _default = SunListItem;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(SunListItem, 'SunListItem', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/page_components/SongListItem/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/page_components/SongListItem/index.js');
+}();
+
+;
 
 /***/ }),
-/* 290 */
+/* 277 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Title_css__ = __webpack_require__(313);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Title_css__ = __webpack_require__(300);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Title_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Title_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -29763,14 +33049,30 @@ var Title = function (_Component) {
     return Title;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Title);
+var _default = Title;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Title, 'Title', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/page_components/Title/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/page_components/Title/index.js');
+}();
+
+;
 
 /***/ }),
-/* 291 */
+/* 278 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -29862,14 +33164,30 @@ var GD = function (_Component) {
     return GD;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (GD);
+var _default = GD;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(GD, 'GD', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/GD/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/GD/index.js');
+}();
+
+;
 
 /***/ }),
-/* 292 */
+/* 279 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -29904,19 +33222,35 @@ var GS = function (_Component) {
     return GS;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (GS);
+var _default = GS;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(GS, 'GS', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/GS/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/GS/index.js');
+}();
+
+;
 
 /***/ }),
-/* 293 */
+/* 280 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__page_components_Title__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__GXTJ_css__ = __webpack_require__(315);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__page_components_Title__ = __webpack_require__(277);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__GXTJ_css__ = __webpack_require__(302);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__GXTJ_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__GXTJ_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__page_components_SongList__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__page_components_SongList__ = __webpack_require__(275);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29961,14 +33295,30 @@ var GXTJ = function (_Component) {
     return GXTJ;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (GXTJ);
+var _default = GXTJ;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(GXTJ, 'GXTJ', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/GXTJ/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/GXTJ/index.js');
+}();
+
+;
 
 /***/ }),
-/* 294 */
+/* 281 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -30003,14 +33353,30 @@ var PHB = function (_Component) {
     return PHB;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (PHB);
+var _default = PHB;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(PHB, 'PHB', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/PHB/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/PHB/index.js');
+}();
+
+;
 
 /***/ }),
-/* 295 */
+/* 282 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -30045,14 +33411,30 @@ var ZBTD = function (_Component) {
     return ZBTD;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (ZBTD);
+var _default = ZBTD;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(ZBTD, 'ZBTD', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/ZBDT/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/ZBDT/index.js');
+}();
+
+;
 
 /***/ }),
-/* 296 */
+/* 283 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -30087,29 +33469,45 @@ var ZXYY = function (_Component) {
     return ZXYY;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (ZXYY);
+var _default = ZXYY;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(ZXYY, 'ZXYY', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/ZXYY/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/ZXYY/index.js');
+}();
+
+;
 
 /***/ }),
-/* 297 */
+/* 284 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DiscoverMusic_css__ = __webpack_require__(314);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DiscoverMusic_css__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DiscoverMusic_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DiscoverMusic_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_router__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_dom__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_router_redux__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__GXTJ__ = __webpack_require__(293);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__GD__ = __webpack_require__(291);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__GS__ = __webpack_require__(292);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__PHB__ = __webpack_require__(294);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ZBDT__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ZXYY__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_router__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_dom__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_router_redux__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__GXTJ__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__GD__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__GS__ = __webpack_require__(279);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__PHB__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ZBDT__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ZXYY__ = __webpack_require__(283);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -30198,14 +33596,31 @@ var DiscoverMusic = function DiscoverMusic(_ref) {
     );
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react_router_dom__["b" /* withRouter */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_react_redux__["b" /* connect */])(selector)(DiscoverMusic)));
+var _default = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react_router_dom__["b" /* withRouter */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_react_redux__["b" /* connect */])(selector)(DiscoverMusic));
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(selector, 'selector', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/index.js');
+
+    __REACT_HOT_LOADER__.register(DiscoverMusic, 'DiscoverMusic', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/DiscoverMusic/index.js');
+}();
+
+;
 
 /***/ }),
-/* 298 */
+/* 285 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -30240,14 +33655,30 @@ var MV = function (_Component) {
     return MV;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (MV);
+var _default = MV;
+
+
+/* unused harmony default export */ var _unused_webpack_default_export = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(MV, 'MV', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/MV/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/MV/index.js');
+}();
+
+;
 
 /***/ }),
-/* 299 */
+/* 286 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -30282,14 +33713,30 @@ var PersonalFM = function (_Component) {
     return PersonalFM;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (PersonalFM);
+var _default = PersonalFM;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(PersonalFM, 'PersonalFM', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/PersonalFM/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/components/window/PersonalFM/index.js');
+}();
+
+;
 
 /***/ }),
-/* 300 */
+/* 287 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(65);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -30383,14 +33830,30 @@ function list() {
     }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (list);
+var _default = list;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(list, "list", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/reducers/index.js");
+
+    __REACT_HOT_LOADER__.register(_list, "_list", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/reducers/index.js");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/reducers/index.js");
+}();
+
+;
 
 /***/ }),
-/* 301 */
+/* 288 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_login__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_login__ = __webpack_require__(66);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -30466,110 +33929,128 @@ var user = function user() {
     }
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (user);
+var _default = user;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(posts, 'posts', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/reducers/login.js');
+
+    __REACT_HOT_LOADER__.register(_user, '_user', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/reducers/login.js');
+
+    __REACT_HOT_LOADER__.register(user, 'user', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/reducers/login.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/shianqi/workspace/nodejs/NetEase-Cloud-Music-Web/src/reducers/login.js');
+}();
+
+;
 
 /***/ }),
-/* 302 */
+/* 289 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 303 */
+/* 290 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"app":"_1Ijijb4L-oWMsIczIk3dSM"};
 
 /***/ }),
-/* 304 */
+/* 291 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"wyRed":"#c62f2f","wyBlackRed":"#a82828","title":"_1aDuIx5qGdc61_jQSLj65g","logo":"_3kYjdrTeCsXVazX0t3cMw1","historyButton":"_2xyYAEldcpvMKw10LAsZ7K","historyButtonForward":"_2HtR-k_zDW_ihvm-bBuHPI","historyButtonBack":"ot4jbuZAHcTXZAGlcKbKx _2HtR-k_zDW_ihvm-bBuHPI","searchBox":"A98hoOt4y6Y10waMH41lK","searchBoxInput":"_1G0L45TvK_UL1Cb4XBg67A","searchBoxButton":"_1cMEl8mRw4p6vsPn5oWd8W","userInfo":"_35ySskE1sogdV_LjqhWcvw","sys":"_2Cr_nqvY_YOyL6Ues0w-1z","sys-item":"_18B9unN_v6nOeJXmMASUA3","user":"_2ju-C6KRXNx90z2yyJTLrZ","user-nickname":"_3OAkmts-zv1Jmwqc8bMW2U","user-photo":"sjTxSKlDZNVn4spW_cXCn"};
 
 /***/ }),
-/* 305 */
+/* 292 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"wyRed":"#c62f2f","wyBlackRed":"#a82828","footer":"HJlsB9kwBNrFQsO8C0wUN","play_button":"_2EWlKP357A-jXLuVNePxJZ","button_back":"d7vOoZDyOqgQ61Tc25kWJ _2EWlKP357A-jXLuVNePxJZ","button_front":"H5AO5aouHskPzzUK7iXaf _2EWlKP357A-jXLuVNePxJZ","button_play":"HoQDqM-WQ46EzDRrqIbjO _2EWlKP357A-jXLuVNePxJZ","icon_button":"_1xeWToNUoJ-E_VR2F3Qsgl","button_play_model":"_23Fss_XTbYXPD2_zRgvABS _1xeWToNUoJ-E_VR2F3Qsgl","button_lyric":"_2_QDGfHeoL80HFLCZl55fI _1xeWToNUoJ-E_VR2F3Qsgl","button_play_list":"_2mg5YMqGl8Kw7uXBPvBx1A _1xeWToNUoJ-E_VR2F3Qsgl"};
 
 /***/ }),
-/* 306 */
+/* 293 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"main":"_365a8cE6-FXran4CaMgbsp","display":"wVvhSeIQcQgzWqsxefeb6","close-button":"D7a9LfvjImAswtcHb0Q3h","form-login":"_1wFRr2kljrTOT2rHWgIuvW","form-banner":"_32LItg-zJ9caAz60bTH7-a","form-phone-number":"_2_3EYnPnFeiJI3oRAQYCZq","form-password":"_3KyEBMJDha5VQno2SS53E-","form-automatic-logon":"_1TVNtBJ3qsp8XnMIfqxfco","form-automatic-logon-radio":"LeMSnrwVtM0FWwxACELcO","form-automatic-logon-span":"_1YlZLfd5T5Qzdg0npI-ysa","form-login-button":"lruKSp-VbalEvulvlqxBp"};
 
 /***/ }),
-/* 307 */
+/* 294 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"leftMenu":"_3wcoecLnYyrpsxA5w6tsDe"};
 
 /***/ }),
-/* 308 */
+/* 295 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"miniBox":"_1ToUquqsocpO1avLmyFoP3","img_cover":"_1_UCRsD84Iq0rR8iYkF3kr"};
 
 /***/ }),
-/* 309 */
+/* 296 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"main-box":"_1x-xK9xyQCabQTJC0P0I4w"};
 
 /***/ }),
-/* 310 */
+/* 297 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"rightWindow":"QqJ5_oDF9nDL_1gP1piIN"};
 
 /***/ }),
-/* 311 */
+/* 298 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"main":"_2cXqukKH2XDtzLDfQAsUvG"};
 
 /***/ }),
-/* 312 */
+/* 299 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"main":"_2asIFftgOMc_a-HiMkBc3z","item-img":"_3cRDChf3ZcENzh86zwGJWw","item-title":"_3S9abdOVmsPVlw5xQ0Yy1A","item-hover":"uAdgji48h2y39fpkyV43U","item-play-button":"ddwk7f-k64pp6DvcnLb9c","item-plays":"_1oYaRPvomUhRU1TXGZ06IC","item-display-none":"_3NU1H5ECPA-nEO31OjVba"};
 
 /***/ }),
-/* 313 */
+/* 300 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"title":"_3Ee8wqpUqVZmR_5t9aJTMM","right-button":"_3avGysoS-NSi_2dX8aS-fq"};
 
 /***/ }),
-/* 314 */
+/* 301 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"main":"_2pvSK8b94IrAH0uLvKzan-","navigation":"_11Ar9cNFWzR_UBcvUoV-CD","navigation-item":"_3N9y30RHMncVg8SarMU17n","navigation-item-active":"eJXGZXgDG3aKBIGOuze_p"};
 
 /***/ }),
-/* 315 */
+/* 302 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"main":"_1gk1bM96hTKYmRA-Y22FMn"};
 
 /***/ }),
-/* 316 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(119);
+module.exports = __webpack_require__(114);
 
 
 /***/ })
