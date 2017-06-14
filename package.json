@@ -7,7 +7,7 @@
     "build": "webpack --config webpack-production.config.js",
     "eslint": "node ./node_modules/eslint/bin/eslint.js src",
     "clean": "rimraf dist/bundle.js",
-    "gh-pages": "$(npm bin)/git-directory-deploy --directory dist --branch gh-pages"
+    "gh-pages": "gh-pages -d dist"
   },
   "author": "shianqi",
   "license": "ISC",
@@ -36,7 +36,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.1",
-    "git-directory-deploy": "^1.5.1",
+    "gh-pages": "^1.0.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
     "open-browser-webpack-plugin": "0.0.5",
