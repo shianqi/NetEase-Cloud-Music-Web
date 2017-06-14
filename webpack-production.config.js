@@ -2,6 +2,7 @@ const { resolve } = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     context: resolve(__dirname, 'src'),
@@ -92,13 +93,31 @@ module.exports = {
     },
 
     plugins: [
-        new BundleAnalyzerPlugin(),
+        //不启动服务器，而是生成json
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'disabled',
+            generateStatsFile: true
+        }),
+        //分离打包css和js
         new ExtractTextPlugin('styles.css'),
+        //定义生产环境
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production'),
             },
         }),
+        //压缩js
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+
+        new HtmlWebpackPlugin({
+            title: 'React NetEast Cloud Music',
+            filename: 'index.html',
+            template: 'template/index.tmpl.html'
+        })
     ],
 
     resolve: {

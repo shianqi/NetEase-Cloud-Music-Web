@@ -6,8 +6,7 @@ const distPath = path.resolve(__dirname, 'dist')
 
 module.exports = {
     entry: {
-        react: ['react', 'react-dom'],
-        router: [ 'react-router' ]
+        vendor: ['react', 'react-dom', 'react-router'],
     },
     output: {
         path: distPath,

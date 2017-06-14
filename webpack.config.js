@@ -2,7 +2,8 @@ const { resolve } = require('path')
 const webpack = require('webpack')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const vendor = require('./dist/vendor-manifest.json')
 
 process.env.NODE_ENV = "development"
 
@@ -35,7 +36,7 @@ module.exports = {
         // necessary for HMR to know where to load the hot update chunks
     },
 
-    devtool: 'eval-source-map',
+    devtool: 'cheap-source-map',
 
     devServer: {
         hot: true,
@@ -78,20 +79,15 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: [
-                        { loader: 'style-loader' }
-                    ],
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                modules: true
-                                // localIdentName: '[path][name]__[local]--[hash:base64:5]'
-                            }
+                use: [
+                    { loader: 'style-loader' },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true
                         }
-                    ]
-                })
+                    }
+                ]
             },
             {
                 test: /\.(png|jpg)$/,
@@ -125,9 +121,18 @@ module.exports = {
 
         new BundleAnalyzerPlugin(),
 
-        new ExtractTextPlugin('styles.css')
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: vendor
+        }),
+
+        new HtmlWebpackPlugin({
+            title: 'React NetEast Cloud Music',
+            filename: 'index.html',
+            template: 'template/index.tmpl.html'
+        })
     ],
     resolve: {
-        extensions: ['.js', '.json', '.jsx', '.css']
+        extensions: ['.js', '.jsx', '.css']
     }
 }

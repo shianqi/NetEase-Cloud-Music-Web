@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Style from './Login.css'
 import cs from 'classnames'
 import { connect } from 'react-redux'

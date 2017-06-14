@@ -63,8 +63,8 @@ const _list = [
 function list( state=_list, action){
     switch (action.type) {
         case SELECT_ITEM:
-            const { listIndex, itemIndex} = action
             return state.map((list, _listIndex)=>{
+                const { listIndex, itemIndex} = action
                 return {
                     ...list,
                     items: list.items.map((item, _itemIndex)=>{
@@ -76,20 +76,13 @@ function list( state=_list, action){
                 }
             })
         case LIST_RECEIVE_POSTS:
-            console.log("zind", action.posts.playlist)
-            const foundList = Array.prototype.filter.call(action.posts['playlist'], (item)=>{
-                return !item['ordered']
-            })
-
-            const collectList = Array.prototype.filter.call(action.posts['playlist'], (item)=>{
-                return item['ordered']
-            })
-
             return state.map((list, index)=>{
                 if(index===2){
                     return {
                         ...list,
-                        items: foundList.map((item)=>{
+                        items: Array.prototype.filter.call(action.posts['playlist'], (item)=>{
+                            return !item['ordered']
+                        }).map((item)=>{
                             return {
                                 ...item,
                                 icon: "icon_liebiao",
@@ -101,7 +94,9 @@ function list( state=_list, action){
                 }else if(index===3){
                     return {
                         ...list,
-                        items: collectList.map((item)=>{
+                        items: Array.prototype.filter.call(action.posts['playlist'], (item)=>{
+                            return item['ordered']
+                        }).map((item)=>{
                             return {
                                 ...item,
                                 icon: "icon_liebiao",

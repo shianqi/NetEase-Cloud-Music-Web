@@ -1,6 +1,20 @@
+:global(html){
+    height: 100%;
+    width: 100%;
+}
+
+:global(body){
+    height: 100%;
+    width: 100%;
+}
+
+:global(.root){
+    height: 100%;
+    width: 100%;
+}
+
 .app {
     height: 100%;
     width: 100%;
     position: absolute;
 }
-
