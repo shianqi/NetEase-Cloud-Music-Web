@@ -4,11 +4,11 @@
   "description": "",
   "scripts": {
     "dev": "npm run build-dll & webpack-dev-server",
-    "build": "npm run eslint & npm run build-dll && webpack --config webpack-production.config.js",
-    "build-dll": "webpack --config webpack-dll.config.js",
+    "build": "npm run eslint && npm run build-dll && webpack --config webpack-production.config.js",
+    "build-dll": "npm run clean && webpack --config webpack-dll.config.js",
     "eslint": "node ./node_modules/eslint/bin/eslint.js src",
-    "clean": "rimraf dist/* & rimraf assets/*",
-    "gh-pages": "npm run build & gh-pages -d dist",
+    "clean": "rimraf dist/*",
+    "gh-pages": "npm run build && gh-pages -d dist",
     "analyze": "webpack --profile --json > assets/bundle-analyzer-stats.json",
     "analyze-windows": "webpack --profile --json | Out-file 'assets/bundle-analyzer-stats.json' -Encoding OEM"
   },

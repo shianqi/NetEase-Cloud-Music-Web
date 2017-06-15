@@ -6,8 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const vendor = require('./assets/vendor-manifest.json')
 const bundleConfig = require("./assets/webpack-assets.json")
 
-process.env.NODE_ENV = "development"
-
 module.exports = {
     context: resolve(__dirname, 'src'),
 
@@ -115,6 +113,12 @@ module.exports = {
 
         // 当模块热替换（HMR）时在浏览器控制台输出对用户更友好的模块名字信息
         new webpack.NamedModulesPlugin(),
+
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('development'),
+            },
+        }),
 
         // 自动打开浏览器
         new OpenBrowserPlugin({
