@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "webpack-dev-server",
-    "build": "npm run eslint & npm run clean & webpack --config webpack-production.config.js",
+    "dev": "npm run build-dll & webpack-dev-server",
+    "build": "npm run eslint & npm run build-dll && webpack --config webpack-production.config.js",
     "build-dll": "webpack --config webpack-dll.config.js",
     "eslint": "node ./node_modules/eslint/bin/eslint.js src",
-    "clean": "rimraf dist/*",
+    "clean": "rimraf dist/* & rimraf assets/*",
     "gh-pages": "npm run build & gh-pages -d dist",
-    "analyze": "webpack --profile --json > stats.json",
-    "analyze-windows": "webpack --profile --json | Out-file 'stats.json' -Encoding OEM"
+    "analyze": "webpack --profile --json > assets/bundle-analyzer-stats.json",
+    "analyze-windows": "webpack --profile --json | Out-file 'assets/bundle-analyzer-stats.json' -Encoding OEM"
   },
   "author": "shianqi",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "url": "git+https://github.com/shianqi/NetEase-Cloud-Music-Web.git"
   },
   "devDependencies": {
+    "assets-webpack-plugin": "^3.5.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",

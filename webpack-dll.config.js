@@ -1,12 +1,22 @@
 const path = require('path')
 const webpack = require('webpack')
-
 const WebpackMd5Hash = require('webpack-md5-hash')
+const AssetsPlugin = require('assets-webpack-plugin')
+
 const distPath = path.resolve(__dirname, 'dist')
+const assetsPath = path.resolve(__dirname, 'assets')
 
 module.exports = {
     entry: {
-        vendor: ['react', 'react-dom', 'react-router'],
+        vendor: [
+            'react',
+            'react-dom',
+            'react-router',
+            'react-router-dom',
+            'redux',
+            'react-redux',
+            'react-router-redux'
+        ],
     },
     output: {
         path: distPath,
@@ -26,7 +36,7 @@ module.exports = {
              * 定义 manifest 文件生成的位置
              * [name] 的部分由 entry 的名字替换
              */
-            path: path.resolve(distPath, '[name]-manifest.json'),
+            path: path.resolve(assetsPath, '[name]-manifest.json'),
             /*
              * name
              * dll bundle 输出到哪个全局变更上
@@ -35,6 +45,12 @@ module.exports = {
             name: '[name]_lib',
             context: __dirname,
         }),
+
+        //记录output中带有hash的名字，生成 webpack-assets.json 的文件
+        new AssetsPlugin({
+            path: path.resolve(assetsPath)
+        }),
+
         //压缩
         new webpack.optimize.UglifyJsPlugin({
             compress: {

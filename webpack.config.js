@@ -3,7 +3,8 @@ const webpack = require('webpack')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const vendor = require('./dist/vendor-manifest.json')
+const vendor = require('./assets/vendor-manifest.json')
+const bundleConfig = require("./assets/webpack-assets.json")
 
 process.env.NODE_ENV = "development"
 
@@ -109,27 +110,32 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         // enable HMR globally
+        new webpack.HotModuleReplacementPlugin(),
 
-        new webpack.NamedModulesPlugin(),
         // 当模块热替换（HMR）时在浏览器控制台输出对用户更友好的模块名字信息
+        new webpack.NamedModulesPlugin(),
 
-        new OpenBrowserPlugin({ // 自动打开浏览器
+        // 自动打开浏览器
+        new OpenBrowserPlugin({
             url: 'http://localhost:8080'
         }),
 
+        //编译文件大小分析
         new BundleAnalyzerPlugin(),
 
+        //使用DDL
         new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: vendor
         }),
 
+        //html模板替换
         new HtmlWebpackPlugin({
             title: 'React NetEast Cloud Music',
+            bundleName: bundleConfig.vendor.js,
             filename: 'index.html',
-            template: 'template/index.tmpl.html'
+            template: resolve(__dirname, 'template/index.tmpl.html')
         })
     ],
     resolve: {

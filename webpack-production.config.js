@@ -3,6 +3,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const bundleConfig = require("./assets/webpack-assets.json")
 
 module.exports = {
     context: resolve(__dirname, 'src'),
@@ -96,7 +97,8 @@ module.exports = {
         //不启动服务器，而是生成json
         new BundleAnalyzerPlugin({
             analyzerMode: 'disabled',
-            generateStatsFile: true
+            generateStatsFile: true,
+            statsFilename: resolve(__dirname, 'assets/bundle-analyzer-stats.json')
         }),
         //分离打包css和js
         new ExtractTextPlugin('styles.css'),
@@ -115,8 +117,9 @@ module.exports = {
 
         new HtmlWebpackPlugin({
             title: 'React NetEast Cloud Music',
+            bundleName: bundleConfig.vendor.js,
             filename: 'index.html',
-            template: 'template/index.tmpl.html'
+            template: resolve(__dirname, 'template/index.tmpl.html')
         })
     ],
 
