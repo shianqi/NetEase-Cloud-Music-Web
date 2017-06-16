@@ -1,4 +1,3 @@
-import { selectItem } from '../../../../actions'
 import React from 'react'
 import { push } from 'react-router-redux'
 import Style from './Style.css'

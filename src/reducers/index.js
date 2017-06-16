@@ -23,9 +23,21 @@ const _list = [
                     { name: "最新音乐", router: "/ZXYY" }
                 ]
             },
-            {icon: "icon_yingyongtubiaoxinhao", title: "私人FM", router: "/PersonalFM"},
-            {icon: "icon_shipin", title: "MV", router: "/MV"},
-            {icon: "icon_pengyou", title: "朋友", router: "/1"}
+            {
+                icon: "icon_yingyongtubiaoxinhao",
+                title: "私人FM",
+                router: "/PersonalFM"
+            },
+            {
+                icon: "icon_shipin",
+                title: "MV",
+                router: "/MV"
+            },
+            {
+                icon: "icon_pengyou",
+                title: "朋友",
+                router: "/Friends"
+            }
         ]
     },
     {

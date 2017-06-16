@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Style from './DiscoverMusic.css'
 import cs from 'classnames'
 import { Route } from 'react-router'
