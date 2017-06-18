@@ -3,7 +3,12 @@ import Style from './Style.css'
 
 import ListItem from './ListItem'
 import cs from 'classnames'
-import icon from '../../../../../style/iconfont.css'
+import {
+    iconfont,
+    icon_shezhi,
+    icon_qianjin,
+    list_hide
+} from 'iconfont.css'
 
 class List extends Component{
     constructor(props) {
@@ -43,15 +48,15 @@ class List extends Component{
                         } }
                         className={
                             cs(
-                                icon['iconfont'],
+                                iconfont,
                                 {
-                                    [icon['icon_shezhi']]: this.state.shrinkState
+                                    [icon_shezhi]: this.state.shrinkState
                                 },
                                 {
-                                    [icon['icon_qianjin']]: !this.state.shrinkState
+                                    [icon_qianjin]: !this.state.shrinkState
                                 },
                                 {
-                                    [Style['list_hide']]: !data.shrinkable
+                                    [list_hide]: !data.shrinkable
                                 }
                             )
                         }

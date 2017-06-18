@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import {
     iconfont,
     icon_houdongfangiconfont10
-} from '../../../style/iconfont.css'
+} from 'iconfont.css'
 import { fetchPosts, phoneNumberChanged, passwordChanged, closeLogin } from '../../actions/login'
 
 const selector = (state) => {

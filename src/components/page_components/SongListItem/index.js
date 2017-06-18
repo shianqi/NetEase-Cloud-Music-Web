@@ -4,7 +4,7 @@ import cs from 'classnames'
 import {
     iconfont,
     icon_bofang
-} from '../../../../style/iconfont.css'
+} from 'iconfont.css'
 
 class SunListItem extends Component{
     render() {

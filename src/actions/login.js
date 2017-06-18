@@ -1,4 +1,5 @@
 import { listFetchPosts } from './index'
+import { loginURL } from './host'
 
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -36,11 +37,13 @@ export const receivePosts = (json) => ({
 
 export const fetchPosts = (username, password) => dispatch => {
     dispatch(requestPosts())
-    return fetch(`http://www.salibs.cn:3000/login/cellphone?phone=${username}&password=${password} `)
-        .then(response => response.json())
-        .then(json => {
-            dispatch(listFetchPosts('121461551'))
-            dispatch(receivePosts(json))
-        })
+    return fetch(`${loginURL}?phone=${username}&password=${password}`, {
+        credentials: 'include',
+        mode: 'cors'
+    })
+    .then(response => response.json())
+    .then(json => {
+        dispatch(listFetchPosts('121461551'))
+        dispatch(receivePosts(json))
+    })
 }
-

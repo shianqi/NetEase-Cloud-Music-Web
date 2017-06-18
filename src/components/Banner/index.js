@@ -9,7 +9,7 @@ import {
     icon_zuidahua,
     icon_zuixiaohua,
     icon_suoxiao
-} from '../../../style/iconfont.css'
+} from 'iconfont.css'
 import cs from 'classnames'
 import { connect } from 'react-redux'
 import { openLogin } from '../../actions/login'

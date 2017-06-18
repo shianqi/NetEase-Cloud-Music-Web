@@ -98,7 +98,7 @@ function list( state=_list, action){
                             return {
                                 ...item,
                                 icon: "icon_liebiao",
-                                router: "/7",
+                                router: `/playlist/${item.id}`,
                                 title: item.name
                             }
                         })
@@ -112,7 +112,7 @@ function list( state=_list, action){
                             return {
                                 ...item,
                                 icon: "icon_liebiao",
-                                router: "/7",
+                                router: `/playlist/${item.id}`,
                                 title: item.name
                             }
                         })

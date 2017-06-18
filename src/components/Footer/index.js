@@ -9,7 +9,7 @@ import {
     icon_bofangliebiao,
     icon_geci,
     icon_iconfontttpodicon1eps
-} from '../../../style/iconfont.css'
+} from 'iconfont.css'
 
 class Footer extends Component{
     render(){

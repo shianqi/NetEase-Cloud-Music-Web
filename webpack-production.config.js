@@ -19,7 +19,7 @@ module.exports = {
 
         path: resolve(__dirname, 'dist'),
 
-        publicPath: './'
+        publicPath: '/'
         // necessary for HMR to know where to load the hot update chunks
     },
 
@@ -114,7 +114,7 @@ module.exports = {
                 warnings: false
             }
         }),
-
+        //用模板生成HTML页面
         new HtmlWebpackPlugin({
             title: 'React NetEast Cloud Music',
             bundleName: bundleConfig.vendor.js,
@@ -124,6 +124,10 @@ module.exports = {
     ],
 
     resolve: {
+        modules: [
+            resolve(__dirname, './node_modules'),
+            resolve(__dirname, './style')
+        ],
         extensions: ['.js', '.json', '.jsx', '.css']
     }
 }
