@@ -13,11 +13,12 @@ const selector = (state) => {
         phoneNumber: state.user.userInput.phoneNumber,
         password: state.user.userInput.password,
         automaticLogin: state.user.userInput.automaticLogin,
-        login_window: state.user.userInput.login_window
+        login_window: state.user.userInput.login_window,
+        err_message: state.user.userInput.err_message
     }
 }
 
-let Login = ({dispatch, phoneNumber, password, automaticLogin, login_window}) => {
+let Login = ({dispatch, phoneNumber, password, automaticLogin, err_message, login_window}) => {
 
     const handlerUsernameChange = function(e){
         dispatch(phoneNumberChanged(e.target.value))
@@ -53,6 +54,11 @@ let Login = ({dispatch, phoneNumber, password, automaticLogin, login_window}) =>
             />
             <div className={Style['form-login']}>
                 <div className={Style['form-banner']} />
+                <div
+                    className={Style['form-err-message']}
+                >
+                    { err_message }
+                </div>
                 <input
                     type="text"
                     className={Style['form-phone-number']}
