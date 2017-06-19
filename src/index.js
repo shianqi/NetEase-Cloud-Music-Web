@@ -11,8 +11,7 @@ import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { AppContainer } from 'react-hot-loader'
 import App from './components/App'
-import list from './reducers'
-import user from './reducers/login'
+import reducers from './reducers'
 
 const history = createHistory()
 const middleware = [ thunk, routerMiddleware(history) ]
@@ -22,8 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const store = createStore(
     combineReducers({
-        list,
-        user,
+        ...reducers,
         router: routerReducer
     }),
     applyMiddleware(...middleware)

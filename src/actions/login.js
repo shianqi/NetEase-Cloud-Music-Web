@@ -50,10 +50,13 @@ export const fetchPosts = (username, password) => dispatch => {
     .then(response => response.json())
     .then(json => {
         if(json && json.code && json.code.toString() === "200"){
-            dispatch(listFetchPosts(json))
+            dispatch(listFetchPosts('121461551'))
             dispatch(receivePosts(json))
             dispatch(closeLogin())
         }else{
+
+
+            dispatch(listFetchPosts('121461551'))
             dispatch(receivePosts(json))
         }
     })

@@ -3,22 +3,35 @@ import { Route } from 'react-router'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
+import { listDetailFetchPosts } from '../../../actions/userSelectSongList.js'
+
+import PlaylistItem from './PlaylistItem'
+
 const selector = (state) => {
     return {
-        list: state.list[0].items[0].items
+        creator: state.userSelectSongList.playlist.creator
     }
 }
 
-let Playlist = ({dispatch, list, match})=>{
-    const PlaylistItem = ({match}) => {
+let Playlist = ({dispatch, creator, match})=>{
+
+    const PlaylistItems = ({match}) => {
+        const initHandler = ()=>{
+            dispatch(listDetailFetchPosts(match.params.thisID))
+        }
         return (
-            <div>{ match.params.thisID }</div>
+            <div>
+                <PlaylistItem
+                    initHandler={initHandler}
+                    creator={creator}
+                />
+            </div>
         )
     }
 
     return (
         <div>
-            <Route exact path={`${match.url}/:thisID`} component={PlaylistItem}/>
+            <Route exact path={`${match.url}/:thisID`} component={PlaylistItems}/>
         </div>
     )
 }
