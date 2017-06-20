@@ -1,39 +1,18 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Route } from 'react-router'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 
-import { listDetailFetchPosts } from '../../../actions/userSelectSongList.js'
+import PlaylistItems from './PlaylistItems'
 
-import PlaylistItem from './PlaylistItem'
+class Playlist extends Component{
+    render(){
+        const { match } = this.props
 
-const selector = (state) => {
-    return {
-        creator: state.userSelectSongList.playlist.creator
-    }
-}
-
-let Playlist = ({dispatch, creator, match})=>{
-
-    const PlaylistItems = ({match}) => {
-        const initHandler = ()=>{
-            dispatch(listDetailFetchPosts(match.params.thisID))
-        }
         return (
             <div>
-                <PlaylistItem
-                    initHandler={initHandler}
-                    creator={creator}
-                />
+                <Route exact path={`${match.url}/:thisID`} component={PlaylistItems}/>
             </div>
         )
     }
-
-    return (
-        <div>
-            <Route exact path={`${match.url}/:thisID`} component={PlaylistItems}/>
-        </div>
-    )
 }
 
-export default withRouter(connect(selector)(Playlist))
+export default Playlist

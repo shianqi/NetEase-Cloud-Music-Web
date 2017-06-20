@@ -6,32 +6,31 @@ class PlaylistItem extends Component{
         super(props)
     }
 
-    componentDidMount() {
-        this.props.initHandler()
-    }
-
     render(){
         const {
-            nickname
-        } = this.props.creator
+            name,
+            createTime,
+            coverImgUrl,
+            creator
+        } = this.props.playlist
 
         return (
             <div>
                 <div className={Style['banner']}>
                     <div className={Style['banner-img']}>
-                        <img width="200" height="200" />
+                        <img width="200" height="200" src={coverImgUrl} />
                     </div>
                     <div className={Style['banner-main']}>
                         <div className={ Style['banner-title'] }>
                             <span className={ Style['banner-title-span'] }>歌单</span>
-                            <span className={ Style['banner-title-name'] }>Fire</span>
+                            <span className={ Style['banner-title-name'] }>{name}</span>
                         </div>
                         <div>
                             <div className={ Style['banner-owner-img'] }>
-                                <img width="30" height="30" src=""/>
+                                <img width="30" height="30" src={creator.avatarUrl}/>
                             </div>
-                            <span className={ Style['banner-owner-name'] }>{nickname}</span>
-                            <span className={ Style['banner-owner-time'] }>2017-03-29创建</span>
+                            <span className={ Style['banner-owner-name'] }>{creator.nickname}</span>
+                            <span className={ Style['banner-owner-time'] }>{new Date(createTime).toLocaleDateString()}创建</span>
                         </div>
                     </div>
                 </div>

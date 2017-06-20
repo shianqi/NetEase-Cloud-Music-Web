@@ -12,7 +12,7 @@ import {
 } from 'iconfont.css'
 import cs from 'classnames'
 import { connect } from 'react-redux'
-import { openLogin } from '../../actions/login'
+import { openLoginInterface } from '../../actions/login'
 
 const getState = (state) => ({
     nickname: state.user.userInfo.profile ? state.user.userInfo.profile.nickname: '未登录',
@@ -20,8 +20,8 @@ const getState = (state) => ({
 })
 
 let Banner = ({ dispatch, nickname, avatarUrl }) => {
-    const openLoginWindow = function(){
-        dispatch(openLogin())
+    const handlerOpenLoginInterface = function(){
+        dispatch(openLoginInterface())
     }
 
     return (
@@ -93,13 +93,18 @@ let Banner = ({ dispatch, nickname, avatarUrl }) => {
                 <div className={Style['user']}>
                     <div
                         className={Style['user-nickname']}
-                        onClick={openLoginWindow}
+                        onClick={handlerOpenLoginInterface}
                     >
                         { nickname }
                     </div>
                     <img
                         src={avatarUrl}
-                        className={Style['user-photo']}
+                        className={
+                            cs(
+                                Style['user-photo'],
+                                {[Style['display']]: (avatarUrl==null||avatarUrl==="")}
+                            )
+                        }
                     />
                 </div>
             </div>
