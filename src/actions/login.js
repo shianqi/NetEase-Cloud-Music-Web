@@ -112,9 +112,6 @@ export const fetchLoginPosts = (username, password) => dispatch => {
             dispatch(loginReceivePosts(json))
             dispatch(closeLoginInterface())
         }else{
-
-
-            dispatch(listFetchPosts('121461551'))
             dispatch(loginReceivePosts(json))
         }
     })

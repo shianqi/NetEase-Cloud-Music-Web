@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Style from './Style.css'
 import cs from 'classnames'
-import iconfont from '../../../../../style/iconfont.css'
+import iconfont from 'iconfont.css'
 import { Route } from 'react-router'
 
 class ListItem extends Component{
@@ -13,14 +13,14 @@ class ListItem extends Component{
                 <div
                     className={
                         cs(
-                            iconfont.iconfont,
+                            iconfont['iconfont'],
                             iconfont[data.icon],
                             Style['listItem'],
                             {[Style['active']] : match}
                         )
                     }
                     onClick={ ()=>{
-                        handleClick(data.router)
+                        handleClick(data.select ? data.select: data.router)
                     }}
                 >
                     { data.title }

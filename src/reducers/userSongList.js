@@ -13,6 +13,7 @@ const _list = [
                 icon: "icon_yinle",
                 title: "发现音乐",
                 router: "/DiscoverMusic",
+                select: "/DiscoverMusic/GXTJ",
                 exact: true,
                 items: [
                     { name: "个性推荐", router: "/GXTJ" },
@@ -26,17 +27,20 @@ const _list = [
             {
                 icon: "icon_yingyongtubiaoxinhao",
                 title: "私人FM",
-                router: "/PersonalFM"
+                router: "/PersonalFM",
+                select: "/PersonalFM"
             },
             {
                 icon: "icon_shipin",
                 title: "MV",
-                router: "/MV"
+                router: "/MV",
+                select: "/MV"
             },
             {
                 icon: "icon_pengyou",
                 title: "朋友",
-                router: "/Friends"
+                router: "/Friends",
+                select: "/Friends"
             }
         ]
     },
@@ -44,11 +48,36 @@ const _list = [
         title: "我的音乐",
         shrinkable: false,
         items: [
-            {icon: "icon_bendiyinle", title: "本地音乐", router: "/2"},
-            {icon: "icon_xiazai", title: "下载管理", router: "/3"},
-            {icon: "icon_yun", title: "我的音乐云盘", router: "/4"},
-            {icon: "icon_geshou", title: "我的歌手", router: "/5"},
-            {icon: "icon_yuleyinlediantai", title: "我的电台", router: "/6"}
+            {
+                icon: "icon_bendiyinle",
+                title: "本地音乐",
+                router: "/MyMusic",
+                select: "/MyMusic"
+            },
+            {
+                icon: "icon_xiazai",
+                title: "下载管理",
+                router: "/DownLoad",
+                select: "/DownLoad"
+            },
+            {
+                icon: "icon_yun",
+                title: "我的音乐云盘",
+                router: "/MyCloud",
+                select: "/MyCloud"
+            },
+            {
+                icon: "icon_geshou",
+                title: "我的歌手",
+                router: "/Mysinger",
+                select: "/Mysinger"
+            },
+            {
+                icon: "icon_yuleyinlediantai",
+                title: "我的电台",
+                router: "/MyRadio",
+                select: "/MyRadio"
+            }
         ]
     },
     {

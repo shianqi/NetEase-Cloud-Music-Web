@@ -35,7 +35,7 @@ module.exports = {
         "no-unexpected-multiline": 2,               //行尾缺少分号可能导致一些意外情况
         "no-multiple-empty-lines": [1, {"max": 1}], //空行最多不能超过2行
         "default-case": 2,                          //switch语句最后必须有default
-        "semi": [2, "never"],                      //语句强制分号结尾
+        "semi": [2, "never"],                       //语句强制分号结尾
         'generator-star-spacing': 0,
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
         'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
