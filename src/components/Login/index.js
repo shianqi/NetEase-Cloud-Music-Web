@@ -45,6 +45,12 @@ class Login extends Component{
             dispatch(passwordChanged(e.target.value))
         }
 
+        const handlerSubmit = function(e){
+            if(e.which === 13){
+                dispatch(fetchLoginPosts(phoneNumber, password))
+            }
+        }
+
         const handlerLogin = function(){
             dispatch(fetchLoginPosts(phoneNumber, password))
         }
@@ -89,6 +95,7 @@ class Login extends Component{
                         value={ password }
                         placeholder="请输入密码"
                         onChange={handlerPasswordChange}
+                        onKeyPress={handlerSubmit}
                     />
                     <div className={Style['form-automatic-logon']}>
                         <input id="automatic-login" type="checkbox" className={Style['form-automatic-logon-radio']}/>

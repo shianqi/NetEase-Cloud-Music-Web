@@ -8,7 +8,8 @@ import PlaylistItem from './PlaylistItem'
 
 const selector = (state) => {
     return {
-        playlist: state.userSelectSongList.playlist
+        playlist: state.userSelectSongList.playlist,
+        playlistId: state.userSelectSongList.playlistId
     }
 }
 
@@ -27,6 +28,13 @@ class PlaylistItems extends Component{
                 />
             </div>
         )
+    }
+
+    componentWillReceiveProps() {
+        const { match, dispatch, playlistId } = this.props
+        if(match.params.thisID !== playlistId){
+            dispatch(listDetailFetchPosts(match.params.thisID))
+        }
     }
 }
 

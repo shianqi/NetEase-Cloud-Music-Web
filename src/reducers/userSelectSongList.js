@@ -12,7 +12,8 @@ const userSelectSongList = (state = _userSelectSongList, action) => {
     switch (action.type) {
         case LIST_DETAIL_RECEIVE_POSTS:
             return {
-                ...action.data
+                ...action.data,
+                playlistId: action.playlistId
             }
         default:
             return state

@@ -2,9 +2,10 @@ import { playlistDetailURL } from './host'
 
 export const LIST_DETAIL_RECEIVE_POSTS = 'LIST_DETAIL_RECEIVE_POSTS'
 
-const receiveSonglistDetailPosts = (json) => ({
+const receiveSonglistDetailPosts = (json, playlistId) => ({
     type: LIST_DETAIL_RECEIVE_POSTS,
-    data: json
+    data: json,
+    playlistId
 })
 
 export const listDetailFetchPosts = (playlistId) => dispatch => {
@@ -14,6 +15,6 @@ export const listDetailFetchPosts = (playlistId) => dispatch => {
     })
     .then(response => response.json())
     .then(json => {
-        dispatch(receiveSonglistDetailPosts(json))
+        dispatch(receiveSonglistDetailPosts(json, playlistId))
     })
 }
