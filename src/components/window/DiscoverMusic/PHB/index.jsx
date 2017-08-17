@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-class ZXYY extends Component {
+class PHB extends Component {
     render() {
         return (
-            <div>ZXYY</div>
+            <div>PHB</div>
         )
     }
 }
 
-export default ZXYY
+export default PHB

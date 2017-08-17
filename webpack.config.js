@@ -4,12 +4,15 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const vendor = require('./assets/vendor-manifest.json')
-const bundleConfig = require("./assets/webpack-assets.json")
+const bundleConfig = require('./assets/webpack-assets.json')
 
 module.exports = {
     context: resolve(__dirname, 'src'),
 
     entry: [
+        // 加载 polyfills 文件
+        resolve(__dirname, 'webpack.config.polyfills.js'),
+
         'react-hot-loader/patch',
         // activate HMR for React
 
@@ -21,7 +24,7 @@ module.exports = {
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
 
-        './index.js'
+        './index.jsx'
         // the entry point of our app
     ],
 
@@ -39,6 +42,8 @@ module.exports = {
 
     devServer: {
         hot: true,
+        host:'0.0.0.0',
+        disableHostCheck: true,
         historyApiFallback: true,
         contentBase: resolve(__dirname, 'dist'),
         publicPath: '/'
@@ -52,9 +57,9 @@ module.exports = {
                         loader: 'babel-loader',
                         options:{
                             presets: [
-                                ["es2015", {"modules": false}],
-                                "react",
-                                "stage-0"
+                                ['es2015', {modules: false}],
+                                'react',
+                                'stage-0'
                             ]
                         }
                     }
@@ -64,35 +69,32 @@ module.exports = {
                 ]
             },
             {
-                test: /\.less$/,
-                use: [
-                    {loader: 'less-loader'},
-                    {loader: 'style-loader'},
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true
-                        }
-                    }
-                ]
-            },
-            {
                 test: /\.css$/,
                 use: [
                     { loader: 'style-loader' },
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true
+                            modules: true,
+                            localIdentName: '[path]-[local]--[hash:base64:5]'
                         }
+                    },
+                    {
+                        loader: 'postcss-loader'
                     }
+                ],
+                exclude: [
+                    //不使用 CSS Modules
                 ]
             },
             {
-                test: /\.(png|jpg)$/,
+                test: /\.(png|jpg|gif)$/,
                 use: [
                     {
-                        loader: 'url-loader'
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                        }
                     }
                 ]
             },
@@ -103,7 +105,7 @@ module.exports = {
                         loader: 'url-loader'
                     }
                 ]
-            },
+            }
 
         ]
     },
@@ -116,8 +118,8 @@ module.exports = {
 
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify('development'),
-            },
+                NODE_ENV: JSON.stringify('development')
+            }
         }),
 
         // 自动打开浏览器
@@ -139,6 +141,7 @@ module.exports = {
             title: 'React NetEast Cloud Music',
             bundleName: bundleConfig.vendor.js,
             filename: 'index.html',
+            favicon: resolve(__dirname, 'template/favicon.ico'),
             template: resolve(__dirname, 'template/index.tmpl.html')
         })
     ],

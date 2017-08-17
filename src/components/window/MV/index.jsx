@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-class ZXYY extends Component {
+class MV extends Component {
     render() {
         return (
-            <div>ZXYY</div>
+            <div>MV</div>
         )
     }
 }
 
-export default ZXYY
+export default MV
