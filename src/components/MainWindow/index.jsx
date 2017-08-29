@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Style from './MainWindow.css'
+import Style from './index.css'
 import LeftMenu from './LeftMenu'
 import RightWindow from './RightWindow'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Style from './Banner.css'
+import Style from './index.css'
 import {
     iconfont,
     icon_houtui,

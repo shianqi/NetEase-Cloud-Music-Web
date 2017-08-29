@@ -1,5 +1,5 @@
 import React from 'react'
-import Style from './DiscoverMusic.css'
+import Style from './index.css'
 import cs from 'classnames'
 import { Route } from 'react-router'
 import { connect } from 'react-redux'

@@ -1,4 +1,4 @@
-.title{
+.title {
     font-weight: 100;
     padding: 8px 0;
     border-bottom: 1px solid #dedede;
@@ -9,7 +9,7 @@
     -webkit-user-select: none;
 }
 
-.right-button{
+.right-button {
     float: right;
     font-size: 12px;
     cursor: pointer;

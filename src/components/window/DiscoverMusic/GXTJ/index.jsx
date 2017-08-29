@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Title from '../../../page_components/Title'
-import Style from './GXTJ.css'
+import Style from './index.css'
 import SunList from '../../../page_components/SongList'
 
 class GXTJ extends Component {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { push } from 'react-router-redux'
-import Style from './Style.css'
+import Style from './index.css'
 import List from './List'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -25,7 +25,7 @@ const LikeList = ({dispatch, list}) => {
     })
 
     return(
-        <div className={Style.likeList}>
+        <div className={ Style['likeList'] }>
             {listItems}
         </div>
     )

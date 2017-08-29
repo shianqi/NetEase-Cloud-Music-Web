@@ -1,4 +1,4 @@
-.main{
+.main {
     display: inline-block;
     width: 20%;
     vertical-align: top;
@@ -6,7 +6,7 @@
     padding: 6px;
 }
 
-.item-img{
+.item-img {
     position: relative;
     display: block;
     width: 100%;
@@ -15,13 +15,13 @@
     overflow: hidden;
 }
 
-.item-img:before{
+.item-img::before {
     content: "";
     display: inline-block;
     padding-bottom: 100%;
 }
 
-.item-title{
+.item-title {
     display: -webkit-box;
     width: 100%;
     height: 60px;
@@ -30,28 +30,28 @@
     overflow: hidden;
 }
 
-.item-hover{
+.item-hover {
     position: absolute;
     width: 100%;
     box-sizing: border-box;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     top: -100%;
     font-size: 12px;
-    color: #ffffff;
+    color: #fff;
     line-height: 16px;
     padding: 7px;
     transition: top 0.4s 0.3s;
 }
 
-.item-img:hover>.item-hover{
+.item-img:hover > .item-hover {
     top: 0;
 }
 
-.item-play-button{
+.item-play-button {
     box-sizing: border-box;
     position: absolute;
     font-size: 10px;
-    color: #ffffff;
+    color: #fff;
     width: 24px;
     height: 24px;
     bottom: 5px;
@@ -59,34 +59,34 @@
     line-height: 24px;
     text-align: center;
     border-radius: 12px;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     padding-left: 2px;
     transition: background 0.2s;
     cursor: pointer;
 }
 
-.item-img:hover>.item-play-button{
-    background: rgba(0,0,0,0.3);
+.item-img:hover > .item-play-button {
+    background: rgba(0, 0, 0, 0.3);
 }
 
-.item-plays{
+.item-plays {
     position: absolute;
     top: 0;
     width: 50%;
     right: 0;
     font-size: 12px;
-    color: #ffffff;
+    color: #fff;
     line-height: 16px;
     padding: 2px 7px;
     text-align: right;
-    background: -webkit-gradient(linear, 0% 0%, 100% 0%,from(rgba(255,255,255,0)), to(rgba(0,0,0,0.4)));
+    background: -webkit-gradient(linear, 0% 0%, 100% 0%, from(rgba(255, 255, 255, 0)), to(rgba(0, 0, 0, 0.4)));
     transition: top 0.01s 0.3s;
 }
 
-.item-img:hover>.item-plays{
+.item-img:hover > .item-plays {
     top: -100%;
 }
 
-.item-display-none{
+.item-display-none {
     display: none;
 }

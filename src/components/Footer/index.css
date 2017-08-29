@@ -1,10 +1,10 @@
 @value wyRed: #c62f2f;
 @value wyBlackRed: #a82828;
 
-.footer{
+.footer {
     height: 50px;
     box-sizing: border-box;
-    border-top: 1px solid #E6E7EA;
+    border-top: 1px solid #e6e7ea;
     background: #f6f6f8;
     position: absolute;
     width: 100%;
@@ -12,38 +12,37 @@
     bottom: 0;
 }
 
-.play_button{
+.play_button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-
     height: 30px;
     width: 30px;
     background: wyRed;
     text-align: center;
     line-height: 30px;
     font-size: 13px;
-    color: #ffffff;
+    color: #fff;
     border-radius: 30px;
     cursor: pointer;
 }
 
-.play_button:hover{
+.play_button:hover {
     background: wyBlackRed;
     transition: background 0.5s;
 }
 
-.button_back{
+.button_back {
     composes: play_button;
     left: 30px;
 }
 
-.button_front{
+.button_front {
     composes: play_button;
     left: 142px;
 }
 
-.button_play{
+.button_play {
     composes: play_button;
     height: 35px;
     width: 35px;
@@ -52,11 +51,10 @@
     left: 85px;
 }
 
-.icon_button{
+.icon_button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-
     height: 18px;
     width: 30px;
     text-align: center;
@@ -65,33 +63,32 @@
     cursor: pointer;
 }
 
-.icon_button:before{
+.icon_button::before {
     font-size: 19px;
 }
 
-.icon_button:hover{
+.icon_button:hover {
     color: #121212;
 }
 
-.button_play_model{
+.button_play_model {
     composes: icon_button;
     right: 120px;
 }
 
-.button_lyric{
+.button_lyric {
     composes: icon_button;
     right: 80px;
     font-size: 23px;
 }
 
-.button_play_list{
+.button_play_list {
     composes: icon_button;
     width: 50px;
     right: 15px;
-    background: #dddddd;
+    background: #ddd;
     text-align: left;
     border-radius: 10px;
     font-size: 12px;
     padding-left: 2px;
 }
-

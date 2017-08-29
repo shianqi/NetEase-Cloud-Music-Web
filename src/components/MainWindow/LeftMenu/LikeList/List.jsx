@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Style from './Style.css'
+import Style from './index.css'
 
 import ListItem from './ListItem'
 import cs from 'classnames'

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Style from './Style.css'
+import Style from './index.css'
 import cs from 'classnames'
 import iconfont from '../../../../../style/iconfont.css'
 import { Route } from 'react-router'

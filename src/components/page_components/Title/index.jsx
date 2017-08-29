@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import Style from './Title.css'
+import React, { PureComponent } from 'react'
+import Style from './index.css'
 
-class Title extends Component {
+class Title extends PureComponent {
     render() {
         const {
             rightButtonClick,

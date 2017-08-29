@@ -1,4 +1,4 @@
-.rightWindow{
+.rightWindow {
     position: absolute;
     height: 100%;
     left: 200px;
@@ -8,12 +8,12 @@
     overflow-y: scroll;
 }
 
-.rightWindow::-webkit-scrollbar{
-    background: rgba(255,255,255,0);
+.rightWindow::-webkit-scrollbar {
+    background: rgba(255, 255, 255, 0);
     width: 8px;
 }
 
-.rightWindow::-webkit-scrollbar-thumb{
+.rightWindow::-webkit-scrollbar-thumb {
     background: #e1e1e2;
     border-radius: 4px;
 }

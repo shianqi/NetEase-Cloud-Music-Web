@@ -1,8 +1,8 @@
-.main{
+.main {
     padding: 0 30px;
 }
 
-.navigation{
+.navigation {
     width: 100%;
     height: 41px;
     text-align: center;
@@ -13,7 +13,7 @@
     -webkit-user-select: none;
 }
 
-.navigation-item{
+.navigation-item {
     display: inline-block;
     width: 58px;
     font-size: 14px;
@@ -23,11 +23,11 @@
     cursor: pointer;
 }
 
-.navigation-item:hover{
+.navigation-item:hover {
     color: #c62f2f;
 }
 
-.navigation-item-active{
+.navigation-item-active {
     color: #c62f2f;
     border-bottom: 2px solid #c62f2f;
 }

@@ -1,43 +1,43 @@
-.banner{
+.banner {
     box-sizing: border-box;
     width: 100%;
     padding: 20px 30px;
     position: relative;
 }
 
-.banner-img{
+.banner-img {
     position: absolute;
     height: 200px;
     width: 200px;
     overflow: hidden;
-    border: 1px solid #eeeeeee;
+    border: 1px solid #eee;
 }
 
-.banner-main{
+.banner-main {
     box-sizing: border-box;
     width: 100%;
     padding-left: 230px;
     height: 200px;
 }
 
-.banner-title{
+.banner-title {
     margin-bottom: 18px;
 }
 
-.banner-title-span{
+.banner-title-span {
     background: #c62f2f;
-    color: #ffffff;
+    color: #fff;
     font-size: 13px;
     padding: 4px 6px;
     border-radius: 3px;
 }
 
-.banner-title-name{
+.banner-title-name {
     margin-left: 8px;
     font-size: 20px;
 }
 
-.banner-owner-img{
+.banner-owner-img {
     height: 30px;
     width: 30px;
     overflow: hidden;
@@ -45,30 +45,30 @@
     border-radius: 50%;
 }
 
-.banner-owner-name{
+.banner-owner-name {
     line-height: 30px;
     font-size: 14px;
-    color: #666666;
+    color: #666;
     margin-left: 8px;
 }
 
-.banner-owner-time{
+.banner-owner-time {
     line-height: 30px;
     font-size: 12px;
-    color: #888888;
+    color: #888;
     margin-left: 12px;
 }
 
-.list-option{
+.list-option {
     padding: 0 30px;
     border-bottom: 1px solid #c62f2f;
 }
 
-.list-option-item{
+.list-option-item {
     display: inline-block;
     font-size: 13px;
     background-color: #c62f2f;
-    color: #ffffff;
+    color: #fff;
     width: 60px;
     text-align: center;
     margin: 0 2px;

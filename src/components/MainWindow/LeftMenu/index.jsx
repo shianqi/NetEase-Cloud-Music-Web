@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Style from './LeftMenu.css'
+import Style from './index.css'
 import MiniBox from './MiniBox'
 import LikeList from './LikeList/index'
 

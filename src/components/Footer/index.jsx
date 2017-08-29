@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Style from './Footer.css'
+import Style from './index.css'
 import cs from 'classnames'
 import {
     iconfont,

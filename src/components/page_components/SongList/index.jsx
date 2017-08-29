@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import SunListItem from '../SongListItem'
-import Style from './SunList.css'
+import Style from './index.css'
 
 class SunList extends Component {
     render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Style from './Login.css'
+import Style from './index.css'
 import cs from 'classnames'
 import { connect } from 'react-redux'
 import {
@@ -32,7 +32,6 @@ class Login extends Component {
             dispatch,
             phoneNumber,
             password,
-            automaticLogin,
             login_window,
             err_message
         } = this.props
@@ -98,8 +97,9 @@ class Login extends Component {
                         onKeyPress={handlerSubmit}
                     />
                     <div className={Style['form-automatic-logon']}>
-                        <input id="automatic-login" type="checkbox" className={Style['form-automatic-logon-radio']}/>
-                        <label htmlFor="automatic-login" className={Style['form-automatic-logon-span']}>自动登陆</label>
+                        <input id="automatic-login" type="checkbox" />
+                        <label htmlFor="automatic-login"
+                            className={Style['form-automatic-logon-span']}>自动登陆</label>
                     </div>
                     <input
                         value="登 陆"

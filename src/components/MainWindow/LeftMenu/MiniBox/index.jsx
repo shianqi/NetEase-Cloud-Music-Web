@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Style from './MiniBox'
+import Style from './index.css'
 
 class MiniBox extends Component {
     render() {

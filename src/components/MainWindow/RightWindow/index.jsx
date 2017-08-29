@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Route } from 'react-router'
-import Style from './RightWindow.css'
+import Style from './index.css'
 import DiscoverMusic from '../../window/DiscoverMusic'
 import PersonalFM from '../../window/PersonalFM'
 import MV from '../../window/MV'

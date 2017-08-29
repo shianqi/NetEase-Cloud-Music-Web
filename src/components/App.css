@@ -1,14 +1,14 @@
-:global(html){
+html {
     height: 100%;
     width: 100%;
 }
 
-:global(body){
+body {
     height: 100%;
     width: 100%;
 }
 
-:global(.root){
+:global .root {
     height: 100%;
     width: 100%;
 }
