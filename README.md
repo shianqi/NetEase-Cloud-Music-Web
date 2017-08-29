@@ -1,5 +1,5 @@
 # 高仿网易云音乐 （React）
-
+[![Build Status](https://www.travis-ci.org/shianqi/NetEase-Cloud-Music-Web.svg?branch=master)](https://www.travis-ci.org/shianqi/NetEase-Cloud-Music-Web)
 ## 所用技术
 * react
 * redux

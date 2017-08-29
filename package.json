@@ -6,6 +6,7 @@
     "dev": "npm run build-dll & webpack-dev-server",
     "build": "npm run eslint && npm run build-dll && webpack --config webpack.config.production.js",
     "build-dll": "npm run clean && webpack --config webpack.config.dll.js",
+    "coveralls": "cat ./coverage/lcov/lcov.info | ./node_modules/.bin/coveralls",
     "eslint": "node ./node_modules/eslint/bin/eslint.js src",
     "stylelint": "node ./node_modules/stylelint/bin/stylelint.js src/**/*.css",
     "clean": "rimraf dist/*",
