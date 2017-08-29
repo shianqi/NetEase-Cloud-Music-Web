@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "7"
+  - "6"
+  - "5"
+install:
+  - npm install
+script:
+  - npm run eslint
+env:
+  - REACT=0.14
+bundler_args: --retry 2
+matrix:
+  fast_finish: true
+cache:
+  directories:
+    - node_modules
