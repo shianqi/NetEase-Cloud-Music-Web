@@ -4,53 +4,27 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const bundleConfig = require('./assets/webpack-assets.json')
+const common = require('./webpack.config.common')
 
 module.exports = {
+    context: common.context,
+
+    entry: common.entry,
+
     // 如果有任何错误，终止编译
     bail: true,
 
-    // 编译上下文路径
-    context: resolve(__dirname, 'src'),
-
-    entry: [
-        // 加载 polyfills 文件
-        resolve(__dirname, 'webpack.config.polyfills.js'),
-        // 应用程序入口文件
-        './index.jsx'
-    ],
-
     output: {
+        ...common.output,
         // 编译文件名加入Hash
-        filename: 'bundle.[chunkhash:20].js',
-
-        path: resolve(__dirname, 'dist'),
-
-        // necessary for HMR to know where to load the hot update chunks
-        publicPath: './'
+        filename: 'bundle.[hash:20].js'
     },
 
     module: {
         // 导致错误而不是警告
         strictExportPresence: true,
         rules: [
-            {
-                test: /\.jsx?$/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options:{
-                            presets: [
-                                ['es2015', {modules: false}],
-                                'react',
-                                'stage-0'
-                            ]
-                        }
-                    }
-                ],
-                exclude: [
-                    resolve(__dirname, '/node_modules/')
-                ]
-            },
+            ...common.module.rules,
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
@@ -74,28 +48,7 @@ module.exports = {
                 exclude: [
                     //不使用 CSS Modules
                 ]
-            },
-            {
-                test: /\.(png|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192,
-                            name: 'images/[hash:8].[name].[ext]'
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.(woff|svg|eot|ttf)\??.*$/,
-                use: [
-                    {
-                        loader: 'url-loader'
-                    }
-                ]
             }
-
         ]
     },
 
@@ -151,12 +104,5 @@ module.exports = {
             }
         })
     ],
-
-    resolve: {
-        modules: [
-            resolve(__dirname, './node_modules'),
-            resolve(__dirname, './style')
-        ],
-        extensions: ['.js', '.json', '.jsx', '.css']
-    }
+    resolve: common.resolve
 }

@@ -5,38 +5,26 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const vendor = require('./assets/vendor-manifest.json')
 const bundleConfig = require('./assets/webpack-assets.json')
+const common = require('./webpack.config.common')
 
 module.exports = {
-    context: resolve(__dirname, 'src'),
+    context: common.context,
+    output: common.output,
 
     entry: [
-        // 加载 polyfills 文件
-        resolve(__dirname, 'webpack.config.polyfills.js'),
-
-        'react-hot-loader/patch',
         // activate HMR for React
+        'react-hot-loader/patch',
 
-        'webpack-dev-server/client?http://localhost:8080',
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
+        'webpack-dev-server/client?http://localhost:8080',
 
-        'webpack/hot/only-dev-server',
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
+        'webpack/hot/only-dev-server',
 
-        './index.jsx'
-        // the entry point of our app
+        ...common.entry
     ],
-
-    output: {
-        filename: 'bundle.js',
-        // the output bundle
-
-        path: resolve(__dirname, 'dist'),
-
-        publicPath: '/'
-        // necessary for HMR to know where to load the hot update chunks
-    },
 
     devtool: 'cheap-source-map',
 
@@ -48,26 +36,9 @@ module.exports = {
         contentBase: resolve(__dirname, 'dist'),
         publicPath: '/'
     },
+
     module: {
         rules: [
-            {
-                test: /\.jsx?$/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options:{
-                            presets: [
-                                ['es2015', {modules: false}],
-                                'react',
-                                'stage-0'
-                            ]
-                        }
-                    }
-                ],
-                exclude: [
-                    resolve(__dirname, '/node_modules/')
-                ]
-            },
             {
                 test: /\.css$/,
                 use: [
@@ -87,26 +58,7 @@ module.exports = {
                     //不使用 CSS Modules
                 ]
             },
-            {
-                test: /\.(png|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.(woff|svg|eot|ttf)\??.*$/,
-                use: [
-                    {
-                        loader: 'url-loader'
-                    }
-                ]
-            }
-
+            ...common.module.rules
         ]
     },
     plugins: [
@@ -145,11 +97,5 @@ module.exports = {
             template: resolve(__dirname, 'template/index.tmpl.html')
         })
     ],
-    resolve: {
-        modules: [
-            resolve(__dirname, './node_modules'),
-            resolve(__dirname, './style')
-        ],
-        extensions: ['.js', '.jsx', '.css']
-    }
+    resolve: common.resolve
 }
