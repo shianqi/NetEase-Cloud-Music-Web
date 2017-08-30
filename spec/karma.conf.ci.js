@@ -3,50 +3,59 @@
 const karmaConfig = require('./karma.conf.common.js')
 
 module.exports = function(config) {
+    // Example set of browsers to run on Sauce Labs
+    // Check out https://saucelabs.com/platforms for all browser/platform combos
+    const customLaunchers = {
+        sl_chrome: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Windows 7',
+            version: '35'
+        },
+        sl_firefox: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            version: '30'
+        },
+        sl_ios_safari: {
+            base: 'SauceLabs',
+            browserName: 'iphone',
+            platform: 'OS X 10.9',
+            version: '7.1'
+        },
+        sl_ie_11: {
+            base: 'SauceLabs',
+            browserName: 'internet explorer',
+            platform: 'Windows 8.1',
+            version: '11'
+        },
+        sl_android: {
+            base: 'SauceLabs',
+            browserName: 'Browser',
+            platform: 'Android',
+            version: '4.4',
+            deviceName: 'Samsung Galaxy S3 Emulator',
+            deviceOrientation: 'portrait'
+        }
+    }
+
     config.set(
         Object.assign(
             {},
             karmaConfig,
             {
-                browserStack: {
-                    username: 'shianqi',
-                    accessKey: 'f1d96776-1238-4ae3-b015-36118bef1a1a',
-                    retryLimit: 5,
-                    captureTimeout: 1800,
-                    timeout: 1800,
-                    concurrency: 2,
-                    browserNoActivityTimeout: 1800,
-                    browserDisconnectTimeout: 1800,
-                    browserDisconnectTolerance: 3,
-                    pollingTimeout: 30000
-                },
-                customLaunchers: {
-                    bs_chrome_mac: {
-                        base: 'BrowserStack',
-                        browser: 'chrome',
-                        browser_version: '55.0',
-                        os: 'OS X',
-                        os_version: 'Sierra'
+                sauceLabs: {
+                    testName: 'Web App Unit Tests',
+                    recordScreenshots: false,
+                    connectOptions: {
+                        username: 'shianqi',
+                        accessKey: 'f1d96776-1238-4ae3-b015-36118bef1a1a'
                     },
-                    bs_firefix_mac: {
-                        base: 'BrowserStack',
-                        os: 'OS X',
-                        os_version: 'Sierra',
-                        browser: 'firefox',
-                        browser_version: '50.0'
-                    },
-                    bs_ie9_windows: {
-                        base: 'BrowserStack',
-                        browser: 'ie',
-                        browser_version: '9.0',
-                        os: 'Windows',
-                        os_version: '7'
-                    }
+                    public: 'public'
                 },
-                browsers: [
-                    'bs_chrome_mac',
-                    'bs_firefix_mac'
-                ],
+                customLaunchers,
+                browsers: Object.keys(customLaunchers),
+                reporters: ['dots', 'saucelabs'],
                 // if true, Karma captures browsers, runs the tests and exits
                 singleRun: true
             }
