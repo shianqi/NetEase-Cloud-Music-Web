@@ -7,6 +7,8 @@ install:
   - npm install
 script:
   - npm run eslint
+  - npm run stylelint
+  - npm run test-ci
 env:
   - REACT=0.14
 bundler_args: --retry 2

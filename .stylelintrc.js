@@ -5,6 +5,30 @@ module.exports = {
             4, {
                 except: ['block']
             }
+        ],
+        'at-rule-no-unknown': [
+            true,
+            {
+                ignoreAtRules: [
+                    'value'
+                ]
+            }
+        ],
+        'property-no-unknown': [
+            true,
+            {
+                ignoreProperties: [
+                    'composes'
+                ]
+            }
+        ],
+        'selector-pseudo-class-no-unknown': [
+            true,
+            {
+                ignorePseudoClasses: [
+                    'global'
+                ]
+            }
         ]
     }
 }
