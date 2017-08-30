@@ -8,6 +8,18 @@ module.exports = function(config) {
             {},
             karmaConfig,
             {
+                browserStack: {
+                    username: 'shianqi',
+                    accessKey: 'f1d96776-1238-4ae3-b015-36118bef1a1a',
+                    retryLimit: 5,
+                    captureTimeout: 1800,
+                    timeout: 1800,
+                    concurrency: 2,
+                    browserNoActivityTimeout: 1800,
+                    browserDisconnectTimeout: 1800,
+                    browserDisconnectTolerance: 3,
+                    pollingTimeout: 30000
+                },
                 customLaunchers: {
                     bs_chrome_mac: {
                         base: 'BrowserStack',
