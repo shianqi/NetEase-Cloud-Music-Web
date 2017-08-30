@@ -8,7 +8,7 @@
     "build-dll": "npm run clean && webpack --config webpack.config.dll.js",
     "test": "node ./node_modules/karma/bin/karma start ./spec/karma.conf.js",
     "test-ci": "node ./node_modules/karma/bin/karma start ./spec/karma.conf.ci.js",
-    "coveralls": "cat ./spec/coverage/lcov/lcov.info | node ./node_modules/.bin/coveralls",
+    "coveralls": "cat ./spec/coverage/lcov/lcov.info | ./node_modules/.bin/coveralls",
     "eslint": "node ./node_modules/eslint/bin/eslint.js src spec/components",
     "stylelint": "node ./node_modules/stylelint/bin/stylelint.js src/**/*.css",
     "clean": "rimraf dist/*",
