@@ -11,7 +11,6 @@ module.exports = function(config) {
             {},
             karmaConfig,
             {
-
                 browserStack: {
                     username: 'shianqi1',
                     accessKey: 'j38b44rwz7nHXMZo5kJi',
