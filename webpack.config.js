@@ -39,25 +39,6 @@ module.exports = {
 
     module: {
         rules: [
-            {
-                test: /\.css$/,
-                use: [
-                    { loader: 'style-loader' },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            localIdentName: '[path]-[local]--[hash:base64:5]'
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader'
-                    }
-                ],
-                exclude: [
-                    //不使用 CSS Modules
-                ]
-            },
             ...common.module.rules
         ]
     },

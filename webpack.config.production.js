@@ -24,7 +24,24 @@ module.exports = {
         // 导致错误而不是警告
         strictExportPresence: true,
         rules: [
-            ...common.module.rules,
+            {
+                test: /\.jsx?$/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options:{
+                            presets: [
+                                ['es2015', {modules: false}],
+                                'react',
+                                'stage-0'
+                            ]
+                        }
+                    }
+                ],
+                exclude: [
+                    resolve(__dirname, '/node_modules/')
+                ]
+            },
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
@@ -47,6 +64,30 @@ module.exports = {
                 }),
                 exclude: [
                     //不使用 CSS Modules
+                ]
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                            name: 'images/[hash:8].[name].[ext]'
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(woff|svg|eot|ttf)\??.*$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                            name: 'font/[hash:8].[name].[ext]'
+                        }
+                    }
                 ]
             }
         ]
