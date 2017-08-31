@@ -6,6 +6,7 @@ module.exports = {
                 except: ['block']
             }
         ],
+        // 忽略 css modules 语法
         'at-rule-no-unknown': [
             true,
             {
