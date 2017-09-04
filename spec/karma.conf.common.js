@@ -22,8 +22,7 @@ module.exports = {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'src/**/*.jsx': ['coverage', 'sourcemap'],
-        'spec/**/*.spec.js': ['webpack', 'sourcemap']
+        'spec/**/*.spec.js': ['webpack', 'coverage']
     },
 
     // test results reporter to use

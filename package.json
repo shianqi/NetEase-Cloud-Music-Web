@@ -6,7 +6,7 @@
     "dev": "npm run build-dll & webpack-dev-server",
     "build": "npm run eslint && npm run build-dll && webpack --config webpack.config.production.js",
     "build-dll": "npm run clean && webpack --config webpack.config.dll.js",
-    "test": "node ./node_modules/karma/bin/karma start ./spec/karma.conf.js",
+    "test": "set NODE_ENV=test  && karma start ./spec/karma.conf.js",
     "test-ci": "node ./node_modules/karma/bin/karma start ./spec/karma.conf.ci.js",
     "coveralls": "cat ./spec/coverage/lcov/lcov.info | ./node_modules/.bin/coveralls",
     "eslint": "node ./node_modules/eslint/bin/eslint.js src spec/components",
