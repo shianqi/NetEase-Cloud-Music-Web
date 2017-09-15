@@ -1,13 +1,13 @@
-const { resolve } = require('path')
-const webpack = require('webpack')
-const OpenBrowserPlugin = require('open-browser-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const vendor = require('./assets/vendor-manifest.json')
-const bundleConfig = require('./assets/webpack-assets.json')
-const common = require('./webpack.config.common')
+import { resolve } from 'path'
+import webpack from 'webpack'
+import OpenBrowserPlugin from 'open-browser-webpack-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import vendor from './assets/vendor-manifest.json'
+import bundleConfig from './assets/webpack-assets.json'
+import common from './webpack.config.common.js'
 
-module.exports = {
+export default {
     context: common.context,
     output: common.output,
 

@@ -79,12 +79,27 @@
     outline: none;
     margin: 0;
     border: 0;
-    background: wyBlackRed;
     background: rgba(0, 0, 0, 0);
     line-height: 16px;
     font-size: 10px;
     color: #fff;
     font-weight: 100;
+}
+
+.searchBoxInput::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.searchBoxInput:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.searchBoxInput::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.searchBoxInput:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .searchBoxButton {

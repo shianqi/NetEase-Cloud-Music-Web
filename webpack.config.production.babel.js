@@ -1,12 +1,12 @@
-const { resolve } = require('path')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const bundleConfig = require('./assets/webpack-assets.json')
-const common = require('./webpack.config.common')
+import { resolve } from 'path'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import webpack from 'webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import bundleConfig from './assets/webpack-assets.json'
+import common from './webpack.config.common.js'
 
-module.exports = {
+export default {
     context: common.context,
 
     entry: common.entry,
@@ -17,7 +17,7 @@ module.exports = {
     output: {
         ...common.output,
         // 编译文件名加入Hash
-        filename: 'bundle.[hash:20].js'
+        filename: 'bundle.[chunkhash:20].js'
     },
 
     module: {
@@ -73,7 +73,7 @@ module.exports = {
                         loader: 'url-loader',
                         options: {
                             limit: 8192,
-                            name: 'images/[hash:8].[name].[ext]'
+                            name: 'images/[chunkhash:8].[name].[ext]'
                         }
                     }
                 ]
@@ -102,7 +102,8 @@ module.exports = {
         }),
 
         //分离打包css和js
-        new ExtractTextPlugin('styles.[hash:20].css'),
+        //contenthash 分离 css 和 js 时分别计算 hash
+        new ExtractTextPlugin('styles.[contenthash:20].css'),
 
         //定义生产环境
         new webpack.DefinePlugin({
@@ -126,7 +127,7 @@ module.exports = {
         }),
         //用模板生成HTML页面
         new HtmlWebpackPlugin({
-            title: 'Elevoc',
+            title: 'React NetEast Cloud Music',
             bundleName: bundleConfig.vendor.js,
             filename: 'index.html',
             favicon: resolve(__dirname, 'template/favicon.ico'),

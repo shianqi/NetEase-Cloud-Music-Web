@@ -1,12 +1,12 @@
-const path = require('path')
-const webpack = require('webpack')
-const WebpackMd5Hash = require('webpack-md5-hash')
-const AssetsPlugin = require('assets-webpack-plugin')
+import path from 'path'
+import webpack from 'webpack'
+import WebpackMd5Hash from 'webpack-md5-hash'
+import AssetsPlugin from 'assets-webpack-plugin'
 
 const distPath = path.resolve(__dirname, 'dist')
 const assetsPath = path.resolve(__dirname, 'assets')
 
-module.exports = {
+export default {
     entry: {
         vendor: [
             'react',
