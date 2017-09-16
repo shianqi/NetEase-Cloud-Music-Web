@@ -1,6 +1,6 @@
-import { resolve } from 'path'
+const resolve = require('path').resolve
 
-export default {
+module.exports = {
     context: resolve(__dirname, 'src'),
 
     entry: [
