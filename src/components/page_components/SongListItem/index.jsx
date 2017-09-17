@@ -9,18 +9,21 @@ import {
 class SunListItem extends Component {
     render() {
         const {
-            title,
-            plays,
-            recommendReason,
-            playButton,
-            HandlerClick
+            name,
+            playCount,
+            copywriter,
+            canDislike,
+            picUrl,
+            HandlerPlayButtonClick,
+            HandlerImgClick
         } = this.props
 
         return (
             <div className={Style['main']}>
                 <div className={Style['item-img']}>
+                    <img className={ Style['item-img-photo'] } src={ picUrl } onClick={ HandlerPlayButtonClick }></img>
                     <div className={Style['item-hover']}>
-                        { recommendReason }
+                        { copywriter }
                     </div>
                     <div
                         className={
@@ -28,19 +31,19 @@ class SunListItem extends Component {
                                 iconfont,
                                 icon_bofang,
                                 Style['item-play-button'],
-                                {[Style['item-display-none']]: !playButton}
+                                {[Style['item-display-none']]: !canDislike}
                             )
                         }
-                        onClick={HandlerClick}
+                        onClick={HandlerImgClick}
                     >
 
                     </div>
                     <div className={Style['item-plays']}>
-                        { plays }
+                        { playCount }
                     </div>
                 </div>
                 <div className={Style['item-title']}>
-                    { title }
+                    { name }
                 </div>
             </div>
         )

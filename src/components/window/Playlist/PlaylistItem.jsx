@@ -8,10 +8,13 @@ class PlaylistItem extends Component {
 
     render() {
         const {
-            name,
+            name='Loading...',
             createTime,
             coverImgUrl,
-            creator
+            creator={
+                avatarUrl: '',
+                nickname: ''
+            }
         } = this.props.playlist
 
         return (
@@ -23,7 +26,7 @@ class PlaylistItem extends Component {
                     <div className={Style['banner-main']}>
                         <div className={ Style['banner-title'] }>
                             <span className={ Style['banner-title-span'] }>歌单</span>
-                            <span className={ Style['banner-title-name'] }>{name}</span>
+                            <span className={ Style['banner-title-name'] }>{ name }</span>
                         </div>
                         <div>
                             <div className={ Style['banner-owner-img'] }>

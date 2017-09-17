@@ -15,6 +15,13 @@
     overflow: hidden;
 }
 
+.item-img-photo {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
 .item-img::before {
     content: "";
     display: inline-block;
