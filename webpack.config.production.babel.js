@@ -28,18 +28,11 @@ export default {
                 test: /\.jsx?$/,
                 use: [
                     {
-                        loader: 'babel-loader',
-                        options:{
-                            presets: [
-                                ['es2015', {modules: false}],
-                                'react',
-                                'stage-0'
-                            ]
-                        }
+                        loader: 'babel-loader'
                     }
                 ],
                 exclude: [
-                    resolve(__dirname, '/node_modules/')
+                    resolve(__dirname, './node_modules/')
                 ]
             },
             {

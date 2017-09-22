@@ -1,11 +1,22 @@
 {
     "presets": [
-        ["es2015"],
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": [
+                        "last 2 versions",
+                        "ie >= 9"
+                    ],
+                    "node": "current"
+                },
+            }
+        ],
         "react",
-        "stage-0"
+        "stage-3"
     ],
     "plugins": [
         "react-hot-loader/babel",
-        "transform-object-assign"
+        "transform-runtime"
     ]
 }

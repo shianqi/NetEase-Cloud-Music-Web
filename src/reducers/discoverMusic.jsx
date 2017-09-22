@@ -1,6 +1,6 @@
 import {
     RECEIVE_DAILY_RECOMMENDED_PLAYLIST
-} from '../actions/songList'
+} from '../actions/DiscoverMusic'
 
 const _discoverMusic = {
     personalityRecommendation: {
