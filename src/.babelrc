@@ -10,14 +10,15 @@
                     ],
                     "node": "current"
                 },
-                "modules": false
+                "modules": false,
+                "debug": true,
+                "useBuiltIns": true
             }
         ],
         "react",
         "stage-3"
     ],
     "plugins": [
-        "react-hot-loader/babel",
-        "transform-runtime"
+        "react-hot-loader/babel"
     ]
 }
