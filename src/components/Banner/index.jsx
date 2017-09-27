@@ -24,15 +24,25 @@ let Banner = ({ dispatch, nickname, avatarUrl }) => {
         dispatch(openLoginInterface())
     }
 
+    const backwards = function() {
+        history.go(-1)
+    }
+
+    const forward = function() {
+        history.go(1)
+    }
+
     return (
         <div className={Style['title']}>
             <div className={Style['logo']}/>
             <div className={Style['historyButton']}>
                 <div
                     className={cs(Style['historyButtonBack'], iconfont, icon_houtui)}
+                    onClick={backwards}
                 />
                 <div
                     className={cs(Style['historyButtonForward'], iconfont, icon_qianjin)}
+                    onClick={forward}
                 />
                 <div className={ Style['searchBox'] }>
                     <input

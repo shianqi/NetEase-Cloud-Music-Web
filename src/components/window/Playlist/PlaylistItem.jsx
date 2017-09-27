@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router'
 import Style from './Playlist.css'
-import SongList from './SongList'
+import SongList from './PlaylistTab/SongList/index'
+import Comment from './PlaylistTab/Comment/index'
+import Collector from './PlaylistTab/Collector/index'
 
 class PlaylistItem extends Component {
     constructor(props) {
@@ -13,6 +15,7 @@ class PlaylistItem extends Component {
             name='Loading...',
             createTime,
             coverImgUrl,
+            tracks,
             creator={
                 avatarUrl: '',
                 nickname: ''
@@ -20,6 +23,12 @@ class PlaylistItem extends Component {
         } = this.props.playlist
 
         const { match } = this.props
+
+        const SuperSongList = (data)=>(
+            ()=>(
+                <SongList data={ data }></SongList>
+            )
+        )
 
         return (
             <div>
@@ -48,8 +57,12 @@ class PlaylistItem extends Component {
                         <span className={ Style['list-option-item'] }>收藏者</span>
                     </div>
                 </div>
-                <Redirect exact path={`${match.url}`} to={`${match.url}/SongList`}/>
-                <Route path={`${match.url}/SongList`} component={SongList} ></Route>
+                <div>
+                    <Redirect exact path={`${match.url}`} to={`${match.url}/SongList`}/>
+                    <Route path={`${match.url}/SongList`} component={SuperSongList(tracks)} ></Route>
+                    <Route path={`${match.url}/Comment`} component={Comment} ></Route>
+                    <Route path={`${match.url}/Collector`} component={Collector} ></Route>
+                </div>
             </div>
         )
     }

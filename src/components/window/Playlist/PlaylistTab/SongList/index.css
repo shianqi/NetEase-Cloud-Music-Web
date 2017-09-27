@@ -1,0 +1,29 @@
+.list-item {
+    font-size: 15px;
+    padding: 5px 0;
+}
+
+.list-item-index {
+    display: inline-block;
+    width: 6%;
+}
+
+.list-item-name {
+    display: inline-block;
+    width: 30%;
+}
+
+.list-item-singers {
+    display: inline-block;
+    width: 20%;
+}
+
+.list-item-album {
+    display: inline-block;
+    width: 30%;
+}
+
+.list-item-time {
+    display: inline-block;
+    width: 14%;
+}
