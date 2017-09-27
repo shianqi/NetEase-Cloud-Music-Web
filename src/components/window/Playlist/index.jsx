@@ -9,7 +9,7 @@ class Playlist extends Component {
 
         return (
             <div>
-                <Route exact path={`${match.url}/:thisID`} component={PlaylistItems}/>
+                <Route path={`${match.url}/:thisID`} component={PlaylistItems}/>
             </div>
         )
     }

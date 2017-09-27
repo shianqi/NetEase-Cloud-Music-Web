@@ -31,14 +31,11 @@ const shouldFetchListDetail = (state, id) => {
     if(!listDetail) {
         return true
     }
-    if(listDetail.isFetching) {
-        return false
-    }
-    return true
+    return false
 }
 
 export const fetchListDetailIfNeeded = (id) => (dispatch, getState) => {
-    if (shouldFetchListDetail(getState(), id)) {
+    if (shouldFetchListDetail(getState().songList, id)) {
         return dispatch(fetchListDetail(id))
     }
 }

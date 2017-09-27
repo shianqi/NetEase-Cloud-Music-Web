@@ -9,7 +9,7 @@ const songList = (state = {}, action) => {
             return {
                 ...state,
                 [action.id]: {
-                    ...state.date,
+                    ...action.data,
                     isFetching: false
                 }
             }
@@ -18,7 +18,8 @@ const songList = (state = {}, action) => {
                 ...state,
                 [action.id]: {
                     isFetching: true
-                }
+                },
+                id: action.id
             }
         default:
             return state

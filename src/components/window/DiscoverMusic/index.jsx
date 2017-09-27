@@ -1,7 +1,7 @@
 import React from 'react'
 import Style from './index.css'
 import cs from 'classnames'
-import { Route } from 'react-router'
+import { Route, Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { push } from 'react-router-redux'
@@ -61,9 +61,7 @@ const DiscoverMusic = ({dispatch, list, match})=>{
             </div>
 
             <Route exact path={`${match.url}/:thisID`} component={Topic}/>
-            <Route exact path={`${match.url}`} render={() => (
-                <h3>Please select a topic.</h3>
-            )}/>
+            <Redirect exact path={`${match.url}`} to={`${match.url}/GXTJ`}/>
         </div>
     )
 }

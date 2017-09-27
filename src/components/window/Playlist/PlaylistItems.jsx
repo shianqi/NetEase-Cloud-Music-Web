@@ -6,12 +6,11 @@ import { fetchListDetailIfNeeded } from '../../../actions/songList'
 
 import PlaylistItem from './PlaylistItem'
 
-const selector = (state) => (
-    {
-        id: state.songList.id,
-        playlist: state.songList[this.id]
+const selector = (state) => {
+    return {
+        songList: state.songList
     }
-)
+}
 
 class PlaylistItems extends Component {
     componentDidMount() {
@@ -20,11 +19,14 @@ class PlaylistItems extends Component {
     }
 
     render() {
-        const { playlist={} } = this.props
+        const { match, songList={} } = this.props
+        const { playlist={} } = songList[match.params.thisID] || {}
+
         return (
             <div>
                 <PlaylistItem
                     playlist={playlist}
+                    match={ {...match} }
                 />
             </div>
         )

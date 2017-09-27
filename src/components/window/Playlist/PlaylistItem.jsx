@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { Route, Redirect } from 'react-router'
 import Style from './Playlist.css'
+import SongList from './SongList'
 
 class PlaylistItem extends Component {
     constructor(props) {
@@ -16,6 +18,8 @@ class PlaylistItem extends Component {
                 nickname: ''
             }
         } = this.props.playlist
+
+        const { match } = this.props
 
         return (
             <div>
@@ -44,7 +48,8 @@ class PlaylistItem extends Component {
                         <span className={ Style['list-option-item'] }>收藏者</span>
                     </div>
                 </div>
-
+                <Redirect exact path={`${match.url}`} to={`${match.url}/SongList`}/>
+                <Route path={`${match.url}/SongList`} component={SongList} ></Route>
             </div>
         )
     }
