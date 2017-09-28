@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import Style from './index.css'
 import cs from 'classnames'
+import { connect } from 'react-redux'
+import {
+    musicPlayer_play,
+    musicPlayer_pause
+} from '../../actions/musicPlayer.jsx'
+
 import {
     iconfont,
     icon_shangyiqu,
@@ -11,8 +17,17 @@ import {
     icon_iconfontttpodicon1eps
 } from 'iconfont.css'
 
+const selector = (state)=>({
+    playing: state.musicPlayer.playing
+})
+
 class Footer extends Component {
     render() {
+        const { dispatch } = this.props
+        const handlerPlay = ()=>{
+            dispatch(musicPlayer_play())
+        }
+
         return(
             <div className={Style.footer}>
                 <div>
@@ -22,6 +37,7 @@ class Footer extends Component {
                     />
                     <div
                         className={ cs(iconfont, icon_bofang, Style['button_play']) }
+                        onClick = { handlerPlay }
                         title="播放"
                     />
                     <div
@@ -49,4 +65,4 @@ class Footer extends Component {
     }
 }
 
-export default Footer
+export default connect(selector)(Footer)
