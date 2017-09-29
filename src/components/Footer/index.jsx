@@ -12,6 +12,7 @@ import {
     icon_shangyiqu,
     icon_xiayiqu,
     icon_bofang,
+    icon_zanting,
     icon_bofangliebiao,
     icon_geci,
     icon_iconfontttpodicon1eps
@@ -23,9 +24,16 @@ const selector = (state)=>({
 
 class Footer extends Component {
     render() {
-        const { dispatch } = this.props
+        const {
+            dispatch,
+            playing
+        } = this.props
         const handlerPlay = ()=>{
             dispatch(musicPlayer_play())
+        }
+
+        const handlerPause = ()=>{
+            dispatch(musicPlayer_pause())
         }
 
         return(
@@ -35,11 +43,20 @@ class Footer extends Component {
                         className={ cs(iconfont, icon_shangyiqu, Style['button_back']) }
                         title="上一首"
                     />
-                    <div
-                        className={ cs(iconfont, icon_bofang, Style['button_play']) }
-                        onClick = { handlerPlay }
-                        title="播放"
-                    />
+                    {
+                        playing?
+                            <div
+                                className={ cs(iconfont, icon_zanting, Style['button_play']) }
+                                onClick = { handlerPause }
+                                title="暂停"
+                            />:
+                            <div
+                                className={ cs(iconfont, icon_bofang, Style['button_play']) }
+                                onClick = { handlerPlay }
+                                title="播放"
+                            />
+                    }
+
                     <div
                         className={ cs(iconfont, icon_xiayiqu, Style['button_front']) }
                         title="下一首"

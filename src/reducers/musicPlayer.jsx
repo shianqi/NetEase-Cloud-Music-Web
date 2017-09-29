@@ -1,5 +1,6 @@
 import {
-    MUSICPLAYER_PLAY
+    MUSICPLAYER_PLAY,
+    MUSICPLAYER_PAUSE
 } from '../actions/musicPlayer.jsx'
 
 const _state = {
@@ -13,6 +14,11 @@ const musicPlayer = (state = _state, action)=> {
             return {
                 ...state,
                 playing: true
+            }
+        case MUSICPLAYER_PAUSE:
+            return {
+                ...state,
+                playing: false
             }
         default:
             return state
