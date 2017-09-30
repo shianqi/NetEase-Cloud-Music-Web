@@ -9,3 +9,5 @@ export const playlistURL = `${baseURL}/user/playlist`
 export const playlistDetailURL = `${baseURL}/playlist/detail`
 //每日推荐歌单
 export const dailyRecommendedPlaylist = `${baseURL}/personalized`
+
+export const getMusicUrl = `${baseURL}/music/url`

@@ -9,23 +9,32 @@ const selector = (state) => {
 }
 
 class MusicPlayer extends Component {
-    render() {
+    componentDidUpdate() {
         const { musicPlayer={} } = this.props
         const audio = document.getElementById('musicPlayer')
         const {
-            src='',
+            src,
             playing
         } = musicPlayer
 
+        console.log('didUpdate', playing)
         if(audio&&playing) {
             audio.play()
         }else if(audio) {
             audio.pause()
         }
+    }
+
+    render() {
+        const { musicPlayer={} } = this.props
+        const audio = document.getElementById('musicPlayer')
+        const {
+            src
+        } = musicPlayer
 
         return (
             <div>
-                <audio id="musicPlayer" src={ src }></audio>
+                <audio id="musicPlayer" play src={ src }></audio>
             </div>
         )
     }

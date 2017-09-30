@@ -28,6 +28,7 @@ class Footer extends Component {
             dispatch,
             playing
         } = this.props
+        console.log('footer', playing)
         const handlerPlay = ()=>{
             dispatch(musicPlayer_play())
         }

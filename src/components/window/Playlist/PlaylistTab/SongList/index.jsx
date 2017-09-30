@@ -1,16 +1,33 @@
 import React, { Component } from 'react'
 import Style from './index.css'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { musicPlayer_change } from '../../../../../actions/musicPlayer'
+
+const selector = (state) => {
+    return {
+        musicPlayer: state.musicPlayer
+    }
+}
 
 class SongList extends Component {
     render() {
-        const { data=[] } = this.props
+        const {
+            data=[],
+            dispatch
+        } = this.props
+
+        const handlerChangeMusic = (id)=>()=>{
+            dispatch(musicPlayer_change(id))
+        }
 
         const List = data.map((item, index)=>{
             const {
                 ar = [],
                 al = {},
                 name = 'Unknown',
-                dt = 0
+                dt = 0,
+                id = 422977912
             } = item
             const hh = parseInt(dt/(60*60*1000), 10)
             const mm = parseInt((dt-hh*60*60*1000)/(60*1000), 10)
@@ -36,7 +53,10 @@ class SongList extends Component {
             }
 
             return (
-                <div className={ Style['list-item'] }>
+                <div
+                    className={ Style['list-item'] }
+                    onDoubleClick={ handlerChangeMusic(id) }
+                >
                     <div className={ Style['list-item-index-box'] }>
                         <span className={ Style['list-item-index'] }>{ index+1>=10?index+1:`0${index+1}` }</span>
                     </div>
@@ -83,4 +103,4 @@ class SongList extends Component {
     }
 }
 
-export default SongList
+export default withRouter(connect(selector)(SongList))
