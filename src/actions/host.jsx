@@ -1,5 +1,5 @@
-// const baseURL = 'https://www.shianqi.com'
-const baseURL = 'http://localhost:3000'
+const baseURL = 'https://www.shianqi.com'
+// const baseURL = 'http://localhost:3000'
 
 //登录
 export const loginURL = `${baseURL}/login/cellphone`

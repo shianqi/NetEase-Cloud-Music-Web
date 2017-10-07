@@ -13,11 +13,9 @@ class MusicPlayer extends Component {
         const { musicPlayer={} } = this.props
         const audio = document.getElementById('musicPlayer')
         const {
-            src,
             playing
         } = musicPlayer
 
-        console.log('didUpdate', playing)
         if(audio&&playing) {
             audio.play()
         }else if(audio) {
