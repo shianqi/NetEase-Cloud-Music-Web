@@ -1,11 +1,11 @@
 import SunListItem from '../../../../src/components/page_components/SongListItem/index.jsx'
 import { main } from '../../../../src/components/page_components/SongListItem/index.css'
-import { mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 
 describe('Alert', () => {
     it('as an API', () => {
-        const listItem = mount(
+        const listItem = shallow(
             <SunListItem
                 key={0}
                 title={ '欲罢不能的电音，Dopa' }

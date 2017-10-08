@@ -16,6 +16,7 @@ module.exports = {
 
     // list of files / patterns to load in the browser
     files: [
+        'spec/helpers/test-setup.js',
         'spec/**/*.spec.js'
     ],
 
@@ -48,6 +49,8 @@ module.exports = {
     singleRun: true,
 
     webpack: {
+        // https://github.com/airbnb/enzyme/blob/master/docs/guides/karma.md
+        devtool: 'inline-source-map',
         module: webpack.module,
         resolve: webpack.resolve,
         externals: {
