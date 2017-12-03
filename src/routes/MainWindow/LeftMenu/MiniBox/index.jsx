@@ -1,15 +1,25 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import Style from './index.css'
 
-class MiniBox extends Component {
+class MiniBox extends PureComponent {
   render() {
+    const { musicPlayer } = this.props
+    const { picUrl, name } = musicPlayer
     return (
       <div className={Style.miniBox}>
-        <img src="" alt=""/>
-        <div className={Style['img_cover']}/>
+        <img className={Style['miniBox-img']} src={picUrl} alt=""/>
+        <div className={Style['img_cover']} />
+        <div className={Style['mini-box-infomation']}>
+          <h5 className={Style['mini-box-infomation-title']}>{name}</h5>
+        </div>
       </div>
     )
   }
 }
 
-export default MiniBox
+const selector = (state) => ({
+  musicPlayer: state.musicPlayer
+})
+
+export default connect(selector)(MiniBox)

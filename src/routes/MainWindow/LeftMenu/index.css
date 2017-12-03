@@ -1,8 +1,8 @@
 .leftMenu {
-    width: 200px;
-    position: absolute;
-    left: 0;
-    height: 100%;
-    background: #f5f5f7;
-    border-right: 1px solid #e6e7ea;
+  width: 200px;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  background: #f5f5f7;
+  border-right: 1px solid #e6e7ea;
 }

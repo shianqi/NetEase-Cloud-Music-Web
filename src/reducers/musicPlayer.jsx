@@ -6,7 +6,9 @@ import {
 
 const _state = {
   playing: false,
-  src: 'http://m10.music.126.net/20170928213730/a921719863a66fec83329a5b7f7b4b55/ymusic/f1ae/0bd1/31a9/5d64960d0cbebc0d089bc85a6ef54680.mp3'
+  picUrl: '',
+  name: '',
+  src: ''
 }
 
 const musicPlayer = (state = _state, action)=> {
@@ -25,7 +27,10 @@ const musicPlayer = (state = _state, action)=> {
       return {
         ...state,
         playing: true,
-        src: action.data
+        src: action.data.url,
+        name: action.data.name,
+        singer: action.data.singer,
+        picUrl: action.data.picUrl
       }
     default:
       return state

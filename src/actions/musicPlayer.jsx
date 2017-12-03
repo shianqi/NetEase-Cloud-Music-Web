@@ -13,18 +13,32 @@ export const musicPlayer_pause = ()=>({
   type: MUSICPLAYER_PAUSE
 })
 
-export const musicPlayer_changeUrl = (url)=>({
+export const musicPlayer_changeInfo = (data)=>({
   type: MUSICPLAYER_CHANGE,
-  data: url
+  data
 })
 
-export const musicPlayer_change = (id)=>(dispatch)=>(
-  fetch(`${getMusicUrl}?id=${id}`, {
-    credentials: 'include',
-    mode: 'cors'
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch(musicPlayer_changeUrl(json.data[0].url))
+export const musicPlayer_change = (data)=>(dispatch)=> {
+  const {
+    id,
+    name,
+    singer,
+    picUrl
+  } = data
+
+  return (
+    fetch(`${getMusicUrl}?id=${id}`, {
+      credentials: 'include',
+      mode: 'cors'
     })
-)
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch(musicPlayer_changeInfo({
+          url: json.data[0],
+          name,
+          singer,
+          picUrl
+        }))
+      })
+  )
+}

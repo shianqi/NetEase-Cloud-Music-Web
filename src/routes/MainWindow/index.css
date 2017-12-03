@@ -1,10 +1,10 @@
 .main-box {
-    box-sizing: border-box;
-    width: 100%;
-    min-width: 1000px;
-    position: absolute;
-    top: 50px;
-    bottom: 50px;
-    background: #fafafa;
-    z-index: 1;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 1000px;
+  position: absolute;
+  top: 50px;
+  bottom: 50px;
+  background: #fafafa;
+  z-index: 1;
 }

@@ -17,8 +17,13 @@ class SongList extends Component {
       dispatch
     } = this.props
 
-    const handlerChangeMusic = (id)=>()=>{
-      dispatch(musicPlayer_change(id))
+    const handlerChangeMusic = (id, name, singer, picUrl)=>()=>{
+      dispatch(musicPlayer_change({
+        id,
+        name,
+        singer,
+        picUrl
+      }))
     }
 
     const List = data.map((item, index)=>{
@@ -29,6 +34,7 @@ class SongList extends Component {
         dt = 0,
         id = 422977912
       } = item
+
       const hh = parseInt(dt/(60*60*1000), 10)
       const mm = parseInt((dt-hh*60*60*1000)/(60*1000), 10)
       const ss = parseInt((dt-hh*60*60*1000-mm*60*1000)/(1000), 10)
@@ -40,7 +46,7 @@ class SongList extends Component {
         }
       }
 
-      const singer = ()=>{
+      const getSinger = ()=>{
         const res = []
         for(let i = 0; i<ar.length*2; i++) {
           if (i%2===0) {
@@ -52,10 +58,12 @@ class SongList extends Component {
         return res
       }
 
+      const singer = getSinger()
+
       return (
         <div
           className={ Style['list-item'] }
-          onDoubleClick={ handlerChangeMusic(id) }
+          onDoubleClick={ handlerChangeMusic(id, name, singer, al.picUrl) }
         >
           <div className={ Style['list-item-index-box'] }>
             <span className={ Style['list-item-index'] }>{ index+1>=10?index+1:`0${index+1}` }</span>
@@ -64,7 +72,7 @@ class SongList extends Component {
             <span className={ Style['list-item-name'] }>{ name }</span>
           </div>
           <div className={ Style['list-item-singers-box'] }>
-            <span className={ Style['list-item-singers'] }>{ singer() }</span>
+            <span className={ Style['list-item-singers'] }>{ singer }</span>
           </div>
           <div className={ Style['list-item-album-box'] }>
             <span className={ Style['list-item-album'] }>{ al.name }</span>

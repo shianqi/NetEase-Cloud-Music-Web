@@ -1,195 +1,195 @@
 .list-item {
-    line-height: 18px;
-    box-sizing: border-box;
-    background: #fafafa;
-    user-select: none;
-    overflow: hidden;
+  line-height: 18px;
+  box-sizing: border-box;
+  background: #fafafa;
+  user-select: none;
+  overflow: hidden;
 }
 
 .list-item:nth-child(2n) {
-    background: #f5f5f7;
+  background: #f5f5f7;
 }
 
 .list-item:hover {
-    background: #ebeced;
+  background: #ebeced;
 }
 
 .list-item-header {
-    line-height: 18px;
-    box-sizing: border-box;
-    background: #fafafa;
-    user-select: none;
-    overflow: hidden;
+  line-height: 18px;
+  box-sizing: border-box;
+  background: #fafafa;
+  user-select: none;
+  overflow: hidden;
 }
 
 .list-item-index-header {
-    box-sizing: border-box;
-    border-right: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 5px;
-    width: 8%;
-    text-align: center;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  width: 8%;
+  text-align: center;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-name-header {
-    box-sizing: border-box;
-    border-right: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 5px;
-    width: 30%;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  width: 30%;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-singers-header {
-    box-sizing: border-box;
-    border-right: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 5px;
-    width: 20%;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  width: 20%;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-album-header {
-    box-sizing: border-box;
-    border-right: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 5px;
-    width: 30%;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  width: 30%;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-time-header {
-    box-sizing: border-box;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 5px;
-    width: 12%;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  width: 12%;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-name-header:hover {
-    background: #ebeced;
+  background: #ebeced;
 }
 
 .list-item-singers-header:hover {
-    background: #ebeced;
+  background: #ebeced;
 }
 
 .list-item-album-header:hover {
-    background: #ebeced;
+  background: #ebeced;
 }
 
 .list-item-time-header:hover {
-    background: #ebeced;
+  background: #ebeced;
 }
 
 .list-item-index-box {
-    box-sizing: border-box;
-    padding: 5px;
-    width: 8%;
-    text-align: center;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  padding: 5px;
+  width: 8%;
+  text-align: center;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-name-box {
-    box-sizing: border-box;
-    padding: 5px;
-    width: 30%;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  padding: 5px;
+  width: 30%;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-singers-box {
-    box-sizing: border-box;
-    padding: 5px;
-    width: 20%;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  padding: 5px;
+  width: 20%;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-album-box {
-    box-sizing: border-box;
-    padding: 5px;
-    width: 30%;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  padding: 5px;
+  width: 30%;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-time-box {
-    box-sizing: border-box;
-    padding: 5px;
-    width: 12%;
-    float: left;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  box-sizing: border-box;
+  padding: 5px;
+  width: 12%;
+  float: left;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-item-index {
-    cursor: default;
-    color: #777;
-    text-align: center;
-    font-size: 13px;
+  cursor: default;
+  color: #777;
+  text-align: center;
+  font-size: 13px;
 }
 
 .list-item-name {
-    cursor: default;
-    font-size: 13px;
+  cursor: default;
+  font-size: 13px;
 }
 
 .list-item-singers {
-    cursor: pointer;
-    color: #555;
-    font-size: 13px;
+  cursor: pointer;
+  color: #555;
+  font-size: 13px;
 }
 
 .list-item-album {
-    cursor: pointer;
-    color: #555;
-    font-size: 13px;
+  cursor: pointer;
+  color: #555;
+  font-size: 13px;
 }
 
 .list-item-time {
-    cursor: default;
-    color: #777;
-    font-size: 12px;
+  cursor: default;
+  color: #777;
+  font-size: 12px;
 }

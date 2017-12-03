@@ -10,7 +10,7 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { AppContainer } from 'react-hot-loader'
-import App from './router/App'
+import App from './routes/App'
 import reducers from './reducers'
 
 const history = createHistory()
@@ -43,7 +43,7 @@ const render = (Component) => {
 render(App)
 
 if (module.hot) {
-  module.hot.accept('./router/App', () => {
+  module.hot.accept('./routes/App', () => {
     render(App)
   })
 }
