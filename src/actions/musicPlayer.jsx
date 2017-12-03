@@ -6,25 +6,25 @@ export const MUSICPLAYER_PAUSE = 'MUSICPLAYER_PAUSE'
 export const MUSICPLAYER_CHANGE = 'MUSICPLAYER_CHANGE'
 
 export const musicPlayer_play = ()=>({
-    type: MUSICPLAYER_PLAY
+  type: MUSICPLAYER_PLAY
 })
 
 export const musicPlayer_pause = ()=>({
-    type: MUSICPLAYER_PAUSE
+  type: MUSICPLAYER_PAUSE
 })
 
 export const musicPlayer_changeUrl = (url)=>({
-    type: MUSICPLAYER_CHANGE,
-    data: url
+  type: MUSICPLAYER_CHANGE,
+  data: url
 })
 
 export const musicPlayer_change = (id)=>(dispatch)=>(
-    fetch(`${getMusicUrl}?id=${id}`, {
-        credentials: 'include',
-        mode: 'cors'
+  fetch(`${getMusicUrl}?id=${id}`, {
+    credentials: 'include',
+    mode: 'cors'
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(musicPlayer_changeUrl(json.data[0].url))
     })
-        .then((response) => response.json())
-        .then((json) => {
-            dispatch(musicPlayer_changeUrl(json.data[0].url))
-        })
 )

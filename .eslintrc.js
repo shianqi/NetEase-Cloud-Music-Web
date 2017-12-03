@@ -23,8 +23,8 @@ module.exports = {
         'css-modules'
     ],
     rules: {
-        'indent': ["error", 4, {"SwitchCase": 1}],  //缩进风格
-        //'linebreak-style': [2, "unix"],             //使用unix换行符\n 而不是\r\n
+        'indent': ["error", 2, {"SwitchCase": 1}],  //缩进风格
+        'linebreak-style': [2, "unix"],             //使用unix换行符\n 而不是\r\n
         'quotes': [
             2, "single",                            //字符串使用单引号
             { avoidEscape: true }                   //允许单引号中嵌套使用双引号
@@ -63,8 +63,9 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
         'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
 
-         'react/jsx-uses-react': 2,
-         'react/jsx-uses-vars': 2,
-         'css-modules/no-unused-class': 1
+        'react/jsx-uses-react': 2,
+        'react/jsx-uses-vars': 2,
+        'css-modules/no-unused-class': 1,
+        'css-modules/no-undef-class': 1
     }
 };

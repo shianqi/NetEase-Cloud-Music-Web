@@ -79,9 +79,11 @@ module.exports = {
 
     resolve: {
         modules: [
-            resolve(__dirname, './node_modules'),
-            resolve(__dirname, './style')
+            resolve(__dirname, './node_modules')
         ],
+        alias: {
+            STYLES: resolve(__dirname, './style')
+        },
         extensions: ['.js', '.json', '.jsx', '.css']
     }
 }

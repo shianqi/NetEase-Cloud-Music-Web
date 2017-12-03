@@ -9,17 +9,17 @@ import Login from './Login'
 import Style from './App.css'
 
 class App extends Component {
-    render() {
-        return (
-            <div className={Style.app}>
-                <Footer/>
-                <MainWindow/>
-                <MusicPlayer/>
-                <Banner/>
-                <Login/>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className={Style.app}>
+        <Footer/>
+        <MainWindow/>
+        <MusicPlayer/>
+        <Banner/>
+        <Login/>
+      </div>
+    )
+  }
 }
 
 export default App

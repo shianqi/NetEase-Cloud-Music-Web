@@ -16,34 +16,34 @@ import reducers from './reducers'
 const history = createHistory()
 const middleware = [ thunk, routerMiddleware(history) ]
 if (process.env.NODE_ENV !== 'production') {
-    middleware.push(createLogger())
+  middleware.push(createLogger())
 }
 
 const store = createStore(
-    combineReducers({
-        ...reducers,
-        router: routerReducer
-    }),
-    applyMiddleware(...middleware)
+  combineReducers({
+    ...reducers,
+    router: routerReducer
+  }),
+  applyMiddleware(...middleware)
 )
 
 const render = (Component) => {
-    ReactDOM.render(
-        <AppContainer>
-            <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <Component/>
-                </ConnectedRouter>
-            </Provider>
-        </AppContainer>,
-        document.getElementById('root')
-    )
+  ReactDOM.render(
+    <AppContainer>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Component/>
+        </ConnectedRouter>
+      </Provider>
+    </AppContainer>,
+    document.getElementById('root')
+  )
 }
 
 render(App)
 
 if (module.hot) {
-    module.hot.accept('./components/App', () => {
-        render(App)
-    })
+  module.hot.accept('./components/App', () => {
+    render(App)
+  })
 }

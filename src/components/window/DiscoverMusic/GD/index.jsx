@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 
 class GD extends Component {
 
-    constructor(props) {
-        super(props)
-    }
+  constructor(props) {
+    super(props)
+  }
 
-    render() {
-        return (
-            <div>
-                <h3>GD</h3>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <h3>GD</h3>
+      </div>
+    )
+  }
 }
 
 export default GD

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
 class Collector extends Component {
-    render() {
-        return (
-            <div>
+  render() {
+    return (
+      <div>
                 Collector
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }
 
 export default Collector

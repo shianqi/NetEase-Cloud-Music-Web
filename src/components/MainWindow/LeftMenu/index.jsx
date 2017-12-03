@@ -4,14 +4,14 @@ import MiniBox from './MiniBox'
 import LikeList from './LikeList/index'
 
 class LeftMenu extends Component {
-    render() {
-        return (
-            <div className={Style.leftMenu}>
-                <LikeList/>
-                <MiniBox/>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className={Style.leftMenu}>
+        <LikeList/>
+        <MiniBox/>
+      </div>
+    )
+  }
 }
 
 export default LeftMenu

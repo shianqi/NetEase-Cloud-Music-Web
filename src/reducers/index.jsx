@@ -5,11 +5,11 @@ import discoverMusic from './discoverMusic'
 import musicPlayer from './musicPlayer'
 
 const reducers = {
-    list,
-    user,
-    songList,
-    discoverMusic,
-    musicPlayer
+  list,
+  user,
+  songList,
+  discoverMusic,
+  musicPlayer
 }
 
 export default reducers
