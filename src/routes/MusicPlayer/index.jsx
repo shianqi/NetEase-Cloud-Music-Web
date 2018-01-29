@@ -4,30 +4,30 @@ import { connect } from 'react-redux'
 
 const selector = (state) => {
   return {
-    musicPlayer: state.musicPlayer
+    musicPlayer: state.musicPlayer,
   }
 }
 
 class MusicPlayer extends Component {
-  componentDidUpdate() {
-    const { musicPlayer={} } = this.props
+  componentDidUpdate () {
+    const { musicPlayer = {} } = this.props
     const audio = document.getElementById('musicPlayer')
     const {
-      playing
+      playing,
     } = musicPlayer
 
-    if(audio&&playing) {
+    if (audio && playing) {
       audio.play()
-    }else if(audio) {
+    } else if (audio) {
       audio.pause()
     }
   }
 
-  render() {
-    const { musicPlayer={} } = this.props
+  render () {
+    const { musicPlayer = {} } = this.props
     const audio = document.getElementById('musicPlayer')
     const {
-      src
+      src,
     } = musicPlayer
 
     return (

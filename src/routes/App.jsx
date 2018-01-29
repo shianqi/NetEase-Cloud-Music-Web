@@ -9,7 +9,7 @@ import Login from './Login'
 import Style from './App.css'
 
 class App extends Component {
-  render() {
+  render () {
     return (
       <div className={Style.app}>
         <Footer/>

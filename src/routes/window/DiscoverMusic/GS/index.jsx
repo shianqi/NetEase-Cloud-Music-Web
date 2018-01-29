@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class GS extends Component {
-  render() {
+  render () {
     return (
       <div>GS</div>
     )

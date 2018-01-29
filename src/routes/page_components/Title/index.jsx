@@ -2,11 +2,11 @@ import React, { PureComponent } from 'react'
 import Style from './index.css'
 
 class Title extends PureComponent {
-  render() {
+  render () {
     const {
       rightButtonClick,
       rightButton,
-      title
+      title,
     } = this.props
 
     return (

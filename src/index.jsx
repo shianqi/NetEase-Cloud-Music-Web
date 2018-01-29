@@ -22,7 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
 const store = createStore(
   combineReducers({
     ...reducers,
-    router: routerReducer
+    router: routerReducer,
   }),
   applyMiddleware(...middleware)
 )

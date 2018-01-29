@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class PersonalFM extends Component {
-  render() {
+  render () {
     return (
       <div>PersonalFM</div>
     )

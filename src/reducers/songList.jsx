@@ -1,6 +1,6 @@
 import {
   RECEIVE_LIST_DETAIL,
-  REQUEST_LIST_DETAIL
+  REQUEST_LIST_DETAIL,
 } from '../actions/songList'
 
 const songList = (state = {}, action) => {
@@ -10,16 +10,16 @@ const songList = (state = {}, action) => {
         ...state,
         [action.id]: {
           ...action.data,
-          isFetching: false
-        }
+          isFetching: false,
+        },
       }
     case REQUEST_LIST_DETAIL:
       return {
         ...state,
         [action.id]: {
-          isFetching: true
+          isFetching: true,
         },
-        id: action.id
+        id: action.id,
       }
     default:
       return state

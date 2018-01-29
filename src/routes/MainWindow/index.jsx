@@ -4,11 +4,11 @@ import LeftMenu from './LeftMenu'
 import RightWindow from './RightWindow'
 
 class MainWindow extends Component {
-  componentDidMount() {
+  componentDidMount () {
 
   }
 
-  render() {
+  render () {
     return (
       <div className={Style['main-box']}>
         <LeftMenu/>

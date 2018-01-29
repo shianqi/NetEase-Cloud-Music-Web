@@ -6,29 +6,24 @@ import Comment from './PlaylistTab/Comment/index'
 import Collector from './PlaylistTab/Collector/index'
 
 class PlaylistItem extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
+  render () {
     const {
-      name='Loading...',
+      name = 'Loading...',
       createTime,
       coverImgUrl,
       tracks,
-      creator={
+      creator = {
         avatarUrl: '',
-        nickname: ''
-      }
+        nickname: '',
+      },
     } = this.props.playlist
 
     const { match } = this.props
 
-    const SuperSongList = (data)=>(
-      ()=>(
+    const SuperSongList = (data) =>
+      () => (
         <SongList data={ data }></SongList>
       )
-    )
 
     return (
       <div>

@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 
 class GD extends Component {
-
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
+  render () {
     return (
       <div>
         <h3>GD</h3>

@@ -4,53 +4,52 @@ import cs from 'classnames'
 import { connect } from 'react-redux'
 import {
   iconfont,
-  icon_houdongfangiconfont10
+  icon_houdongfangiconfont10,
 } from 'STYLES/iconfont.css'
 import {
   fetchLoginPosts,
   phoneNumberChanged,
   passwordChanged,
   closeLoginInterface,
-  fetchRefreshPosts
+  fetchRefreshPosts,
 } from '../../actions/login'
 
 const selector = (state) => {
   return {
-    ...state.user.userInput
+    ...state.user.userInput,
   }
 }
 
 class Login extends Component {
-
-  componentDidMount() {
+  componentDidMount () {
     const { dispatch } = this.props
     dispatch(fetchRefreshPosts())
   }
 
-  render() {
+  render () {
     const {
       dispatch,
       phoneNumber,
       password,
       login_window,
-      err_message
+      err_message,
     } = this.props
 
-    const handlerUsernameChange = function(e) {
+    const handlerUsernameChange = function (e) {
       dispatch(phoneNumberChanged(e.target.value))
     }
 
-    const handlerPasswordChange = function(e) {
+    const handlerPasswordChange = function (e) {
       dispatch(passwordChanged(e.target.value))
     }
 
-    const handlerSubmit = function(e) {
-      if(e.which === 13) {
+    const handlerSubmit = function (e) {
+      if (e.which === 13) {
         dispatch(fetchLoginPosts(phoneNumber, password))
       }
     }
 
-    const handlerLogin = function() {
+    const handlerLogin = function () {
       dispatch(fetchLoginPosts(phoneNumber, password))
     }
 
@@ -59,7 +58,7 @@ class Login extends Component {
         className={
           cs(
             Style['main'],
-            {[Style['display']]: login_window}
+            { [Style['display']]: login_window }
           )
         }>
         <div
@@ -70,7 +69,7 @@ class Login extends Component {
               Style['close-button']
             )
           }
-          onClick={()=>{
+          onClick={() => {
             dispatch(closeLoginInterface())
           }}
         />

@@ -9,7 +9,7 @@ const reducers = {
   user,
   songList,
   discoverMusic,
-  musicPlayer
+  musicPlayer,
 }
 
 export default reducers

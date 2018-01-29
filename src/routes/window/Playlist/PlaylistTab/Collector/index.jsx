@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class Collector extends Component {
-  render() {
+  render () {
     return (
       <div>
                 Collector

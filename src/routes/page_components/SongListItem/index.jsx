@@ -3,11 +3,11 @@ import Style from './index.css'
 import cs from 'classnames'
 import {
   iconfont,
-  icon_bofang
+  icon_bofang,
 } from 'STYLES/iconfont.css'
 
 class SunListItem extends Component {
-  render() {
+  render () {
     const {
       name,
       playCount,
@@ -15,7 +15,7 @@ class SunListItem extends Component {
       canDislike,
       picUrl,
       HandlerPlayButtonClick,
-      HandlerImgClick
+      HandlerImgClick,
     } = this.props
 
     return (
@@ -31,7 +31,7 @@ class SunListItem extends Component {
                 iconfont,
                 icon_bofang,
                 Style['item-play-button'],
-                {[Style['item-display-none']]: !canDislike}
+                { [Style['item-display-none']]: !canDislike }
               )
             }
             onClick={HandlerImgClick}

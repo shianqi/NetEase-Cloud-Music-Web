@@ -4,7 +4,7 @@ import { Route } from 'react-router'
 import PlaylistItems from './PlaylistItems'
 
 class Playlist extends Component {
-  render() {
+  render () {
     const { match } = this.props
 
     return (

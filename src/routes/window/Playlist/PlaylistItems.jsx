@@ -8,31 +8,31 @@ import PlaylistItem from './PlaylistItem'
 
 const selector = (state) => {
   return {
-    songList: state.songList
+    songList: state.songList,
   }
 }
 
 class PlaylistItems extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const { match, dispatch } = this.props
     dispatch(fetchListDetailIfNeeded(match.params.thisID))
   }
 
-  render() {
-    const { match, songList={} } = this.props
-    const { playlist={} } = songList[match.params.thisID] || {}
+  render () {
+    const { match, songList = {} } = this.props
+    const { playlist = {} } = songList[match.params.thisID] || {}
 
     return (
       <div>
         <PlaylistItem
           playlist={playlist}
-          match={ {...match} }
+          match={ { ...match } }
         />
       </div>
     )
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps () {
     const { match, dispatch } = this.props
     dispatch(fetchListDetailIfNeeded(match.params.thisID))
   }

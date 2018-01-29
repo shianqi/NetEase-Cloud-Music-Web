@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component } from 'react'
 import { Route, Redirect } from 'react-router'
 import Style from './index.css'
 import DiscoverMusic from '../../window/DiscoverMusic'
@@ -7,7 +7,7 @@ import MV from '../../window/MV'
 import Playlist from '../../window/Playlist'
 
 class RightWindow extends Component {
-  render() {
+  render () {
     return (
       <div className={Style.rightWindow}>
         <Route path="/DiscoverMusic" component={DiscoverMusic}/>

@@ -8,27 +8,27 @@ import {
   icon_houdongfangiconfont10,
   icon_zuidahua,
   icon_zuixiaohua,
-  icon_suoxiao
+  icon_suoxiao,
 } from 'STYLES/iconfont.css'
 import cs from 'classnames'
 import { connect } from 'react-redux'
 import { openLoginInterface } from '../../actions/login'
 
 const getState = (state) => ({
-  nickname: state.user.userInfo.profile ? state.user.userInfo.profile.nickname: '未登录',
-  avatarUrl: state.user.userInfo.profile ? state.user.userInfo.profile.avatarUrl: ''
+  nickname: state.user.userInfo.profile ? state.user.userInfo.profile.nickname : '未登录',
+  avatarUrl: state.user.userInfo.profile ? state.user.userInfo.profile.avatarUrl : '',
 })
 
 let Banner = ({ dispatch, nickname, avatarUrl }) => {
-  const handlerOpenLoginInterface = function() {
+  const handlerOpenLoginInterface = function () {
     dispatch(openLoginInterface())
   }
 
-  const backwards = function() {
+  const backwards = function () {
     history.go(-1)
   }
 
-  const forward = function() {
+  const forward = function () {
     history.go(1)
   }
 
@@ -112,7 +112,7 @@ let Banner = ({ dispatch, nickname, avatarUrl }) => {
             className={
               cs(
                 Style['user-photo'],
-                {[Style['display']]: (avatarUrl==null||avatarUrl==='')}
+                { [Style['display']]: (avatarUrl == null || avatarUrl === '') }
               )
             }
           />

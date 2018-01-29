@@ -6,19 +6,19 @@ export const REQUEST_LIST_DETAIL = 'REQUEST_LIST_DETAIL'
 const receiveSonglistDetail = (json, id) => ({
   type: RECEIVE_LIST_DETAIL,
   data: json,
-  id
+  id,
 })
 
 const requestSonglistDetail = (id) => ({
   type: REQUEST_LIST_DETAIL,
-  id
+  id,
 })
 
 const fetchListDetail = (id) => (dispatch) => {
   dispatch(requestSonglistDetail(id))
   return fetch(`${playlistDetailURL}?id=${id}`, {
     credentials: 'include',
-    mode: 'cors'
+    mode: 'cors',
   })
     .then((response) => response.json())
     .then((json) => {
@@ -28,7 +28,7 @@ const fetchListDetail = (id) => (dispatch) => {
 
 const shouldFetchListDetail = (state, id) => {
   const listDetail = state[id]
-  if(!listDetail) {
+  if (!listDetail) {
     return true
   }
   return false

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Style from './index.css'
 
 class MiniBox extends PureComponent {
-  render() {
+  render () {
     const { musicPlayer } = this.props
     const { picUrl, name } = musicPlayer
     return (
@@ -19,7 +19,7 @@ class MiniBox extends PureComponent {
 }
 
 const selector = (state) => ({
-  musicPlayer: state.musicPlayer
+  musicPlayer: state.musicPlayer,
 })
 
 export default connect(selector)(MiniBox)

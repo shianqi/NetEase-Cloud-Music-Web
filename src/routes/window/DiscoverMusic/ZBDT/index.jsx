@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class ZBTD extends Component {
-  render() {
+  render () {
     return (
       <div>ZBTD</div>
     )

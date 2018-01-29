@@ -1,5 +1,5 @@
 import {
-  RECEIVE_DAILY_RECOMMENDED_PLAYLIST
+  RECEIVE_DAILY_RECOMMENDED_PLAYLIST,
 } from '../actions/DiscoverMusic'
 
 const _discoverMusic = {
@@ -16,7 +16,7 @@ const _discoverMusic = {
           playCount: 778271.2,
           trackCount: 41,
           highQuality: false,
-          alg: 'featured'
+          alg: 'featured',
         },
         {
           id: 916296534,
@@ -28,7 +28,7 @@ const _discoverMusic = {
           playCount: 410741.8,
           trackCount: 38,
           highQuality: false,
-          alg: 'featured'
+          alg: 'featured',
         },
         {
           id: 837456,
@@ -40,7 +40,7 @@ const _discoverMusic = {
           playCount: 18944904,
           trackCount: 123,
           highQuality: false,
-          alg: 'itembased2_newVersion'
+          alg: 'itembased2_newVersion',
         },
         {
           id: 144705454,
@@ -52,7 +52,7 @@ const _discoverMusic = {
           playCount: 2460022.2,
           trackCount: 77,
           highQuality: false,
-          alg: 'itembased_newVersion'
+          alg: 'itembased_newVersion',
         },
         {
           id: 90662917,
@@ -64,7 +64,7 @@ const _discoverMusic = {
           playCount: 1653759,
           trackCount: 44,
           highQuality: false,
-          alg: 'itembased_newVersion'
+          alg: 'itembased_newVersion',
         },
         {
           id: 473751218,
@@ -76,11 +76,11 @@ const _discoverMusic = {
           playCount: 3793812.8,
           trackCount: 79,
           highQuality: false,
-          alg: 'itembased_newVersion'
-        }
-      ]
-    }
-  }
+          alg: 'itembased_newVersion',
+        },
+      ],
+    },
+  },
 }
 
 const userSelectSongList = (state = _discoverMusic, action) => {
@@ -89,9 +89,9 @@ const userSelectSongList = (state = _discoverMusic, action) => {
       return {
         personalityRecommendation: {
           dailyRecommendedPlaylist: {
-            ...action.data
-          }
-        }
+            ...action.data,
+          },
+        },
       }
     default:
       return state

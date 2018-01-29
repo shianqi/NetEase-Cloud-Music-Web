@@ -4,7 +4,7 @@ import cs from 'classnames'
 import { connect } from 'react-redux'
 import {
   musicPlayer_play,
-  musicPlayer_pause
+  musicPlayer_pause,
 } from '../../actions/musicPlayer.jsx'
 
 import {
@@ -15,29 +15,29 @@ import {
   icon_zanting,
   icon_bofangliebiao,
   icon_geci,
-  icon_iconfontttpodicon1eps
+  icon_iconfontttpodicon1eps,
 } from 'STYLES/iconfont.css'
 
-const selector = (state)=>({
-  playing: state.musicPlayer.playing
+const selector = (state) => ({
+  playing: state.musicPlayer.playing,
 })
 
 class Footer extends Component {
-  render() {
+  render () {
     const {
       dispatch,
-      playing
+      playing,
     } = this.props
 
-    const handlerPlay = ()=>{
+    const handlerPlay = () => {
       dispatch(musicPlayer_play())
     }
 
-    const handlerPause = ()=>{
+    const handlerPause = () => {
       dispatch(musicPlayer_pause())
     }
 
-    return(
+    return (
       <div className={Style.footer}>
         <div>
           <div
@@ -45,13 +45,13 @@ class Footer extends Component {
             title="上一首"
           />
           {
-            playing?
-              <div
+            playing
+              ? <div
                 className={ cs(iconfont, icon_zanting, Style['button_play']) }
                 onClick = { handlerPause }
                 title="暂停"
-              />:
-              <div
+              />
+              : <div
                 className={ cs(iconfont, icon_bofang, Style['button_play']) }
                 onClick = { handlerPlay }
                 title="播放"

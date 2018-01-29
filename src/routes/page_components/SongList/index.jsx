@@ -6,18 +6,18 @@ import { push } from 'react-router-redux'
 
 const selector = (state) => (
   {
-    dailyRecommendedPlaylist :state.discoverMusic.personalityRecommendation.dailyRecommendedPlaylist
+    dailyRecommendedPlaylist: state.discoverMusic.personalityRecommendation.dailyRecommendedPlaylist,
   }
 )
 
 class SunList extends Component {
-  render() {
+  render () {
     const {
       dispatch,
-      sunLists
+      sunLists,
     } = this.props
 
-    const SunListItems = sunLists.map((item, index)=>(
+    const SunListItems = sunLists.map((item, index) => (
       <SunListItem
         key={index}
         id={item.id}
@@ -26,10 +26,10 @@ class SunList extends Component {
         picUrl={item.picUrl}
         copywriter={item.copywriter}
         canDislike={item.canDislike}
-        HandlerPlayButtonClick={()=>{
+        HandlerPlayButtonClick={() => {
           dispatch(push(`/playlist/${item.id}`))
         }}
-        HandlerImgClick={()=>{
+        HandlerImgClick={() => {
 
         }}
       />

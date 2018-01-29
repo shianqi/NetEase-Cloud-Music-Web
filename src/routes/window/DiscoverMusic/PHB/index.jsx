@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class PHB extends Component {
-  render() {
+  render () {
     return (
       <div>PHB</div>
     )

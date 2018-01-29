@@ -6,23 +6,23 @@ import { connect } from 'react-redux'
 
 const selector = (state) => (
   {
-    dailyRecommendedPlaylist :state.discoverMusic.personalityRecommendation.dailyRecommendedPlaylist
+    dailyRecommendedPlaylist: state.discoverMusic.personalityRecommendation.dailyRecommendedPlaylist,
   }
 )
 
 class GXTJ extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const { dispatch } = this.props
   }
 
-  render() {
-    const getMore = function() {
+  render () {
+    const getMore = function () {
 
     }
 
     const {
       dispatch,
-      dailyRecommendedPlaylist
+      dailyRecommendedPlaylist,
     } = this.props
 
     return (

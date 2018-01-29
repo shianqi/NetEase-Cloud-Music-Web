@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class MV extends Component {
-  render() {
+  render () {
     return (
       <div>MV</div>
     )

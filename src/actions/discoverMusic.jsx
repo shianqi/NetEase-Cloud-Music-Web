@@ -4,23 +4,23 @@ export const REQUIRE_DAILY_RECOMMENDED_PLAYLIST = 'REQUIRE_DAILY_RECOMMENDED_PLA
 
 const requireDailyRecommendedPlaylist = (id) => ({
   type: REQUIRE_DAILY_RECOMMENDED_PLAYLIST,
-  id
+  id,
 })
 
 const receiveDailyRecommendedPlaylist = (id, json) => ({
   type: RECEIVE_DAILY_RECOMMENDED_PLAYLIST,
   id,
-  date: json
+  date: json,
 })
 
 const fetchDailyRecommendedPlaylist = () => (dispatch) => {
   return fetch(`${dailyRecommendedPlaylist}`, {
     credentials: 'include',
-    mode: 'cors'
+    mode: 'cors',
   })
     .then((response) => response.json())
     .then((json) => {
-      if(json && json.code.toString() === '200') {
+      if (json && json.code.toString() === '200') {
         dispatch(receiveDailyRecommendedPlaylist(json))
       }
     })
@@ -31,7 +31,7 @@ const shouldFetchDailyRecommendedPlaylist = (state) => {
 }
 
 export const fetchDailyRecommendedPlaylistIfNeeded = () => (dispatch, getState) => {
-  if(shouldFetchDailyRecommendedPlaylist(getState())) {
+  if (shouldFetchDailyRecommendedPlaylist(getState())) {
     return dispatch(fetchDailyRecommendedPlaylist())
   }
 }

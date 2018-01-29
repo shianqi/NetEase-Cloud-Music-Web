@@ -4,7 +4,7 @@ import MiniBox from './MiniBox'
 import LikeList from './LikeList/index'
 
 class LeftMenu extends Component {
-  render() {
+  render () {
     return (
       <div className={Style.leftMenu}>
         <LikeList/>

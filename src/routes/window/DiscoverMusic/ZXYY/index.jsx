@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class ZXYY extends Component {
-  render() {
+  render () {
     return (
       <div>ZXYY</div>
     )

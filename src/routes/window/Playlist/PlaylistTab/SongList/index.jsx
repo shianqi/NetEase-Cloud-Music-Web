@@ -6,52 +6,52 @@ import { musicPlayer_change } from '../../../../../actions/musicPlayer'
 
 const selector = (state) => {
   return {
-    musicPlayer: state.musicPlayer
+    musicPlayer: state.musicPlayer,
   }
 }
 
 class SongList extends Component {
-  render() {
+  render () {
     const {
-      data=[],
-      dispatch
+      data = [],
+      dispatch,
     } = this.props
 
-    const handlerChangeMusic = (id, name, singer, picUrl)=>()=>{
+    const handlerChangeMusic = (id, name, singer, picUrl) => () => {
       dispatch(musicPlayer_change({
         id,
         name,
         singer,
-        picUrl
+        picUrl,
       }))
     }
 
-    const List = data.map((item, index)=>{
+    const List = data.map((item, index) => {
       const {
         ar = [],
         al = {},
         name = 'Unknown',
         dt = 0,
-        id = 422977912
+        id = 422977912,
       } = item
 
-      const hh = parseInt(dt/(60*60*1000), 10)
-      const mm = parseInt((dt-hh*60*60*1000)/(60*1000), 10)
-      const ss = parseInt((dt-hh*60*60*1000-mm*60*1000)/(1000), 10)
-      const getTime = ()=>{
-        if(hh!==0) {
-          return `${hh}:${mm>=10?mm:`0${mm}`}:${ss>=10?ss:`0${ss}`}`
-        }else {
-          return `${mm>=10?mm:`0${mm}`}:${ss>=10?ss:`0${ss}`}`
+      const hh = parseInt(dt / (60 * 60 * 1000), 10)
+      const mm = parseInt((dt - hh * 60 * 60 * 1000) / (60 * 1000), 10)
+      const ss = parseInt((dt - hh * 60 * 60 * 1000 - mm * 60 * 1000) / (1000), 10)
+      const getTime = () => {
+        if (hh !== 0) {
+          return `${hh}:${mm >= 10 ? mm : `0${mm}`}:${ss >= 10 ? ss : `0${ss}`}`
+        } else {
+          return `${mm >= 10 ? mm : `0${mm}`}:${ss >= 10 ? ss : `0${ss}`}`
         }
       }
 
-      const getSinger = ()=>{
+      const getSinger = () => {
         const res = []
-        for(let i = 0; i<ar.length*2; i++) {
-          if (i%2===0) {
-            res.push(<span>{ ar[i/2].name }</span>)
-          }else if(i!==(ar.length*2-1)) {
+        for (let i = 0; i < ar.length * 2; i++) {
+          if (i % 2 === 0) {
+            res.push(<span>{ ar[i / 2].name }</span>)
+          } else if (i !== (ar.length * 2 - 1)) {
             res.push(<span> / </span>)
           }
         }
@@ -66,7 +66,7 @@ class SongList extends Component {
           onDoubleClick={ handlerChangeMusic(id, name, singer, al.picUrl) }
         >
           <div className={ Style['list-item-index-box'] }>
-            <span className={ Style['list-item-index'] }>{ index+1>=10?index+1:`0${index+1}` }</span>
+            <span className={ Style['list-item-index'] }>{ `${index + 1}`.padStart(2, '0') }</span>
           </div>
           <div className={ Style['list-item-name-box'] }>
             <span className={ Style['list-item-name'] }>{ name }</span>

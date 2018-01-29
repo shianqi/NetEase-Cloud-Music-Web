@@ -5,31 +5,31 @@ export const MUSICPLAYER_STOP = 'MUSICPLAYER_STOP'
 export const MUSICPLAYER_PAUSE = 'MUSICPLAYER_PAUSE'
 export const MUSICPLAYER_CHANGE = 'MUSICPLAYER_CHANGE'
 
-export const musicPlayer_play = ()=>({
-  type: MUSICPLAYER_PLAY
+export const musicPlayer_play = () => ({
+  type: MUSICPLAYER_PLAY,
 })
 
-export const musicPlayer_pause = ()=>({
-  type: MUSICPLAYER_PAUSE
+export const musicPlayer_pause = () => ({
+  type: MUSICPLAYER_PAUSE,
 })
 
-export const musicPlayer_changeInfo = (data)=>({
+export const musicPlayer_changeInfo = (data) => ({
   type: MUSICPLAYER_CHANGE,
-  data
+  data,
 })
 
-export const musicPlayer_change = (data)=>(dispatch)=> {
+export const musicPlayer_change = (data) => (dispatch) => {
   const {
     id,
     name,
     singer,
-    picUrl
+    picUrl,
   } = data
 
   return (
     fetch(`${getMusicUrl}?id=${id}`, {
       credentials: 'include',
-      mode: 'cors'
+      mode: 'cors',
     })
       .then((response) => response.json())
       .then((json) => {
@@ -37,7 +37,7 @@ export const musicPlayer_change = (data)=>(dispatch)=> {
           url: json.data[0],
           name,
           singer,
-          picUrl
+          picUrl,
         }))
       })
   )
