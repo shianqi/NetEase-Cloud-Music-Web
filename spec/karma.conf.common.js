@@ -16,14 +16,16 @@ module.exports = {
 
   // list of files / patterns to load in the browser
   files: [
-    'spec/helpers/test-setup.js',
-    'spec/**/*.spec.js',
+    'spec/karma-entry.js',
   ],
 
   // preprocess matching files before serving them to the browser
   // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
   preprocessors: {
-    'spec/**/*.spec.js': ['webpack', 'coverage'],
+    'spec/karma-entry.js': ['webpack', 'sourcemap'],
+
+    './spec/components/page_components/SongListItem/index.spec.js': ['coverage'],
+    './src/routes/page_components/SongListItem/index.js': ['coverage'],
   },
 
   // test results reporter to use
@@ -51,8 +53,7 @@ module.exports = {
   webpack: {
     // https://github.com/airbnb/enzyme/blob/master/docs/guides/karma.md
     devtool: 'inline-source-map',
-    module: webpack.module,
-    resolve: webpack.resolve,
+    ...webpack,
     externals: {
       'react/lib/ExecutionEnvironment': true,
       'react/lib/ReactContext': true,

@@ -1,5 +1,5 @@
-import SunListItem from '../../../../src/components/page_components/SongListItem/index.jsx'
-import { main } from '../../../../src/components/page_components/SongListItem/index.css'
+import SunListItem from '../../../../src/routes/page_components/SongListItem/index.jsx'
+import { main } from '../../../../src/routes/page_components/SongListItem/index.css'
 import { shallow } from 'enzyme'
 import React from 'react'
 

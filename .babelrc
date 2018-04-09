@@ -10,7 +10,7 @@
                     ],
                     "node": "current"
                 },
-                "debug": true,
+                "debug": false,
                 "useBuiltIns": true
             }
         ],
