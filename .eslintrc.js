@@ -4,7 +4,7 @@ module.exports = {
     "browser": true,
     "es6": true,
     "jasmine": true,
-    "node": true
+    "node": true,
   },
   parserOptions: {
     sourceType: "module",
@@ -13,11 +13,13 @@ module.exports = {
     },
   },
   env: {
-    browser: true
+    browser: true,
+    jasmine: true,
   },
   plugins: [
     'react',
     'css-modules',
+    'jasmine',
   ],
   rules: {
     'no-unused-vars': 1,
@@ -25,5 +27,5 @@ module.exports = {
     'camelcase': 1,
     'react/jsx-uses-react': 2,
     'react/jsx-uses-vars': 2,
-  }
+  },
 };

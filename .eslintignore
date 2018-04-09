@@ -1,0 +1,8 @@
+assets/
+dist/
+font/
+docs/
+NeteaseCloudMusicApi/
+node_modules/
+style/
+template/
