@@ -17,7 +17,7 @@
     "analyze-windows": "webpack --profile --json | Out-file 'assets/bundle-analyzer-stats.json' -Encoding OEM"
   },
   "author": "shianqi",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shianqi/NetEase-Cloud-Music-Web.git"

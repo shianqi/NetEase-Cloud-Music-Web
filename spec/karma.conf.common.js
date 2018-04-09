@@ -17,6 +17,7 @@ module.exports = {
   // list of files / patterns to load in the browser
   files: [
     'spec/karma-entry.js',
+    'src/**/*.jsx?',
   ],
 
   // preprocess matching files before serving them to the browser
@@ -24,8 +25,7 @@ module.exports = {
   preprocessors: {
     'spec/karma-entry.js': ['webpack', 'sourcemap'],
 
-    './spec/components/page_components/SongListItem/index.spec.js': ['coverage'],
-    './src/routes/page_components/SongListItem/index.js': ['coverage'],
+    'src/**/*.jsx?': ['webpack', 'coverage'],
   },
 
   // test results reporter to use
@@ -50,16 +50,19 @@ module.exports = {
   // if true, Karma captures browsers, runs the tests and exits
   singleRun: true,
 
-  webpack: {
-    // https://github.com/airbnb/enzyme/blob/master/docs/guides/karma.md
-    devtool: 'inline-source-map',
-    ...webpack,
-    externals: {
-      'react/lib/ExecutionEnvironment': true,
-      'react/lib/ReactContext': true,
-      'react/addons': true,
-    },
-  },
+  webpack: Object.assign(
+    {},
+    webpack,
+    {
+      // https://github.com/airbnb/enzyme/blob/master/docs/guides/karma.md
+      devtool: 'inline-source-map',
+      externals: {
+        'react/lib/ExecutionEnvironment': true,
+        'react/lib/ReactContext': true,
+        'react/addons': true,
+      },
+    }
+  ),
 
   coverageReporter: {
     dir: path.join(__dirname, './coverage'),
