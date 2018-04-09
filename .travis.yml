@@ -10,7 +10,7 @@ script:
   - npm run stylelint
   - npm run test-ci
 env:
-  - REACT=0.14
+  - REACT=16.2
 bundler_args: --retry 2
 matrix:
   fast_finish: true
