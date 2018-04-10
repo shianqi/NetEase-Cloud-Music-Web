@@ -1,10 +1,10 @@
 module.exports = {
   extends: "standard",
   env: {
-    "browser": true,
-    "es6": true,
-    "jasmine": true,
-    "node": true,
+    browser: true,
+    es6: true,
+    mocha: true,
+    node: true,
   },
   parserOptions: {
     sourceType: "module",
@@ -12,14 +12,10 @@ module.exports = {
       jsx: true
     },
   },
-  env: {
-    browser: true,
-    jasmine: true,
-  },
   plugins: [
     'react',
     'css-modules',
-    'jasmine',
+    'mocha',
   ],
   rules: {
     'no-unused-vars': 1,

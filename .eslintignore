@@ -6,3 +6,4 @@ NeteaseCloudMusicApi/
 node_modules/
 style/
 template/
+coverage/
