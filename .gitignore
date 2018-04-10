@@ -7,3 +7,4 @@ package-lock.json
 coverage
 yarn.lock
 yarn-error.log
+.nyc_output
