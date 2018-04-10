@@ -5,3 +5,5 @@ npm-debug.log
 /assets/*
 package-lock.json
 coverage
+yarn.lock
+yarn-error.log
